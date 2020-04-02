@@ -188,3 +188,5 @@ gem "cocoon"
 gem "fast-polylines"
 gem 'unicorn'
 gem 'foreman'
+
+gem "airbrake-ruby", "~> 4.2"
