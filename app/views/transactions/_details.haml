@@ -12,13 +12,13 @@
 
       %div{:id => "transaction_status"}
         = render :partial => "transactions/status/status", :locals => { :__transaction_model => @transaction, role: role, is_author: is_author }
-
-  .row
-    .col-12
-      -# Probably it should not go to new_transaction_path, rather create a new action for booking (as it does not create a new conversation)
-      = form_tag new_transaction_path, :method => :get, :id => "booking-dates" do |f|
-        = hidden_field_tag(:listing_id, @listing.id)
-        = hidden_field_tag(:conversation_id, conversation_id)
-        = hidden_field_tag(:recipient_id, other_party.id)
-        %button
-          = t("conversations.show.book_user", :person => PersonViewUtils.person_display_name_for_type(@transaction.starter, "first_name_only"))
+  - if show_book_button
+    .row
+      .col-12
+        -# Probably it should not go to new_transaction_path, rather create a new action for booking (as it does not create a new conversation)
+        = form_tag new_transaction_path, :method => :get, :id => "booking-dates" do |f|
+          = hidden_field_tag(:listing_id, @listing.id)
+          = hidden_field_tag(:conversation_id, conversation_id)
+          = hidden_field_tag(:recipient_id, other_party.id)
+          %button
+            = t("conversations.show.book_user", :person => PersonViewUtils.person_display_name_for_type(book_button_user, "first_name_only"))
