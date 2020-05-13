@@ -126,6 +126,7 @@ class TransactionsController < ApplicationController
   def show
     @transaction = @current_community.transactions.find(params[:id])
     @listing = @transaction.listing
+
     m_admin = @current_user.has_admin_rights?(@current_community)
     m_participant = @current_user.id == @transaction.starter_id || @current_user.id == @transaction.listing_author_id
 
@@ -152,7 +153,17 @@ class TransactionsController < ApplicationController
 
     is_author = m_admin || @transaction.listing_author_id == @current_user.id
 
+    show_book_button = @transaction.status === 'free' && ((@listing.listing_shape.name == 'offering' && @listing.author_id != @current_user.id) || (@listing.listing_shape.name == 'requesting' && @listing.author_id == @current_user.id))
+
+    book_button_user = if @listing.listing_shape.name == 'offering'
+      @transaction.listing_author
+    elsif @listing.listing_shape.name == 'requesting'
+      @transaction.starter
+    end
+
     render "transactions/show", locals: {
+      show_book_button: show_book_button,
+      book_button_user: book_button_user,
       conversation_id: @conversation.id,
       messages: messages_and_actions.reverse,
       conversation_other_party: @conversation.other_party(@current_user),
