@@ -18,6 +18,7 @@ class PaymentSettingsController < ApplicationController
     flash.now[:error] = @service.stripe_error_message
 
     warn_about_missing_payment_info
+    discard_flash_if_verified
     render 'index'
   end
 
@@ -30,6 +31,7 @@ class PaymentSettingsController < ApplicationController
     flash.now[:error] = @service.stripe_error_message
 
     warn_about_missing_payment_info
+    discard_flash_if_verified
     render 'index'
   end
 
@@ -51,6 +53,28 @@ class PaymentSettingsController < ApplicationController
                               t("stripe_accounts.contact_admin_link_text"),
                                 new_user_feedback_path)).html_safe # rubocop:disable Rails/OutputSafety
       redirect_to person_settings_path
+    end
+  end
+
+  def discard_flash_if_verified
+    if @current_user
+      has_paid_listings = PaymentHelper.open_listings_with_payment_process?(@current_community.id, @current_user.id)
+      paypal_community  = PaypalHelper.community_ready_for_payments?(@current_community.id)
+      stripe_community  = StripeHelper.community_ready_for_payments?(@current_community.id)
+      paypal_ready      = PaypalHelper.account_prepared_for_user?(@current_user.id, @current_community.id)
+      stripe_ready      = StripeHelper.user_stripe_active?(@current_community.id, @current_user.id)
+
+      accept_payments = []
+      if paypal_community && paypal_ready
+        accept_payments << :paypal
+      end
+      if stripe_community && stripe_ready
+        accept_payments << :stripe
+      end
+
+      if has_paid_listings && !accept_payments.blank?
+        flash.clear
+      end
     end
   end
 end
