@@ -20,6 +20,8 @@ require File.expand_path('../../lib/method_deprecator', __FILE__)
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+Dotenv::Railtie.load
+HOSTNAME = ENV['HOSTNAME']
 
 # Require Transit. This needs to be done manually, because the gem name
 # (transit-ruby) doesn't match to the module name (Transit) and that's
@@ -243,3 +245,5 @@ module Kassi
     end
   end
 end
+
+
