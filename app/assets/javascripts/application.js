@@ -102,6 +102,10 @@
 //= require stripe_form3
 //= require analytics
 //= require social-insurance-number
+<<<<<<< HEAD
 //= require stripe_payment
 //= require confirm_conversation
+=======
+//= require chatbox.js
+>>>>>>> Add Tawk code in chatbox.js
 //= require_self
