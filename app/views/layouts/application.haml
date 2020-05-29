@@ -129,6 +129,8 @@
 
     = render :partial => "layouts/noscript"
 
+    = render :partial => "layouts/mailchimp_signup_form"
+
     :javascript
       var Tawk_API = Tawk_API || {},
       Tawk_LoadStart = new Date();
@@ -142,6 +144,9 @@
         s1.setAttribute("crossorigin", "*");
         s0.parentNode.insertBefore(s1, s0);
       })();
+
+    :javascript
+      !function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/c158e9ec9850d979c69897fe8/409eae5b342a91dc37d4446d9.js");
 
     
 
