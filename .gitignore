@@ -71,5 +71,4 @@ test-results.xml
 .vimrc
 client/.vimrc
 storage/
-
-storage/
+.rvmrc

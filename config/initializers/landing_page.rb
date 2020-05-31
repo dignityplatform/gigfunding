@@ -1,6 +1,6 @@
 module CustomLandingPage
   # rubocop:disable Metrics/ModuleLength
-  module ExampleData
+  module StaticData
 
     # TODO Document the expected JSON structure here
 
@@ -25,25 +25,25 @@ module CustomLandingPage
   },
 
   "sections": [
-    # {
-    #   "id": "hero",
-    #   "kind": "hero",
-    #   "variation": {"type": "marketplace_data", "id": "search_type"},
-    #   "title": {"type": "marketplace_data", "id": "slogan"},
-    #   "subtitle": {"type": "marketplace_data", "id": "description"},
-    #   "background_image": {"type": "assets", "id": "default_hero_background"},
-    #   "background_image_variation": "dark",
-    #   "search_button": {"type": "translation", "id": "search_button"},
-    #   "search_path": {"type": "path", "id": "search"},
-    #   "search_placeholder": {"type": "marketplace_data", "id": "search_placeholder"},
-    #   "search_location_with_keyword_placeholder": {"type": "marketplace_data", "id": "search_location_with_keyword_placeholder"},
-    #   "signup_path": {"type": "path", "id": "signup"},
-    #   "signup_button": {"type": "translation", "id": "signup_button"},
-    #   "search_button_color": {"type": "marketplace_data", "id": "primary_color"},
-    #   "search_button_color_hover": {"type": "marketplace_data", "id": "primary_color_darken"},
-    #   "signup_button_color": {"type": "marketplace_data", "id": "primary_color"},
-    #   "signup_button_color_hover": {"type": "marketplace_data", "id": "primary_color_darken"}
-    # },
+    {
+      "id": "hero",
+      "kind": "hero",
+      "variation": {"type": "marketplace_data", "id": "search_type"},
+      "title": {"type": "marketplace_data", "id": "slogan"},
+      "subtitle": {"type": "marketplace_data", "id": "description"},
+      "background_image": {"type": "assets", "id": "default_hero_background"},
+      "background_image_variation": "dark",
+      "search_button": {"type": "translation", "id": "search_button"},
+      "search_path": {"type": "path", "id": "search"},
+      "search_placeholder": {"type": "marketplace_data", "id": "search_placeholder"},
+      "search_location_with_keyword_placeholder": {"type": "marketplace_data", "id": "search_location_with_keyword_placeholder"},
+      "signup_path": {"type": "path", "id": "signup"},
+      "signup_button": {"type": "translation", "id": "signup_button"},
+      "search_button_color": {"type": "marketplace_data", "id": "primary_color"},
+      "search_button_color_hover": {"type": "marketplace_data", "id": "primary_color_darken"},
+      "signup_button_color": {"type": "marketplace_data", "id": "primary_color"},
+      "signup_button_color_hover": {"type": "marketplace_data", "id": "primary_color_darken"}
+    },
     {
       "id": "video",
       "kind": "video",
@@ -57,15 +57,18 @@ module CustomLandingPage
       "id": "single_info_without_background_and_cta",
       "kind": "info",
       "variation": "single_column",
-      "title": "Single column info section without background image and call to action button",
-      "paragraph": "This is a single column info section without background image and call to action button."
+      "title": "Fundraise for your favourite causes, by helping or hiring your neighbours.",
+      "paragraph": ""
     },
     {
       "id": "markdown_support",
       "kind": "info",
       "variation": "single_column",
-      "title": "Limited Markdown support",
-      "paragraph": "Text paragraphs can contain Markdown markup. Limited subset of Markdown syntax blocks are allowed. Allowed blocks are *italic*, **bold**, ***bold+italic***, ~~strike through~~, _underline_ and [links](https://www.sharetribe.com).  \\nLine breaks and...\\n\\n...new paragraphs are also supported"
+      "title": "",
+      "paragraph": "",
+      "background_image": {"type": "assets", "id": "logo"},
+      "background_image_variation": "transparent"
+
     },
     {
       "id": "single_info_without_cta",
@@ -355,7 +358,6 @@ module CustomLandingPage
   ],
 
   "composition": [
-    # { "section": {"type": "sections", "id": "hero"}},
     { "section": {"type": "sections", "id": "markdown_support"}},
     { "section": {"type": "sections", "id": "single_info_without_background_and_cta"}},
     { "section": {"type": "sections", "id": "single_info_without_cta"}},
@@ -371,215 +373,13 @@ module CustomLandingPage
   ],
 
   "assets": [
-    { "id": "default_hero_background", "src": "default_hero_background.jpg", "content_type": "image/jpeg" }
+    { "id": "default_hero_background", "src": "default_hero_background.jpg", "content_type": "image/jpeg" },
+    { "id": "logo", "src": "logo.jpg", "content_type": "image/jpeg" }
+
   ]
 }
 JSON
 
-    TEMPLATE_STR = <<JSON
-{
-    "settings": {
-        "marketplace_id": 1234,
-        "locale": "en",
-        "sitename": "example-com"
-    },
-    "page": {
-      "twitter_handle": {"value": "@CHANGEME"},
-      "twitter_image": {"type": "assets", "id": "hero_background_image"},
-      "facebook_image": {"type": "assets", "id": "hero_background_image"},
-      "title": {"type": "marketplace_data", "id": "page_title"},
-      "description": {"type": "marketplace_data", "id": "description"},
-      "publisher": {"type": "marketplace_data", "id": "name"},
-      "copyright": {"type": "marketplace_data", "id": "name"},
-      "facebook_site_name": {"type": "marketplace_data", "id": "name"},
-      "google_site_verification": {"value": "CHANGEME"}
-    },
-    "sections": [
-        # {
-        #     "id": "hero",
-        #     "kind": "hero",
-        #     "variation": {"type": "marketplace_data", "id": "search_type"},
-        #     "title": {"type": "marketplace_data", "id": "slogan"},
-        #     "subtitle": {"type": "marketplace_data", "id": "description"},
-        #     "background_image": {"type": "assets", "id": "hero_background_image"},
-        #     "background_image_variation": "dark",
-        #     "search_button": {"type": "translation", "id": "search_button"},
-        #     "search_path": {"type": "path", "id": "search"},
-        #     "search_placeholder": {"type": "marketplace_data", "id": "search_placeholder"},
-        #     "search_location_with_keyword_placeholder": {"type": "marketplace_data", "id": "search_location_with_keyword_placeholder"},
-        #     "signup_path": {"type": "path", "id": "signup"},
-        #     "signup_button": {"type": "translation", "id": "signup_button"},
-        #     "search_button_color": {"type": "marketplace_data", "id": "primary_color"},
-        #     "search_button_color_hover": {"type": "marketplace_data", "id": "primary_color_darken"},
-        #     "signup_button_color": {"type": "marketplace_data", "id": "primary_color"},
-        #     "signup_button_color_hover": {"type": "marketplace_data", "id": "primary_color_darken"}
-        # },
-        {
-            "id": "info-1-column",
-            "kind": "info",
-            "variation": "single_column",
-            "title": "Section title goes here",
-            "background_image": {"type": "assets", "id": "info_background_image"},
-            "paragraph": "Section text goes here",
-            "button_color": {"type": "marketplace_data", "id": "primary_color"},
-            "button_color_hover": {"type": "marketplace_data", "id": "primary_color_darken"},
-            "button_title": "Button title",
-            "button_path": {"type": "path", "id": "about"}
-        },
-        {
-            "id": "info-2-columns",
-            "kind": "info",
-            "variation": "multi_column",
-            "title": "Section title goes here",
-            "button_color": {"type": "marketplace_data", "id": "primary_color"},
-            "button_color_hover": {"type": "marketplace_data", "id": "primary_color_darken"},
-            "icon_color": {"type": "marketplace_data", "id": "primary_color"},
-            "columns": [
-                {
-                    "icon": "piggy-bank",
-                    "title": "Column title goes here",
-                    "paragraph": "Column text goes here",
-                    "button_title": "Button title",
-                    "button_path": {"type": "path", "id": "about"}
-                },
-                {
-                    "icon": "piggy-bank",
-                    "title": "Column title goes here",
-                    "paragraph": "Column text goes here",
-                    "button_title": "Button title",
-                    "button_path": {"type": "path", "id": "about"}
-                }
-            ]
-        },
-        {
-            "id": "info-3-columns",
-            "kind": "info",
-            "variation": "multi_column",
-            "title": "Section title goes here",
-            "button_color": {"type": "marketplace_data", "id": "primary_color"},
-            "button_color_hover": {"type": "marketplace_data", "id": "primary_color_darken"},
-            "icon_color": {"type": "marketplace_data", "id": "primary_color"},
-            "columns": [
-                {
-                    "icon": "piggy-bank",
-                    "title": "Column title goes here",
-                    "paragraph": "Column text goes here",
-                    "button_title": "Button title",
-                    "button_path": {"type": "path", "id": "about"}
-                },
-                {
-                    "icon": "piggy-bank",
-                    "title": "Column title goes here",
-                    "paragraph": "Column text goes here",
-                    "button_title": "Button title",
-                    "button_path": {"type": "path", "id": "about"}
-                },
-                {
-                    "icon": "piggy-bank",
-                    "title": "Column title goes here",
-                    "paragraph": "Column text goes here",
-                    "button_title": "Button title",
-                    "button_path": {"type": "path", "id": "about"}
-                }
-            ]
-        },
-        {
-            "id": "categories",
-            "kind": "categories",
-            "title": "Section title goes here",
-            "paragraph": "Section paragraph goes here",
-            "button_color": {"type": "marketplace_data", "id": "primary_color"},
-            "button_color_hover": {"type": "marketplace_data", "id": "primary_color_darken"},
-            "button_title": "Section link",
-            "button_path": {"value": "https://google.com"},
-            "category_color_hover": {"type": "marketplace_data", "id": "primary_color"},
-            "categories": [
-                {
-                    "category": { "type": "category", "id": 1 },
-                    "background_image": {"type": "assets", "id": "category1_background_image"}
-                },
-                {
-                    "category": { "type": "category", "id": 2 },
-                    "background_image": {"type": "assets", "id": "category2_background_image"}
-                },
-                {
-                    "category": { "type": "category", "id": 3 },
-                    "background_image": {"type": "assets", "id": "category3_background_image"}
-                }
-            ]
-        },
-        {
-            "id": "listings",
-            "kind": "listings",
-            "title": "Section title goes here",
-            "paragraph": "Section paragraph goes here",
-            "button_color": {"type": "marketplace_data", "id": "primary_color"},
-            "button_color_hover": {"type": "marketplace_data", "id": "primary_color_darken"},
-            "button_title": "Section link",
-            "button_path": {"value": "https://google.com"},
-            "price_color": {"type": "marketplace_data", "id": "primary_color"},
-            "no_listing_image_background_color": {"type": "marketplace_data", "id": "primary_color"},
-            "no_listing_image_text": {"type": "translation", "id": "no_listing_image"},
-            "author_name_color_hover": {"type": "marketplace_data", "id": "primary_color"},
-            "listings": [
-                {
-                    "listing": { "type": "listing", "id": 99999 }
-                },
-                {
-                    "listing": { "type": "listing", "id": 99999 }
-                },
-                {
-                    "listing": { "type": "listing", "id": 99999 }
-                }
-            ]
-        },
-        {
-            "id": "video",
-            "kind": "video",
-            "variation": "youtube",
-            "youtube_video_id": "UffchBUUIoI",
-            "width": "1280",
-            "height": "720"
-        },
-        {
-            "id": "footer",
-            "kind": "footer",
-            "theme": "dark",
-            "social_media_icon_color": {"type": "marketplace_data", "id": "primary_color"},
-            "social_media_icon_color_hover": {"type": "marketplace_data", "id": "primary_color_darken"},
-            "links": [
-                {"label": "About", "href": {"type": "path", "id": "about"}},
-                {"label": "Example Link", "href": {"value": "https://www.sharetribe.com"}},
-                {"label": "Invite new members", "href": {"type": "path", "id": "new_invitation"}},
-                {"label": "Contact us", "href": {"type": "path", "id": "contact_us"}}
-            ],
-            "social": [
-                {"service": "facebook", "url": "https://www.facebook.com/CHANGEME"},
-                {"service": "twitter", "url": "https://www.twitter.com/CHANGEME"},
-                {"service": "instagram", "url": "https://www.instagram.com/CHANGEME"}
-            ],
-            "copyright": "This website is powered by Sharetribe marketplace platform."
-        }
-    ],
-    "composition": [
-        # { "section": {"type": "sections", "id": "hero"}},
-        { "section": {"type": "sections", "id": "info-1-column"}},
-        { "section": {"type": "sections", "id": "info-2-columns"}},
-        { "section": {"type": "sections", "id": "info-3-columns"}},
-        { "section": {"type": "sections", "id": "categories"}},
-        { "section": {"type": "sections", "id": "listings"}},
-        { "section": {"type": "sections", "id": "footer"}}
-    ],
-    "assets": [
-        {"id": "hero_background_image", "src": "example_bg_lighter.jpg", "content_type": "image/jpeg"},
-        {"id": "info_background_image", "src": "example_bg_lighter.jpg", "content_type": "image/jpeg"},
-        {"id": "category1_background_image", "src": "example_bg_lighter.jpg", "content_type": "image/jpeg"},
-        {"id": "category2_background_image", "src": "example_bg_lighter.jpg", "content_type": "image/jpeg"},
-        {"id": "category3_background_image", "src": "example_bg_lighter.jpg", "content_type": "image/jpeg"}
-    ]
-}
-
-JSON
 
   end
   # rubocop:enable Metrics/ModuleLength

@@ -10,6 +10,8 @@ gem 'uglifier', '~> 3.2.0'
 gem 'sass-rails', '~> 5.0.6'
 gem 'compass-rails', '~> 3.0.2'
 
+gem 'rb-readline'
+
 gem 'jquery-rails', '~> 4.3.1'
 
 # Bundle the extra gems:
@@ -126,6 +128,8 @@ group :development do
   gem 'zeus', '~> 0.15.13', require: false
   gem 'web-console', '~> 3.7.0'
   gem 'awesome_print', '~> 1.7.0'
+  gem 'binding_of_caller'
+  gem "rails-erd"
 end
 
 group :test do
@@ -181,3 +185,4 @@ gem 'bootsnap', require: false
 gem "select2-rails"
 gem "cocoon"
 gem "fast-polylines"
+gem 'unicorn'

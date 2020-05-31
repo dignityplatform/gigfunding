@@ -24,6 +24,7 @@ Rails.application.config.assets.precompile += %w(
   admin2/admin.scss
   popper.min.js
   bootstrap.min.js
+  tooltip.js
 )
 
 if Rails.env == 'test'
