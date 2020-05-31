@@ -104,6 +104,10 @@
 #  linkedin_connect_id                        :string(255)
 #  linkedin_connect_secret                    :string(255)
 #  pre_approved_listings                      :boolean          default(FALSE)
+#  allow_free_conversations                   :boolean          default(TRUE)
+#  email_admins_about_new_transactions        :boolean          default(FALSE)
+#  show_location                              :boolean          default(TRUE)
+#  fuzzy_location                             :boolean          default(FALSE)
 #
 # Indexes
 #

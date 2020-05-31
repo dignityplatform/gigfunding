@@ -7,7 +7,8 @@ module TransactionViewUtils
     [:content, :string, :mandatory],
     [:sender, :mandatory],
     [:created_at, :time, :mandatory],
-    [:mood, one_of: [:positive, :negative, :neutral]]
+    [:mood, one_of: [:positive, :negative, :neutral]],
+    [:admin, :to_bool, :optional]
   )
 
   PriceBreakDownLocals = EntityUtils.define_builder(
@@ -50,6 +51,8 @@ module TransactionViewUtils
       "free",
       "pending", # Deprecated
       "initiated",
+      "payment_intent_requires_action",
+      "payment_intent_failed",
       "pending_ext",
       "errored"
     ] # Transitions that should not generate auto-message
@@ -131,13 +134,33 @@ module TransactionViewUtils
       }
     when "canceled"
       {
-        sender: starter,
+        sender: transition_user(transition, starter),
+        admin: transition[:metadata] && transition[:metadata]['executed_by_admin'],
+        mood: :negative
+      }
+    when "disputed"
+      {
+        sender: transition_user(transition, starter),
+        admin: transition[:metadata] && transition[:metadata]['executed_by_admin'],
         mood: :negative
       }
     when "confirmed"
       {
-        sender: starter,
+        sender: transition_user(transition, starter),
+        admin: transition[:metadata] && transition[:metadata]['executed_by_admin'],
         mood: :positive
+      }
+    when "refunded"
+      {
+        sender: transition_user(transition, starter),
+        admin: transition[:metadata] && transition[:metadata]['executed_by_admin'],
+        mood: :positive
+      }
+    when "dismissed"
+      {
+        sender: transition_user(transition, starter),
+        admin: transition[:metadata] && transition[:metadata]['executed_by_admin'],
+        mood: :negative
       }
     else
       raise("Unknown transition to state: #{transition[:to_state]}")
@@ -187,12 +210,18 @@ module TransactionViewUtils
       t("conversations.message.paid", sum: amount)
     when "canceled"
       t("conversations.message.canceled_request")
+    when "disputed"
+      t("conversations.message.canceled_the_order")
     when "confirmed"
       if payment_gateway == :stripe
         t("conversations.message.stripe.confirmed_request", author_name: author[:display_name])
       else
         t("conversations.message.confirmed_request")
       end
+    when "refunded"
+      t("conversations.message.marked_as_refunded")
+    when "dismissed"
+      "#{t('conversations.message.dismissed_the_cancellation')} #{payment_gateway == :stripe ? t('conversations.message.payment_has_now_been_transferred', seller: author[:display_name]) : ''}"
     else
       raise("Unknown transition to state: #{state}")
     end
@@ -222,5 +251,8 @@ module TransactionViewUtils
       .or_else(1)
   end
 
+  def transition_user(transition, starter)
+    transition[:metadata] && transition[:metadata]['user_id'] && Person.find_by_id(transition[:metadata]['user_id']) || starter
+  end
 
 end

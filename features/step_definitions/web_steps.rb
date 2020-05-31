@@ -85,6 +85,13 @@ When /^(?:|I )follow "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
   end
 end
 
+When /^(?:|I )follow "([^"]*)" in new window$/ do |link|
+  new_window = window_opened_by do
+    click_link(link)
+  end
+  switch_to_window(new_window)
+end
+
 When(/^I follow the first "(.*?)"$/) do |link|
   first(:link, link).click
 end
@@ -189,7 +196,7 @@ end
 
 Then /^(?:|I )should see "([^"]*)"(?: within "([^"]*)")?$/ do |text, selector|
   with_scope(selector) do
-    expect(page).to have_content(text)
+    expect(page).to have_content(text, normalize_ws: true)
   end
 end
 
@@ -284,13 +291,13 @@ end
 # Use this keyword BEFORE the confirmation dialog appears
 Given /^I will(?:| (not)) confirm all following confirmation dialogs in this page if I am running PhantomJS$/ do |do_not_confirm|
   confirm = do_not_confirm != "not"
-  if ENV['PHANTOMJS'] then
+  if [:poltergeist, :selenium_chrome_headless, :selenium_chrome].include?(Capybara.current_driver)
     page.execute_script("window.__original_confirm = window.confirm; window.confirm = function() { return #{confirm}; };")
   end
 end
 
 When /^I confirm alert popup$/ do
-  unless ENV['PHANTOMJS']
+  unless [:poltergeist, :selenium_chrome_headless, :selenium_chrome].include?(Capybara.current_driver)
     # wait is necessary for firefox if alerts have slide-out animations
     wait = Selenium::WebDriver::Wait.new ignore: Selenium::WebDriver::Error::NoAlertPresentError
     alert = wait.until { page.driver.browser.switch_to.alert }
@@ -364,5 +371,11 @@ end
 
 Then(/^I should see disabled "([^"]*)" input$/) do |field|
   expect(!!find_field(field, disabled: true)).to eq true
+end
+
+Then /^(?:|I )should see "([^"]*)" within field "([^"]*)"(?: within "([^"]*)")?$/ do |text, field, selector|
+  with_scope(selector) do
+    expect(page).to have_field(field, with: text)
+  end
 end
 

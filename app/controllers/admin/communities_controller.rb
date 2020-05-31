@@ -22,7 +22,8 @@ class Admin::CommunitiesController < Admin::AdminBaseController
     @url_params = {
       :host => @current_community.full_domain,
       :ref => "welcome_email",
-      :locale => @current_user.locale
+      :locale => @current_user.locale,
+      :protocol => APP_CONFIG.always_use_ssl.to_s == "true" ? "https://" : "http://"
     }
 
     sender_address = EmailService::API::Api.addresses.get_sender(community_id: @current_community.id).data
@@ -39,7 +40,6 @@ class Admin::CommunitiesController < Admin::AdminBaseController
              user_defined_address: user_defined_address,
              post_sender_address_url: create_sender_address_admin_community_path,
              can_set_sender_address: can_set_sender_address(@current_plan),
-             knowledge_base_url: APP_CONFIG.knowledge_base_url,
              ses_in_use: ses_in_use,
              show_branding_info: !@current_plan[:features][:whitelabel],
              link_to_sharetribe: "https://www.sharetribe.com/?utm_source=#{@current_community.ident}.sharetribe.com&utm_medium=referral&utm_campaign=nowl-admin-panel"
@@ -114,16 +114,16 @@ class Admin::CommunitiesController < Admin::AdminBaseController
     @community.build_social_logo unless @community.social_logo
     find_or_initialize_customizations
     render "social_media", :locals => {
-      display_knowledge_base_articles: APP_CONFIG.display_knowledge_base_articles,
-      knowledge_base_url: APP_CONFIG.knowledge_base_url}
+      display_knowledge_base_articles: APP_CONFIG.display_knowledge_base_articles
+    }
   end
 
   def analytics
     @selected_left_navi_link = "analytics"
     @community = @current_community
     render "analytics", :locals => {
-      display_knowledge_base_articles: APP_CONFIG.display_knowledge_base_articles,
-      knowledge_base_url: APP_CONFIG.knowledge_base_url}
+      display_knowledge_base_articles: APP_CONFIG.display_knowledge_base_articles
+    }
   end
 
   def new_layout
@@ -185,7 +185,8 @@ class Admin::CommunitiesController < Admin::AdminBaseController
 
     permitted_params = [
       :wide_logo, :logo,:cover_photo, :small_cover_photo, :favicon, :custom_color1,
-      :custom_color2, :slogan_color, :description_color, :default_browse_view, :name_display_type
+      :custom_color2, :slogan_color, :description_color, :default_browse_view, :name_display_type,
+      attachments_destroyer: []
     ]
     permitted_params << :custom_head_script
     community_params = params.require(:community).permit(*permitted_params)
@@ -217,7 +218,8 @@ class Admin::CommunitiesController < Admin::AdminBaseController
       :linkedin_connect_enabled, :linkedin_connect_id, :linkedin_connect_secret,
       social_logo_attributes: [
         :id,
-        :image
+        :image,
+        :destroy_image
       ],
       community_customizations_attributes: [
         :id,

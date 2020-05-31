@@ -19,7 +19,7 @@ class ListingsController < ApplicationController
     controller.ensure_current_user_is_listing_author t("layouts.notifications.only_listing_author_can_close_a_listing")
   end
 
-  before_action :only => [:edit, :edit_form_content, :update] do |controller|
+  before_action :only => [:edit, :edit_form_content, :update, :delete] do |controller|
     controller.ensure_current_user_is_listing_author t("layouts.notifications.only_listing_author_can_edit_a_listing")
   end
 
@@ -124,15 +124,12 @@ class ListingsController < ApplicationController
     if new_listing_author != @current_user
       logger.info "ADMIN ACTION: admin='#{@current_user.id}' create listing params=#{params.inspect}"
     end
-    params[:listing].delete("origin_loc_attributes") if params[:listing][:origin_loc_attributes][:address].blank?
+    if show_location? && params[:listing][:origin_loc_attributes][:address].blank?
+      params[:listing].delete("origin_loc_attributes")
+    end
 
     shape = get_shape(Maybe(params)[:listing][:listing_shape_id].to_i.or_else(nil))
     listing_uuid = UUIDUtils.create
-
-    unless create_booking(shape, listing_uuid)
-      flash[:error] = t("listings.error.create_failed_to_connect_to_booking_service")
-      return redirect_to new_listing_path
-    end
 
     result = ListingFormViewUtils.build_listing_params(shape, listing_uuid, params, @current_community)
 
@@ -199,11 +196,6 @@ class ListingsController < ApplicationController
 
     shape = get_shape(params[:listing][:listing_shape_id])
 
-    unless create_booking(shape, @listing.uuid_object)
-      flash[:error] = t("listings.error.update_failed_to_connect_to_booking_service")
-      return redirect_to edit_listing_path(@listing)
-    end
-
     result = ListingFormViewUtils.build_listing_params(shape, @listing.uuid_object, params, @current_community)
 
     unless result.success
@@ -223,7 +215,7 @@ class ListingsController < ApplicationController
       if shape.booking_per_hour? && !@listing.per_hour_ready
         @listing.working_hours_new_set(force_create: true)
       end
-      if @listing.location
+      if show_location? && @listing.location
         location_params = ListingFormViewUtils.permit_location_params(params)
         @listing.location.update(location_params)
       end
@@ -274,6 +266,16 @@ class ListingsController < ApplicationController
 
   end
 
+  def delete
+    if @listing.update(deleted: true)
+      flash[:notice] = t("layouts.notifications.listing_deleted")
+      redirect_to listings_person_settings_path(@current_user.username)
+    else
+      flash[:error] = @listing.errors.full_messages.join(', ')
+      redirect_to @listing
+    end
+  end
+
   def ensure_current_user_is_listing_author(error_message)
     @listing = Listing.find(params[:id])
     return if current_user?(@listing.author) || @current_user.has_admin_rights?(@current_community)
@@ -292,25 +294,6 @@ class ListingsController < ApplicationController
       t("layouts.notifications.listing_updated_availability_management_disabled")
     else
       t("layouts.notifications.listing_updated_successfully")
-    end
-  end
-
-  def create_bookable(community_uuid, listing_uuid, author_uuid)
-    res = HarmonyClient.post(
-      :create_bookable,
-      body: {
-        marketplaceId: community_uuid,
-        refId: listing_uuid,
-        authorId: author_uuid
-      },
-      opts: {
-        max_attempts: 3
-      })
-
-    if !res[:success] && res[:data][:status] == 409
-      Result::Success.new("Bookable for listing with UUID #{listing_uuid} already created")
-    else
-      res
     end
   end
 
@@ -476,7 +459,7 @@ class ListingsController < ApplicationController
 
   def notify_about_new_listing
     Delayed::Job.enqueue(ListingCreatedJob.new(@listing.id, @current_community.id))
-    if @current_community.follow_in_use?
+    if @current_community.follow_in_use? && !@listing.approval_pending?
       Delayed::Job.enqueue(NotifyFollowersJob.new(@listing.id, @current_community.id), :run_at => NotifyFollowersJob::DELAY.from_now)
     end
 
@@ -492,20 +475,6 @@ class ListingsController < ApplicationController
       record_event(flash, "km_record", {km_event: "Onboarding listing created"}, AnalyticService::EVENT_LISTING_CREATED)
 
       flash[:show_onboarding_popup] = true
-    end
-  end
-
-  def create_booking(shape, listing_uuid)
-    if shape.present?
-      if shape.booking_per_hour?
-        true
-      elsif APP_CONFIG.harmony_api_in_use && shape.booking?
-        create_bookable(@current_community.uuid_object, listing_uuid, @current_user.uuid_object).success
-      else
-        true
-      end
-    else
-      true
     end
   end
 

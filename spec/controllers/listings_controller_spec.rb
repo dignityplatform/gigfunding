@@ -48,6 +48,7 @@
 #  availability                    :string(32)       default("none")
 #  per_hour_ready                  :boolean          default(FALSE)
 #  state                           :string(255)      default("approved")
+#  approval_count                  :integer          default(0)
 #
 # Indexes
 #
@@ -162,7 +163,7 @@ describe ListingsController, type: :controller do
         :community_id => @c1.id,
       )
 
-      FactoryGirl.create(
+      @l2 = FactoryGirl.create(
         :listing,
         :title => "hammer",
         :category => @category_item,
@@ -225,15 +226,22 @@ describe ListingsController, type: :controller do
       get :index, params: { :format => :atom }
       expect(response.status).to eq(200)
       doc = Nokogiri::XML::Document.parse(response.body)
+      doc.remove_namespaces!
       expect(doc.at('feed/logo').text).to eq("https://s3.amazonaws.com/sharetribe/assets/dashboard/sharetribe_logo.png")
 
       expect(doc.at("feed/title").text).to match(/Listings in Sharetribe /)
       expect(doc.search("feed/entry").count).to eq(2)
       expect(doc.search("feed/entry/title")[0].text).to eq("Sell: hammer")
+      expect(doc.search("feed/entry/listing_id")[0].text).to eq(@l2.id.to_s)
       expect(doc.search("feed/entry/title")[1].text).to eq("Request: bike")
+      expect(doc.search("feed/entry/listing_id")[1].text).to eq(@l1.id.to_s)
       expect(doc.search("feed/entry/published")[0].text).to be > doc.search("feed/entry/published")[1].text
       #DateTime.parse(doc.search("feed/entry/published")[1].text).should == @l1.created_at
       expect(doc.search("feed/entry/content")[1].text).to match(/#{@l1.description}/)
+
+      expect(doc.at("feed/entry/listing_price").attribute("amount").value).to eq("0.20")
+      expect(doc.at("feed/entry/listing_price").attribute("currency").value).to eq("USD")
+      expect(doc.at("feed/entry/listing_price").attribute("unit").value).to eq("")
     end
 
     it "supports localization" do
@@ -305,6 +313,7 @@ describe ListingsController, type: :controller do
     before :each do
       @request.host = "#{community.ident}.lvh.me"
       @request.env[:current_marketplace] = community
+      stub_thinking_sphinx
     end
 
     it 'If the community.pre_approved_listings is later disabled
@@ -502,6 +511,43 @@ describe ListingsController, type: :controller do
       expect(response.body).to match("<meta content='Batman-s Top 10 Amazing Halo Tips by Proto T on Sharetribe' name='description'>")
       expect(response.body).to match("<meta content='Batman-s Top 10 Amazing Halo Tips by Proto T on Sharetribe' name='twitter:description'>")
       expect(response.body).to match("<meta content='Batman-s Top 10 Amazing Halo Tips by Proto T on Sharetribe' property='og:description'>")
+    end
+  end
+
+  describe "delete" do
+    let(:community){ FactoryGirl.create(:community, :settings => {"locales" => ["en", "fi"]}) }
+    let(:offer_process) {
+      FactoryGirl.create(:transaction_process,
+                                               community_id: community.id,
+                                               process: :none)
+    }
+    let(:sell_shape) { create_shape(community.id, "Sell", offer_process) }
+    let(:person) { FactoryGirl.create(:person, member_of: community) }
+    let(:listing) {
+      FactoryGirl.create(:listing,
+                         community_id: community.id,
+                         author: person,
+                         transaction_process_id: sell_shape[:transaction_process_id],
+                         listing_shape_id: sell_shape[:id],
+                         shape_name_tr_key: sell_shape[:name_tr_key],
+                         action_button_tr_key: sell_shape[:action_button_tr_key],
+                         unit_type: 'hour',
+                         title: "bike",
+                         description: "A very nice bike",
+                         price: Money.new(4567, "USD")
+                        )
+    }
+
+    before :each do
+      @request.host = "#{community.ident}.lvh.me"
+      @request.env[:current_marketplace] = community
+    end
+
+    it 'author deletes listing' do
+      sign_in_for_spec(person)
+      delete :delete, params: {id: listing.id}
+      listing.reload
+      expect(listing.deleted).to eq true
     end
   end
 end

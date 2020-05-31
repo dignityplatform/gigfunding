@@ -95,6 +95,8 @@ fr-CA:
         transaction_agreement_checkbox_label_description: "Ce texte sera affiché à côté de la case à cocher dans le formulaire de transaction. L'utilisateur doit cocher cette case pour continuer le processus. Un exemple de libellé de d'accord serait \"En cochant cette case, vous acceptez l'accord de transaction\"."
         transaction_agreement_text_header: "Texte de l'accord"
         transaction_agreement_description: "Ceci est le contenu de l'accord que l'utilisateur doit accepter. Le contenu de cet accord est affiché lorsque l'utilisateur clique sur le lien \"%{read_more}\" à côté du libellé de l'accord."
+        terms_privacy_policy_and_static_content: ~
+        terms_privacy_policy_and_static_content_infotext: ~
       edit_look_and_feel:
         edit_community_look_and_feel: "Modifier la présentation et l'aspect de la place de marché \"%{community_name}\""
         community_logo: "Logo large"
@@ -117,6 +119,8 @@ fr-CA:
         logo_mobile_icon_instructions_text_with_dimensions: ~
         cover_photo_visibility: "La photo de couverture est affichée aux utilisateurs non connectés sur la page d'accueil."
         cover_photo_instructions_text_with_dimensions: "La photo sera redimensionnée en %{width}x%{height} pixels et les images trop grandes seront coupées au centre. %{see_how_it_looks_like}."
+        we_have_you_covered: ~
+        cover_photo_ready_made: ~
         small_cover_photo_visibility: "La photo de couverture réduite est affichée sur toute les pages excepté pour les visiteurs non connectés sur la page d'accueil."
         small_cover_photo_instructions_text_with_dimensions: "La photo sera redimensionnée en %{width}x%{height} pixels et les images trop grandes seront coupées au centre."
         main_content_width: "Lorsque vous choisissez les photos de couverture, gardez à l'esprit que la page principale a une largeur maximale de %{main_width} pixels. N'oubliez pas non plus de vérifier comment s'affiche votre photo de couverture sur des petits écrans (par exemple en réduisant la taille de la fenêtre de votre navigateur)."
@@ -218,7 +222,9 @@ fr-CA:
         users_can_invite_new_users: "Tous les utilisateurs peuvent inviter des nouveaux utilisateurs dans cette place de marché"
         private: "Cette place de marché est privée (seuls les utilisateurs connectés peuvent en voir le contenu)"
         require_verification_to_post_listings: "Seuls les utilisateurs validés par un administrateur peuvent poster de nouvelles annonces"
+        allow_free_conversations: ~
         search_preferences: ~
+        search_and_location_preferences: ~
         default_search_type: ~
         keyword_search: ~
         keyword_and_location_search: ~
@@ -227,6 +233,8 @@ fr-CA:
         km: ~
         miles: ~
         show_only_nearby: ~
+        allow_users_to_add_location: ~
+        fuzzy_location: ~
         listing_preferences: "Paramètres d'annonces"
         transaction_preferences: "Paramètres de transactions"
         show_listing_publishing_date: "Afficher la date de publication de l'annonce sur la page de l'annonce"
@@ -255,6 +263,7 @@ fr-CA:
         delete_this_marketplace: ~
         payment_preferences: ~
         pre_approved_listings: ~
+        email_admins_about_new_transactions: ~
       manage_members:
         manage_members: "Gérer les utilisateurs"
         email: Email
@@ -271,6 +280,10 @@ fr-CA:
         ban_user_confirmation: "Ceci supprime l'utilisateur de la place de marché et l'empêche d’y accéder de nouveau avec ce compte. Êtes-vous sûr de vouloir faire cela ?"
         unban_user_confirmation: ~
         ban_me_error: "Vous ne pouvez pas vous bannir vous-même."
+        have_ongoing_transactions: ~
+        only_delete_disabled: ~
+        delete_info1: ~
+        delete_info2: ~
         search: ~
         search_by_name_email: ~
         reset_search: ~
@@ -290,6 +303,7 @@ fr-CA:
         unconfirmed_user: ~
         resend: ~
         cancel: ~
+        confirm: ~
         user_didnt_complete_the_signup_process: ~
         pending_user: ~
       new_layout:
@@ -299,6 +313,7 @@ fr-CA:
         enabled_for_all: ~
         new_topbar: ~
         searchpage: ~
+        new_email_templates: ~
       social_media:
         social_media: "Réseaux sociaux"
         logo: ~
@@ -316,6 +331,7 @@ fr-CA:
         twitter_handle_placeholder: nomtwitter
         invalid_twitter_handle: "Le nom Twitter ne peut contenir qu'au maximum 15 caractères alpha-numériques (lettres A-Z et chiffre 0-9)."
         facebook_connect: Facebook
+        facebook_developers_dashboard: ~
         facebook_connect_info_text: "Pour activer la connexion avec Facebook, créez une application pour votre place de marché sur <a href='https://developers.facebook.com/'>Facebook developers</a>. Ajoutez l'id et la clé secrète de l'application ici."
         facebook_connect_info_text_with_instructions: "Pour activer la connexion avec Facebook, créez une application pour votre place de marché sur <a href='https://developers.facebook.com/'>Facebook developers</a>. Ajoutez l'id et la clé secrète de l'application ici. %{instructions_link}."
         facebook_instructions_link_text: "Lire les instructions pour configurer Facebook Connect."
@@ -325,9 +341,9 @@ fr-CA:
         invalid_facebook_connect_secret: "La clé secrète ne devrait contenir que des chiffres et des lettre de a à f."
         enable_facebook_login: ~
         save: "Sauvegarder les paramètres"
-        add_another_image: ~
         google_connect: ~
         google_instructions_link_text: ~
+        google_developers_console: ~
         google_connect_info_text_with_instructions: ~
         google_connect_info_text: ~
         enable_google_login: ~
@@ -335,6 +351,7 @@ fr-CA:
         google_connect_secret: ~
         linkedin_connect: ~
         linkedin_instructions_link_text: ~
+        linkedin_developers_dashboard: ~
         linkedin_connect_info_text_with_instructions: ~
         linkedin_connect_info_text: ~
         enable_linkedin_login: ~
@@ -386,6 +403,10 @@ fr-CA:
         robots_info: ~
         robots_info_link_text: ~
         robots_info_2: ~
+        google_search_console: ~
+        google_search_console_paragraph1: ~
+        google_search_console_these_instructions: ~
+        google_search_console_paragraph2: ~
         save: ~
       analytics:
         analytics: Analyses
@@ -398,6 +419,10 @@ fr-CA:
         sharetribe_analytics_instructions_link_text: ~
         end_user_analytics: ~
         save: "Sauvegarder les paramètres"
+        google_tag_manager: ~
+        gtm_paragraph_1: ~
+        gtm_paragraph_2: ~
+        learn_how_to_configure_gtm: ~
       logo_link:
         title: ~
         info: ~
@@ -446,8 +471,13 @@ fr-CA:
           confirmed: ~
           paid: ~
           canceled: ~
+          disputed: ~
           preauthorized: ~
           rejected: ~
+          payment_intent_requires_action: ~
+          payment_intent_action_expired: ~
+          refunded: ~
+          dismissed: ~
         headers:
           conversation: "Fil de conversation"
           listing: Annonce
@@ -467,6 +497,7 @@ fr-CA:
           paid: Payée
           confirmed: Confirmée
           canceled: Annulée
+          disputed: ~
           initiated: "En attente du paiement PayPal"
           pending_ext: "En attente du paiement PayPal"
           none:
@@ -480,8 +511,11 @@ fr-CA:
             paid: ~
             confirmed: ~
             canceled: ~
+            disputed: ~
             initiated: ~
             pending_ext: ~
+            refunded: ~
+            dismissed: ~
           stripe:
             free: ~
             pending: ~
@@ -491,8 +525,14 @@ fr-CA:
             paid: ~
             confirmed: ~
             canceled: ~
+            disputed: ~
             initiated: ~
             pending_ext: ~
+            payment_intent_requires_action: ~
+            payment_intent_action_expired: ~
+            payment_intent_failed: ~
+            refunded: ~
+            dismissed: ~
         not_available: "Non disponible"
       conversations:
         conversations: ~
@@ -548,6 +588,9 @@ fr-CA:
           confirm_modify: ~
           deleting_info: ~
           blocking_info: ~
+          unskip: ~
+          if_you_unskip_the_review: ~
+          they_will_not_be_notified_automatically: ~
       invitations:
         invitations: ~
         used:
@@ -564,6 +607,8 @@ fr-CA:
         search_by_title_author_category: ~
         search: ~
         reset_search: ~
+        export_all_as_csv: ~
+        processing_export: ~
         status:
           all: ~
           selected_js: ~
@@ -626,6 +671,174 @@ fr-CA:
         contact_us: ~
         you_can_now_use_a_custom_domain: ~
         would_you_like_to_change_domain: ~
+        change_your_sharetribe_domain: ~
+        only_letters_numbers_and_hyphens_can_be_used: ~
+        when_you_change_your_sharetribe_domain: ~
+        would_you_like_to_proceed: ~
+        change: ~
+      landing_pages:
+        landing_pages: ~
+        info_1: ~
+        info_2: ~
+        info_2_help_center: ~
+        info_3: ~
+        info_4: ~
+        editor_title: ~
+        editor_info: ~
+        preview: ~
+        set_live: ~
+        add_new_section: ~
+        select_section_type: ~
+        this_version_is_not_released: ~
+        latest_version_released: ~
+        check_it_out: ~
+        form:
+          save: ~
+          cancel: ~
+        sections:
+          identifier: ~
+          kind: ~
+          new: ~
+          edit: ~
+          remove_section_confirmation: ~
+          info_single_column: ~
+          info_multi_column_2: ~
+          info_multi_column_3: ~
+          listings: ~
+          categories: ~
+          hero: ~
+          locations: ~
+          video: ~
+          new_section:
+            categories: ~
+            info_single_column: ~
+            info_multi_column_2: ~
+            info_multi_column_3: ~
+            listings: ~
+            locations: ~
+            video: ~
+          edit_section:
+            categories: ~
+            footer: ~
+            hero: ~
+            info_single_column: ~
+            info_multi_column_2: ~
+            info_multi_column_3: ~
+            listings: ~
+            locations: ~
+            video: ~
+      attachments:
+        delete: ~
+        or_change: ~
+    landing_page_versions:
+      sections:
+        content:
+          title: ~
+        hero:
+          hero_title: ~
+          hero_description: ~
+          basic_details_tab: ~
+          cta_button: ~
+          cta_button_info: ~
+          button_type:
+            default: ~
+            button: ~
+            none: ~
+          button_content: ~
+          click_me: ~
+        footer:
+          footer_title: ~
+          footer_style: ~
+          style_dark: ~
+          style_light: ~
+          style_marketplace_color: ~
+          style_logo: ~
+        cta_button:
+          cta_button: ~
+          cta_enabled: ~
+          cta_text: ~
+          cta_url: ~
+          text_placeholder: ~
+          url_placeholder: ~
+        background_selector:
+          title: ~
+        background_image_overlay:
+          background_image: ~
+          background_image_info: ~
+          add_another_image: ~
+          current_image: ~
+          file_not_selected: ~
+          background_image_overlay: ~
+          background_image_overlay_info: ~
+          overlay_dark: ~
+          overlay_light: ~
+          overlay_transparent: ~
+        background_style:
+          background_style: ~
+          style_image: ~
+          style_color: ~
+          style_none: ~
+        background_color:
+          background_color: ~
+          background_color_info: ~
+        categories:
+          add: ~
+          category: ~
+          empty: ~
+          image: ~
+          include_title: ~
+          info_text: ~
+          need_at_least_3_categories: ~
+          need_at_most_7_categories: ~
+        category:
+          add_another_image: ~
+          category: ~
+          current_image: ~
+          file_not_selected: ~
+          image: ~
+          image_required: ~
+          select_category: ~
+        locations:
+          add: ~
+          location: ~
+          empty: ~
+          image: ~
+          include_title: ~
+          info_text: ~
+          need_at_least_3_locations: ~
+          need_at_most_7_locations: ~
+        location:
+          add_another_image: ~
+          location: ~
+          current_image: ~
+          file_not_selected: ~
+          image: ~
+          image_required: ~
+          title: ~
+          title_placeholder: ~
+          url: ~
+          url_placeholder: ~
+        multi_column:
+          main_title: ~
+          column_header: ~
+          column_title: ~
+          web_viewer: ~
+          column_icon_info: ~
+          column_icon: ~
+          column_paragraph: ~
+          column_button: ~
+          column_button_text: ~
+          column_button_url: ~
+        listings:
+          listings_to_feature: ~
+          you_need_to_add_the_listing_ids: ~
+        video:
+          text: ~
+          autoplay: ~
+          autoplay_no: ~
+          autoplay_muted: ~
+          info: ~
+          youtube_video_id_info: ~
     custom_fields:
       edit:
         edit_listing_field: "Modifier le champ d'annonce '%{field_name}'"
@@ -638,6 +851,7 @@ fr-CA:
       edit_location:
         edit_location_field: "Modifier le champ d'annonce 'Lieu'"
         this_field_is_required: "Ce champ est obligatoire"
+        the_location_feature_can_be_enabled: ~
       edit_expiration:
         edit_expiration_field: ~
         enable: ~
@@ -743,6 +957,7 @@ fr-CA:
       emails_title: Emails
       subscription: ~
       preview: ~
+      whats_new: ~
     listing_shapes:
       availability_title: ~
       read_more: ~
@@ -876,6 +1091,7 @@ fr-CA:
       stripe_fee: ~
       stripe_fee_notice: ~
       fee_should_be_less_than_minimum_price: ~
+      the_transaction_fee_must_be_lower_than_100: ~
       confirm_disable: ~
       commission_from_buyer_label: ~
       minimum_buyer_transaction_fee_label: ~
@@ -928,12 +1144,35 @@ fr-CA:
       request: Demande
       inquiry: Information
       share_for_free: "Partage gratuit"
+      event_w_online_payment: ~
+      event_wo_online_payment: ~
       default_action_button_labels:
         sell: Acheter
         rent: Louer
         request: Proposer
         offer: Demander
         inquiry: Contacter
+        book: ~
+    community_transactions:
+      show:
+        transaction_for: ~
+        status: ~
+        next_step: ~
+        waiting_for_provider_accept_or_reject: ~
+        waiting_for_fulfill_and_complete: ~
+        buyer: ~
+        provider: ~
+        delivery: ~
+        shipping_to: ~
+        buyer_pays: ~
+        marketplace_collects: ~
+        buyer_service_fee_label: ~
+        service_fee_label: ~
+        provider_receives: ~
+        admin_info_text: ~
+        manage_reviews: ~
+        you_should_investigate: ~
+        learn_more: ~
   common:
     edit_page: "Modifier la page"
     default_community_slogan: "Votre place de marché"
@@ -1021,13 +1260,13 @@ fr-CA:
       total_value: "%{seller_gets}*"
       total_value_paypal: ~
       total_value_stripe: ~
-      paypal_fee_info: "* Hors <a id='%{fee_info_link_id}' href='#'>frais de transaction PayPal</a>"
-      payment_fee_info: ~
+      paypal_fee: ~
+      paypal_fee_info: "* Hors %{link}"
       shipping_price_label: "Frais de livraison : "
       stripe-fee_label: ~
     confirm:
       confirm_description: "Si votre demande a été satisfaite, vous pouvez la marquer comme réalisée. Vous pourrez alors donner un avis sur l'autre personne."
-      cancel_description: "Si votre demande n'a pas été satisfaite, vous pouvez la marquer comme \"non réalisée\". Vous pourrez toujours donner un avis sur l'autre personne et décrire ce qu'il s'est passé."
+      cancel_description_team: ~
       cancel_payed_description: "Si votre demande a été acceptée mais que vous changez d'avis, vous pouvez toujours l'annuler avant le paiement."
       canceling_payed_transaction: "Annuler la transaction"
       confirm: Réalisée
@@ -1055,7 +1294,7 @@ fr-CA:
       canceled_request: "Demande annulée."
       canceled_offer: "Offre annulée."
       message_from: "Message de %{person}"
-      about_listing: "A propos de l'annonce %{listing_title}"
+      about_listing: "À propos de l'annonce %{listing_title}"
       free_message: "Message libre"
       message_content_not_available: ~
     message:
@@ -1076,6 +1315,10 @@ fr-CA:
         held_payment: ~
         held_payment_wo_sum: ~
         confirmed_request: ~
+      canceled_the_order: ~
+      marked_as_refunded: ~
+      dismissed_the_cancellation: ~
+      payment_has_now_been_transferred: ~
     new:
       message: Message
       message_to: "Message à %{author_name}"
@@ -1087,7 +1330,7 @@ fr-CA:
       you_will_get_notified: "Vous recevrez une notification par email lorsque %{person} vous répondra."
       title: Titre
       send_message_to_user: "Envoyer un message à %{person}"
-      about_listing: "A propos de l'annonce %{listing_title}"
+      about_listing: "À propos de l'annonce %{listing_title}"
       author_has_to_accept_request: "%{author_name} doit accepter la requête avant que vous ne puissiez payer"
     show:
       in_response_to_listing: "à propos de l'annonce"
@@ -1150,6 +1393,18 @@ fr-CA:
           verify: "En attente de votre vérification de votre compte PayPal"
       stripe:
         waiting_confirmation_from_requester: ~
+      order_canceled: ~
+      waiting_for_marketplace_review: ~
+      marketplace_notified: ~
+      contact_them: ~
+      refunded: ~
+      dismissed: ~
+      order_refunded: ~
+      you_should_receive_refund_soon: ~
+      issue_with_the_refund: ~
+      do_you_disagree: ~
+      contact_the_marketpalce_team: ~
+      order_cancellation_dismissed: ~
     status_link:
       accept_offer: "Accepter l'offre"
       accept_request: "Accepter demande"
@@ -1161,6 +1416,8 @@ fr-CA:
       reject_preauthorized_request: "Pas cette fois"
       confirm: Réalisée
       cancel: Contester
+      mark_as_refunded: ~
+      dismiss: ~
   feedback:
     feedback_subject: ~
     feedback_body: ~
@@ -1206,11 +1463,17 @@ fr-CA:
       if_will_not_happen_you_should_cancel: "Si vous pensez que cette demande ne sera pas réalisée pour une raison ou une autre, vous pouvez %{cancel_it_link}."
       cancel_it_link_text: l'annuler
       automatic_confirmation: "Si vous ne confirmez ou n'annulez pas la demande sous %{days_to_automatic_confirmation} jours après que la demande ait été acceptée, nous la signalerons automatiquement comme terminée."
+    confirm_reminder_v2:
+      headline: ~
+      you_have_not_yet_confirmed_or_canceled_request: ~
     payment_settings_reminder:
       remember_to_add_payment_details: "N'oubliez pas d'ajouter vos détails de paiements pour recevoir les paiements"
       you_have_added_listing_with_payment: "Vous avez ajouté une annonce %{listing_link} avec un paiement. Cependant, vous n'avez pas ajouté vos détails de paiement. Pour en recevoir, vous devez ajouter vos informations de paiement."
       please_go_to_payment_settings: "Veuillez vous rendre dans vos %{payment_settings_link} et y complétez les informations nécessaires."
       payment_settings_link: "paramètres de paiement"
+    payment_settings_reminder_v2:
+      fill_payout_details: ~
+      you_have_added_listing_with_payment: ~
     transaction_confirmed:
       here_is_a_message_from: "Voici un message de %{other_party_given_name} : "
       request_marked_as_confirmed: "Demande réalisée - n'oubliez pas de déposer un avis"
@@ -1221,12 +1484,25 @@ fr-CA:
       give_feedback_to: "Donner un avis sur %{other_party_given_name}"
       stripe:
         has_marked_request_as_confirmed: ~
+      team_title: ~
+    transaction_confirmed_v2:
+      headline_confirmed: ~
+      headline_canceled: ~
+      stripe:
+        has_marked_request_as_confirmed: ~
+      can_give_feedback: ~
+      team_title: ~
     transaction_automatically_confirmed:
       subject: "Demande automatiquement signalée comme terminée - n'oubliez pas de donner un avis"
       we_have_marked_request_as_confirmed: "Nous avons signalé la demande à propos de '%{request}' comme terminée. La demande a été terminée automatiquement car %{days_passed} se sont écoulés depuis que la demande a été acceptée."
+    transaction_automatically_confirmed_v2:
+      we_have_marked_request_as_confirmed: ~
+      order_automatically_confirmed: ~
     booking_transaction_automatically_confirmed:
       subject: "Demande automatiquement signalée comme terminée - n'oubliez pas de donner un avis"
       we_have_marked_request_as_confirmed: "Nous avons signalé la demande à propos de '%{request}' comme terminée. La demande a été terminée automatiquement car une journée s'est écoulée depuis la fin de la période de réservation."
+    booking_transaction_automatically_confirmed_v2:
+      order_automatically_confirmed: ~
     automatically_confirmed_footer:
       giving_feedback_is_good_idea: "Vous pouvez désormais donner un avis sur %{other_party_given_name}. Donner un avis est toujours une bonne idée. Si tout s'est bien passé, vous devriez signaler aux autres que %{other_party_given_name} est quelqu'un de confiance. S'il y a eu un problème, c'est aussi une bonne chose de le mentionner."
       give_feedback_to: "Donner un avis sur %{other_party_given_name}"
@@ -1236,8 +1512,13 @@ fr-CA:
       need_to_confirm: "Vous devez confirmer votre adresse email."
       confirmation_link_text: "Confirmer mon email"
       or_paste_link: "Vous pouvez également copier le lien suivant dans la barre d'adresse de votre navigateur : "
+    confirmation_instructions_v2:
+      headline: ~
+      need_to_confirm: ~
+      confirmation_link_text: ~
     common:
       hey: "Bonjour %{name},"
+      hi: ~
       kassi_team: "L'équipe de %{service_name}"
       thanks: "Merci,"
       dont_want_to_receive_these_emails: "Souhaitez-vous recevoir ces emails ?"
@@ -1249,6 +1530,7 @@ fr-CA:
       unsubscribe_from_these_emails: "désabonnez-vous de ces emails"
       unsubscribe_from_invitation_emails_info: ~
       unsubscribe_from_invitation_emails: ~
+      here_is_your_receipt: ~
     conversation_status_changed:
       has_accepted_your_offer: "%{accepter} a accepté votre offre %{listing}"
       has_accepted_your_request: "%{accepter} a accepté votre demande %{listing}"
@@ -1262,12 +1544,19 @@ fr-CA:
       you_can_now_pay_to: "Vous pouvez maintenant payer le montant demandé à %{payment_receiver}."
       pay_now: "Payer maintenant"
       remember_to_confirm: "Quand la demande est réalisée, n'oubliez pas de la signaler comme terminée. Si la demande n'est pas réalisée vous avez %{days_to_automatic_confirmation} pour l'annuler. Autrement, elle sera automatiquement signalée comme terminée."
+    conversation_status_changed_v2:
+      has_accepted_your_request: ~
+      has_accepted_your_request_text: ~
+      has_rejected_your_request: ~
+      has_rejected_your_request_text: ~
     invitation_to_kassi:
       hi: "Bonjour !"
       you_have_been_invited_to_kassi: "%{inviter} vous a invité à rejoindre %{service_name}."
       here_is_a_message_from: "Voici un message personnel de %{inviter} :"
       join_now: Rejoindre
       invitation_code: "Code d'invitation : %{code}"
+    invitation_to_kassi_v2:
+      headline: ~
     new_comment:
       has_commented_your_listing_in_kassi: "%{author} a commenté votre annonce '%{listing}'."
       view_comment: "Voir le commentaire"
@@ -1278,6 +1567,9 @@ fr-CA:
       view_message: "Voir le message"
       has_sent_you_a_message_in_kassi: "%{sender} vous a envoyé un message sur %{service_name}."
       you_have_a_new_message: "Vous avez un nouveau message sur %{service_name} de la part de %{sender_name}"
+    new_message_v2:
+      headline: ~
+      reply: ~
     new_payment:
       new_payment: "Vous avez reçu un nouveau paiement"
       price_per_unit_type: ~
@@ -1299,6 +1591,10 @@ fr-CA:
       you_have_received_new_payment: ~
       stripe:
         you_have_received_new_payment: ~
+    payment_receipt_to_seller_v2:
+      headline: ~
+      main_text_stripe: ~
+      price_breakdown: ~
     payment_receipt_to_payer:
       receipt_of_payment: ~
       you_have_made_new_payment: ~
@@ -1314,6 +1610,9 @@ fr-CA:
       stripe_gateway_fee: ~
       paypal_gateway_fee: ~
       money_will_be_transferred: ~
+    payment_receipt_to_payer_v2:
+      headline: ~
+      you_have_made_new_payment: ~
     paypal_new_payment:
       paypal_gateway_fee: "Frais PayPal : "
       shipping_total: "Frais de livraison : "
@@ -1343,6 +1642,8 @@ fr-CA:
       has_given_you_feedback_in_kassi: "%{name} vous a donné un avis sur %{service_name}"
       you_can_give_feedback_to: "Vous n'avez pas encore donné un avis sur %{name}."
       view_feedback: "Voir l'avis"
+    new_testimonial_v2:
+      headline: ~
     new_update_to_listing:
       listing_you_follow_has_been_updated: "Une annonce que vous suivez a été mise à jour"
       has_updated_listing_you_follow_in_kassi: "%{author} a mis à jour l'annonce '%{listing}' que vous suivez sur %{service_name}."
@@ -1358,6 +1659,8 @@ fr-CA:
       reduce_email_footer_text: "Trop d'emails ? %{settings_link} ou %{unsubscribe_link}."
       settings_link_text: "Gérez vos paramètres d'email"
       unsubscribe_link_text: désabonnez-vous
+    community_updates_v2:
+      headline: ~
     newsletter:
       hi: "Bonjour %{name},"
       newest_offers: "Ce que les membres proposent aux autres en ce moment"
@@ -1365,10 +1668,14 @@ fr-CA:
       text_version_text: "Et si vous partagiez quelque chose dont les autres ont besoin ? Ou peut être avez-vous besoin de quelque chose que d'autres pourraient avoir ? Ajoutez une offre ou une demande ou jetez un oeil aux offres et demandes des autres membres sur %{url}"
     reset_password_instructions:
       change_my_password: "Changer mon mot de passe"
-      reset_password_instructions: "<p>Vous avez déclaré avoir oublié votre nom d'utilisateur et/ou votre mot de passe pour %{service_name}.</p><p>Votre nom d'utilisateur est : %{username}</p><p>Si vous souhaitez réinitialiser votre mot de passe, cliquez ici : %{password_reset_link}</p><br/><p>Si vous n'avez fait aucune demande, ignorez simplement cet email. Votre mot de passe ne sera pas modifié tant que vous ne cliquez pas sur le lien ci-dessus et en créez un nouveau.</p>"
+      reset_password_instructions: ~
     testimonial_reminder:
       remember_to_give_feedback_to: "Rappel : n'oubliez pas de donner un avis sur %{name}"
       you_have_not_given_feedback_yet: "Vous n'avez pas encore donné d'avis sur %{name} suite à l'annonce '%{event}'. N'oubliez pas de donner un avis sur la façon dont %{given_name} a agi lors de la transaction."
+    testimonial_reminder_v2:
+      headline: ~
+      you_have_not_given_feedback_yet: ~
+      leave_feedback: ~
     transaction_preauthorized:
       subject: "%{requester} a demandé et payé pour %{listing_title}"
       transaction_requested_by_user: "%{requester} a demandé et payé pour \"%{listing_title}\""
@@ -1377,11 +1684,16 @@ fr-CA:
       if_you_do_accept_stripe: ~
       if_you_do_not_accept: ~
       click_here_to_reply: "Cliquez ici pour répondre à la demande"
+    transaction_preauthorized_v2:
+      headline: ~
     transaction_preauthorized_reminder:
       subject: "N'oubliez pas d'accepter la demande de %{requester} à propos de l'annonce %{listing_title}"
       remember_to_accept: "N'oubliez pas d'accepter la demande de %{requester} à propos de l'annonce \"%{listing_title}\". %{requester} a déjà payé pour cette annonce. Vous devez accepter la demande pour recevoir le paiement."
       one_day_left: "Si vous n'acceptez pas la demande sous une journée la demande sera automatiquement refusée et vous ne recevrez pas le paiement."
       click_here_to_reply: "Cliquez ici pour répondre à la demande"
+    transaction_preauthorized_reminder_v2:
+      headline: ~
+      remember_to_accept: ~
     welcome_email:
       welcome_email_subject: "Bienvenue sur %{service_name}"
       welcome_to_marketplace: "Bienvenue sur %{service_name} ! Ravi que vous nous ayez rejoint."
@@ -1393,11 +1705,22 @@ fr-CA:
       has_posted_a_new_listing: "%{author_name} a publié une nouvelle annonce : "
       you_are_receiving_this_because: "Vous recevez cette notification car vous suivez %{author_name}."
       view_listing: "Voir l'annonce"
+    new_listing_by_followed_person_v2:
+      headline: ~
+      has_posted_a_new_listing: ~
+      you_are_receiving_this_because: ~
+      view_listing: ~
+      cant_click: ~
     new_member_notification:
+      subject: ~
       new_member_has_joined: ~
       this_is_automatic_message: ~
       person_name: ~
       person_email: ~
+    new_member_notification_v2:
+      headline: ~
+      new_member_has_joined: ~
+      view_profile: ~
     listing_submited_for_review:
       subject: ~
       there_is_a_new_listing_to_review: ~
@@ -1416,6 +1739,53 @@ fr-CA:
       subject: ~
       there_is_a_edited_listing_to_review: ~
       review_the_listing: ~
+    new_transaction:
+      subject: ~
+      there_is_a_new_transaction: ~
+      a_new_transaction: ~
+      listing: ~
+      sum: ~
+      starter: ~
+      provider: ~
+    new_transaction_v2:
+      subject: ~
+      there_is_a_new_transaction: ~
+      a_new_transaction: ~
+      listing: ~
+      sum: ~
+      starter: ~
+      provider: ~
+      view_transaction: ~
+    transaction_cancel_flow:
+      the_order_about: ~
+      you_can_contact_the_marketplace_team: ~
+      you_can_now_give_feedback: ~
+      give_feedback_to: ~
+    transaction_disputed:
+      subject: ~
+      subject_admin: ~
+      order_about: ~
+      the_order_has_been_canceled: ~
+      the_order_between_buyer_and_seller_has_been_canceled: ~
+      the_marketplace_has_been_notified: ~
+      contact_the_marketplace_team: ~
+      you_must_now_decide: ~
+      learn_more_about: ~
+      review_the_transaction: ~
+    transaction_refunded:
+      subject: ~
+      marketplace_team_has_approved_the_cancellation: ~
+      you_should_receive_a_refund_soon: ~
+    transaction_cancellation_dismissed:
+      subject: ~
+      marketplace_team_has_rejected_the_cancellation: ~
+    transaction_commission_charge_failed:
+      subject: ~
+      transaction_about: ~
+      the_commission_of_the_transaction: ~
+      this_usually_means: ~
+      if_you_would_like_to_investigate: ~
+      contact_the_seller: ~
   error_messages:
     booking:
       booking_failed_payment_voided: ~
@@ -1438,6 +1808,7 @@ fr-CA:
       buyer_cannot_pay_error: ~
       pending_review_error: ~
       seller_express_checkout_disabled: ~
+      seller_express_checkout_disabled_no_free: ~
       generic_error: "Une erreur s'est produite durant le processus de paiement. Le paiement PayPal n'a pas pu être réalisé."
       cancel_error: "Une erreur s'est produite durant l'annulation. Celle-ci n'a pas pu être réalisée."
       accept_authorization_error: "Une erreur s'est produite lors de la validation de la pré-autorisation du paiement PayPal. Merci d'essayer de nouveau."
@@ -1446,6 +1817,8 @@ fr-CA:
       generic_error: ~
       accept_authorization_error: ~
       reject_authorization_error: ~
+      card_declined: ~
+      expired_card: ~
   error_pages:
     back_to_kassi_front_page: "Retourner sur la page d'accueil"
     error_404:
@@ -1485,6 +1858,12 @@ fr-CA:
       on_or_after: "doit être au ou après %{restriction}"
       positive_number: ~
       from_must_be_less_than_till: ~
+      section_with_this_id_already_exists: ~
+      listing_with_this_id_does_not_exist: ~
+      presence: ~
+      username_is_invalid: ~
+      domain_name_is_invalid: ~
+      only_supported_variables: ~
   event_feed_events:
     accept:
       has_accepted_lend_item: "%{offerer_name} a accepté de prêter %{listing_title} à %{requester_name} %{time_ago}."
@@ -1511,7 +1890,7 @@ fr-CA:
       offer_partitive: offre
       request_partitive: demande
   header:
-    about: "A propos"
+    about: ~
     home: Accueil
     members: "Place de marché"
     new_listing: "Nouvelle annonce"
@@ -1688,7 +2067,7 @@ fr-CA:
     global-header:
       select_language: "Choisir la langue"
     infos:
-      about: "A propos"
+      about: ~
       how_to_use: "Comment ça marche"
       info_about_kassi: "Informations à propos de %{service_name}"
       news: Actualités
@@ -1708,6 +2087,23 @@ fr-CA:
       messages: Messages
     logged_in_notifications_icon:
       notifications: Notifications
+    markdown_help:
+      title: ~
+      description: ~
+      formatting: ~
+      result: ~
+      h1: ~
+      h2: ~
+      h3: ~
+      italic: ~
+      bold: ~
+      underline: ~
+      strikethrough: ~
+      inline_link: ~
+      list: ~
+      one: ~
+      two: ~
+      three: ~
     mobile_logged_in:
       admin: Admin
       go_to_your_profile_page: Profil
@@ -1769,6 +2165,7 @@ fr-CA:
       listing_updated_successfully: "Annonce mise à jour avec succès"
       listing_updated_availability_management_enabled: ~
       listing_updated_availability_management_disabled: ~
+      listing_deleted: ~
       only_kassi_administrators_can_access_this_area: ~
       only_listing_author_can_close_a_listing: "Seul l'auteur de l'annonce peut la clore"
       only_listing_author_can_edit_a_listing: "Seul l'annonce de liste peut la modifier"
@@ -1835,11 +2232,14 @@ fr-CA:
       user_does_not_have_email_to_delete: "Vous n'avez pas l'adresse email que vous essayez de supprimer"
       email_deleted: "Email supprimé"
       listing_author_payment_details_missing: "L'auteur de cette annonce n'a pas ajouté ses détails de paiement et ne peut pas recevoir de paiement actuellement. Merci de contacter l'auteur de l'annonce."
+      listing_author_payment_details_missing_no_free: ~
       images_are_processing: ~
       automatically_logged_out_please_sign_in: ~
       stripe_you_account_balance_is_not_0: ~
+      stripe_balance_for_username_is_not_0: ~
       visit_admin: ~
       visit_admin_link: ~
+      an_error_occurred_when_saving_your_information: ~
     settings:
       account: Compte
       notifications: Notifications
@@ -1850,6 +2250,8 @@ fr-CA:
       payments: Paiements
       listings: ~
       listings_search_placeholder: ~
+      transactions_search_placeholder: ~
+      transactions: ~
   listings:
     bubble_listing_not_visible:
       listing_not_visible: "Vous n'avez pas la permission de consulter cette annonce."
@@ -1867,6 +2269,7 @@ fr-CA:
       you_cannot_send_a_new_comment_because_listing_is_closed: "Vous ne pouvez pas déposer de nouveau commentaire car cette annonce est close."
       you_must: "Vous devez"
       subscribe_to_comments: "Me prévenir des nouveaux commentaires et mises à jour"
+    deleting_a_listing_cannot_be_undone: ~
     edit:
       edit_listing: "Editer l'annonce"
     edit_links:
@@ -1882,6 +2285,7 @@ fr-CA:
       listing_is_rejected: ~
       approve_listing: ~
       reject_listing: ~
+      delete_listing: ~
     map:
       open_in_google_maps: ~
     error:
@@ -1904,6 +2308,7 @@ fr-CA:
       description:
         detailed_description: "Description détaillée"
         youtube_info: ~
+        youtube_info_markdown: ~
       destination:
         destination: "Lieu d'arrivée"
       form_content:
@@ -1960,6 +2365,7 @@ fr-CA:
       origin:
         location: Lieu
         origin: "Lieu de départ"
+        the_exact_location: ~
       send_button:
         save_listing: "Publier l'annonce"
         submit_for_review: ~
@@ -2067,6 +2473,7 @@ fr-CA:
       month: ~
       unit: ~
       custom: ~
+      person: ~
     quantity_placeholder: ~
     please_comment: "Faire un commentaire"
     reply_link:
@@ -2118,6 +2525,7 @@ fr-CA:
       week: ~
       month: ~
       unit: ~
+      person: ~
     verification_required:
       verification_required: "Vérification nécessaire"
   listing_conversations:
@@ -2134,6 +2542,7 @@ fr-CA:
       night: ~
       nights: ~
       invalid_parameters: ~
+      select_delivery_method: ~
     transaction_agreement_checkbox:
       read_more: Lire.
     stripe_payment:
@@ -2282,8 +2691,6 @@ fr-CA:
       sign_up: "Créer un nouveau compte sur %{service_name}"
       terms: "conditions d'utilisation"
       privacy: ~
-      username_is_in_use: "Ce nom d'utilisateur est déjà utilisé."
-      username_is_invalid: "Nom d'utilisateur incorrect. Les caractères autorisés sont les lettres, les chiffres et le tiret bas ('_')."
       visible_only_to_you: "visible uniquement par vous et l'administrateur de la place de marché"
       visible_to_everybody: "visible à tout le monde"
       create_account_with_provider: ~
@@ -2298,7 +2705,7 @@ fr-CA:
       manage_listings: ~
     show:
       contact: "Contacter %{person}"
-      about_me: "A propos de moi : "
+      about_me: "À propos de moi :"
       add_description: "Partagez quelque chose à propos de vous"
       add_location: "Ajoutez une adresse"
       add_phone_number: "Ajoutez un numéro de téléphone"
@@ -2432,7 +2839,7 @@ fr-CA:
       unsubscribe_unsuccesful: "Erreur lors de la désinscription"
       unsuccessful_unsubscribe_info_text: "Cela est peut être du au fait que le lien de désinscription que vous avez cliqué est trop ancien ou erroné. Contactez nous grâce au bouton \"feedback\" et nous vous désabonnerons, ou bien connectez vous pour gérer vos réglages d'emails."
     profile:
-      about_you: "A propos de vous"
+      about_you: "À propos de vous"
       city: Ville
       family_name: Nom
       given_name: Prénom
@@ -2456,6 +2863,10 @@ fr-CA:
       image_is_processing: ~
       shown_in_your_public_profile: ~
       editing_profile_of: ~
+      format_markdown_link: ~
+      format_markdown: ~
+      username: ~
+      username_description: ~
     save_information: "Sauvegarder les informations"
   shipping_address:
     shipping_address: "Adresse de livraison"
@@ -2698,6 +3109,12 @@ fr-CA:
     paypal_connected: ~
     paypal_can_accept: ~
     paypal_connected_give_permission: ~
+    stripe_account_restricted: ~
+    stripe_account_restricted_info: ~
+    stripe_account_restricted_soon: ~
+    stripe_account_restricted_soon_info: ~
+    stripe_account_pending_verification: ~
+    stripe_account_pending_verification_info: ~
     form_new:
       need_info: ~
       select_country: ~
@@ -2737,7 +3154,6 @@ fr-CA:
       address_kanji_line1: ~
       male: ~
       female: ~
-      mcc: ~
     form_bank:
       bank_account_number: ~
       bank_routing_number: ~
@@ -2764,14 +3180,19 @@ fr-CA:
     form_verification:
       personal_id_number: ~
       document: ~
+      document_back: ~
       send_verification: ~
       need_verification: ~
+      additional_document: ~
+      additional_document_back: ~
+      files_need_to_be: ~
     form_pin:
       social_insurance_number: ~
       social_security_number: ~
       ssn_last_4: ~
       hong_kong_identity_card: ~
       singapore_identity_card: ~
+      mexico_id_number: ~
       messages:
         social_insurance_number: ~
   payment_settings:
@@ -2796,3 +3217,40 @@ fr-CA:
       category_description: ~
       profile_title: ~
       profile_description: ~
+  activemodel:
+    attributes:
+      landing_page_version/section/base:
+        id: ~
+        title: ~
+        paragraph: ~
+        button_title: ~
+        button_path: ~
+        button_path_string: ~
+        background_image: ~
+        background_image_variation: ~
+        background_color: ~
+        background_color_string: ~
+      landing_page_version/section/listings:
+        listing_1_id: ~
+        listing_2_id: ~
+        listing_3_id: ~
+      landing_page_version/section/video:
+        text: ~
+        youtube_video_id: ~
+      landing_page_version/section/hero:
+        cta_button_text: ~
+        cta_button_url: ~
+  canada_states:
+    AB: Alberta
+    BC: Colombie-Britannique
+    MB: Manitoba
+    NB: Nouveau-Brunswick
+    NL: Terre-Neuve-et-Labrador
+    NS: Nouvelle-Écosse
+    NT: "Territoires du Nord-Ouest"
+    NU: Nunavut
+    "ON": Ontario
+    PE: Île-du-Prince-Édouard
+    QC: Québec
+    SK: Saskatchewan
+    YT: "Yukon Territory"

@@ -1347,7 +1347,7 @@ Style/StructInheritance:
 # SupportedStyles: percent, brackets
 Style/SymbolArray:
   EnforcedStyle: percent
-  MinSize: 17
+  MinSize: 18
 
 # Offense count: 40
 # Cop supports --auto-correct.
@@ -1502,6 +1502,7 @@ Rails/FilePath:
     - 'lib/tasks/**/*'
     - 'app/controllers/landing_page_controller.rb'
     - 'app/models/person.rb'
+    - 'app/models/listing_image.rb'
     - 'app/services/paypal_service/paypal_service_injector.rb'
     - 'lib/jsroutes_middleware.rb'
     - 'lib/services/paypal_service/api/fake_api_implementation.rb'
@@ -1706,3 +1707,14 @@ Naming/MemoizedInstanceVariableName:
     - 'app/services/custom_landing_page/listing_store.rb'
     - 'app/services/custom_landing_page/category_store.rb'
 
+Style/MixinUsage:
+  Exclude:
+    - 'bin/**/*'
+
+Style/StderrPuts:
+  Exclude:
+    - 'bin/**/*'
+
+Rails/ActiveRecordOverride:
+  Exclude:
+    - 'app/models/landing_page_version/section/base.rb'

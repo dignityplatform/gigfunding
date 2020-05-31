@@ -46,21 +46,31 @@ Rails.application.configure do
   end
 
 
+  # Do not eager load code on boot.
+  config.eager_load = false
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
+
+  # The default should be false, but is not for some reason (some gem sets it to
+  # true?), so force it back. Origin checks are problematic because we force no
+  # referrer policy and that seems to affect at least password resets.
+  config.action_controller.forgery_protection_origin_check = false
 
   # Enable/disable caching. By default caching is disabled.
   if Rails.root.join('tmp/caching-dev.txt').exist?
     config.action_controller.perform_caching = true
     config.cache_store = :memory_store, { :namespace => "sharetribe-dev"}
     config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.seconds.to_i}"
+      'Cache-Control' => "public, max-age=#{2.days.to_i}"
     }
   else
     config.action_controller.perform_caching = false
     config.cache_store = :null_store
   end
+
+  # Store uploaded files on the local file system (see config/storage.yml for options)
+  config.active_storage.service = :local
 
   config.action_controller.action_on_unpermitted_parameters = :raise
 
@@ -90,6 +100,9 @@ Rails.application.configure do
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
+  # Highlight code that triggered database queries in logs.
+  config.active_record.verbose_query_logs = true
+
   # Expands the lines which load the assets
   config.assets.debug = false
   config.assets.quiet = true
@@ -100,4 +113,5 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  config.active_storage.service = :amazon
 end

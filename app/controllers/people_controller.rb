@@ -1,5 +1,5 @@
 class PeopleController < Devise::RegistrationsController
-  skip_before_action :verify_authenticity_token, :only => [:creates]
+  skip_before_action :verify_authenticity_token, :only => [:create]
   skip_before_action :require_no_authentication, :only => [:new]
 
   before_action EnsureCanAccessPerson.new(
@@ -175,19 +175,27 @@ class PeopleController < Devise::RegistrationsController
             flash[:notice] = t("layouts.notifications.email_confirmation_sent_to_new_address")
         end
       else
-        flash[:error] = t("layouts.notifications.#{target_user.errors.first}")
+        flash[:error] = if params[:referer_form] == 'settings'
+          target_user.errors.full_messages.join(', ')
+        else
+          t("layouts.notifications.#{target_user.errors.first}")
+                        end
       end
     rescue RestClient::RequestFailed => e
       flash[:error] = t("layouts.notifications.update_error")
     end
 
-    redirect_back(fallback_location: homepage_url)
+    if params[:referer_form] == 'settings' && target_user.errors.empty?
+      redirect_to person_settings_path(person_id: target_user.username)
+    else
+      redirect_back(fallback_location: homepage_url)
+    end
   end
 
   def destroy
     target_user = Person.find_by!(username: params[:id], community_id: @current_community.id)
 
-    has_unfinished = TransactionService::Transaction.has_unfinished_transactions(target_user.id)
+    has_unfinished = Transaction.unfinished_for_person(target_user).any?
     only_admin = @current_community.is_person_only_admin(target_user)
 
     return redirect_to search_path if has_unfinished || only_admin
@@ -204,6 +212,7 @@ class PeopleController < Devise::RegistrationsController
       Person.delete_user(target_user.id)
       Listing.delete_by_author(target_user.id)
       PaypalAccount.where(person_id: target_user.id, community_id: target_user.community_id).delete_all
+      Invitation.where(community: @current_community, inviter: target_user).update_all(deleted: true) # rubocop:disable Rails/SkipsModelValidations
     end
 
     sign_out target_user
@@ -213,8 +222,9 @@ class PeopleController < Devise::RegistrationsController
   end
 
   def check_username_availability
+    target_user = Person.find_by!(username: params[:id], community_id: @current_community.id)
     respond_to do |format|
-      format.json { render :json => Person.username_available?(params[:person][:username], @current_community.id) }
+      format.json { render :json => Person.username_available?(params[:person][:username], @current_community, target_user) }
     end
   end
 
@@ -294,7 +304,6 @@ class PeopleController < Devise::RegistrationsController
         :password2,
         :locale,
         :email,
-        :username,
         :test_group_number,
         :community_id,
         :admin_emails_consent
@@ -325,6 +334,7 @@ class PeopleController < Devise::RegistrationsController
       :phone_number,
       :image,
       :description,
+      :username,
       location: [:address, :google_address, :latitude, :longitude],
       custom_field_values_attributes: [
         :id,
@@ -344,6 +354,7 @@ class PeopleController < Devise::RegistrationsController
       :password,
       :password2,
       :min_days_between_community_updates,
+      :username,
       send_notifications: [],
       email_attributes: [:address],
       preferences: [

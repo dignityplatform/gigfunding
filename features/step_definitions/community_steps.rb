@@ -103,8 +103,9 @@ Given /^community "(.*?)" has following category structure:$/ do |community, cat
   current_community = Community.where(ident: community).first
   old_category_ids = current_community.categories.collect(&:id)
 
-  current_community.categories = categories.hashes.map do |hash|
-    category = current_community.categories.create!
+  new_categories = []
+  categories.hashes.each_with_index do |hash, index|
+    category = current_community.categories.create!(sort_priority: index)
     category.translations.create!(:name => hash['fi'], :locale => 'fi')
     category.translations.create!(:name => hash['en'], :locale => 'en')
 
@@ -116,8 +117,9 @@ Given /^community "(.*?)" has following category structure:$/ do |community, cat
     else
       category.update_attribute(:parent_id, @top_level_category.id)
     end
-    category
+    new_categories.push category
   end
+  current_community.categories = new_categories
 
   # Clean old
   current_community.categories.select do |category|
@@ -248,6 +250,10 @@ Given /^this community has transaction agreement in use$/ do
   @current_community.save!
 end
 
+Given /^this community has location search (enabled|disabled)$/ do |mode|
+  APP_CONFIG.external_search_in_use = mode == 'enabled'
+end
+
 Given /^community "(.*?)" has feature flag "(.*?)" enabled$/ do |community, feature_flag|
   community = Community.where(ident: community).first
   FeatureFlagService::API::Api.features.enable(community_id: community.id, features: [feature_flag.to_sym])
@@ -269,5 +275,20 @@ end
 
 Given(/^community "(.*?)" has pre-approved listings$/)do |community|
   Community.where(ident: community).first.update_attribute(:pre_approved_listings, true)
+end
+
+Given(/^this community does not allow users to add location$/) do
+  @current_community.show_location = false
+  @current_community.save!
+end
+
+Given /^community "(.*?)" has feature "(.*?)" in the plan$/ do |community, feature|
+  community = Community.where(ident: community).first
+  plan = {
+    status: "active",
+    features: {}
+  }
+  plan[:features][feature.to_sym] = true
+  PlanService::Store::Plan.create(community_id: community.id, plan: plan)
 end
 

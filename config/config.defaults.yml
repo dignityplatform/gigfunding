@@ -52,6 +52,9 @@ default: &default_settings
   # Default bucket
   s3_bucket_name:
 
+  # Bucket for CLP images
+  clp_s3_bucket_name:
+
   # AWS S3 region
   s3_region: us-east-1
 
@@ -255,8 +258,8 @@ default: &default_settings
   icon_pack: "font-awesome"
 
   # If icon_pack is set to "ss-pika", set the location for the icon pack
-  # This setting is irrelevant to Open Source developers, since ss icon pack
-  # is not included in the Open Source distribution
+  # This setting is irrelevant to developers, since ss icon pack
+  # is not included in the source available distribution
   ss_pika_location: "ss-pika"
   ss_social_location: "ss-social"
 
@@ -368,6 +371,7 @@ default: &default_settings
   # Example values:
   #
   # - landing_page/
+  # - /landing_page/%{sitename}/
   # - https://s3.amazonaws.com/my-bucket/sites/%{sitename}/
   #
   clp_asset_url: "landing_page/"
@@ -412,6 +416,8 @@ default: &default_settings
   # - https://s3.amazonaws.com/my-bucket/fonts/
   #
   font_proximanovasoft_url:
+
+  font_circularstd_url:
 
   ##########################################
   # Admin Intercom (sharetribe.com internal)
@@ -479,9 +485,14 @@ default: &default_settings
   ##########################################
 
   # Enable end-user analytics tracking configuration
-  # in admin panel. Open source users should instead use
+  # in admin panel. Source available users should instead use
   # the use_google_tag_manager: false
   admin_enable_tracking_config: false
+
+  clp_s3_bucket_name: 'landing_page'
+
+  # Debian CA bundle required for Paypal
+  ssl_ca_certificates_file: '/etc/ssl/certs/ca-certificates.crt'
 
 production: &production_settings
   <<: *default_settings
@@ -581,3 +592,4 @@ test:
   feature_stripe_private_key: sk_test_123456789012345678901234
 
   admin_enable_tracking_config: true
+

@@ -18,10 +18,14 @@
 - content_for :title_header do
   - is_homepage = params[:controller] == "homepage" && params[:action] == "index"
   - if @big_cover_photo
-    - hidden_slogan = !@current_community.show_slogan? ? "hidden-title-part" : ""
-    - hidden_description = !@current_community.show_description? ? "hidden-title-part" : ""
-    %h1.marketplace-lander-content-title{class: hidden_slogan}= community_slogan.html_safe
-    %p.marketplace-lander-content-description{class: hidden_description}= community_description.html_safe
+    - if @current_community.show_slogan?
+      %h1.marketplace-lander-content-title= community_slogan.html_safe
+    - else
+      %h1.marketplace-lander-content-title.hidden_title_part &nbsp;
+    - if @current_community.show_description?
+      %p.marketplace-lander-content-description= community_description.html_safe
+    - else
+      %p.marketplace-lander-content-description.hidden-title-part &nbsp;
     - unless (is_homepage && !@current_community.private? && FeatureFlagHelper.feature_enabled?(:topbar_v1))
       .search-form
         - if @current_community.private?
@@ -63,7 +67,7 @@
           = t(".filter")
 
     .home-toolbar-button-group{:class => listing_shape_menu_enabled || @category_menu_enabled ? "filters-enabled" : ""}
-      - ["grid", "list", "map"].each do |view_type|
+      - allowed_view_types.each do |view_type|
         - selected_class = @view_type == view_type ? "selected" : ""
         = link_to search_path(search_params.merge(view: view_type)), :class => "home-toolbar-button-group-button #{selected_class}", :title => t("homepage.filters.#{view_type}_button") do
           = icon_tag(view_type, ["icon-fix", "home-button-group-icon"])
@@ -96,7 +100,7 @@
               .toggle-header-container
                 .toggle-header
                   - if selected_category
-                    = selected_category.display_name(I18n.locale)
+                    = @category_display_names[selected_category.id]
                   - else
                     = t("homepage.filters.all_categories")
 
@@ -104,11 +108,11 @@
             #home-toolbar-categories-menu.toggle-menu
               = link_to t("homepage.filters.all_categories"), search_path(search_params.merge({category: "all"}))
               - @main_categories.each do |category|
-                = link_to category.display_name(I18n.locale), search_path(search_params.merge({category: category}))
+                = link_to @category_display_names[category.id], search_path(search_params.merge({category: category}))
                 - if category.children
                   - category.children.each do |child|
                     - is_selected = selected_category == child
-                    = link_to child.display_name(I18n.locale), search_path(search_params.merge({category: child})), :class => "toggle-menu-subitem"
+                    = link_to @category_display_names[child.id], search_path(search_params.merge({category: child})), :class => "toggle-menu-subitem"
 
         / Filters
         .hidden-tablet
@@ -125,12 +129,12 @@
               = link_to t("homepage.filters.all_categories"), search_path(search_params.merge({category: "all"})), :class => "home-categories-main #{if selected_category.nil? then 'selected' end}"
               - @main_categories.each do |category|
                 - show_subcategories = show_subcategory_list(category, Maybe(selected_category).id.to_i.or_else(nil))
-                = link_to category.display_name(I18n.locale), search_path(search_params.merge({category: category})), :class => "home-categories-main #{if show_subcategories then 'selected' end} #{if category.has_subcategories? then 'has-subcategories' end}", :data => {category: category.id}
+                = link_to @category_display_names[category.id], search_path(search_params.merge({category: category})), :class => "home-categories-main #{if show_subcategories then 'selected' end} #{if category.has_subcategories? then 'has-subcategories' end}", :data => {category: category.id}
                 - if category.children
                   - if show_subcategories
                     - category.children.each do |child|
                       - is_selected = selected_category == child
-                      = link_to child.display_name(I18n.locale), search_path(search_params.merge({category: child})), :class => "home-categories-sub #{if is_selected then 'selected' end}", :data => {:"sub-category" =>child.id}
+                      = link_to @category_display_names[child.id], search_path(search_params.merge({category: child})), :class => "home-categories-sub #{if is_selected then 'selected' end}", :data => {:"sub-category" =>child.id}
 
         #desktop-filters
           - # Filters will be relocated here when in desktop

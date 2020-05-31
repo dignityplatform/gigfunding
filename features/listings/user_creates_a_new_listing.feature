@@ -174,9 +174,9 @@ Scenario: User creates a new listing with date field
   And I select "Spaces" from listing type menu
   And I select "Selling" from listing type menu
   And I fill in "listing_title" with "My house"
-  And I fill select custom date "building_date_test" with day="19", month="April" and year="2014"
+  And I fill select custom date "building_date_test" with day="19", month="April" and year="2025"
   And I press "Post listing"
-  Then I should see "building_date_test: Apr 19, 2014"
+  Then I should see "building_date_test: Apr 19, 2025"
 
   @javascript @sphinx @no-transaction
   Scenario: User creates a new listing with checkbox field
@@ -242,6 +242,7 @@ Scenario: User creates a new listing with date field
     When I select "week" from "listing[unit]"
     And I press "Post listing"
     Then I should see "Sledgehammer" within "#listing-title"
+    Then I follow "close_x"
     When I follow "Edit listing"
     Then I should see selected "week" in the "listing[unit]" dropdown
     When I select "person" from "listing[unit]"
@@ -274,3 +275,21 @@ Scenario: User creates a new listing with date field
     Then I should see "Birds of a Feather Flock Together" within "#listing-title"
     Then I should see "Listing is pending"
 
+  @javascript
+  Scenario: Creating a new item request when location disabled successfully
+    Given this community does not allow users to add location
+    Given I am logged in
+    And I am on the home page
+    When I follow "new-listing-link"
+    And I select "Items" from listing type menu
+    And I select "Tools" from listing type menu
+    And I select "Requesting" from listing type menu
+    And I fill in "listing_title" with "Sledgehammer"
+    And I fill in "listing_description" with "My description"
+    And I press "Post listing"
+    Then I should see "Sledgehammer" within "#listing-title"
+    Then I follow "close_x"
+    When I follow "Edit listing"
+    And I fill in "listing_title" with "On Cloud Nine"
+    And I press "Post listing"
+    Then I should see "On Cloud Nine" within "#listing-title"
