@@ -1,17 +1,10 @@
-FROM ruby:2.6.2
+FROM ruby:2.6.5-buster
 
 MAINTAINER Sharetribe Team <team@sharetribe.com>
 
-ENV REFRESHED_AT 2019-04-12
+ENV REFRESHED_AT 2019-09-20
 
-# NOTE: we will migrate soon to newer ruby version and away from Debian
-# Jessie-based image. For now, enable only package repositories that are still
-# maintained for jessie for LTS.
-
-RUN echo 'deb http://deb.debian.org/debian jessie main' > /etc/apt/sources.list \
-    && echo 'deb http://security.debian.org jessie/updates main' >> /etc/apt/sources.list \
-    && apt-get update \
-    && apt-get dist-upgrade -y
+RUN apt-get update && apt-get dist-upgrade -y
 
 # Prevent GPG from trying to bind on IPv6 address even if there are none
 RUN mkdir ~/.gnupg \
@@ -25,14 +18,17 @@ RUN mkdir ~/.gnupg \
 # gpg keys listed at https://github.com/nodejs/node#release-team
 RUN set -ex \
   && for key in \
-    9554F04D7259F04124DE6B476D5A82AC7E37093B \
+    4ED778F539E3634C779C87C6D7062848A1AB005C \
+    B9E2F5981AA6E0CD28160D9FF13993A75599653C \
     94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
-    FD3A5288F042B6850C66B31F09FE44734EB7990E \
-    71DCFD284A79C3B38668286BC97EC7A07EDE3FC1 \
-    DD8F2338BAE7501E3DD5AC78C273792F7D83545D \
     B9AE9905FFD7803F25714661B63B535A4C206CA9 \
+    77984A986EBC2AA786BC0F66B01FBB92821C587A \
+    71DCFD284A79C3B38668286BC97EC7A07EDE3FC1 \
+    FD3A5288F042B6850C66B31F09FE44734EB7990E \
+    8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600 \
     C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8 \
-    56730D5401028683275BD23C23EFEFE93C4CFFFE \
+    DD8F2338BAE7501E3DD5AC78C273792F7D83545D \
+    A48C2BEE680E841632CD4E44F07496B3EB3C1762 \
   ; do \
     gpg --batch --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys "$key" || \
     gpg --batch --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys "$key" || \
@@ -40,7 +36,7 @@ RUN set -ex \
   done
 
 ENV NPM_CONFIG_LOGLEVEL info
-ENV NODE_VERSION 7.8.0
+ENV NODE_VERSION 10.15.3
 
 RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
   && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
@@ -62,8 +58,13 @@ RUN curl -sfSL \
 # Sharetribe
 #
 
-# Install nginx - used to serve maintenance mode page
-RUN apt-get install -y nginx
+# Install:
+# - nginx - used to serve maintenance mode page
+# - MySQL 5.7 repo and client libs
+COPY script/setup-mysql-apt-repo.sh /root/
+RUN apt-get install -y nginx \
+  && /root/setup-mysql-apt-repo.sh \
+  && apt-get install -y libmysqlclient-dev
 
 # Install latest bundler
 ENV BUNDLE_BIN=
@@ -86,7 +87,6 @@ RUN bundle install --deployment --without test,development
 
 COPY package.json /opt/app/
 COPY client/package.json /opt/app/client/
-COPY client/customloaders/customfileloader /opt/app/client/customloaders/customfileloader
 
 ENV NODE_ENV production
 ENV NPM_CONFIG_LOGLEVEL error

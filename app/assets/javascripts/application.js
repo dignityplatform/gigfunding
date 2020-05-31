@@ -78,6 +78,9 @@
 //= require admin/transactions.js
 //= require admin/testimonials.js
 //= require admin/domains.js
+//= require admin/landing_page_editor.js
+//= require admin/landing_page_section_editor.js
+//= require admin/seo_settings.js
 //= require payment_math
 //= require dropdown
 //= require jquery.nouislider
@@ -96,7 +99,9 @@
 //= require listing_form
 //= require radio_buttons
 //= require new_layout
-//= require stripe_form2
+//= require stripe_form3
 //= require analytics
 //= require social-insurance-number
+//= require stripe_payment
+//= require confirm_conversation
 //= require_self

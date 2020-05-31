@@ -1,4 +1,8 @@
 class StripeService::API::StripeApiWrapper
+  DEFAULT_MCC = 5734 # Computer Software Stores
+  API_2019_12_03 = '2019-12-03'.freeze
+  API_2019_02_19 = '2019-02-19'.freeze
+
   class << self
 
     @@mutex ||= Mutex.new # rubocop:disable ClassVars
@@ -8,7 +12,7 @@ class StripeService::API::StripeApiWrapper
     end
 
     def configure_payment_for(settings)
-      Stripe.api_version = '2019-02-19'
+      Stripe.api_version = API_2019_12_03
       Stripe.api_key = TransactionService::Store::PaymentSettings.decrypt_value(settings.api_private_key, settings.key_encryption_padding)
     end
 
@@ -55,43 +59,6 @@ class StripeService::API::StripeApiWrapper
       end
     end
 
-    def charge(community:, token:, seller_account_id:, amount:, fee:, currency:, description:, metadata: {})
-      with_stripe_payment_config(community) do |payment_settings|
-        case charges_mode(community)
-        when :separate
-          Stripe::Charge.create({
-            source: token,
-            amount: amount,
-            description: description,
-            currency: currency,
-            capture: false
-          }.merge(metadata: metadata))
-        when :destination
-          Stripe::Charge.create({
-            source: token,
-            amount: amount,
-            description: description,
-            currency: currency,
-            capture: false,
-            destination: {
-              account: seller_account_id,
-              amount: amount - fee
-            }
-          }.merge(metadata: metadata))
-        end
-      end
-    end
-
-    def capture_charge(community:, charge_id:, seller_id:)
-      with_stripe_payment_config(community) do |payment_settings|
-        case charges_mode(community)
-        when :separate, :destination
-          charge = Stripe::Charge.retrieve(charge_id)
-        end
-        charge.capture
-      end
-    end
-
     def create_token(community:, customer_id:, account_id:)
       with_stripe_payment_config(community) do |payment_settings|
         Stripe::Token.create({customer: customer_id}, {stripe_account: account_id})
@@ -123,13 +90,11 @@ class StripeService::API::StripeApiWrapper
           email: account_info[:email],
           account_token: account_info[:token]
         }
-        if account_info[:address_country] == 'US'
-          data[:requested_capabilities] = ['card_payments']
-          data[:business_profile] = {
-            mcc: account_info[:mcc],
-            url: account_info[:url]
-          }
-        end
+        data[:requested_capabilities] = ['card_payments', 'transfers']
+        data[:business_profile] = {
+          mcc: DEFAULT_MCC,
+          url: account_info[:url]
+        }
         data.deep_merge!(payout_mode).deep_merge!(metadata: metadata)
         Stripe::Account.create(data)
       end
@@ -213,20 +178,6 @@ class StripeService::API::StripeApiWrapper
       APP_CONFIG.stripe_charges_mode.to_sym
     end
 
-    def send_verification(community:, account_id:, personal_id_number:, file_path:)
-      with_stripe_payment_config(community) do |payment_settings|
-        document = Stripe::FileUpload.create({
-            purpose: 'identity_document',
-            file: File.new(file_path)
-          },
-          { stripe_account: account_id})
-        account = Stripe::Account.retrieve(account_id)
-        account.legal_entity.verification.document = document.id
-        account.legal_entity.personal_id_number = personal_id_number
-        account.save
-      end
-    end
-
     def get_seller_account(community:, account_id:)
       with_stripe_payment_config(community) do |payment_settings|
         Stripe::Account.retrieve(account_id)
@@ -236,16 +187,6 @@ class StripeService::API::StripeApiWrapper
     def get_customer_account(community:, customer_id:)
       with_stripe_payment_config(community) do |payment_settings|
         Stripe::Customer.retrieve(customer_id)
-      end
-    end
-
-    def cancel_charge(community:, charge_id:, account_id:, reason:, metadata:  {})
-      with_stripe_payment_config(community) do |payment_settings|
-        reason_data = reason.present? ? {reason: reason} : {}
-        case charges_mode(community)
-        when :separate, :destination
-          Stripe::Refund.create({charge: charge_id}.merge(reason_data).merge(metadata: metadata))
-        end
       end
     end
 
@@ -262,12 +203,25 @@ class StripeService::API::StripeApiWrapper
       with_stripe_payment_config(community) do |payment_settings|
         account = Stripe::Account.retrieve(account_id)
         account.account_token = attrs[:token]
-        if attrs[:address_country] == 'US'
-          account.business_profile.mcc = attrs[:mcc]
-          account.business_profile.url = attrs[:url]
-        end
+        account.email = attrs[:email]
+        account.business_profile.mcc = DEFAULT_MCC
+        account.business_profile.url = attrs[:url]
         account.save
       end
+    end
+
+    def update_account_capabilities(community:, account_id:)
+      with_stripe_payment_config(community) do |payment_settings|
+        account = Stripe::Account.retrieve(account_id)
+        capabilities = account.capabilities
+        unless capabilities['card_payments'] == 'active' && capabilities['platform_payments'] == 'active'
+          account.requested_capabilities = ['card_payments', 'transfers', 'legacy_payments']
+          account.save
+        end
+      end
+      true
+    rescue StandardError
+      nil
     end
 
     def empty_string_as_nil(value)
@@ -296,6 +250,44 @@ class StripeService::API::StripeApiWrapper
       with_stripe_payment_config(community) do |payment_settings|
         account = Stripe::Account.retrieve(account_id)
         account.delete
+      end
+    end
+
+    def create_payment_intent(community:, seller_account_id:, payment_method_id:, amount:, currency:, fee:, description:, metadata:)
+      with_stripe_payment_config(community) do |payment_settings|
+        Stripe::PaymentIntent.create(
+          capture_method: 'manual',
+          payment_method: payment_method_id,
+          amount: amount,
+          currency: currency,
+          confirmation_method: 'manual',
+          confirm: true,
+          on_behalf_of: seller_account_id,
+          transfer_data: {
+            destination: seller_account_id,
+            amount: amount - fee
+          },
+          description: description,
+          metadata: metadata
+        )
+      end
+    end
+
+    def confirm_payment_intent(community:, payment_intent_id:)
+      with_stripe_payment_config(community) do |payment_settings|
+        Stripe::PaymentIntent.new(payment_intent_id).confirm
+      end
+    end
+
+    def capture_payment_intent(community:, payment_intent_id:)
+      with_stripe_payment_config(community) do |payment_settings|
+        Stripe::PaymentIntent.new(payment_intent_id).capture
+      end
+    end
+
+    def cancel_payment_intent(community:, payment_intent_id:)
+      with_stripe_payment_config(community) do |payment_settings|
+        Stripe::PaymentIntent.new(payment_intent_id).cancel
       end
     end
   end

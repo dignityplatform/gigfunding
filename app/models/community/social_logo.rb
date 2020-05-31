@@ -2,8 +2,8 @@
 #
 # Table name: community_social_logos
 #
-#  id                 :integer          not null, primary key
-#  community_id       :integer
+#  id                 :bigint           not null, primary key
+#  community_id       :bigint
 #  image_file_name    :string(255)
 #  image_content_type :string(255)
 #  image_file_size    :integer
@@ -34,9 +34,13 @@ class Community::SocialLogo < ApplicationRecord
                     :keep_old_files => true
 
   validates_attachment_content_type :image,
-                                    :content_type => ["image/jpeg",
-                                                      "image/png",
-                                                      "image/gif",
-                                                      "image/pjpeg",
-                                                      "image/x-png"]
+                                    :content_type => IMAGE_CONTENT_TYPE
+
+  attr_reader :destroy_image
+
+  def destroy_image=(value)
+    if value == '1'
+      image.destroy
+    end
+  end
 end

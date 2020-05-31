@@ -104,6 +104,10 @@
 #  linkedin_connect_id                        :string(255)
 #  linkedin_connect_secret                    :string(255)
 #  pre_approved_listings                      :boolean          default(FALSE)
+#  allow_free_conversations                   :boolean          default(TRUE)
+#  email_admins_about_new_transactions        :boolean          default(FALSE)
+#  show_location                              :boolean          default(TRUE)
+#  fuzzy_location                             :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -118,6 +122,7 @@ class Community < ApplicationRecord
   require 'sass/plugin'
 
   include EmailHelper
+  include AttachmentDestroyer
 
   has_many :community_memberships, :dependent => :destroy
   has_many :members, -> { merge(CommunityMembership.accepted) }, :through => :community_memberships, :source => :person
@@ -156,8 +161,12 @@ class Community < ApplicationRecord
   has_one :social_logo, :dependent => :destroy
   has_many :social_links, -> { sorted }, :dependent => :destroy, :inverse_of => :community
 
+  has_many_attached :landing_page_assets
+
   accepts_nested_attributes_for :social_logo
+  accepts_nested_attributes_for :configuration
   accepts_nested_attributes_for :footer_menu_links, allow_destroy: true
+  accepts_nested_attributes_for :menu_links, allow_destroy: true
   accepts_nested_attributes_for :social_links, allow_destroy: true
   accepts_nested_attributes_for :community_customizations
 
@@ -165,9 +174,13 @@ class Community < ApplicationRecord
 
   monetize :minimum_price_cents, :allow_nil => true, :with_model_currency => :currency
 
-  validates_length_of :ident, :in => 2..50
-  validates_format_of :ident, :with => /\A[A-Z0-9_\-\.]*\z/i
-  validates_uniqueness_of :ident
+  # starts ends with alphanumerics can contain hyphen
+  validates :ident, length: { in: 3..50 },
+                    format: { with: /\A[A-Z0-9][A-Z0-9\-]*[A-Z0-9]\z/i, message: :domain_name_is_invalid },
+                    uniqueness: true,
+                    exclusion: { in: MarketplaceService::RESERVED_DOMAINS, message: :domain_name_is_invalid }
+  # cannot contain --
+  validates :ident, format: { with: /\A((?!\-\-).)*\z/, message: :domain_name_is_invalid }
   validates_length_of :slogan, :in => 2..100, :allow_nil => true
   validates_format_of :custom_color1, :with => /\A[A-F0-9_-]{6}\z/i, :allow_nil => true
   validates_format_of :custom_color2, :with => /\A[A-F0-9_-]{6}\z/i, :allow_nil => true
@@ -203,11 +216,7 @@ class Community < ApplicationRecord
                     :keep_old_files => true
 
   validates_attachment_content_type :logo,
-                                    :content_type => ["image/jpeg",
-                                                      "image/png",
-                                                      "image/gif",
-                                                      "image/pjpeg",
-                                                      "image/x-png"]
+                                    :content_type => IMAGE_CONTENT_TYPE
 
   has_attached_file :wide_logo,
                     :styles => {
@@ -223,11 +232,7 @@ class Community < ApplicationRecord
                     :keep_old_files => true
 
   validates_attachment_content_type :wide_logo,
-                                    :content_type => ["image/jpeg",
-                                                      "image/png",
-                                                      "image/gif",
-                                                      "image/pjpeg",
-                                                      "image/x-png"]
+                                    :content_type => IMAGE_CONTENT_TYPE
 
   has_attached_file :cover_photo,
                     :styles => {
@@ -239,11 +244,7 @@ class Community < ApplicationRecord
                     :keep_old_files => true
 
   validates_attachment_content_type :cover_photo,
-                                    :content_type => ["image/jpeg",
-                                                      "image/png",
-                                                      "image/gif",
-                                                      "image/pjpeg",
-                                                      "image/x-png"]
+                                    :content_type => IMAGE_CONTENT_TYPE
 
   has_attached_file :small_cover_photo,
                     :styles => {
@@ -255,11 +256,7 @@ class Community < ApplicationRecord
                     :keep_old_files => true
 
   validates_attachment_content_type :small_cover_photo,
-                                    :content_type => ["image/jpeg",
-                                                      "image/png",
-                                                      "image/gif",
-                                                      "image/pjpeg",
-                                                      "image/x-png"]
+                                    :content_type => IMAGE_CONTENT_TYPE
 
   has_attached_file :favicon,
                     :styles => {
@@ -272,11 +269,7 @@ class Community < ApplicationRecord
                     :default_url => ->(_) { ActionController::Base.helpers.asset_path("favicon.ico") }
 
   validates_attachment_content_type :favicon,
-                                    :content_type => ["image/jpeg",
-                                                      "image/png",
-                                                      "image/gif",
-                                                      "image/x-icon",
-                                                      "image/vnd.microsoft.icon"]
+                                    :content_type => %w[image/jpeg image/png image/gif image/x-icon image/vnd.microsoft.icon]
 
   # process_in_background definitions have to be after
   # after all attachments: https://github.com/jrgifford/delayed_paperclip/issues/129
@@ -322,6 +315,49 @@ class Community < ApplicationRecord
   validates_format_of :facebook_connect_secret, with: /\A[a-f0-9]{32}\z/, allow_nil: true
 
   attr_accessor :terms
+
+  before_validation :check_colors, :socials_process, :check_twitter
+
+  def check_twitter
+    self.twitter_handle = twitter_handle.to_s.delete('@').presence
+  end
+
+  def check_colors
+    self.slogan_color = slogan_color.to_s.delete('#').presence
+    self.description_color = description_color.to_s.delete('#').presence
+    self.custom_color1 = custom_color1.to_s.delete('#').presence
+  end
+
+  def socials_process
+    self.facebook_connect_secret = facebook_connect_secret.presence
+    self.facebook_connect_id = facebook_connect_id.presence
+    self.linkedin_connect_secret = linkedin_connect_secret.presence
+    self.linkedin_connect_id = linkedin_connect_id.presence
+    self.google_connect_secret = google_connect_secret.presence
+    self.google_connect_id = google_connect_id.presence
+  end
+
+  def description_color_string
+    return unless description_color.present?
+
+    "##{description_color}"
+  end
+
+  def custom_color1_string
+    return unless custom_color1.present?
+
+    "##{custom_color1}"
+  end
+
+  def slogan_color_string
+    return unless slogan_color.present?
+
+    "##{slogan_color}"
+  end
+
+  def apply_main_search_keyword!
+    configuration.update(main_search: :keyword)
+  end
 
   # Wrapper for the various attachment images url methods
   # which returns url of old image, while new one is processing.

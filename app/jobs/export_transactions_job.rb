@@ -15,7 +15,7 @@ class ExportTransactionsJob < Struct.new(:current_user_id, :community_id, :expor
     export_task = ExportTaskResult.find(export_task_id)
     export_task.update(status: 'started')
 
-    conversations = Transaction.for_community_sorted_by_activity(community.id, 'desc', nil, nil, true)
+    conversations = Transaction.for_community_sorted_by_activity(community.id, 'desc', true)
     csv_rows = []
     ExportTransactionsJob.generate_csv_for(csv_rows, conversations)
     csv_content = csv_rows.join("")
@@ -24,17 +24,6 @@ class ExportTransactionsJob < Struct.new(:current_user_id, :community_id, :expor
     export_task.original_filename = filename
     export_task.original_extname = File.extname(filename).delete('.')
     export_task.update(status: 'finished', file: FakeFileIO.new(filename, csv_content))
-  end
-
-  class FakeFileIO < StringIO
-    attr_reader :original_filename
-    attr_reader :path
-
-    def initialize(filename, content)
-      super(content)
-      @original_filename = File.basename(filename)
-      @path = File.path(filename)
-    end
   end
 
   class << self
@@ -47,10 +36,12 @@ class ExportTransactionsJob < Struct.new(:current_user_id, :community_id, :expor
        status
        currency
        sum
+       commission_from_provider
+       commission_from_buyer
        started_at
        last_activity_at
-       starter_username
-       other_party_username
+       buyer_user_id
+       provider_user_id
      }.to_csv(force_quotes: true)
      transactions.each do |transaction|
        yielder << [
@@ -60,10 +51,12 @@ class ExportTransactionsJob < Struct.new(:current_user_id, :community_id, :expor
          transaction.status,
          transaction.payment_total.is_a?(Money) ? transaction.payment_total.currency : "N/A",
          transaction.payment_total,
-         transaction.created_at,
-         transaction.last_activity,
-         transaction.starter ? transaction.starter.username : "DELETED",
-         transaction.author ? transaction.author.username : "DELETED"
+         transaction.commission,
+         transaction.buyer_commission,
+         transaction.created_at && I18n.l(transaction.created_at, format: '%Y-%m-%d %H:%M:%S'),
+         transaction.last_activity && I18n.l(transaction.last_activity, format: '%Y-%m-%d %H:%M:%S'),
+         transaction.starter ? transaction.starter.id : "DELETED",
+         transaction.author ? transaction.author.id : "DELETED"
        ].to_csv(force_quotes: true)
      end
     end

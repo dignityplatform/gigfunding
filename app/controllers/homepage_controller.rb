@@ -2,8 +2,9 @@ class HomepageController < ApplicationController
 
   before_action :save_current_path, :except => :sign_in
 
-  APP_DEFAULT_VIEW_TYPE = "grid"
-  VIEW_TYPES = ["grid", "list", "map"]
+  APP_DEFAULT_VIEW_TYPE = "grid".freeze
+  VIEW_TYPES_NO_LOCATION = ["grid".freeze, "list".freeze].freeze
+  VIEW_TYPES = (VIEW_TYPES_NO_LOCATION + ["map".freeze]).freeze
 
   # rubocop:disable AbcSize
   # rubocop:disable MethodLength
@@ -26,7 +27,7 @@ class HomepageController < ApplicationController
     if FeatureFlagHelper.feature_enabled?(:searchpage_v1)
       @view_type = "grid"
     else
-      @view_type = SearchPageHelper.selected_view_type(params[:view], @current_community.default_browse_view, APP_DEFAULT_VIEW_TYPE, VIEW_TYPES)
+      @view_type = SearchPageHelper.selected_view_type(params[:view], @current_community.default_browse_view, APP_DEFAULT_VIEW_TYPE, allowed_view_types)
       @big_cover_photo = !(@current_user || CustomLandingPage::LandingPageStore.enabled?(@current_community.id)) || params[:big_cover_photo]
 
       @categories = @current_community.categories.includes(:children)
@@ -40,6 +41,10 @@ class HomepageController < ApplicationController
 
       @show_custom_fields = relevant_filters.present? || show_price_filter
       @category_menu_enabled = @show_categories || @show_custom_fields
+
+      if @show_categories
+        @category_display_names = category_display_names(@current_community, @main_categories, @categories)
+      end
     end
 
     listing_shape_param = params[:transaction_type]
@@ -139,6 +144,12 @@ class HomepageController < ApplicationController
   # rubocop:enable AbcSize
   # rubocop:enable MethodLength
 
+  helper_method :allowed_view_types
+
+  def allowed_view_types
+    show_location? ? VIEW_TYPES : VIEW_TYPES_NO_LOCATION
+  end
+
   private
 
   def parse_relevant_search_fields(params, relevant_filters)
@@ -201,6 +212,23 @@ class HomepageController < ApplicationController
           )
         )
       }
+    end
+  end
+
+  # Time to cache category translations per locale
+  CATEGORY_DISPLAY_NAME_CACHE_EXPIRE_TIME = 24.hours
+
+  def category_display_names(community, main_categories, categories)
+    Rails.cache.fetch(["catnames",
+                       community,
+                       I18n.locale,
+                       main_categories],
+                      expires_in: CATEGORY_DISPLAY_NAME_CACHE_EXPIRE_TIME) do
+      cat_names = {}
+      categories.each do |cat|
+        cat_names[cat.id] = cat.display_name(I18n.locale)
+      end
+      cat_names
     end
   end
 
@@ -361,5 +389,4 @@ class HomepageController < ApplicationController
   def unsafe_params_hash
     params.to_unsafe_hash
   end
-
 end

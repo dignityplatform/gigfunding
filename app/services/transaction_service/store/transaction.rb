@@ -2,19 +2,16 @@ module TransactionService::Store::Transaction
 
   TransactionModel = ::Transaction
 
-  # While initiated is technically not a finished state it also
-  # doesn't have any payment data to track against, so removing person
-  # is still safe.
-  FINISHED_TX_STATES = "'initiated', 'free', 'rejected', 'confirmed', 'canceled', 'errored'"
-
   module_function
 
+  # booking validation happens before SQL BEGIN-COMMIT block
   def create(tx_data)
     tx_model = TransactionModel.new(tx_data.except(:content, :booking_fields, :starting_page))
 
     build_conversation(tx_model, tx_data)
     build_booking(tx_model, tx_data)
-    tx_model.save!
+
+    tx_model.save
     tx_model
   end
 
@@ -47,22 +44,12 @@ module TransactionService::Store::Transaction
     TransactionModel.where(id: transaction_id, community_id: community_id, deleted: false).first
   end
 
-  def unfinished_tx_count(person_id)
-    # We include deleted transactions on purpose. They might be in a
-    # state where e.g. IPN message causes them to proceed so removing
-    # user data would be unwise.
-    TransactionModel
-      .where("starter_id = ? OR listing_author_id = ?", person_id, person_id)
-      .where("current_state NOT IN (#{FINISHED_TX_STATES})")
-      .count
-  end
-
   def upsert_shipping_address(community_id:, transaction_id:, addr:)
     tx_model = TransactionModel.where(id: transaction_id, community_id: community_id).first
     if tx_model
       address = tx_model.shipping_address || tx_model.build_shipping_address
       if addr.is_a?(ActionController::Parameters)
-        addr = addr.permit(:name, :street1, :street2, :postal_code, :city, :country_code, :state_or_province)
+        addr = addr.permit(:name, :street1, :street2, :postal_code, :city, :country, :state_or_province)
       end
       address.update!(addr)
     end
@@ -124,6 +111,7 @@ module TransactionService::Store::Transaction
           start_on: start_on,
           end_on: end_on)
       end
+      tx_model.booking.tx = tx_model
     end
   end
 

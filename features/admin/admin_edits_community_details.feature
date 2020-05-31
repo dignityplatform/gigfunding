@@ -15,7 +15,7 @@ Feature: Admin edits info pages
     And I fill in "community_customizations[en][slogan]" with "Custom slogan"
     And I fill in "community_customizations[en][description]" with "This is a custom description"
     And I press submit
-    When I follow "view_slogan_link"
+    When I go to the big cover photo home page
     Then I should see "Custom slogan"
     And I should see "This is a custom description"
 
@@ -28,7 +28,7 @@ Feature: Admin edits info pages
     And I fill in "community_customizations[en][slogan]" with "Custom slogan"
     And I fill in "community_customizations[en][description]" with "This is a custom description"
     And I press submit
-    When I follow "view_slogan_link"
+    When I go to the big cover photo home page
     Then I should not see "Custom slogan"
     And I should not see "This is a custom description"
 
@@ -36,7 +36,7 @@ Feature: Admin edits info pages
     And I check "Display the slogan in the homepage"
     And I check "Display the description in the homepage"
     And I press submit
-    When I follow "view_slogan_link"
+    When I go to the big cover photo home page
     Then I should see "Custom slogan"
     And I should see "This is a custom description"
 
@@ -44,7 +44,7 @@ Feature: Admin edits info pages
     And I check "Display the slogan in the homepage"
     And I uncheck "Display the description in the homepage"
     And I press submit
-    When I follow "view_slogan_link"
+    When I go to the big cover photo home page
     Then I should see "Custom slogan"
     And I should not see "This is a custom description"
 
@@ -52,7 +52,7 @@ Feature: Admin edits info pages
     And I uncheck "Display the slogan in the homepage"
     And I check "Display the description in the homepage"
     And I press submit
-    When I follow "view_slogan_link"
+    When I go to the big cover photo home page
     Then I should not see "Custom slogan"
     And I should see "This is a custom description"
 
@@ -67,3 +67,15 @@ Feature: Admin edits info pages
     When I fill in "community_customizations[en][transaction_agreement_label]" with "300" count of symbols
     And I press submit
     Then I should see "255" count of symbols in the "community_customizations[en][transaction_agreement_label]" input
+
+  Scenario: Admin users can edit location search modes
+    Given this community has location search enabled
+    When I go to the admin settings view of community "test"
+    Then I should see "Search and location preferences"
+    When I select "Keyword" from "main_search"
+    Then I should not see "Show distance"
+    And I should not see "Show only nearby listings"
+    When I select "Location" from "main_search"
+    Then I should see "Show distance"
+    And I should see "Show only nearby listings"
+    Given this community has location search disabled

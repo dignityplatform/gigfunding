@@ -48,6 +48,7 @@
 #  availability                    :string(32)       default("none")
 #  per_hour_ready                  :boolean          default(FALSE)
 #  state                           :string(255)      default("approved")
+#  approval_count                  :integer          default(0)
 #
 # Indexes
 #
@@ -71,6 +72,7 @@ class Listing < ApplicationRecord
   include ActionView::Helpers::TranslationHelper
   include Rails.application.routes.url_helpers
   include ManageAvailabilityPerHour
+  include ManageAvailabilityPerDay
 
   belongs_to :community
   belongs_to :author, :class_name => "Person", :foreign_key => "author_id", :inverse_of => :listings
@@ -99,6 +101,10 @@ class Listing < ApplicationRecord
   has_many :tx, class_name: 'Transaction', :dependent => :destroy
   has_many :bookings, through: :tx
   has_many :bookings_per_hour, ->{ per_hour_blocked }, through: :tx, source: :booking
+  has_many :bookings_per_day, ->{ per_day_blocked }, through: :tx, source: :booking
+
+  has_many :blocked_dates, :dependent => :destroy
+  accepts_nested_attributes_for :blocked_dates, reject_if: :all_blank, allow_destroy: true
 
   monetize :price_cents, :allow_nil => true, with_model_currency: :currency
   monetize :shipping_price_cents, allow_nil: true, with_model_currency: :currency
@@ -130,7 +136,10 @@ class Listing < ApplicationRecord
   scope :status_closed, -> { where(open: false) }
   scope :status_expired, -> { where('valid_until < ?', DateTime.now) }
   scope :status_active, -> { where('valid_until > ? or valid_until is null', DateTime.now) }
+  scope :status_open_active, -> { status_open.status_active.approved }
   scope :currently_open, -> { exist.status_open.approved.where(["valid_until IS NULL OR valid_until > ?", DateTime.now]) }
+
+  scope :for_export, -> { includes(:listing_images).exist.order('created_at DESC') }
 
   APPROVALS = {
     APPROVED = 'approved'.freeze => 'approved'.freeze,

@@ -109,6 +109,8 @@ ICON_MAP = {
       "sell" => "ss-moneybag",
       "rent" => "ss-pricetag",
       "rent_out" => "ss-pricetag",
+      "refund" => "ss-banknote",
+      "dismiss" => "ss-scales",
 
       # Custom category & share type icons
       "job" => "ss-briefcase",
@@ -167,7 +169,9 @@ ICON_MAP = {
       "invitations" => "ss-adduser",
       "domain" => "ss-globe",
       "pending" => "ss-clockwise",
-      "minus" => "ss-hyphen"
+      "minus" => "ss-hyphen",
+      "trash" => "ss-trash",
+      "rocket" => "ss-rocket"
     },
     "font-awesome" => {
       "map" => "icon-map-marker",
@@ -244,6 +248,8 @@ ICON_MAP = {
       "rent" => "icon-money",
       "rent_out" => "icon-money",
       "job" => "icon-briefcase",
+      "refund" => "icon-money",
+      "dismiss" => "icon-exchange",
 
       "testimonial" => "icon-star",
       "star" => "icon-star",
@@ -286,6 +292,8 @@ ICON_MAP = {
       "domain" => "icon-globe",
       "seo" => "icon-external-link",
       "pending" => "icon-time",
-      "minus" => "icon-minus"
+      "minus" => "icon-minus",
+      "trash" => "icon-trash",
+      "rocket" => "icon-magic"
     }
   }

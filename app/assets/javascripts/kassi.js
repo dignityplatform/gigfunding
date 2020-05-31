@@ -33,6 +33,14 @@ function add_validator_methods() {
     );
 
   $.validator.
+    addMethod( "presence",
+      function(value, element, param) {
+        return value && value.replace(/\s+/g, '').length > 0;
+      }
+    );
+
+
+  $.validator.
     addMethod("regex",
       function(value, element, regexp) {
         var re = new RegExp(regexp);
@@ -148,6 +156,9 @@ function add_validator_methods() {
     url: true
   });
 
+  $.validator.addClassRules("presence", {
+    presence: true
+  });
 
   $.validator.
     addMethod("number_no_decimals", function(value, element, opts) {
@@ -331,7 +342,7 @@ function initialize_give_feedback_form(locale, grade_error_message, text_error_m
   });
 }
 
-function initialize_signup_form(locale, username_in_use_message, invalid_username_message, email_in_use_message, invalid_invitation_code_message, name_required, invitation_required) {
+function initialize_signup_form(locale, email_in_use_message, invalid_invitation_code_message, name_required, invitation_required) {
   $('#help_invitation_code_link').click(function(link) {
     //link.preventDefault();
     $('#help_invitation_code').lightbox_me({centered: true, zIndex: 1000000 });
@@ -355,7 +366,6 @@ function initialize_signup_form(locale, username_in_use_message, invalid_usernam
       }
     },
     rules: {
-      "person[username]": {required: true, minlength: 3, maxlength: 20, valid_username: true, remote: "/people/check_username_availability"},
       "person[given_name]": {required: name_required, maxlength: 30},
       "person[family_name]": {required: name_required, maxlength: 30},
       "person[email]": {required: true, email_remove_spaces: true, remote: "/people/check_email_availability_and_validity"},
@@ -365,7 +375,6 @@ function initialize_signup_form(locale, username_in_use_message, invalid_usernam
       "invitation_code": {required: invitation_required, remote: "/people/check_invitation_code"}
     },
     messages: {
-      "person[username]": { valid_username: invalid_username_message, remote: username_in_use_message },
       "person[email]": { remote: email_in_use_message, email_remove_spaces: $.validator.messages.email },
       "invitation_code": { remote: invalid_invitation_code_message }
     },
@@ -611,6 +620,17 @@ function initialize_admin_edit_tribe_form(locale, community_id) {
    });
 }
 
+function initializeAttachmentDestroy() {
+  $('input[attachment-destroy]').on('change', function() {
+    var elems = $(this).closest('.row').find('input[type=file], .or-change-attachment');
+    if ($(this).is(":checked")) {
+      elems.hide();
+    } else {
+      elems.show();
+    }
+  });
+}
+
 function initialize_admin_edit_tribe_look_and_feel_form(locale, community_id, invalid_color_code_message) {
   translate_validation_messages(locale);
   var form_id = "#edit_community_" + community_id;
@@ -630,6 +650,7 @@ function initialize_admin_edit_tribe_look_and_feel_form(locale, community_id, in
        disable_and_submit(form_id, form, "false", locale);
      }
    });
+  initializeAttachmentDestroy();
 }
 
 function initialize_admin_social_media_form(locale, community_id, invalid_twitter_handle_message, invalid_facebook_connect_id_message, invalid_facebook_connect_secret_message) {
@@ -659,6 +680,7 @@ function initialize_admin_social_media_form(locale, community_id, invalid_twitte
        disable_and_submit(form_id, form, "false", locale);
      }
    });
+  initializeAttachmentDestroy();
 }
 
 function initialize_admin_category_form_view(locale, form_id) {

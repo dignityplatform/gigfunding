@@ -11,7 +11,7 @@ class PreauthorizeTransactionsController < ApplicationController
 
   def initiate
     params_validator = params_per_hour? ? TransactionService::Validation::NewPerHourTransactionParams : TransactionService::Validation::NewTransactionParams
-    validation_result = params_validator.validate(params).and_then { |params_entity|
+    validation_result = params_validator.validate(params.to_unsafe_hash).and_then { |params_entity|
       tx_params = add_defaults(
         params: params_entity,
         shipping_enabled: listing.require_shipping_address,
@@ -38,7 +38,7 @@ class PreauthorizeTransactionsController < ApplicationController
 
   def initiated
     params_validator = params_per_hour? ? TransactionService::Validation::NewPerHourTransactionParams : TransactionService::Validation::NewTransactionParams
-    validation_result = params_validator.validate(params).and_then { |params_entity|
+    validation_result = params_validator.validate(params.to_unsafe_hash).and_then { |params_entity|
       tx_params = add_defaults(
         params: params_entity,
         shipping_enabled: listing.require_shipping_address,
@@ -63,6 +63,52 @@ class PreauthorizeTransactionsController < ApplicationController
     end
   end
 
+  def stripe_confirm_intent
+    tx = Transaction.where(community: @current_community).find(params[:id])
+    unless tx.participations.include?(@current_user)
+      return
+    end
+
+    stripe_payment = tx.stripe_payments.find(params[:stripe_payment_id])
+
+    begin
+      intent = StripeService::API::StripeApiWrapper.confirm_payment_intent(
+        community: @current_community,
+        payment_intent_id: params[:payment_intent_id])
+    rescue Stripe::CardError => e
+      stripe_payment.update(stripe_payment_intent_status: StripePayment::PAYMENT_INTENT_FAILED)
+      TransactionService::StateMachine.transition_to(tx.id, :payment_intent_failed)
+      return render json: { error: t("error_messages.stripe.generic_error") }
+    end
+
+    if intent.status == StripePayment::PAYMENT_INTENT_REQUIRES_CAPTURE
+      stripe_charge = intent['charges']['data'].first
+      stripe_payment.update(stripe_charge_id: stripe_charge.id)
+      TransactionService::StateMachine.transition_to(tx.id, :preauthorized)
+      render json: {
+        success: true,
+        redirect_url: person_transaction_path(@current_user, params[:id])
+      }
+    else
+      # Invalid status
+      stripe_payment.update(stripe_payment_intent_status: StripePayment::PAYMENT_INTENT_INVALID)
+      render json: { error: 'Invalid PaymentIntent status' }, status: :internal_server_error
+    end
+  end
+
+  def stripe_failed_intent
+    tx = Transaction.where(community: @current_community).find(params[:id])
+    unless tx.participations.include?(@current_user)
+      return
+    end
+
+    stripe_payment = tx.stripe_payments.find(params[:stripe_payment_id])
+    stripe_payment.update(stripe_payment_intent_status: StripePayment::PAYMENT_INTENT_FAILED)
+    TransactionService::StateMachine.transition_to(tx.id, :payment_intent_failed)
+    render json: {
+      success: true
+    }
+  end
 
   private
 
@@ -84,17 +130,34 @@ class PreauthorizeTransactionsController < ApplicationController
 
   def handle_tx_response(tx_response, gateway)
     if !tx_response[:success]
-      render_error_response(request.xhr?, t("error_messages.#{gateway}.generic_error"), action: :initiate)
+      render_error_response(request.xhr?, error_message(tx_response, gateway), action: :initiate)
     elsif (tx_response[:data][:gateway_fields][:redirect_url])
       xhr_json_redirect tx_response[:data][:gateway_fields][:redirect_url]
     elsif gateway == :stripe
-      xhr_json_redirect person_transaction_path(@current_user, tx_response[:data][:transaction][:id])
+      handle_tx_stripe_payment_intent(tx_response)
     else
       render json: {
         op_status_url: transaction_op_status_path(tx_response[:data][:gateway_fields][:process_token]),
         op_error_msg: t("error_messages.#{gateway}.generic_error")
       }
     end
+  end
+
+  def handle_tx_stripe_payment_intent(tx_response)
+    tx = tx_response.data[:transaction]
+    stripe_payment = tx.stripe_payments.last
+    if stripe_payment.stripe_payment_intent_id.present? && stripe_payment.stripe_payment_intent_client_secret.present?
+      return render json: {
+        stripe_payment_intent: {
+          stripe_payment_id: stripe_payment.id,
+          requires_action: true,
+          client_secret: stripe_payment.stripe_payment_intent_client_secret,
+          confirm_intent_path: stripe_confirm_intent_listing_preauthorize_transaction_path(listing.id, tx.id),
+          failed_intent_path: stripe_failed_intent_listing_preauthorize_transaction_path(listing.id, tx.id)
+        }
+      }
+    end
+    xhr_json_redirect person_transaction_path(@current_user, tx_response[:data][:transaction][:id])
   end
 
   def xhr_json_redirect(redirect_url)
@@ -159,7 +222,12 @@ class PreauthorizeTransactionsController < ApplicationController
       })
 
     unless ready[:data][:result]
-      flash[:error] = t("layouts.notifications.listing_author_payment_details_missing")
+      flash[:error] =
+        if @current_community.allow_free_conversations?
+          t("layouts.notifications.listing_author_payment_details_missing")
+        else
+          t("layouts.notifications.listing_author_payment_details_missing_no_free")
+        end
 
       record_event(
         flash,
@@ -193,7 +261,8 @@ class PreauthorizeTransactionsController < ApplicationController
           stripe_email: @current_user.primary_email.address,
           stripe_token: params[:stripe_token],
           shipping_address: params[:shipping_address],
-          service_name: @current_community.name_with_separator(I18n.locale)
+          service_name: @current_community.name_with_separator(I18n.locale),
+          stripe_payment_method_id: params[:stripe_payment_method_id]
         }
     end
 
@@ -290,15 +359,14 @@ class PreauthorizeTransactionsController < ApplicationController
         t("listing_conversations.preauthorize.invalid_parameters")
       elsif [:dates_missing,
              :end_cant_be_before_start,
-             :delivery_method_missing,
              :at_least_one_day_or_night_required,
              :date_too_late
             ].include?(data[:code])
         t("listing_conversations.preauthorize.invalid_parameters")
+      elsif data[:code] == :delivery_method_missing
+        t("listing_conversations.preauthorize.select_delivery_method")
       elsif data[:code] == :dates_not_available
         t("listing_conversations.preauthorize.dates_not_available")
-      elsif data[:code] == :harmony_api_error
-        t("listing_conversations.preauthorize.error_in_checking_availability")
       else
         raise NotImplementedError.new("No error handler for: #{msg}, #{data.inspect}")
       end
@@ -355,5 +423,17 @@ class PreauthorizeTransactionsController < ApplicationController
       end
 
     render_error_response(request.xhr?, error_msg, path)
+  end
+
+  def error_message(tx_response, gateway)
+    translated_stripe_error_codes = %w(card_declined expired_card)
+    if tx_response[:data].is_a?(Stripe::CardError) &&
+       translated_stripe_error_codes.include?(tx_response[:data].code)
+      t("error_messages.stripe.#{tx_response[:data].code}")
+    elsif tx_response[:data].is_a?(TransactionService::Transaction::BookingDatesInvalid)
+      tx_response[:error_msg]
+    else
+      t("error_messages.#{gateway}.generic_error")
+    end
   end
 end

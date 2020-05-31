@@ -7,14 +7,14 @@ class Admin::InvitationsService
   end
 
   def invitations
-    @invitations ||= resource_scope.order("#{sort_column} #{sort_direction}")
+    @invitations ||= resource_scope.order(Arel.sql("#{sort_column} #{sort_direction}"))
       .paginate(page: params[:page], per_page: 30)
   end
 
   private
 
   def resource_scope
-    community.invitations.joins(:inviter).includes(:inviter)
+    community.invitations.exist.joins(:inviter).includes(:inviter)
   end
 
   def sort_column

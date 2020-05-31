@@ -16,7 +16,6 @@ class Admin::ListingShapesController < Admin::AdminBaseController
              selected_left_navi_link: LISTING_SHAPES_NAVI_LINK,
              templates: template_label_key_list,
              display_knowledge_base_articles: APP_CONFIG.display_knowledge_base_articles,
-             knowledge_base_url: APP_CONFIG.knowledge_base_url,
              category_count: category_count,
              listing_shapes: @current_community.shapes
              })
@@ -204,7 +203,7 @@ class Admin::ListingShapesController < Admin::AdminBaseController
     cant_delete = !can_delete_res.success
     cant_delete_reason = cant_delete ? can_delete_res.error_msg : nil
 
-    count = @current_community.listings.where(listing_shape_id: form[:id], open: true).count
+    count = @current_community.listings.currently_open.where(listing_shape_id: form[:id]).count
 
     locals = common_locals(form: form,
                            count: count,
@@ -223,9 +222,7 @@ class Admin::ListingShapesController < Admin::AdminBaseController
       uneditable_fields: uneditable_fields(process_summary, form[:author_is_seller]),
       shape: FormViewLayer.shape_to_locals(form),
       count: count,
-      harmony_in_use: APP_CONFIG.harmony_api_in_use.to_s == "true",
       display_knowledge_base_articles: APP_CONFIG.display_knowledge_base_articles.to_s == "true",
-      knowledge_base_url: APP_CONFIG.knowledge_base_url,
       locale_name_mapping: available_locs.map { |name, l| [l, name] }.to_h
     }
   end

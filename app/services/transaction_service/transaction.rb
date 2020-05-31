@@ -1,4 +1,5 @@
 module TransactionService::Transaction
+  class BookingDatesInvalid < StandardError; end
 
   class IllegalTransactionStateException < Exception
   end
@@ -86,10 +87,6 @@ module TransactionService::Transaction
     adapter
   end
 
-  def has_unfinished_transactions(person_id)
-    TxStore.unfinished_tx_count(person_id) > 0
-  end
-
   def can_start_transaction(opts)
     payment_gateway = opts[:transaction][:payment_gateway]
     author_id = opts[:transaction][:listing_author_id]
@@ -112,6 +109,9 @@ module TransactionService::Transaction
     tx_process_settings = set_adapter.tx_process_settings(opts_tx)
 
     tx = TxStore.create(opts_tx.merge(tx_process_settings))
+    unless tx.persisted?
+      return Result::Error.new(BookingDatesInvalid.new(I18n.t("error_messages.booking.double_booking_payment_voided")))
+    end
 
     tx_process = tx_process(tx[:payment_process])
     gateway_adapter = gateway_adapter(tx[:payment_gateway])
@@ -190,25 +190,25 @@ module TransactionService::Transaction
       .or_else(res)
   end
 
-  def complete(community_id:, transaction_id:, message: nil, sender_id: nil)
+  def complete(community_id:, transaction_id:, message: nil, sender_id: nil, metadata: {})
     tx = find_tx_model(community_id: community_id, transaction_id: transaction_id)
 
     tx_process = tx_process(tx.payment_process)
     gw = gateway_adapter(tx.payment_gateway)
 
-    res = tx_process.complete(tx: tx, message: message, sender_id: sender_id, gateway_adapter: gw)
+    res = tx_process.complete(tx: tx, message: message, sender_id: sender_id, gateway_adapter: gw, metadata: metadata)
     res.maybe()
       .map { |gw_fields| Result::Success.new(create_transaction_response(tx, gw_fields)) }
       .or_else(res)
   end
 
-  def cancel(community_id:, transaction_id:, message: nil, sender_id: nil)
+  def cancel(community_id:, transaction_id:, message: nil, sender_id: nil, metadata: {})
     tx = find_tx_model(community_id: community_id, transaction_id: transaction_id)
 
     tx_process = tx_process(tx.payment_process)
     gw = gateway_adapter(tx.payment_gateway)
 
-    res = tx_process.cancel(tx: tx, message: message, sender_id: sender_id, gateway_adapter: gw)
+    res = tx_process.cancel(tx: tx, message: message, sender_id: sender_id, gateway_adapter: gw, metadata: metadata)
     res.maybe()
       .map { |gw_fields| Result::Success.new(create_transaction_response(tx, gw_fields)) }
       .or_else(res)
@@ -235,6 +235,28 @@ module TransactionService::Transaction
     else
       Result::Success.new({})
     end
+  end
+
+  # This process should be repeated 3 times. So the delayed job would
+  # run 5 days from the original charge (and error), 10 days and 15 days.
+  def charge_commission_and_retry(transaction_id)
+    result = charge_commission(transaction_id)
+    unless result[:success]
+      paypal_payment = PaypalPayment.find_by(transaction_id: transaction_id)
+      if paypal_payment.retry_charge_commision?
+        paypal_payment.increment_commission_retry_count
+        Delayed::Job.enqueue(TransactionRetryChargeCommissionJob.new(transaction_id), run_at: 5.days.from_now)
+      else
+        paypal_payment.charge_commision_failed
+        transaction = Transaction.find(transaction_id)
+        transaction.community.admins.each do |admin|
+          TransactionMailer.transaction_commission_charge_failed(
+            transaction: transaction,
+            recipient: admin).deliver_now
+        end
+      end
+    end
+    result
   end
 
   def payment_details(tx)

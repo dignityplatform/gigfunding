@@ -2,7 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/sharetribe/sharetribe/tree/master.svg?style=svg)](https://circleci.com/gh/sharetribe/sharetribe/tree/master) [![Dependency Status](https://gemnasium.com/sharetribe/sharetribe.png)](https://gemnasium.com/sharetribe/sharetribe) [![Code Climate](https://codeclimate.com/github/sharetribe/sharetribe.png)](https://codeclimate.com/github/sharetribe/sharetribe)
 
-Sharetribe is an open source platform to create your own peer-to-peer marketplace.
+Sharetribe is a source available platform to create your own peer-to-peer marketplace.
 
 Would you like to set up your marketplace in one minute without touching code? [Head to Sharetribe.com](https://www.sharetribe.com).
 
@@ -22,15 +22,15 @@ Would you like to work with an API-based marketplace solution that allows you to
 - [Bug tracker](#bug-tracker)
 - [Documentation](#documentation)
 - [Community forum](#community-forum)
-- [License](#mit-license)
+- [License](#license)
 
 ## Technology stack
 
 - Ruby 2.6
-- Ruby on Rails 5.1.1
-- MySQL  5.7
+- Ruby on Rails 5.2.3
+- MySQL 5.7
 - React + jQuery
-- Node.js 7.8 (for compiling JavaScript assets)
+- Node.js 10.15 (for compiling JavaScript assets)
 - "what you see is what you get" Editor [Mercury](http://jejacks0n.github.io/mercury/)
 - Deploy: Custom Script (not using Mina or Cap3)
 - Server: Heroku
@@ -51,10 +51,10 @@ Would you like to work with an API-based marketplace solution that allows you to
 ### Requirements
 
 Before you get started, the following needs to be installed:
-  * **Ruby**. Version 2.6.2 is currently used and we don't guarantee everything works with other versions. If you need multiple versions of Ruby, [RVM](https://rvm.io//) or [rbenv](https://github.com/rbenv/rbenv) is recommended.
+  * **Ruby**. Version 2.6.5 is currently used and we don't guarantee everything works with other versions. If you need multiple versions of Ruby, [RVM](https://rvm.io//) or [rbenv](https://github.com/rbenv/rbenv) is recommended.
   * [**RubyGems**](http://rubygems.org/)
   * **Bundler**: `gem install bundler`
-  * **Node**. Version 7.8 is currently used and we don't guarantee everything works with other versions. If you need multiple versions of Node, consider using [n](https://github.com/tj/n), [nvm](https://github.com/creationix/nvm), or [nenv](https://github.com/ryuone/nenv).
+  * **Node**. Version 10.15 is currently used and we don't guarantee everything works with other versions. If you need multiple versions of Node, consider using [n](https://github.com/tj/n), [nvm](https://github.com/creationix/nvm), or [nenv](https://github.com/ryuone/nenv).
   * [**Git**](http://help.github.com/git-installation-redirect)
   * **A database**. Only MySQL 5.7 has been tested, so we give no guarantees that other databases (e.g. PostgreSQL) work. You can install MySQL Community Server two ways:
     1. If you are on a Mac, use homebrew: `brew install mysql` (*highly* recommended). Also consider installing the [MySQL Preference Pane](https://dev.mysql.com/doc/refman/5.1/en/osx-installation-prefpane.html) to control MySQL startup and shutdown. It is packaged with the MySQL downloadable installer, but can be easily installed as a stand-alone.
@@ -386,15 +386,16 @@ Use these instructions to set up and deploy Sharetribe for production in differe
 If you have installation instructions that you would like to share, don't hesitate to share them at the [Sharetribe community forum](https://www.sharetribe.com/community).
 
 - [Deploying Sharetribe to Heroku](https://gist.github.com/svallory/d08e9baa88e18d691605) by [svallory](https://github.com/svallory)
+- [How to install Sharetribe on Centos 7.x](https://medium.com/@resilientbeast/how-to-install-sharetribe-on-centos-7-x-cbdb6d0366e5) by [Arek Hukalowicz](https://www.linkedin.com/in/arek-hukalowicz-8ab0228a/)
 
 
 ## Payments
 
 PayPal and Stripe are the two available payment gateways integrated.
 
-PayPal payments are only available on marketplaces hosted at [Sharetribe.com](https://www.sharetribe.com) due to special permissions needed from PayPal. We hope to add support for PayPal payments to the open source version of Sharetribe in the future.
+PayPal payments are only available on marketplaces hosted at [Sharetribe.com](https://www.sharetribe.com) due to special permissions needed from PayPal. We hope to add support for PayPal payments to the source available version of Sharetribe Go in the future.
 
-Stripe can be used in the open-source alternative, as long as your country and currency are supported.
+Stripe can be used in the source available version, as long as your country and currency are supported.
 
 ### Enable Stripe
 
@@ -467,11 +468,11 @@ More detailed technical documentation is located in [docs/](docs/)
 
 ## Community forum
 
-The Sharetribe open source community forum is located at [https://www.sharetribe.com/community/](https://www.sharetribe.com/community/).
+The Sharetribe Community forum is located at [https://www.sharetribe.com/community/](https://www.sharetribe.com/community/).
 
 The forum is a great place to ask support and help for example with issues during the installation.
 
 
-## MIT License
+## License
 
-Sharetribe is open source under the MIT license. See [LICENSE](LICENSE) for details.
+Sharetribe is source available under the Sharetribe Community Public Licence. See [LICENSE](LICENSE) for details.

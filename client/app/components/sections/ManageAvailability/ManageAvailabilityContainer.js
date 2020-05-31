@@ -79,8 +79,8 @@ const mapStateToProps = ({ flashNotifications, manageAvailability }) => ({
   hasChanges: availabilityReducer.hasChanges(manageAvailability),
   saveInProgress: manageAvailability.get('saveInProgress'),
   saveFinished: manageAvailability.get('saveFinished'),
-  reservedDays: manageAvailability.get('bookings').toJS(),
-  blockedDays: availabilityReducer.blockedDays(manageAvailability).toJS(),
+  reservedDays: manageAvailability.get('booked_dates'),
+  blockedDays: availabilityReducer.blockedDays(manageAvailability),
 });
 
 const mapDispatchToProps = (dispatch) => ({

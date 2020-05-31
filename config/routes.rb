@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   get "/robots.txt" => RobotsGenerator
 
+  get "/test_design/:page" => "email_design#show"
+
   # URLs for sitemaps
   #
   # From Rails guide: By default dynamic segments don’t accept dots –
@@ -54,20 +56,19 @@ Rails.application.routes.draw do
     resources :listings, only: [], defaults: { format: :json } do
       member do
         post :update_working_time_slots
+        post :update_blocked_dates
       end
+      resources :blocked_dates, only: [:index], controller: 'listing/blocked_dates'
+      resources :bookings, only: [:index], controller: 'listing/bookings'
     end
   end
-
-  # Harmony Proxy
-  # This endpoint proxies the requests to Harmony and does authorization
-  match '/harmony_proxy/*harmony_path' => 'harmony_proxy#proxy', via: :all
 
   # UI API, i.e. internal endpoints for dynamic UI that doesn't belong to under any specific controller
   get "/ui_api/topbar_props" => "topbar_api#props"
 
   # Keep before /:locale/ routes, because there is locale 'vi', which matches '_lp_preview'
   # and regexp anchors are not allowed in routing requirements.
-  get '/_lp_preview' => 'landing_page#preview'
+  get '/_lp_preview' => 'landing_page#preview', as: :landing_page_preview
 
   locale_regex_string = Sharetribe::AVAILABLE_LOCALES.map { |l| l[:ident] }.concat(Sharetribe::REMOVED_LOCALES.to_a).join("|")
   locale_matcher = Regexp.new(locale_regex_string)
@@ -169,6 +170,236 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    namespace :admin2 do
+      resources :dashboard, only: :index
+      namespace :general do
+        resources :essentials, only: %i[index] do
+          collection do
+            patch :update_essential
+          end
+        end
+        resources :admin_notifications, path: 'admin-notifications', only: %i[index] do
+          collection do
+            patch :update_admin_notifications
+          end
+        end
+        resources :static_content, path: 'static-content', only: %i[index]
+        resources :privacy, only: %i[index] do
+          collection do
+            patch :update_privacy
+          end
+        end
+      end
+      namespace :design do
+        resources :landing_page, path: 'landing-page', only: %i[index]
+
+        resources :topbar, path: 'top-bar', only: %i[index] do
+          collection do
+            patch :update_topbar
+          end
+        end
+
+        resources :footer, only: %i[index] do
+          collection do
+            patch :update_footer
+          end
+        end
+
+        resources :display, only: %i[index] do
+          collection do
+            patch :update_display
+          end
+        end
+        resources :experimental, only: %i[index] do
+          collection do
+            patch :update_experimental
+          end
+        end
+        resources :logos_color, path: 'logos-and-color', only: %i[index] do
+          collection do
+            patch :update_logos_color
+          end
+        end
+        resources :cover_photos, path: 'cover-photos', only: %i[index] do
+          collection do
+            patch :update_cover_photos
+          end
+        end
+      end
+
+      namespace :users do
+        resources :invitations, only: %i[index]
+        resources :manage_users, path: 'manage-users', only: %i[index destroy] do
+          member do
+            get :resend_confirmation
+            patch :ban
+            patch :unban
+            post :promote_admin
+            patch :posting_allowed
+          end
+        end
+        resources :signup_login, path: 'signup-and-login', only: %i[index] do
+          collection do
+            patch :update_signup_login
+          end
+        end
+        resources :user_rights, path: 'user-rights', only: %i[index] do
+          collection do
+            patch :update_user_rights
+          end
+        end
+      end
+      namespace :listings do
+        resources :manage_listings, path: 'manage-listings', only: %i[index] do
+          collection do
+            patch :update
+            patch :close
+            delete :delete
+            get :export
+            get :export_status
+          end
+        end
+        resources :listing_approval, path: 'listing-approval', only: %i[index] do
+          collection do
+            patch :update_listing_approval
+          end
+        end
+        resources :listing_comments, path: 'listing-comments', only: %i[index] do
+          collection do
+            patch :update_listing_comments
+          end
+        end
+      end
+
+      namespace :transactions_reviews, path: 'transactions-and-reviews' do
+        resources :manage_reviews, path: 'manage-reviews', only: %i[index destroy] do
+          member do
+            get :show_review
+            get :edit_review
+            get :delete_review
+            patch :update_review
+          end
+        end
+        resources :conversations, path: 'view-conversations', only: %i[index]
+        resources :manage_transactions, path: 'manage-transactions', only: %i[index] do
+          collection do
+            get :export
+            get :export_status
+          end
+        end
+        resources :config_transactions, path: 'configure-transactions', only: %i[index] do
+          collection do
+            patch :update_config
+          end
+        end
+      end
+
+      namespace :payment_system, path: 'payment-system' do
+        resources :country_currencies, path: 'country-currency', only: %i[index] do
+          collection do
+            patch :update_country_currencies
+            get :verify_currency
+          end
+        end
+      end
+
+      namespace :emails do
+        resources :email_users, path: 'email-users', only: %i[index create]
+        resources :welcome_emails, path: 'welcome-email', only: %i[index] do
+          collection do
+            patch :update_email
+          end
+        end
+        resources :newsletters, path: 'automatic-newsletter', only: %i[index] do
+          collection do
+            patch :update_newsletter
+          end
+        end
+      end
+
+      namespace :search_location, path: 'search-and-location' do
+        resources :search, only: %i[index] do
+          collection do
+            patch :update_search
+          end
+        end
+        resources :locations, path: 'location', only: %i[index] do
+          collection do
+            patch :update_location
+          end
+        end
+      end
+
+      namespace :social_media, path: 'social-media' do
+        resources :image_tags, path: 'image-and-tags', only: %i[index] do
+          collection do
+            patch :update_image
+          end
+        end
+        resources :twitter, only: %i[index] do
+          collection do
+            patch :update_twitter
+          end
+        end
+      end
+
+      namespace :seo do
+        resources :sitemap, path: 'sitemap-and-robots', only: %i[index]
+        resources :google_console, path: 'google-search-console', only: %i[index]
+        resources :landing_pages, path: 'landing-page-meta', only: %i[index] do
+          collection do
+            patch :update_landing_page
+          end
+        end
+        resources :search_pages, path: 'search-results-pages-meta', only: %i[index] do
+          collection do
+            patch :update_search_pages
+          end
+        end
+        resources :listing_pages, path: 'listing-pages-meta', only: %i[index] do
+          collection do
+            patch :update_listing_page
+          end
+        end
+        resources :category_pages, path: 'category-pages-meta', only: %i[index] do
+          collection do
+            patch :update_category_page
+          end
+        end
+        resources :profile_pages, path: 'profile-pages-meta', only: %i[index] do
+          collection do
+            patch :update_profile_page
+          end
+        end
+      end
+
+      namespace :analytics do
+        resources :google_manager, path: 'google-tag-manager', only: %i[index]
+        resources :google, path: 'google-analytics', only: %i[index] do
+          collection do
+            patch :update_google
+          end
+        end
+        resources :sharetribe, path: 'sharetribe-analytics', only: %i[index] do
+          collection do
+            patch :update_sharetribe
+          end
+        end
+      end
+
+      namespace :advanced do
+        resources :delete_marketplaces, path: 'delete-marketplace', only: %i[index destroy]
+        resources :custom_scripts, path: 'custom-script', only: %i[index] do
+          collection do
+            patch :update_script
+          end
+        end
+      end
+
+    end
+
+    get '/:locale/admin2', to: redirect('/%{locale}/admin2/dashboard')
 
     namespace :admin do
       get '' => "getting_started_guide#index"
@@ -276,15 +507,30 @@ Rails.application.routes.draw do
             get :approve
             get :reject
           end
-        end
-        resources :transactions, controller: :community_transactions, only: :index do
           collection do
             get 'export'
             get 'export_status'
           end
         end
+        resources :transactions, controller: :community_transactions, only: [:index, :show] do
+          collection do
+            get 'export'
+            get 'export_status'
+          end
+          member do
+            get :confirm
+            get :cancel
+            get :refund
+            get :dismiss
+          end
+        end
         resources :conversations, controller: :community_conversations, only: [:index, :show]
-        resources :testimonials, controller: :community_testimonials, only: [:index, :edit, :update, :new, :create]
+        resources :testimonials, controller: :community_testimonials, only: [:index, :edit, :update, :new, :create] do
+          collection do
+            get :new_unskip
+            post :unskip
+          end
+        end
         resources :invitations, controller: :community_invitations, only: [:index]
         resources :emails
         resources :community_memberships do
@@ -346,8 +592,18 @@ Rails.application.routes.draw do
         end
       end
       resource :plan, only: [:show]
-      resource :domain, only: [:show]
+      resource :domain, only: [:show, :update] do
+        collection do
+          get :check_availability
+        end
+      end
       resource :community_seo_settings, only: [:show, :update]
+      resources :landing_page_versions do
+        member do
+          get :release
+        end
+        resources :sections, controller: 'landing_page_versions/sections'
+      end
     end
 
     resources :invitations, only: [:new, :create ] do
@@ -367,6 +623,7 @@ Rails.application.routes.draw do
       member do
         post :follow
         delete :unfollow
+        delete :delete
       end
       collection do
         get :new_form_content
@@ -382,6 +639,12 @@ Rails.application.routes.draw do
           post :add_from_file
           put :add_from_url
           put :reorder
+        end
+      end
+      resources :preauthorize_transactions, only: [], defaults: { format: :json } do
+        member do
+          post :stripe_confirm_intent
+          post :stripe_failed_intent
         end
       end
     end
@@ -435,10 +698,12 @@ Rails.application.routes.draw do
 
       resources :people, except: [:show] do
         collection do
-          get :check_username_availability
           get :check_email_availability
           get :check_email_availability_and_validity
           get :check_invitation_code
+        end
+        member do
+          get :check_username_availability
         end
       end
 
@@ -500,6 +765,7 @@ Rails.application.routes.draw do
             get :notifications
             get :unsubscribe
             get :listings
+            get :transactions
           end
         end
         resources :testimonials
@@ -533,9 +799,4 @@ Rails.application.routes.draw do
   get "(/:locale)/people/:person_id(*path)" => redirect(id_to_username), :constraints => { :locale => locale_matcher, :person_id => /[a-zA-Z0-9_-]{22}/ }
 
   get "(/:locale)/:person_id(*path)" => redirect(id_to_username), :constraints => { :locale => locale_matcher, :person_id => /[a-zA-Z0-9_-]{22}/ }
-
-  #keep this matcher last
-  #catches all non matched routes, shows 404 and logs more reasonably than the alternative RoutingError + stacktrace
-
-  match "*path" => "errors#not_found", via: :all
 end

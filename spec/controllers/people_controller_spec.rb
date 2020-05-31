@@ -152,8 +152,8 @@ describe PeopleController, type: :controller do
       community_host(community)
       person_count = Person.count
       username = generate_random_username
-      post :create, params: {:person => {:username => username, :password => "test", :email => "#{username}@example.com", :given_name => "", :family_name => ""}, :community => "test"}
-      expect(Person.find_by(username: username, community_id: community.id)).not_to be_nil
+      post :create, params: {:person => {:display_name => username, :password => "test", :email => "#{username}@example.com", :given_name => "", :family_name => ""}, :community => "test"}
+      expect(Person.find_by(display_name: username, community_id: community.id)).not_to be_nil
       expect(Person.count).to eq(person_count + 1)
     end
 
@@ -280,7 +280,7 @@ describe PeopleController, type: :controller do
       FactoryGirl.create(:custom_checkbox_field, community: community)
     end
     let(:field5) do
-      FactoryGirl.create(:custom_date_field, community: community)
+      FactoryGirl.create(:custom_date_field, community: community, required: false)
     end
     let(:person) do
       FactoryGirl.create(:person,
@@ -349,7 +349,7 @@ describe PeopleController, type: :controller do
                     { id: person.custom_field_value_for(field4), type: "#{field4.class}Value", custom_field_id: field4.id,
                       selected_option_ids: [""] },
                     { id: person.custom_field_value_for(field5), type: "#{field5.class}Value", custom_field_id: field5.id,
-                      :'date_value(1i)' => '2001', :'date_value(2i)' => '03', :'date_value(3i)' => '18' },
+                      :'date_value(1i)' => '', :'date_value(2i)' => '', :'date_value(3i)' => '' },
                   ]
       },
         community: "test"
@@ -536,6 +536,38 @@ describe PeopleController, type: :controller do
       expect(person.custom_field_value_for(field1).display_value).to eq 22
     end
 
+    it 'person updates username' do
+      sign_in_for_spec(person)
+      community_host(community)
+      expect(person.username).to eq 'louisemorris'
+      expect(
+        patch(:update, params: {
+          id: 'louisemorris',
+          referer_form: 'settings',
+          person: { username: 'scott' },
+          community: "test"
+        })
+      ).to redirect_to('/en/scott/settings')
+      person.reload
+      expect(person.username).to eq 'scott'
+    end
+
+    it 'person cannot update username to invalid' do
+      sign_in_for_spec(person)
+      community_host(community)
+      request.env['HTTP_REFERER'] = '/en/louisemorris/settings'
+      expect(person.username).to eq 'louisemorris'
+      expect(
+        patch(:update, params: {
+          id: 'louisemorris',
+          referer_form: 'settings',
+          person: { username: 'about' },
+          community: "test"
+        })
+      ).to redirect_to('/en/louisemorris/settings')
+      person.reload
+      expect(person.username).to eq 'louisemorris'
+    end
   end
 
   def community_host(community)

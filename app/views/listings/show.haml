@@ -3,7 +3,13 @@
 
 - content_for :extra_javascript do
   :javascript
-    window.ST.listing();
+    window.ST.listing({
+    fuzzy_location: #{@current_community.fuzzy_location.to_json},
+    listing_location: #{raw @listing.location.to_json}
+    });
+  - if @current_community.fuzzy_location
+    - maps_key = MarketplaceHelper.google_maps_key(@current_community.id)
+    = javascript_include_tag "//maps.googleapis.com/maps/api/js?key=#{maps_key}"
 
 - content_for :title, raw(@listing.title)
 - content_for :meta_author, PersonViewUtils.person_display_name(@listing.author, @current_community)
@@ -67,14 +73,14 @@
                         = t(".no_description")
 
     .row
-      .col-12
+      .col-12.listing-description-content
         - if @listing.description && !@listing.description.blank?
-          = markdown_line_break_to_paragraph(@listing.description)
+          = markdown(@listing.description)
           - if( @listing_presenter.youtube_link_ids.present?)
             - @listing_presenter.youtube_link_ids.each do |youtube_id|
               .listing-description-youtube-wrapper
                 %iframe.listing-description-youtube-iframe{ title: t("listings.show.youtube_video_player"), width: 640, height:390, src: "//www.youtube.com/embed/#{ youtube_id }", frameborder: 0, allowfullscreen: true}
-                
+
     - @listing.custom_field_values.each do |custom_field_value|
       .row
         .col-12
@@ -90,7 +96,7 @@
               %b
                 = t(".listing_created_at")
                 = l @listing.created_at, :format => :short_date
-                
+
 
     - if !@current_community.private?
       .row
@@ -133,15 +139,16 @@
 
     .row-with-divider
       .col-12
-      
+
         .listing-author
           .listing-author-avatar
             = medium_avatar_thumb(@listing.author, {:class => "listing-author-avatar-image"})
           .listing-author-details
             .listing-author-name
               = link_to PersonViewUtils.person_display_name(@listing.author, @current_community), @listing.author, :id => "listing-author-link", :class => "listing-author-name-link", :title => "#{PersonViewUtils.person_display_name(@listing.author, @current_community)}"
+
             = @listing.author.description
-            - if @listing.author != @current_user
+            - if @listing.author != @current_user && @current_community.allow_free_conversations?
               .listing-author-contact
                 %a#listing-contact{href: contact_to_listing_path(:listing_id => @listing.id.to_s), :class => "listing-author-contact-button"}
                   .content
@@ -162,6 +169,7 @@
             .listing-author-activity-description
               = t(".feedback")
 
+
     .row-with-divider
       .col-12
         #listing-message-links
@@ -169,12 +177,9 @@
 
 
 
-    - if @listing.origin_loc && @listing.origin_loc.address != ""
+    - if show_location? && @listing.origin_loc && @listing.origin_loc.address != ""
       .row
         .col-12
           #googlemap
             = render :partial => "googlemap", :locals => { :listing => @listing}
             = render :partial => "origin", :locals => { :origin_loc => @listing.origin_loc }
-
-
-            

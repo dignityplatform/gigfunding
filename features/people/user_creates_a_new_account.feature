@@ -10,8 +10,7 @@ Feature: User creates a new account
 
   Scenario: Creating a new account successfully
     Then I should not see "The access to Sharetribe is restricted."
-    When I fill in "person[username]" with random username
-    And I fill in "First name" with "Testmanno"
+    When I fill in "First name" with "Testmanno"
     And I fill in "Last name" with "Namez"
     And I fill in "person_password1" with "test"
     And I fill in "Confirm password" with "test"
@@ -35,8 +34,7 @@ Feature: User creates a new account
 
   Scenario: Creating a new account successfully without giving admin email consent
     Then I should not see "The access to Sharetribe is restricted."
-    When I fill in "person[username]" with random username
-    And I fill in "First name" with "Testmanno"
+    When I fill in "First name" with "Testmanno"
     And I fill in "Last name" with "Namez"
     And I fill in "person_password1" with "test"
     And I fill in "Confirm password" with "test"
@@ -57,29 +55,8 @@ Feature: User creates a new account
     And I follow "settings-tab-notifications"
     Then the "I agree to receive occasional emails from" checkbox should not be checked
 
-  Scenario: Trying to create account with unavailable username
-    When I fill in "person[username]" with "kassi_testperson2"
-    And I fill in "First name" with "Testmanno"
-    And I fill in "Last name" with "Namez"
-    And I fill in "person_password1" with "test"
-    And I fill in "Confirm password" with "test"
-    And I fill in "Email address" with random email
-    And I press "Create account"
-    Then I should see "This username is already in use."
-
-  Scenario: Trying to create account with invalid username
-    When I fill in "person[username]" with "sirkka-liisa"
-    And I fill in "First name" with "Testmanno"
-    And I fill in "Last name" with "Namez"
-    And I fill in "person_password1" with "test"
-    And I fill in "Confirm password" with "test"
-    And I fill in "Email address" with random email
-    And I press "Create account"
-    Then I should see "Username is invalid."
-
   Scenario: Trying to create account with unavailable email
-    When I fill in "person[username]" with random username
-    And I fill in "First name" with "Testmanno"
+    When I fill in "First name" with "Testmanno"
     And I fill in "Last name" with "Namez"
     And I fill in "person_password1" with "test"
     And I fill in "Confirm password" with "test"
@@ -88,8 +65,7 @@ Feature: User creates a new account
     Then I should see "The email you gave is already in use."
 
   Scenario: Trying to create an account without First name and last name
-    When I fill in "person[username]" with random username
-    And I fill in "person_password1" with "test"
+    When I fill in "person_password1" with "test"
     And I fill in "Confirm password" with "test"
     And I fill in "Email address" with random email
     And I check "person_terms"
@@ -97,9 +73,7 @@ Feature: User creates a new account
     Then I should see "This field is required."
     When given name and last name are not required in community "test"
     And I am on the signup page
-    When I fill in "person[username]" with random username
-    And I fill in "person[username]" with random username
-    And I fill in "person_password1" with "test"
+    When I fill in "person_password1" with "test"
     And I fill in "Confirm password" with "test"
     And I fill in "Email address" with random email
     And I check "person_terms"
@@ -113,10 +87,9 @@ Feature: User creates a new account
     And I should see "The email you entered is now confirmed"
 
   @subdomain2
-  Scenario: Trying to create an account with email and username that exist in another marketplace
+  Scenario: Trying to create an account with email that exist in another marketplace
     Given feature flag "new_login" is enabled
-    When I fill in "person[username]" with "kassi_testperson1"
-    And I fill in "First name" with "Testmanno"
+    When I fill in "First name" with "Testmanno"
     And I fill in "Last name" with "Namez"
     And I fill in "person_password1" with "test"
     And I fill in "Confirm password" with "test"
@@ -128,11 +101,11 @@ Feature: User creates a new account
     When I open the email
     And I click the first link in the email
     And wait for 1 seconds
-    Then "kassi_testperson3@example.com" should have 2 emails
+    Then "kassi_testperson3@example.com" should have 1 emails
     And I should see "The email you entered is now confirmed"
 
   @subdomain2
-  Scenario: Trying to create an account in an invitation-only marketplace with email and username that exist in another marketplace
+  Scenario: Trying to create an account in an invitation-only marketplace with email that exist in another marketplace
     Given there are following users:
       | person |
       | kassi_testperson3 |
@@ -142,7 +115,6 @@ Feature: User creates a new account
     And feature flag "new_login" is enabled
     Then I should see "The access to Sharetribe is restricted."
     When I fill in "Invitation code" with "GH1JX8"
-    And I fill in "person[username]" with "kassi_testperson1"
     And I fill in "First name" with "Testmanno"
     And I fill in "Last name" with "Namez"
     And I fill in "person_password1" with "test"
@@ -155,7 +127,7 @@ Feature: User creates a new account
     When I open the email
     And I click the first link in the email
     And wait for 1 seconds
-    Then "kassi_testperson3@example.com" should have 2 emails
+    Then "kassi_testperson3@example.com" should have 1 emails
     And I should see "The email you entered is now confirmed"
 
   Scenario: Creating a new account with custom fields successfully
@@ -174,8 +146,7 @@ Feature: User creates a new account
       | French language  | ranskalainen       |
     And I am on the signup page
     Then I should not see "The access to Sharetribe is restricted."
-    When I fill in "person[username]" with random username
-    And I fill in "First name" with "Testmanno"
+    When I fill in "First name" with "Testmanno"
     And I fill in "Last name" with "Namez"
     And I fill in "person_password1" with "test"
     And I fill in "Confirm password" with "test"
@@ -207,15 +178,14 @@ Feature: User creates a new account
     And the "person[custom_field_values_attributes][][date_value(1i)]" field should contain "2000"
     And the "person[custom_field_values_attributes][][date_value(2i)]" field should contain "6"
     And the "person[custom_field_values_attributes][][date_value(3i)]" field should contain "21"
-    And I should see "French balcony"
+    Then I should see selected "French balcony" in the "person_custom_fields_3" dropdown
     And the "English language" checkbox should be checked
     And the "German language" checkbox should not be checked
     And the "French language" checkbox should be checked
 
   Scenario: Creating a new account successfully with spaces before and after email
     Then I should not see "The access to Sharetribe is restricted."
-    When I fill in "person[username]" with random username
-    And I fill in "First name" with "Testmanno"
+    When I fill in "First name" with "Testmanno"
     And I fill in "Last name" with "Namez"
     And I fill in "person_password1" with "test"
     And I fill in "Confirm password" with "test"

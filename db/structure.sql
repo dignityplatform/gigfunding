@@ -25,6 +25,38 @@ CREATE TABLE `active_sessions` (
   KEY `index_active_sessions_on_refreshed_at` (`refreshed_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `active_storage_attachments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `active_storage_attachments` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `record_type` varchar(255) NOT NULL,
+  `record_id` bigint(20) NOT NULL,
+  `blob_id` bigint(20) NOT NULL,
+  `created_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_active_storage_attachments_uniqueness` (`record_type`,`record_id`,`name`,`blob_id`),
+  KEY `index_active_storage_attachments_on_blob_id` (`blob_id`),
+  CONSTRAINT `fk_rails_c3b3935057` FOREIGN KEY (`blob_id`) REFERENCES `active_storage_blobs` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `active_storage_blobs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `active_storage_blobs` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `key` varchar(255) NOT NULL,
+  `filename` varchar(255) NOT NULL,
+  `content_type` varchar(255) DEFAULT NULL,
+  `metadata` text,
+  `byte_size` bigint(20) NOT NULL,
+  `checksum` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_active_storage_blobs_on_key` (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `ar_internal_metadata`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -86,7 +118,8 @@ CREATE TABLE `bookings` (
   KEY `index_bookings_on_transaction_id` (`transaction_id`) USING BTREE,
   KEY `index_bookings_on_per_hour` (`per_hour`),
   KEY `index_bookings_on_start_time` (`start_time`),
-  KEY `index_bookings_on_end_time` (`end_time`)
+  KEY `index_bookings_on_end_time` (`end_time`),
+  KEY `index_bookings_on_transaction_start_on_end_on_per_hour` (`transaction_id`,`start_on`,`end_on`,`per_hour`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `categories`;
@@ -282,6 +315,10 @@ CREATE TABLE `communities` (
   `linkedin_connect_id` varchar(255) DEFAULT NULL,
   `linkedin_connect_secret` varchar(255) DEFAULT NULL,
   `pre_approved_listings` tinyint(1) DEFAULT '0',
+  `allow_free_conversations` tinyint(1) DEFAULT '1',
+  `email_admins_about_new_transactions` tinyint(1) DEFAULT '0',
+  `show_location` tinyint(1) DEFAULT '1',
+  `fuzzy_location` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_communities_on_uuid` (`uuid`),
   KEY `index_communities_on_domain` (`domain`) USING BTREE,
@@ -315,15 +352,15 @@ CREATE TABLE `community_customizations` (
   `social_media_title` varchar(255) DEFAULT NULL,
   `social_media_description` text,
   `meta_title` varchar(255) DEFAULT NULL,
-  `meta_description` text DEFAULT NULL,
+  `meta_description` text,
   `search_meta_title` varchar(255) DEFAULT NULL,
-  `search_meta_description` text DEFAULT NULL,
+  `search_meta_description` text,
   `listing_meta_title` varchar(255) DEFAULT NULL,
-  `listing_meta_description` text DEFAULT NULL,
+  `listing_meta_description` text,
   `category_meta_title` varchar(255) DEFAULT NULL,
-  `category_meta_description` text DEFAULT NULL,
+  `category_meta_description` text,
   `profile_meta_title` varchar(255) DEFAULT NULL,
-  `profile_meta_description` text DEFAULT NULL,
+  `profile_meta_description` text,
   PRIMARY KEY (`id`),
   KEY `index_community_customizations_on_community_id` (`community_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -651,6 +688,7 @@ CREATE TABLE `invitations` (
   `inviter_id` varchar(255) DEFAULT NULL,
   `message` text,
   `email` varchar(255) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `index_invitations_on_code` (`code`) USING BTREE,
   KEY `index_invitations_on_inviter_id` (`inviter_id`) USING BTREE
@@ -684,6 +722,20 @@ CREATE TABLE `landing_pages` (
   UNIQUE KEY `index_landing_pages_on_community_id` (`community_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `listing_blocked_dates`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `listing_blocked_dates` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `listing_id` bigint(20) DEFAULT NULL,
+  `blocked_at` date DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_listing_blocked_dates_on_listing_id_and_blocked_at` (`listing_id`,`blocked_at`),
+  KEY `index_listing_blocked_dates_on_listing_id` (`listing_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `listing_followers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -713,6 +765,11 @@ CREATE TABLE `listing_images` (
   `height` int(11) DEFAULT NULL,
   `author_id` varchar(255) DEFAULT NULL,
   `position` int(11) DEFAULT '0',
+  `email_image_file_name` varchar(255) DEFAULT NULL,
+  `email_image_content_type` varchar(255) DEFAULT NULL,
+  `email_image_file_size` int(11) DEFAULT NULL,
+  `email_image_updated_at` datetime DEFAULT NULL,
+  `email_hash` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_listing_images_on_listing_id` (`listing_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -822,6 +879,7 @@ CREATE TABLE `listings` (
   `availability` varchar(32) DEFAULT 'none',
   `per_hour_ready` tinyint(1) DEFAULT '0',
   `state` varchar(255) DEFAULT 'approved',
+  `approval_count` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_listings_on_uuid` (`uuid`),
   KEY `index_listings_on_new_category_id` (`category_id`) USING BTREE,
@@ -1129,6 +1187,7 @@ CREATE TABLE `paypal_payments` (
   `commission_pending_reason` varchar(64) DEFAULT NULL,
   `commission_total_cents` int(11) DEFAULT NULL,
   `commission_fee_total_cents` int(11) DEFAULT NULL,
+  `commission_retry_count` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_paypal_payments_on_transaction_id` (`transaction_id`) USING BTREE,
   UNIQUE KEY `index_paypal_payments_on_authorization_id` (`authorization_id`) USING BTREE,
@@ -1329,9 +1388,11 @@ CREATE TABLE `stripe_accounts` (
   `stripe_customer_id` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
+  `api_version` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_stripe_accounts_on_community_id` (`community_id`),
-  KEY `index_stripe_accounts_on_person_id` (`person_id`)
+  KEY `index_stripe_accounts_on_person_id` (`person_id`),
+  KEY `index_stripe_accounts_on_api_version` (`api_version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `stripe_payments`;
@@ -1357,6 +1418,9 @@ CREATE TABLE `stripe_payments` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `buyer_commission_cents` int(11) DEFAULT '0',
+  `stripe_payment_intent_id` varchar(255) DEFAULT NULL,
+  `stripe_payment_intent_status` varchar(255) DEFAULT NULL,
+  `stripe_payment_intent_client_secret` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1480,7 +1544,8 @@ CREATE TABLE `transactions` (
   KEY `index_transactions_on_deleted` (`deleted`) USING BTREE,
   KEY `index_transactions_on_starter_id` (`starter_id`) USING BTREE,
   KEY `index_transactions_on_listing_author_id` (`listing_author_id`) USING BTREE,
-  KEY `community_starter_state` (`community_id`,`starter_id`,`current_state`)
+  KEY `community_starter_state` (`community_id`,`starter_id`,`current_state`),
+  KEY `index_transactions_on_listing_id_and_current_state` (`listing_id`,`current_state`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -2374,6 +2439,24 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20190227111355'),
 ('20190228084827'),
 ('20190305112030'),
+('20190319114719'),
 ('20190319122745'),
-('20190319114719');
+('20190627055931'),
+('20190705083608'),
+('20190705100256'),
+('20190717105844'),
+('20190718081745'),
+('20190904115045'),
+('20190920113245'),
+('20191016061908'),
+('20191016064022'),
+('20200109145736'),
+('20200127120611'),
+('20200131111643'),
+('20200213130051'),
+('20200224080321'),
+('20200303075727'),
+('20200312062151'),
+('20200312112018');
+
 

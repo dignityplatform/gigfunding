@@ -23,6 +23,7 @@
     = link_to(t("settings.profile.profile_page"), target_user) + "."
 
   = form_for target_user do |form|
+    = hidden_field_tag :referer_form, 'settings'
     = form.label :given_name, t("settings.profile.given_name")
     = form.text_field :given_name, :class => "text_field", :maxlength => "30"
     .inline-label-container
@@ -39,25 +40,39 @@
       = icon_tag("information", ["icon-fix"])
     %small
       = t("settings.profile.display_name_description")
-    = form.text_field :display_name, class: "text_field", :maxlength => "30"
+    = form.text_field :display_name, class: "text_field", :maxlength => "100"
 
-    -# Location
+    -# username
     .inline-label-container
-      = form.label :street_address, t("settings.profile.street_address"), :class => "inline"
-      %small
-        = t('settings.profile.default_in_listing')
+      = form.label :display_name, t("settings.profile.username"), class: "inline"
     %span.alert-box-icon
       = icon_tag("information", ["icon-fix"])
     %small
-      = t("settings.profile.location_description")
-    = form.text_field :street_address, :class => "text_field", :onkeyup => "timed_input(this)"
-    #settings_map_canvas.map
-      - content_for :extra_javascript do
-        :javascript
-          source = document.getElementById("person_street_address");
-          $(document).ready(function(){
-            googlemapMarkerInit("settings_map_canvas","person_location","person_street_address", true, #{tribe_latitude}, #{tribe_longitude});
-            });
+      = t("settings.profile.username_description")
+    = form.text_field :username, class: "text_field", required: true,
+      minlength: 3, maxlength: 20, valid_username: true,
+      remote: check_username_availability_person_path(target_user.username),
+      data: {'msg-remote': t('errors.messages.username_is_invalid')},
+      'data-msg-valid_username': t('errors.messages.username_is_invalid')
+
+    -# Location
+    - if show_location?
+      .inline-label-container
+        = form.label :street_address, t("settings.profile.street_address"), :class => "inline"
+        %small
+          = t('settings.profile.default_in_listing')
+      %span.alert-box-icon
+        = icon_tag("information", ["icon-fix"])
+      %small
+        = t("settings.profile.location_description")
+      = form.text_field :street_address, :class => "text_field", :onkeyup => "timed_input(this)"
+      #settings_map_canvas.map
+        - content_for :extra_javascript do
+          :javascript
+            source = document.getElementById("person_street_address");
+            $(document).ready(function(){
+              googlemapMarkerInit("settings_map_canvas","person_location","person_street_address", true, #{tribe_latitude}, #{tribe_longitude});
+              });
 
     -# Phone number
     - show_phone_number = @service.fixed_phone_field?
@@ -80,6 +95,12 @@
 
     -# About text
     = form.label :description, t("settings.profile.about_you"), :class => "input"
+    %span.alert-box-icon
+      = icon_tag("information", ["icon-fix"])
+    %small
+      - markdown_popup_link = link_to t("settings.profile.format_markdown_link"), "#", id: "markdown-popup-link"
+      = raw t("settings.profile.format_markdown", link: markdown_popup_link)
+
     = form.text_area :description, :class => "update_profile_description_text_area"
     = form.fields_for :location do |loc|
       = loc.hidden_field :address, :value => target_user.location.address
@@ -105,3 +126,5 @@
             :custom_field_value => custom_field_value,
             :prefix => prefix
     = form.button t("settings.save_information"), :class => "send_button"
+
+= render :partial => 'layouts/markdown_help'
