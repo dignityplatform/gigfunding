@@ -186,3 +186,4 @@ gem "select2-rails"
 gem "cocoon"
 gem "fast-polylines"
 gem 'unicorn'
+gem 'foreman'

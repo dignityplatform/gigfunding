@@ -238,6 +238,7 @@ GEM
       pusher-client (~> 0.3)
       riddle (>= 1.5.6)
       thinking-sphinx
+    foreman (0.87.1)
     formatador (0.2.5)
     gherkin (5.1.0)
     globalid (0.4.2)
@@ -690,6 +691,7 @@ DEPENDENCIES
   fast-polylines
   ffi (>= 1.9.25)
   flying-sphinx (~> 1.2.0)
+  foreman
   guard-rspec (~> 4.7.3)
   haml (~> 5.0.4)
   hiredis (~> 0.6.3)
