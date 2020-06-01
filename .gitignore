@@ -72,3 +72,5 @@ test-results.xml
 client/.vimrc
 storage/
 .rvmrc
+.history
+.vscode
