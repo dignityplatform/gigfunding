@@ -211,10 +211,6 @@ GEM
     diff-lcs (1.3)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
-    dotenv (2.7.5)
-    dotenv-rails (2.7.5)
-      dotenv (= 2.7.5)
-      railties (>= 3.2, < 6.1)
     dynamic_form (1.1.4)
     email_spec (2.1.1)
       htmlentities (~> 4.3.3)
@@ -690,7 +686,6 @@ DEPENDENCIES
   delayed_paperclip (~> 3.0.1)
   devise (>= 4.7.1)
   devise-encryptable (~> 0.2.0)
-  dotenv-rails
   dynamic_form (~> 1.1.4)
   email_spec (~> 2.1.1)
   factory_girl_rails (~> 4.8.0)
