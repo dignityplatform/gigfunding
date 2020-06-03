@@ -22,7 +22,11 @@ class TransactionMailer < ActionMailer::Base
     @transaction = transaction
     @community = transaction.community
 
-    recipient = transaction.author
+    recipient = if @transaction.listing.listing_shape.name == 'requesting'
+        transaction.listing_author
+      else
+        transaction.author
+    end
     set_up_layout_variables(recipient, transaction.community)
     with_locale(recipient.locale, transaction.community.locales.map(&:to_sym), transaction.community.id) do
 
