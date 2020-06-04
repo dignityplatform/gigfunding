@@ -1332,7 +1332,7 @@ en:
       stripe:
         held_payment: "Accepted the request. Payment for %{sum} is being held by %{service_name} until the order is marked as completed."
         held_payment_wo_sum: "Accepted the request. Payment is being held by %{service_name} until the order is marked as completed."
-        confirmed_request: "Marked the order as completed. The payment has now been transferred to %{author_name} bank account or will be transferred soon."
+        confirmed_request: "Marked the order as completed. The payment has now been transferred to %{service_name}."
       canceled_the_order: "Disputed the order. The %{service_name} team has been notified."
       marked_as_refunded: "Marked as refunded"
       dismissed_the_cancellation: "Dismissed the dispute."
