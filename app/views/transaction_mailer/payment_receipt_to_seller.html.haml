@@ -45,16 +45,16 @@
               %b= t("emails.payment_receipt_to_seller.price_payer_paid", :payer_full_name => payer_given_name)
             %td
               %b= payment_total
-        %tr
-          %td
-            = t("emails.payment_receipt_to_seller.service_fee")
-          %td= "#{payment_service_fee}"
+        -# %tr
+        -#   %td
+        -#     = t("emails.payment_receipt_to_seller.service_fee")
+        -#   %td= "#{payment_service_fee}"
 
-        -# if payment_buyer_service_fee.present?
-          %tr
-            %td
-              = t("emails.payment_receipt_to_seller.buyer_service_fee")
-            %td= "#{payment_buyer_service_fee}"
+        -# - if payment_buyer_service_fee.present?
+        -#   %tr
+        -#     %td
+        -#       = t("emails.payment_receipt_to_seller.buyer_service_fee")
+        -#     %td= "#{payment_buyer_service_fee}"
 
 
         - if shipping_total.present?
@@ -69,10 +69,10 @@
               = t("emails.payment_receipt_to_seller.payment_gateway_fee")
             %td= "#{payment_gateway_fee}"
 
-        %tr{:style => "border-top: 1px solid black"}
-          %td
-            %b= t("emails.payment_receipt_to_seller.you_will_get")
-          %td
-            %b= payment_seller_gets
+        -# %tr{:style => "border-top: 1px solid black"}
+        -#   %td
+        -#     %b= t("emails.payment_receipt_to_seller.you_will_get")
+        -#   %td
+        -#     %b= payment_seller_gets
 
 = render :partial => "person_mailer/action_button", :locals => { :text => t("emails.conversation_status_changed.view_thread"), :url => conversation_url}

@@ -1502,7 +1502,7 @@ en:
       giving_feedback_is_good_idea: "Giving feedback is always a good idea. If everything went well, you should let others know that %{other_party_given_name} can be trusted. If there were any problems, it's good to mention those as well."
       give_feedback_to: "Give feedback to %{other_party_given_name}"
       stripe:
-        has_marked_request_as_confirmed: "%{other_party_full_name} has marked the order '%{request}' completed. The payment for this transaction has now been released. You can now give feedback to %{other_party_given_name}."
+        has_marked_request_as_confirmed: "%{other_party_full_name} has marked the order <b>%{request}</b> completed. The payment for this transaction has now been released. You can now give feedback to %{other_party_given_name}."
       team_title: "the %{service_name} team"
     transaction_confirmed_v2:
       headline_confirmed: "%{other_party_full_name} has marked the order about %{listing_link} completed."
@@ -1702,9 +1702,9 @@ en:
       subject: "%{requester} is interested and has authorized payment for %{listing_title} published in %{service_name}"
       transaction_requested_by_user: 'Great news! %{requester} is interested in "%{listing_title}" and has authorized payment for this listing.'
       you_have_time_to_accept: "You need to accept or reject the request within %{payment_expires_in}."
-      if_you_do_accept: "If you accept the request within this timeframe, you will receive the money immediately to your account."
-      if_you_do_accept_stripe: "If you accept the request within this timeframe, the payment will go through. You will receive the money directly to your bank account after you have delivered %{listing_title} to %{requester}."
-      if_you_do_not_accept: "If you reject the request or don't accept it within this timeframe, the transaction will be automatically canceled, %{requester} will not be charged and you will not get paid."
+      if_you_do_accept: "If you accept the request within this timeframe, amount will be transfered to %{service_name}'s account immediately."
+      if_you_do_accept_stripe: "If you accept the request within this timeframe, the payment will go through. %{service_name} will receive the money after you have delivered %{listing_title} to %{requester}."
+      if_you_do_not_accept: "If you reject the request or don't accept it within this timeframe, the transaction will be automatically canceled, %{requester} will not be charged and %{service_name} will not get paid."
       click_here_to_reply: "Click here to respond to the request"
     transaction_preauthorized_v2:
       headline: "%{requester} is interested and has authorized payment for %{listing_link}."

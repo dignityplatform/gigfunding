@@ -43,25 +43,25 @@
               = quantity_selector_label || t("emails.receipt_to_payer.quantity")
             %td
               %strong= listing_quantity
-        %tr
-          %td
-            = t("emails.receipt_to_payer.subtotal")
-          %td
-            %strong= subtotal
+        -# %tr
+        -#   %td
+        -#     = t("emails.receipt_to_payer.subtotal")
+        -#   %td
+        -#     %strong= subtotal
 
-        - if payment_buyer_service_fee.present?
-          %tr
-            %td
-              = t("emails.receipt_to_payer.buyer_service_fee")
-            %td
-              %strong= payment_buyer_service_fee
+        -# - if payment_buyer_service_fee.present?
+        -#   %tr
+        -#     %td
+        -#       = t("emails.receipt_to_payer.buyer_service_fee")
+        -#     %td
+        -#       %strong= payment_buyer_service_fee
 
-        - if shipping_total.present?
-          %tr
-            %td
-              = t("emails.paypal_new_payment.shipping_total")
-            %td
-              %strong= shipping_total
+        -# - if shipping_total.present?
+        -#   %tr
+        -#     %td
+        -#       = t("emails.paypal_new_payment.shipping_total")
+        -#     %td
+        -#       %strong= shipping_total
 
         %tr
           %td
