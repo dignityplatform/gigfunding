@@ -1411,7 +1411,7 @@ en:
           unknown_reason: "Payment is pending. Log in to your PayPal account to see more details."
           verify: "Waiting for you to verify your PayPal account"
       stripe:
-        waiting_confirmation_from_requester: "Waiting for %{requester_name} to mark the order completed. Once the order is marked as completed, the payment will be released to your bank account."
+        waiting_confirmation_from_requester: "Waiting for %{requester_name} to mark the order completed. Once the order is marked as completed, the payment will be released"
       order_canceled: "Order disputed"
       waiting_for_marketplace_review: "Waiting for the %{service_name} team to review the situation"
       marketplace_notified: "The %{service_name} team has been notified. You can also %{contact_link} if you want to share more details with them."
@@ -1502,13 +1502,13 @@ en:
       giving_feedback_is_good_idea: "Giving feedback is always a good idea. If everything went well, you should let others know that %{other_party_given_name} can be trusted. If there were any problems, it's good to mention those as well."
       give_feedback_to: "Give feedback to %{other_party_given_name}"
       stripe:
-        has_marked_request_as_confirmed: "%{other_party_full_name} has marked the order about '%{request}' completed. The payment for this transaction has now been released to your bank account. You can now give feedback to %{other_party_given_name}."
+        has_marked_request_as_confirmed: "%{other_party_full_name} has marked the order '%{request}' completed. The payment for this transaction has now been released. You can now give feedback to %{other_party_given_name}."
       team_title: "the %{service_name} team"
     transaction_confirmed_v2:
       headline_confirmed: "%{other_party_full_name} has marked the order about %{listing_link} completed."
       headline_canceled: "%{other_party_full_name} has disputed the order about %{listing_link}."
       stripe:
-        has_marked_request_as_confirmed: "The payment for this transaction has now been released to your bank account."
+        has_marked_request_as_confirmed: "The payment for this transaction has now been released."
       can_give_feedback: "You can now give feedback to %{other_party_given_name}."
       team_title: "the %{service_name} team"
     transaction_automatically_confirmed:
