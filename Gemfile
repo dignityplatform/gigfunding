@@ -192,3 +192,4 @@ gem 'foreman'
 gem "airbrake-ruby", "~> 4.2"
 
 gem 'awesome_print', '~> 1.7.0'
+gem 'rack-cors'
