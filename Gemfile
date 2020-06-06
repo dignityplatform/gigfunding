@@ -128,7 +128,6 @@ group :development do
   gem 'annotate', '~> 2.7.5'
   gem 'zeus', '~> 0.15.13', require: false
   gem 'web-console', '~> 3.7.0'
-  gem 'awesome_print', '~> 1.7.0'
   gem 'binding_of_caller'
   gem "rails-erd"
   gem "letter_opener"
@@ -191,3 +190,5 @@ gem 'unicorn'
 gem 'foreman'
 
 gem "airbrake-ruby", "~> 4.2"
+
+gem 'awesome_print', '~> 1.7.0'
