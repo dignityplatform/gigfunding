@@ -177,9 +177,9 @@
           .listing-author-contact
             %a#listing-contact{href: contact_to_listing_path(:listing_id => @listing.id.to_s), :class => "enabled-book-button"}
               .content
-                - if shape_name(@listing) == 'requesting'
+                - if @listing.listing_shape.name == 'requesting'
                   = t(".help") + ' ' + author_name
-                - elsif shape_name(@listing) == 'offering'
+                - elsif @listing.listing_shape.name == 'offering'
                   = t(".hire") + ' ' + author_name
                 
 
