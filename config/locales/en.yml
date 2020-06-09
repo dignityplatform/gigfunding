@@ -264,6 +264,7 @@ en:
         payment_preferences: "Payment system"
         pre_approved_listings: "Review all listings before they are published"
         email_admins_about_new_transactions: "Send admins an email whenever a new transaction starts"
+        payments_not_enabled: "Payments are not enabled for your marketplace"
       manage_members:
         manage_members: Users
         email: Email
@@ -2385,7 +2386,7 @@ en:
         after_service_fee_you_will_get: "After %{service_name} and payment processor fees you will get %{sum_with_currency}"
         no_service_fee_you_will_get_paypal_text: "%{paypal_fee_info_link} will be deducted from the price."
         no_service_fee_you_will_get_payment_text: "%{payment_fee_info_link} will be deducted from the price."
-        after_service_fee_you_will_get_payment_text: "Your money will be paid to %{service_name} CIC, who will donate the full total to the cause(s) chosen on this listing."
+        after_service_fee_you_will_get_payment_text: "Your money will be paid to %{service_name} CIC, who will donate the full total to the cause(s) chosen on your profile and the other users."
         payment_fee_info_link_text: "%{service_name} fee and a payment processing fee"
         delivery: "Delivery method"
         shipping: Shipping
