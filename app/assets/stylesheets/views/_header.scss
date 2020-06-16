@@ -168,6 +168,7 @@ $elementSpacing: lines(0.5);
  
 .header-toggle-menu-language {
   @include header-toggle-menu;
+  right: 0;
 }
 
 .header-toggle-menu-user {
