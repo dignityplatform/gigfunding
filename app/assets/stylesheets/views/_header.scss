@@ -220,8 +220,15 @@ $elementSpacing: lines(0.5);
 }
 
 @mixin header-toggle-menu {
-  min-width: em(200);
+  min-width: 100%;
+  width: auto;
   position: absolute;
+  top: 100%;
+
+  & a {
+    min-width: inherit;
+    width: max-content;
+  }
 }
 
 .header-toggle-menu-language {
@@ -230,11 +237,11 @@ $elementSpacing: lines(0.5);
 
 .header-toggle-menu-user {
   @include header-toggle-menu;
+  right: 0;
 }
 
 .header-toggle-menu-menu {
   @include header-toggle-menu;
-  top: 100%;
   left: 0;
   
   @include media(tablet) {
