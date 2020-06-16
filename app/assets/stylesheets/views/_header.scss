@@ -90,9 +90,12 @@ $elementSpacing: lines(0.5);
 
 /* header items */
 /* ======================================== */
-.header-menu-container {
+.header-button-container {
   position: relative;
   height: 100%;
+}
+
+.header-button-container-menu {
   padding: $elementPadding $elementSpacing;
 }
 
@@ -101,10 +104,11 @@ $elementSpacing: lines(0.5);
   box-sizing: border-box;
   height: 100%;
   margin: 0px 0px;
-  padding: 0 lines(0.5);
+  padding: 0 lines(0.3);
   text-align: center;
   display: flex;
   align-items: center;
+  border-radius: 0;
 
   &:focus {
     outline: none;
@@ -121,7 +125,7 @@ $elementSpacing: lines(0.5);
   }
 
   & * {
-    margin: 0 lines(0.1);
+    margin: 0 lines(0.2);
   }
 
   & i:before {
@@ -135,13 +139,13 @@ $elementSpacing: lines(0.5);
   color: $light-body;
 
   &:hover {
-    background: darken($highlight, 5%);
-    color: $background;
+    background: darken($background, 5%);
+    color: $body;
   }
 
   &:active {
-    background: darken($highlight, 10%);
-    color: $background;
+    background: darken($background, 10%);
+    color: $body;
   }
 }
 
