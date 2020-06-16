@@ -2,10 +2,8 @@
 %header.header
   .header-wrapper
     
-
-    .header-right.visible-tablet
-      #header-menu-desktop-anchor.header-menu-container.toggle.hidden{data: {toggle: '#header-menu-toggle-menu', 'toggle-position' => 'absolute'}}
-
+    .header-right.visible-tablet#header-menu-desktop-anchor
+      
     - if logged_in
       .header-right
         = render :partial => "layouts/header_anchors", locals: {avatar_url: avatar_url, current_user_name: current_user_name, icons: icons}
@@ -33,9 +31,10 @@
           = t("header.signup")
 
     .header-left.hidden-tablet
-      .header-menu-container.toggle.hidden{data: {toggle: '#header-menu-toggle-menu', 'toggle-position' => 'absolute'}}
-        #header-menu-mobile-anchor.header-menu-toggle-container.toggle-header-container
-          = icon_map_tag(icons, "rows", ["header-menu-icon"])
+      #header-menu-mobile-anchor.header-menu-container.toggle{data: {toggle: '#header-menu-toggle-menu', 'toggle-position' => 'absolute'}}
+        %button.header-button-menu
+          %span
+            = icon_map_tag(icons, "rows")
           %span.visible-tablet-inline
             = t("header.menu")
 

@@ -24,13 +24,22 @@ $elementSpacing: lines(0.5);
 
 .header-wrapper {
   @include wrapper(0);
+  position: relative;
+  height: 100%;
+}
+
+@mixin header-item {
+  position: relative;
+  height: 100%;
 }
 
 .header-left {
+  @include header-item;
   float: left;
 }
 
 .header-right {
+  @include header-item;
   float: right;
 }
 
@@ -79,6 +88,79 @@ $elementSpacing: lines(0.5);
   }
 }
 
+/* header items */
+/* ======================================== */
+.header-menu-container {
+  position: relative;
+  height: 100%;
+  padding: $elementPadding $elementSpacing;
+}
+
+@mixin header-button {
+  position: relative;
+  box-sizing: border-box;
+  height: 100%;
+  margin: 0px 0px;
+  padding: 0 lines(0.5);
+  text-align: center;
+  display: flex;
+  align-items: center;
+
+  &:focus {
+    outline: none;
+  }
+
+  .toggled & {
+    color: $background;
+    background-color: $light-body;
+
+    &:hover, &:active {
+      color: $background;
+      background-color: $light-body;
+    }
+  }
+
+  & * {
+    margin: 0 lines(0.1);
+  }
+
+  & i:before {
+    display: inherit;
+  }
+}
+
+.header-button-general {
+  @include header-button;
+  background: $background;
+  color: $light-body;
+
+  &:hover {
+    background: darken($highlight, 5%);
+    color: $background;
+  }
+
+  &:active {
+    background: darken($highlight, 10%);
+    color: $background;
+  }
+}
+
+.header-button-menu {
+  @include header-button;
+  @include border-radius(em(5));
+  background: $highlight;
+  color: $body;
+
+  &:hover, &:active {
+    background: darken($highlight, 30%);
+    color: $background;
+  }
+}
+
+/* header menu items */
+/* ======================================== */
+
+
 @mixin header-menu-button($bgcolor) {
   @include button($bgcolor);
   @include header-block;
@@ -86,6 +168,8 @@ $elementSpacing: lines(0.5);
   padding-right: em(20);
   line-height: $buttonLineHeight;
 }
+
+
 
 .new-listing-link {
   @include header-menu-button($link2);
@@ -95,11 +179,6 @@ $elementSpacing: lines(0.5);
   text-overflow: ellipsis;
 }
 
-.header-menu-container {
-  display: block;
-  padding: $elementPadding $elementSpacing;
-  height: $headerHeight;
-}
 
 .header-menu-toggle-container {
   @include button($highlight);
