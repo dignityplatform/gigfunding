@@ -57,8 +57,9 @@ $elementSpacing: lines(0.5);
 }
 
 .header-hover {
-  &:hover {
-    background-color: $highlight;
+  &:hover, &:active {
+    background: $highlight;
+    color: $body;
   }
 
   &.toggled {
@@ -71,25 +72,24 @@ $elementSpacing: lines(0.5);
   @include header-block;
 }
 
+/* ======================================== */
+/* header links */
+/* ======================================== */
+
 .header-text-link {
-  height: $headerHeight;
-  line-height: $textLineHeight;
-  padding-right: $elementSpacing;
-  padding-left: $elementSpacing;
-  display: block;
+  position: relative;
+  box-sizing: border-box;
+  height: 100%;
+  padding: $elementSpacing;
+  display: flex;
+  align-items: center;
   color: $body;
-
-  &:hover {
-    color: $body;
-  }
-
-  .toggled & {
-    color: $background;
-  }
 }
 
-/* header items */
 /* ======================================== */
+/* header buttons */
+/* ======================================== */
+
 .header-button-container {
   position: relative;
   height: 100%;
@@ -137,16 +137,6 @@ $elementSpacing: lines(0.5);
   @include header-button;
   background: $background;
   color: $light-body;
-
-  &:hover {
-    background: darken($background, 5%);
-    color: $body;
-  }
-
-  &:active {
-    background: darken($background, 10%);
-    color: $body;
-  }
 }
 
 .header-button-menu {
@@ -161,7 +151,42 @@ $elementSpacing: lines(0.5);
   }
 }
 
-/* header menu dropdown */
+/* ======================================== */
+/* header dropdown menus */
+/* ======================================== */
+
+@mixin header-toggle-menu {
+  min-width: 100%;
+  width: auto;
+  position: absolute;
+  top: 100%;
+
+  & a {
+    min-width: inherit;
+    width: max-content;
+  }
+}
+
+ 
+.header-toggle-menu-language {
+  @include header-toggle-menu;
+}
+
+.header-toggle-menu-user {
+  @include header-toggle-menu;
+  right: 0;
+}
+
+.header-toggle-menu-menu {
+  @include header-toggle-menu;
+  left: 0;
+  
+  @include media(tablet) {
+    left: auto;
+    right: 0;
+  }
+}
+
 /* ======================================== */
 
 
@@ -219,49 +244,15 @@ $elementSpacing: lines(0.5);
   @include clearfix;
 }
 
-@mixin header-toggle-menu {
-  min-width: 100%;
-  width: auto;
-  position: absolute;
-  top: 100%;
 
-  & a {
-    min-width: inherit;
-    width: max-content;
-  }
-}
-
-.header-toggle-menu-language {
-  @include header-toggle-menu;
-}
-
-.header-toggle-menu-user {
-  @include header-toggle-menu;
-  right: 0;
-}
-
-.header-toggle-menu-menu {
-  @include header-toggle-menu;
-  left: 0;
-  
-  @include media(tablet) {
-    left: auto;
-    right: 0;
-  }
-}
 
 .header-inbox-link {
   color: $body;
-
   position: relative;
 }
 
 .header-inbox {
   @include big-type;
-
-  // Icon fix
-  position: relative;
-  top: em(4);
 }
 
 .badge {
