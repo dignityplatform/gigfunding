@@ -31,14 +31,14 @@
           = t("header.signup")
 
     .header-left.hidden-tablet
-      #header-menu-mobile-anchor.header-menu-container.toggle{data: {toggle: '#header-menu-toggle-menu', 'toggle-position' => 'absolute'}}
+      #header-menu-mobile-anchor.header-menu-container.toggle{data: {toggle: '#header-menu-toggle-menu'}}
         %button.header-button-menu
           %span
             = icon_map_tag(icons, "rows")
           %span.visible-tablet-inline
             = t("header.menu")
-
-    = render :partial => "layouts/header_menu", locals: { locale_change_links: locale_change_links, icons: icons}
+        = render :partial => "layouts/header_menu", locals: { locale_change_links: locale_change_links, icons: icons}
+    
 
     -#
       If necessary, the buttons will overlap with the logo. Buttons should be on top, that's

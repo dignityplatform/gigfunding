@@ -157,7 +157,7 @@ $elementSpacing: lines(0.5);
   }
 }
 
-/* header menu items */
+/* header menu dropdown */
 /* ======================================== */
 
 
@@ -230,6 +230,13 @@ $elementSpacing: lines(0.5);
 
 .header-toggle-menu-menu {
   @include header-toggle-menu;
+  top: 100%;
+  left: 0;
+  
+  @include media(tablet) {
+    left: auto;
+    right: 0;
+  }
 }
 
 .header-inbox-link {
