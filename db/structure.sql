@@ -1549,6 +1549,19 @@ CREATE TABLE `transactions` (
   KEY `index_transactions_on_listing_id_and_current_state` (`listing_id`,`current_state`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `typed_slogans`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `typed_slogans` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `community_id` int DEFAULT NULL,
+  `locale` varchar(255) DEFAULT NULL,
+  `typed_slogan_text` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -2459,6 +2472,7 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20200303075727'),
 ('20200312062151'),
 ('20200312112018'),
-('20200617124857');
+('20200617124857'),
+('20200617170525');
 
 
