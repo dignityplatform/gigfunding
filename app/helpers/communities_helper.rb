@@ -25,7 +25,7 @@ module CommunitiesHelper
   end
 
   def community_typed_slogan_locals
-    translations = find_community_customizations(:typed_slogans)  # no translations currently entered
+    translations = find_typed_slogans
     info_text = I18n.t("admin.communities.edit_details.edit_community_typed_slogan_description")
     {
       header: t("admin.communities.edit_details.community_typed_slogan"),
@@ -86,7 +86,7 @@ module CommunitiesHelper
   def find_community_customizations(customization_key)
     available_locales.inject({}) do |translations, (locale_name, locale_value)|
       translation = @community_customizations[locale_value][customization_key] || ""
-      translations[locale_value] = {language: locale_name, translation: translation};
+      translations[locale_value] = {language: locale_name, translation: translation}
       translations
     end
   end
@@ -100,4 +100,11 @@ module CommunitiesHelper
     end.compact
   end
 
+  def find_typed_slogans
+    available_locales.inject({}) do |translations, (locale_name, locale_value)|
+      slogans = @current_community.typed_slogans.where(locale: locale_value)
+      translations[locale_value] = {language: locale_name, translation: slogans}
+      translations
+    end
+  end
 end

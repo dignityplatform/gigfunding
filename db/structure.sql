@@ -1554,12 +1554,13 @@ DROP TABLE IF EXISTS `typed_slogans`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `typed_slogans` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `community_id` int DEFAULT NULL,
   `locale` varchar(255) DEFAULT NULL,
   `typed_slogan_text` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  `community_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_typed_slogans_on_community_id` (`community_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -2473,6 +2474,8 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20200312062151'),
 ('20200312112018'),
 ('20200617124857'),
-('20200617170525');
+('20200617170525'),
+('20200617180909'),
+('20200617181714');
 
 
