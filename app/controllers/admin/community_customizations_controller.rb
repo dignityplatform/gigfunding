@@ -31,11 +31,6 @@ class Admin::CommunityCustomizationsController < Admin::AdminBaseController
         :transaction_agreement_label,
         :transaction_agreement_content,
       ]
-      p '================================='
-      p params[:community_customizations]
-      p '================================='
-      p params[:community]
-      p '================================='
       locale_params = params.require(:community_customizations).require(locale).permit(*permitted_params)
       customizations = find_or_initialize_customizations_for_locale(locale)
       customizations.assign_attributes(locale_params)
@@ -44,6 +39,17 @@ class Admin::CommunityCustomizationsController < Admin::AdminBaseController
       customizations
     end
 
+    @current_community.locales.each do |locale|
+      @current_community.typed_slogans.where(locale: locale).each do |typed_slogan|
+        permitted_params = params.require(:typed_slogan).require(typed_slogan.id.to_s).permit(:remove, :typed_slogan_text)
+        if permitted_params[:remove] == '1'
+          typed_slogan.destroy
+        else
+          update_results.push(typed_slogan.update(typed_slogan_text: permitted_params[:typed_slogan_text]))
+        end
+      end
+    end
+    
     process_locales = unofficial_locales.blank?
 
     if process_locales

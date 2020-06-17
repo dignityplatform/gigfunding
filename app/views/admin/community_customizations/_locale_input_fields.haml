@@ -37,9 +37,9 @@
             = label_tag "typed_slogan[#{language_key}]", value[:language], class: input_classes + ' label'
         - value[:translation].each do |typed_slogan|
           .typed-slogan-container
-            = check_box_tag "typed_slogan[remove-item]", 0, false, id: "typed-slogan-#{typed_slogan.id}", class: 'typed-slogan-checkbox'
+            = check_box_tag "typed_slogan[#{typed_slogan.id}][remove]", 1, false, id: "typed-slogan-#{typed_slogan.id}", class: 'typed-slogan-checkbox'
             .name-locale-text_field.typed-slogan-textbox
-              = text_field_tag "typed_slogan[#{language_key}]", typed_slogan.typed_slogan_text,
+              = text_field_tag "typed_slogan[#{typed_slogan.id}][typed_slogan_text]", typed_slogan.typed_slogan_text,
               class: input_classes, maxlength: defined?(maxlength) ? maxlength : nil,
               placeholder: defined?(placeholder) ? placeholder : ""
             %label{for: "typed-slogan-#{typed_slogan.id}", class: 'remove-typed-slogan-button'}
