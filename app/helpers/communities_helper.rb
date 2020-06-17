@@ -24,6 +24,18 @@ module CommunitiesHelper
     }
   end
 
+  def community_typed_slogan_locals
+    translations = find_community_customizations(:typed_slogans)  # no translations currently entered
+    info_text = I18n.t("admin.communities.edit_details.edit_community_typed_slogan_description")
+    {
+      header: t("admin.communities.edit_details.community_typed_slogan"),
+      input_classes: "",
+      info_text: info_text,
+      input_name: "typed_slogan",
+      translations: translations
+    }
+  end
+
   def community_description_locals
     translations = find_community_customizations(:description)
     looks_link = link_to(t("admin.communities.edit_details.see_how_it_looks_like"), "/?big_cover_photo=true", target: :_blank, rel: :noopener)

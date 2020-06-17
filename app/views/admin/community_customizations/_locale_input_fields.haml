@@ -10,6 +10,13 @@
       .col-12
         = check_box_tag "community[show_slogan]", 1, @current_community.show_slogan?, class: "checkbox-row-checkbox"
         = label_tag "community[show_slogan]", t("admin.communities.edit_details.community_slogan_display"), class:"checkbox-row-label"
+  
+  - if 'typed_slogan' == input_name
+    .row
+      .col-12
+        = check_box_tag "community[show_typed_slogan]", 0, @current_community.show_typed_slogan?, class: "checkbox-row-checkbox"
+        = label_tag "community[show_typed_slogan]", t("admin.communities.edit_details.community_typed_slogan_display"), class:"checkbox-row-label"
+
   - if 'description' == input_name
     .row
       .col-12
@@ -21,7 +28,10 @@
       - if translations.size > 1
         .name-locale-label.col-2
           = label_tag "community_customizations[#{language_key}][#{input_name}]", value[:language], class: input_classes + ' label'
-      .name-locale-text_field.col-10
-        = text_field_tag "community_customizations[#{language_key}][#{input_name}]",
-          value[:translation], class: input_classes, maxlength: defined?(maxlength) ? maxlength : nil,
-          placeholder: defined?(placeholder) ? placeholder : ""
+      - if 'typed_slogan' == input_name
+        -# add textboxes for typed slogans
+      - else
+        .name-locale-text_field.col-10
+          = text_field_tag "community_customizations[#{language_key}][#{input_name}]",
+            value[:translation], class: input_classes, maxlength: defined?(maxlength) ? maxlength : nil,
+            placeholder: defined?(placeholder) ? placeholder : ""
