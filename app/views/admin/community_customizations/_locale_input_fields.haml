@@ -14,7 +14,7 @@
   - if 'typed_slogan' == input_name
     .row
       .col-12
-        = check_box_tag "community[show_typed_slogan]", 0, @current_community.show_typed_slogan?, class: "checkbox-row-checkbox"
+        = check_box_tag "community[show_typed_slogan]", 1, @current_community.show_typed_slogan?, class: "checkbox-row-checkbox"
         = label_tag "community[show_typed_slogan]", t("admin.communities.edit_details.community_typed_slogan_display"), class:"checkbox-row-label"
 
   - if 'description' == input_name

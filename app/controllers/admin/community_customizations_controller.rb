@@ -31,6 +31,11 @@ class Admin::CommunityCustomizationsController < Admin::AdminBaseController
         :transaction_agreement_label,
         :transaction_agreement_content,
       ]
+      p '================================='
+      p params[:community_customizations]
+      p '================================='
+      p params[:community]
+      p '================================='
       locale_params = params.require(:community_customizations).require(locale).permit(*permitted_params)
       customizations = find_or_initialize_customizations_for_locale(locale)
       customizations.assign_attributes(locale_params)
@@ -55,6 +60,9 @@ class Admin::CommunityCustomizationsController < Admin::AdminBaseController
 
     show_slogan = Maybe(params)[:community][:show_slogan].is_some?
     update_results.push(@current_community.update(show_slogan: show_slogan))
+
+    show_typed_slogan = Maybe(params)[:community][:show_typed_slogan].is_some?
+    update_results.push(@current_community.update(show_typed_slogan: show_typed_slogan))
 
     show_description = Maybe(params)[:community][:show_description].is_some?
     update_results.push(@current_community.update(show_description: show_description))
