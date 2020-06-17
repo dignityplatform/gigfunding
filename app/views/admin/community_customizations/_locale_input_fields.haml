@@ -16,6 +16,8 @@
       .col-12
         = check_box_tag "community[show_typed_slogan]", 1, @current_community.show_typed_slogan?, class: "checkbox-row-checkbox"
         = label_tag "community[show_typed_slogan]", t("admin.communities.edit_details.community_typed_slogan_display"), class:"checkbox-row-label"
+    .input-header
+      Typed Slogans
 
   - if 'description' == input_name
     .row
@@ -28,8 +30,24 @@
       - if translations.size > 1
         .name-locale-label.col-2
           = label_tag "community_customizations[#{language_key}][#{input_name}]", value[:language], class: input_classes + ' label'
+
       - if 'typed_slogan' == input_name
-        -# add textboxes for typed slogans
+        - if translations.size > 1
+          .name-locale-label.col-2
+            = label_tag "typed_slogan[#{language_key}]", value[:language], class: input_classes + ' label'
+        - value[:translation].each do |typed_slogan|
+          .typed-slogan-container
+            = check_box_tag "typed_slogan[remove-item]", 0, false, id: "typed-slogan-#{typed_slogan.id}", class: 'typed-slogan-checkbox'
+            .name-locale-text_field.typed-slogan-textbox
+              = text_field_tag "typed_slogan[#{language_key}]", typed_slogan.typed_slogan_text,
+              class: input_classes, maxlength: defined?(maxlength) ? maxlength : nil,
+              placeholder: defined?(placeholder) ? placeholder : ""
+            %label{for: "typed-slogan-#{typed_slogan.id}", class: 'remove-typed-slogan-button'}
+              .remove-typed-slogan-remove
+                remove
+              .remove-typed-slogan-undo
+                undo
+            
       - else
         .name-locale-text_field.col-10
           = text_field_tag "community_customizations[#{language_key}][#{input_name}]",
