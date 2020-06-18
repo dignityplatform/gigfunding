@@ -14,8 +14,8 @@
 #  index_typed_slogans_on_community_id  (community_id)
 #
 
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe TypedSlogan, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  
 end

@@ -124,6 +124,7 @@ FactoryGirl.define do
     times_viewed 0
     privacy "public"
     listing_shape_id 123
+    shape_name_tr_key "admin.listing_shapes.listing_shape_name"
     price Money.new(20, "USD")
     uuid
   end
