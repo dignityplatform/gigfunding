@@ -271,7 +271,7 @@ class PreauthorizeTransactionsController < ApplicationController
           stripe_payment_method_id: params[:stripe_payment_method_id]
         }
     end
-    
+
     # byebug
     transaction = {
           conversation_id: opts[:conversation_id],
@@ -294,21 +294,21 @@ class PreauthorizeTransactionsController < ApplicationController
     }
 
     # byebug
-    if (opts[:listing].listing_shape.name === 'requesting')
+    if (opts[:listing].listing_shape.name == 'requesting')
       puts "-----------------------------------"
       puts "its requesting listing"
       transaction.merge!({
         starter_id: opts[:listing].author.id,
         starter_uuid: opts[:listing].author.uuid_object,
         listing_author_id: opts[:user].id,
-        listing_author_uuid: opts[:user].uuid_object,
+        listing_author_uuid: opts[:user].uuid_object
       })
     else
       transaction.merge!({
         starter_id: opts[:user].id,
         starter_uuid: opts[:user].uuid_object,
         listing_author_id: opts[:listing].author.id,
-        listing_author_uuid: opts[:listing].author.uuid_object,
+        listing_author_uuid: opts[:listing].author.uuid_object
       })
     end
 
@@ -420,7 +420,7 @@ class PreauthorizeTransactionsController < ApplicationController
       community: @current_community,
       listing: listing,
       listing_quantity: order.quantity,
-      user: listing.listing_shape.name === 'requesting' ? Person.find(tx_params[:recipient_id]) : @current_user,
+      user: listing.listing_shape.name == 'requesting' ? Person.find(tx_params[:recipient_id]) : @current_user,
       content: tx_params[:message],
       force_sync: !request.xhr?,
       delivery_method: tx_params[:delivery],

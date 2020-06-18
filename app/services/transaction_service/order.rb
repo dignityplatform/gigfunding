@@ -107,11 +107,13 @@ module TransactionService
 
     def paypal_in_use
       return true if Rails.env == 'development'
+
       @paypal_in_use ||= PaypalHelper.user_and_community_ready_for_payments?(listing.author_id, community.id)
     end
 
     def stripe_in_use
       return true if Rails.env == 'development'
+
       @stripe_in_use ||= StripeHelper.user_and_community_ready_for_payments?(listing.author_id, community.id)
     end
 

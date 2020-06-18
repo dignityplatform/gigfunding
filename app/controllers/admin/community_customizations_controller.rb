@@ -49,7 +49,7 @@ class Admin::CommunityCustomizationsController < Admin::AdminBaseController
         end
       end
     end
-    
+
     process_locales = unofficial_locales.blank?
 
     if process_locales

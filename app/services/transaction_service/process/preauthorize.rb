@@ -109,7 +109,7 @@ module TransactionService::Process
       # byebug
       res = Gateway.unwrap_completion(
         gateway_adapter.complete_preauthorization(tx: tx)) do
-          
+
           TransactionService::StateMachine.transition_to(tx.id, :paid)
         end
 

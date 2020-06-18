@@ -35,8 +35,6 @@ class Admin::SettingsService
       community_customizations_attributes: %i[id search_placeholder]
     )
   end
-
-  # rubocop:disable Rails/SkipsModelValidations
   def update_payment_settings
     automatic_confirmation_after_days = params[:community][:automatic_confirmation_after_days]
     return unless automatic_confirmation_after_days

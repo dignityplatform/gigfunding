@@ -153,7 +153,7 @@ class TransactionsController < ApplicationController
 
     is_author = m_admin || @transaction.listing_author_id == @current_user.id
 
-    show_book_button = @transaction.status === 'free' && ((@listing.listing_shape.name == 'offering' && @listing.author_id != @current_user.id) || (@listing.listing_shape.name == 'requesting' && @listing.author_id == @current_user.id))
+    show_book_button = @transaction.status == 'free' && ((@listing.listing_shape.name == 'offering' && @listing.author_id != @current_user.id) || (@listing.listing_shape.name == 'requesting' && @listing.author_id == @current_user.id))
 
     book_button_user = if @listing.listing_shape.name == 'offering'
       @transaction.listing_author
@@ -371,7 +371,7 @@ class TransactionsController < ApplicationController
   end
 
   def price_break_down_locals(tx, conversation)
-    if tx.payment_process == :none && tx.unit_price.cents == 0 
+    if tx.payment_process == :none && tx.unit_price.cents == 0
       nil
     else
       localized_unit_type = tx.unit_type.present? ? ListingViewUtils.translate_unit(tx.unit_type, tx.unit_tr_key) : nil
@@ -511,7 +511,7 @@ class TransactionsController < ApplicationController
       @listing ||= @transaction.listing
     end
   end
-  
+
   # def listing
   #   @listing ||= Listing.find_by(
   #     id: params[:id], community_id: @current_community.id) or render_not_found!("Listing #{params[:listing_id]} not found from community #{@current_community.id}")
@@ -579,8 +579,7 @@ class TransactionsController < ApplicationController
              :end_cant_be_before_start,
              :delivery_method_missing,
              :at_least_one_day_or_night_required,
-             :date_too_late
-            ].include?(data[:code])
+             :date_too_late].include?(data[:code])
         t("listing_conversations.preauthorize.invalid_parameters")
       elsif data[:code] == :dates_not_available
         t("listing_conversations.preauthorize.dates_not_available")

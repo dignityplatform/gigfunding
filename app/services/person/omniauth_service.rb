@@ -91,7 +91,7 @@ class Person::OmniauthService
     NAMES[provider]
   end
 
-  def email # rubocop:disable Rails/Delegate
+  def email
     info.email
   end
 
@@ -114,17 +114,17 @@ class Person::OmniauthService
   end
 
   def update_facebook_data
-    person.update_attribute(:facebook_id, uid) # rubocop:disable Rails/SkipsModelValidations
+    person.update_attribute(:facebook_id, uid)
     store_picture(person)
   end
 
   def update_google_data
-    person.update_attribute(:google_oauth2_id, uid) # rubocop:disable Rails/SkipsModelValidations
+    person.update_attribute(:google_oauth2_id, uid)
     store_picture(person)
   end
 
   def update_linkedin_data
-    person.update_attribute(:linkedin_id, uid) # rubocop:disable Rails/SkipsModelValidations
+    person.update_attribute(:linkedin_id, uid)
     store_picture(person)
   end
 

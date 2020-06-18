@@ -51,7 +51,7 @@ class PaymentSettingsController < ApplicationController
       flash[:warning] = t("stripe_accounts.admin_account_not_connected",
                             contact_admin_link: view_context.link_to(
                               t("stripe_accounts.contact_admin_link_text"),
-                                new_user_feedback_path)).html_safe # rubocop:disable Rails/OutputSafety
+                                new_user_feedback_path)).html_safe
       redirect_to person_settings_path
     end
   end
@@ -63,7 +63,7 @@ class PaymentSettingsController < ApplicationController
       stripe_community  = StripeHelper.community_ready_for_payments?(@current_community.id)
       paypal_ready      = PaypalHelper.account_prepared_for_user?(@current_user.id, @current_community.id)
       stripe_ready      = StripeHelper.user_stripe_active?(@current_community.id, @current_user.id)
- 
+
       accept_payments = []
       if paypal_community && paypal_ready
         accept_payments << :paypal
