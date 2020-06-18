@@ -23,6 +23,10 @@ if APP_CONFIG.use_airbrake
     # https://github.com/airbrake/airbrake-ruby#root_directory
     c.root_directory = Rails.root
 
+    # Disable performance monitoring. Performance monitoring sends metrics on
+    # each request and is priced separately by request volume.
+    config.performance_stats = false
+
     # By default, Airbrake Ruby outputs to STDOUT. In Rails apps it makes sense to
     # use the Rails' logger.
     # https://github.com/airbrake/airbrake-ruby#logger
@@ -72,7 +76,7 @@ if APP_CONFIG.use_airbrake
       notice.ignore!
     end
   end
-  
+
   # Attaches thread & fiber local variables along with general thread information.
   # Airbrake.add_filter(Airbrake::Filters::ThreadFilter.new)
 
