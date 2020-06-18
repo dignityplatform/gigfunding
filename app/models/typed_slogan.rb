@@ -17,5 +17,10 @@
 class TypedSlogan < ApplicationRecord
   belongs_to :community, foreign_key: 'community_id'
 
-  validates_length_of :typed_slogan_text, :in => 2..100, :allow_nil => false
+  validates :locale, 
+            presence: true
+
+  validates :typed_slogan_text, 
+            length: { minimum: 1 }, 
+            presence: true
 end
