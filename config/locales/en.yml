@@ -75,6 +75,8 @@ en:
         edit_community_typed_slogan_description: "Make the homepage slogan loop through and type out the texts added below immediately after the above marketplace slogan. The above marketplace slogan will be the base text and will not be typed out. Please ensure there are texts to type out if this feature is enabled."
         community_typed_slogan_add_button: "Add slogan"
         community_typed_slogan_add_placeholder: "Add typed slogan text here"
+        community_typed_slogan_remove: "remove"
+        community_typed_slogan_undo: "undo"
         community_description: "Marketplace description"
         community_description_display: "Display the description in the homepage or Custom Landing Page"
         edit_community_description_description: "This is shown on the homepage of the marketplace for the users who are not logged in. %{see_how_it_looks_like}."

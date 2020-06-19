@@ -9,6 +9,8 @@ export_i18n_js: false
 # is not yet available when we are loading the translations.
 js_extend: false
 
+fallbacks: :default_locale
+
 translations:
 
   # Bundles per language
@@ -19,7 +21,7 @@ translations:
   # Use a custom namespace that uses either global (in node) or window (in browser)
 
   - file: "app/assets/javascripts/i18n/%{locale}.js"
-    only: ["*.web"]
+    only: ["*.web", "*.admin.communities.edit_details"]
     namespace: "(typeof(window) === 'undefined' ? global : window).I18n"
     pretty_print: true # can be turned on for debugging
 
@@ -32,6 +34,6 @@ translations:
   # Use a custom namespace that uses either global (in node) or window (in browser)
 
   - file: "client/app/i18n/all.js"
-    only: ["*.web"]
+    only: ["*.web", "*.admin.communities.edit_details"]
     namespace: "(typeof(window) === 'undefined' ? global : window).I18n"
     pretty_print: false # can be turned on for debugging
