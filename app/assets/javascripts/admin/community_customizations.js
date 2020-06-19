@@ -54,4 +54,14 @@ window.ST = window.ST || {};
     initializeTransactionAgreementFields();
     initializeCustomizationFormValidation();
   };
+
+  // var appendNewTypedSloganElement(locale, parentContainer) {
+  //   // append new typed slogan element in parent container
+  // }
+
+  // module.addNewTypedSloganButton(locale) {
+  //   // For all button elements add onclick functionality
+  //   // find parent container
+  //   // append new typed slogan element from template
+  // }
 })(window.ST);

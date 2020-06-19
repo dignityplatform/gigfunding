@@ -41,11 +41,20 @@ class Admin::CommunityCustomizationsController < Admin::AdminBaseController
 
     @current_community.locales.each do |locale|
       @current_community.typed_slogans.where(locale: locale).each do |typed_slogan|
-        permitted_params = params.require(:typed_slogan).require(typed_slogan.id.to_s).permit(:remove, :typed_slogan_text)
-        if permitted_params[:remove] == '1'
+        update_slogan_params = params.require(:update_typed_slogans).require(typed_slogan.id.to_s).permit(:remove, :typed_slogan_text)
+        if update_slogan_params[:remove] == '1'
           typed_slogan.destroy
         else
-          update_results.push(typed_slogan.update(typed_slogan_text: permitted_params[:typed_slogan_text]))
+          update_results.push(typed_slogan.update(typed_slogan_text: update_slogan_params[:typed_slogan_text]))
+        end
+      end
+    end
+
+    if params[:new_typed_slogans]
+      new_slogan_params = params.require(:new_typed_slogans).permit(:slogans => [:locale, :typed_slogan_text, :ignore])
+      new_slogan_params[:slogans].each do |new_slogan|
+        unless new_slogan[:typed_slogan_text].empty?
+          update_results.push(TypedSlogan.new(community_id: @current_community.id, locale: new_slogan[:locale], typed_slogan_text: new_slogan[:typed_slogan_text]).save)
         end
       end
     end
@@ -74,6 +83,7 @@ class Admin::CommunityCustomizationsController < Admin::AdminBaseController
     update_results.push(@current_community.update(show_description: show_description))
 
     analytic.send_properties
+
     if update_results.all? && (!process_locales || enabled_locales_valid)
 
       # Onboarding wizard step recording
