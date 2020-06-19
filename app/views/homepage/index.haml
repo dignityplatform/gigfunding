@@ -23,7 +23,13 @@
     - else
       %h1.marketplace-lander-content-title.hidden_title_part &nbsp;
     - if @current_community.show_description?
-      %p.marketplace-lander-content-description= community_description.html_safe
+      %p.marketplace-lander-content-description
+        %span= community_description.html_safe
+        - if @current_community.show_typed_slogan?
+          #typed_slogan_strings.hidden
+            - typed_slogan_strings.each do |string|
+              %p= string
+          %span#typed_slogan
     - else
       %p.marketplace-lander-content-description.hidden-title-part &nbsp;
     - unless (is_homepage && !@current_community.private? && FeatureFlagHelper.feature_enabled?(:topbar_v1))

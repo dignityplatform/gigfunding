@@ -682,6 +682,10 @@ module ApplicationHelper
     end
   end
 
+  def typed_slogan_strings
+    @current_community.typed_slogans.where(locale: I18n.locale).map{|typed_slogan| typed_slogan.typed_slogan_text}
+  end
+
   def community_description(truncate=true)
     if @community_customization && !@community_customization.description.blank?
       truncate ? truncate_html(@community_customization.description, length: 140, omission: "...") : @community_customization.description
