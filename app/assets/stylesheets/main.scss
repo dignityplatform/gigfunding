@@ -1984,13 +1984,14 @@ figure.fluidratio {
   position: relative;
 
   figure.marketplace-cover {
-    background-image: url(image-path($cover-photo-url));
+    background-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.30) 40%, rgba(0, 0, 0, 0) 100%), url(image-path($cover-photo-url));
+    background-position:center top;
     height: auto;
     background-size: cover;
   }
 
   figure.marketplace-cover-small {
-    background-image: url(image-path($small-cover-photo-url));
+    background-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.30) 40%, rgba(0, 0, 0, 0) 100%), url(image-path($small-cover-photo-url));
     height: em($small-cover-photo-mobile-height);
     @include media(tablet) {
       @include fluid-ratio(
@@ -2024,7 +2025,7 @@ figure.fluidratio {
   }
 
   .marketplace-lander-content {
-    padding: 5em 1em;
+    padding: 5em 1em 3em 1em;
     text-align: center;
   }
 
@@ -2044,6 +2045,11 @@ figure.fluidratio {
     &.hidden-title-part {
       opacity: 0 !important;
     }
+    height: em(18) * 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
   }
 
   .marketplace-lander-content-description {
@@ -2129,7 +2135,7 @@ figure.fluidratio {
   .search-form {
     margin-top: lines(1);
     @include media(tablet) {
-      margin-top: lines(2.5);
+      margin-top: lines(2);
     }
   }
 

@@ -137,17 +137,17 @@ $giga-type: 110;
 @mixin huge-type {
   font-size: em($huge-type); // roughly 16*1.618^2 (double golden ratio)
   line-height: lines(2, $huge-type); // 48px
-  font-weight: 700;
+  font-weight: 900;
 }
 
 @mixin mega-type {
   font-size: em($mega-type); // roughly 16*1.618^3 (triple golden ratio)
   line-height: lines(3, $mega-type); // 72px
-  font-weight: 700;
+  font-weight: 900;
 }
 
 @mixin giga-type {
   font-size: em($giga-type); // just in case you need something this big!
   line-height: lines(5, $giga-type); // 120px
-  font-weight: 700;
+  font-weight: 900;
 }
