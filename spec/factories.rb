@@ -546,4 +546,10 @@ FactoryGirl.define do
     listing_id 123
     blocked_at Date.current
   end
+
+  factory :typed_slogan do
+    community_id 999
+    locale 'en'
+    typed_slogan_text 'some typed slogan text'
+  end
 end
