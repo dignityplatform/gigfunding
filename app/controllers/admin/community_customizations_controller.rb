@@ -53,7 +53,7 @@ class Admin::CommunityCustomizationsController < Admin::AdminBaseController
     if params[:new_typed_slogans]
       new_slogan_params = params.require(:new_typed_slogans).permit(:slogans => [:locale, :typed_slogan_text, :ignore])
       new_slogan_params[:slogans].each do |new_slogan|
-        unless new_slogan[:typed_slogan_text].empty?
+        unless (new_slogan[:typed_slogan_text].empty? || new_slogan[:ignore] == "1")
           update_results.push(TypedSlogan.new(community_id: @current_community.id, locale: new_slogan[:locale], typed_slogan_text: new_slogan[:typed_slogan_text]).save)
         end
       end
