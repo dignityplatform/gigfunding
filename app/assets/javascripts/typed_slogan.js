@@ -434,17 +434,15 @@
 
 
 if ($("#typed_slogan")) {
-
-  console.log('test')
   const options = {
     stringsElement: $('#typed_slogan_strings'),
-		typeSpeed: 15,
+		typeSpeed: 12,
 		// time before typing starts
-		startDelay: 1500,
+		startDelay: 500,
 		// backspacing speed
-		backSpeed: 15,
+		backSpeed: 12,
 		// time before backspacing
-		backDelay: 1000,
+		backDelay: 900,
 		// loop
 		loop: true,
 		// show cursor

@@ -24,7 +24,7 @@
         %span
           = community_slogan.html_safe
           - if @current_community.show_typed_slogan?
-            %span#typed_slogan
+            %span#typed_slogan.typed
             #typed_slogan_strings.hidden
               - typed_slogan_strings.each do |string|
                 %p= string
