@@ -8,11 +8,7 @@ class Admin::Communities::FooterService
   end
 
   def plan_footer_disabled?
-    if plan
-      !plan[:features][:footer] ? true : nil
-    else
-      true
-    end
+    nil
   end
 
   def footer_menu_links
