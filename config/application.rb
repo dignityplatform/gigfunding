@@ -242,6 +242,15 @@ module Kassi
     config.after_initialize do
       require File.expand_path('../../lib/active_storage_decorator', __FILE__)
     end
+
+    # BumbleD config to transpile es6 modules with babel in sprockets3
+    extend Sprockets::BumbleD::DSL
+    configure_sprockets_bumble_d do |config|
+      config.babel_config_version = 1
+      config.babel_options = {
+        plugins: ['@babel/plugin-external-helpers']
+      }
+    end
   end
 end
 

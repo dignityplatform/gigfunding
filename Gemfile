@@ -193,3 +193,6 @@ gem "airbrake-ruby", "~> 4.2"
 
 gem 'awesome_print', '~> 1.7.0'
 gem 'rack-cors'
+
+# Transpile es6 modules in Sprockets 3
+gem 'sprockets-bumble_d', '>= 2.2.0'

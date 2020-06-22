@@ -22,7 +22,7 @@ module.exports = {
     publicPath: '/assets/',
   },
   resolve: {
-    extensions: ['*', '.js'],
+    extensions: ['*', '.js', '.js.es6'],
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -35,7 +35,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js(?:\.es6)?$/,
         loader: 'babel-loader',
         exclude: [/node_modules/, /i18n\/all.js/, /routes\/routes.js/],
       },
