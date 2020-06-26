@@ -24,20 +24,39 @@ $elementSpacing: lines(0.5);
 
 .header-wrapper {
   @include wrapper(0);
+  position: relative;
+  height: 100%;
+}
+
+@mixin header-item {
+  position: relative;
+  height: 100%;
 }
 
 .header-left {
+  @include header-item;
   float: left;
 }
 
 .header-right {
+  @include header-item;
   float: right;
 }
 
-/* Buttons may need padding, text links don't */
-.header-padding {
-  margin-left: $elementSpacing;
+.header-hover {
+  &:hover, &:active {
+    background: $highlight;
+    color: $body;
+  }
+
+  &.toggled {
+    background-color: $light-body;
+  }
 }
+
+/* ======================================== */
+/* header logo */
+/* ======================================== */
 
 /* Vertically centered block element in header bar */
 @mixin header-block {
@@ -47,37 +66,129 @@ $elementSpacing: lines(0.5);
   height: $elementHeight;
 }
 
-.header-hover {
-  &:hover {
-    background-color: $highlight;
-  }
-
-  &.toggled {
-    background-color: $light-body;
-  }
-}
-
 .header-logo {
   display: block;
   @include header-block;
 }
 
-.header-text-link {
-  height: $headerHeight;
-  line-height: $textLineHeight;
-  padding-right: $elementSpacing;
-  padding-left: $elementSpacing;
-  display: block;
-  color: $body;
+/* ======================================== */
+/* header links */
+/* ======================================== */
 
-  &:hover {
-    color: $body;
+.header-text-link {
+  position: relative;
+  box-sizing: border-box;
+  height: 100%;
+  padding: $elementSpacing;
+  display: flex;
+  align-items: center;
+  color: $body;
+}
+
+/* ======================================== */
+/* header buttons */
+/* ======================================== */
+
+.header-button-container {
+  position: relative;
+  height: 100%;
+}
+
+.header-button-container-menu {
+  padding: $elementPadding $elementSpacing;
+}
+
+@mixin header-button {
+  position: relative;
+  box-sizing: border-box;
+  height: 100%;
+  margin: 0px 0px;
+  padding: 0 lines(0.3);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  border-radius: 0;
+
+  &:focus {
+    outline: none;
   }
 
   .toggled & {
     color: $background;
+    background-color: $light-body;
+
+    &:hover, &:active {
+      color: $background;
+      background-color: $light-body;
+    }
+  }
+
+  & * {
+    margin: 0 lines(0.2);
+  }
+
+  & i:before {
+    display: inherit;
   }
 }
+
+.header-button-general {
+  @include header-button;
+  background: $background;
+  color: $light-body;
+}
+
+.header-button-menu {
+  @include header-button;
+  @include border-radius(em(5));
+  background: $highlight;
+  color: $body;
+
+  &:hover, &:active {
+    background: darken($highlight, 30%);
+    color: $background;
+  }
+}
+
+/* ======================================== */
+/* header dropdown menu */
+/* ======================================== */
+
+@mixin header-toggle-menu {
+  min-width: 100%;
+  width: auto;
+  position: absolute;
+  top: 100%;
+
+  & a {
+    min-width: inherit;
+    width: max-content;
+  }
+}
+ 
+.header-toggle-menu-language {
+  @include header-toggle-menu;
+  right: 0;
+}
+
+.header-toggle-menu-user {
+  @include header-toggle-menu;
+  right: 0;
+}
+
+.header-toggle-menu-menu {
+  @include header-toggle-menu;
+  left: 0;
+  
+  @include media(tablet) {
+    left: auto;
+    right: 0;
+  }
+}
+
+/* ======================================== */
+/* header dropdown menu items */
+/* ======================================== */
 
 @mixin header-menu-button($bgcolor) {
   @include button($bgcolor);
@@ -95,27 +206,9 @@ $elementSpacing: lines(0.5);
   text-overflow: ellipsis;
 }
 
-.header-menu-container {
-  display: block;
-  padding: $elementPadding $elementSpacing;
-  height: $headerHeight;
-}
-
-.header-menu-toggle-container {
-  @include button($highlight);
-  @include button-group-button-padding;
-  height: $elementHeight;
-  line-height: $buttonLineHeight;
-  margin: 0;
-  padding-bottom: 0;
-  padding-top: 0;
-  color: $body;
-
-  .toggled & {
-    color: $background;
-    background-color: $light-body;
-  }
-}
+/* ======================================== */
+/* header logos and badges */
+/* ======================================== */
 
 .header-menu-icon {
   @include icon-fix-more;
@@ -136,35 +229,13 @@ $elementSpacing: lines(0.5);
   @include clearfix;
 }
 
-@mixin header-toggle-menu {
-  min-width: em(200);
-  position: absolute;
-}
-
-.header-toggle-menu-language {
-  @include header-toggle-menu;
-}
-
-.header-toggle-menu-user {
-  @include header-toggle-menu;
-}
-
-.header-toggle-menu-menu {
-  @include header-toggle-menu;
-}
-
 .header-inbox-link {
   color: $body;
-
   position: relative;
 }
 
 .header-inbox {
   @include big-type;
-
-  // Icon fix
-  position: relative;
-  top: em(4);
 }
 
 .badge {

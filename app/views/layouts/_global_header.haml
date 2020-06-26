@@ -2,10 +2,8 @@
 %header.header
   .header-wrapper
     
-
-    .header-right.visible-tablet
-      #header-menu-desktop-anchor.header-menu-container.toggle.hidden{data: {toggle: '#header-menu-toggle-menu', 'toggle-position' => 'absolute'}}
-
+    .header-right.visible-tablet#header-menu-desktop-anchor
+      
     - if logged_in
       .header-right
         = render :partial => "layouts/header_anchors", locals: {avatar_url: avatar_url, current_user_name: current_user_name, icons: icons}
@@ -15,14 +13,15 @@
 
     - if available_locales.size > 1
       .header-right.visible-desktop
-        #header-locales-menu.toggle.header-hover{data: {toggle: '#header-locales-toggle-menu', 'toggle-position' => 'absolute'}}
-          %span.header-text-link
-            = current_locale_name
-            = icon_map_tag(icons, "dropdown", ["icon-dropdown"])
-        #header-locales-toggle-menu.toggle-menu.header-toggle-menu-language.hidden
-          - locale_change_links.each do |locale_change_link|
-            %a{href: locale_change_link[:url]}
-              = locale_change_link[:title]
+        .header-button-container.header-button-container-menu.toggle{data: {toggle: '#header-locales-toggle-menu'}}
+          %button.header-button-general.header-hover#header-locales-menu
+            %span
+              = current_locale_name
+              = icon_map_tag(icons, "dropdown", ["icon-dropdown"])
+          #header-locales-toggle-menu.toggle-menu.header-toggle-menu-language.hidden
+            - locale_change_links.each do |locale_change_link|
+              %a{href: locale_change_link[:url]}
+                = locale_change_link[:title]
 
     - unless logged_in
       .header-right
@@ -33,13 +32,14 @@
           = t("header.signup")
 
     .header-left.hidden-tablet
-      .header-menu-container.toggle.hidden{data: {toggle: '#header-menu-toggle-menu', 'toggle-position' => 'absolute'}}
-        #header-menu-mobile-anchor.header-menu-toggle-container.toggle-header-container
-          = icon_map_tag(icons, "rows", ["header-menu-icon"])
+      #header-menu-mobile-anchor.header-button-container.header-button-container-menu.toggle{data: {toggle: '#header-menu-toggle-menu'}}
+        %button.header-button-menu
+          %span
+            = icon_map_tag(icons, "rows")
           %span.visible-tablet-inline
             = t("header.menu")
-
-    = render :partial => "layouts/header_menu", locals: { locale_change_links: locale_change_links, icons: icons}
+        = render :partial => "layouts/header_menu", locals: { locale_change_links: locale_change_links, icons: icons}
+    
 
     -#
       If necessary, the buttons will overlap with the logo. Buttons should be on top, that's
