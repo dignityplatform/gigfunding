@@ -75,9 +75,9 @@ storage/
 .history
 .vscode
 
-shared/log/unicorn.stderr.log
-shared/log/unicorn.stdout.log
-shared/pids/unicorn.pid
+shared/log/
+shared/log/
+shared/pids/
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
