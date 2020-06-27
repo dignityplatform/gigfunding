@@ -78,3 +78,6 @@ storage/
 shared/log/unicorn.stderr.log
 shared/log/unicorn.stdout.log
 shared/pids/unicorn.pid
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
