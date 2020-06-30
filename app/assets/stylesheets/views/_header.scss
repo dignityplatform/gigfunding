@@ -269,6 +269,7 @@ $elementSpacing: lines(0.5);
 
 .header-wide-logo-text,
 .header-square-logo-text {
+  @include source-sans-pro;
   margin-top: 0.625rem;
   margin-bottom: 0.625rem;
   line-height: 2.5rem;
