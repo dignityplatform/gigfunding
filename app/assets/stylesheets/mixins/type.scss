@@ -79,11 +79,11 @@ $line-height: 24;
 }
 
 @mixin source-sans-pro {
-  font-family: "Raleway";
+  font-family: "Comfortaa";
 }
 
-@mixin source-comfortaa {
-  font-family: "Comfortaa";
+@mixin source-raleway {
+  font-family: "Raleway";
 }
 
 /*
@@ -110,6 +110,7 @@ $giga-type: 110;
     0.75,
     $small-type
   ); // 18px, aligns with baseline grid every 4 lines
+  @include source-raleway;
 }
 
 @mixin normal-type {
@@ -118,46 +119,41 @@ $giga-type: 110;
     $normal-type
   ); // 16 is the base font-size of all(?) browsers
   line-height: lines(1); // 24px
+  @include source-raleway;
 }
 
 @mixin big-type {
   font-size: em($big-type); // roughly 16*1.382 (shorter part of golden ratio)
   line-height: lines(1, $big-type); // 24px
   font-weight: 600;
-  @include source-comfortaa;
 }
 
 @mixin large-type {
   font-size: em($large-type); // roughly 16*1.618 (longer part golden ratio)
   line-height: lines(1.5, $large-type); // 36px
   font-weight: 600;
-  @include source-comfortaa;
 }
 
 @mixin larger-type {
   font-size: em($larger-type); // roughly 16*1.618 (longer part golden ratio)
   line-height: lines(1.5, $larger-type); // 36px
   font-weight: 600;
-  @include source-comfortaa;
 }
 
 @mixin huge-type {
   font-size: em($huge-type); // roughly 16*1.618^2 (double golden ratio)
   line-height: lines(2, $huge-type); // 48px
   font-weight: 900;
-  @include source-comfortaa;
 }
 
 @mixin mega-type {
   font-size: em($mega-type); // roughly 16*1.618^3 (triple golden ratio)
   line-height: lines(3, $mega-type); // 72px
   font-weight: 900;
-  @include source-comfortaa;
 }
 
 @mixin giga-type {
   font-size: em($giga-type); // just in case you need something this big!
   line-height: lines(5, $giga-type); // 120px
   font-weight: 900;
-  @include source-comfortaa;
 }

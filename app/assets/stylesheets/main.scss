@@ -36,8 +36,8 @@ button {
 */
 
 body {
-  @include source-sans-pro;
   @include normal-type;
+  // @include source-sans-pro;
 
   @include media(tiny-mobile) {
     // Zooms out on tiny screens
