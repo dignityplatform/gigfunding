@@ -2,7 +2,7 @@
   .people-fluid-thumbnail-grid#profile-listings-list
     = render :partial => "people/grid_item", :collection => listings, :as => :listing
 
-- if listings.total_entries > limit
+- if listings.length > limit
   .people-load-more-listings-container
     #load-more-listings
       - if current_user?(person) && params[:show_closed]

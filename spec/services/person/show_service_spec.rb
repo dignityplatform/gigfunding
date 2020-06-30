@@ -13,10 +13,14 @@ describe Person::ShowService do
   end
 
   let(:listing_shape1) do
-    FactoryGirl.create(:listing_shape, community_id: community.id)
+    FactoryGirl.create(:listing_shape, community_id: community.id,
+                                       name: 'shape1'
+                                       )
   end
   let(:listing_shape2) do
-    FactoryGirl.create(:listing_shape, community_id: community.id)
+    FactoryGirl.create(:listing_shape, community_id: community.id,
+                                       name: 'shape2'
+                                       )
   end
 
   let(:listing1) do
@@ -47,15 +51,15 @@ describe Person::ShowService do
   end
 
   describe "#listings_per_shape" do
-    it 'listing_shape_ids as keys of returned hash' do
+    it 'listing_names as keys of returned hash' do
       allow(subject).to receive(:listings).and_return([listing1, listing2, listing3])
-      expect(subject.listings_per_shape.keys).to eq([listing_shape1.id, listing_shape2.id])
+      expect(subject.listings_per_shape.keys).to eq([listing_shape1, listing_shape2])
     end
 
-    it 'sorts listings by listing_shape_id' do
+    it 'sorts listings by listing_name' do
       allow(subject).to receive(:listings).and_return([listing1, listing2, listing3])
-      expect(subject.listings_per_shape[listing_shape1.id]).to eq([listing1, listing2])
-      expect(subject.listings_per_shape[listing_shape2.id]).to eq([listing3])
+      expect(subject.listings_per_shape[listing_shape1]).to eq([listing1, listing2])
+      expect(subject.listings_per_shape[listing_shape2]).to eq([listing3])
     end
   end
 end

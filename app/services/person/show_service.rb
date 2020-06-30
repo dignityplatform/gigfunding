@@ -75,10 +75,11 @@ class Person::ShowService
   def listings_per_shape
     return @listings_by_shape if defined?(@listings_by_shape)
     @listings_by_shape = listings.each_with_object({}) do |item, hash|
-      if hash[item.listing_shape_id]
-        hash[item.listing_shape_id].push(item)
+      listing_shape = ListingShape.find_by(id: item.listing_shape_id)
+      if hash[listing_shape]
+        hash[listing_shape].push(item)
       else
-        hash[item.listing_shape_id] = [item]
+        hash[listing_shape] = [item]
       end
     end
   end
