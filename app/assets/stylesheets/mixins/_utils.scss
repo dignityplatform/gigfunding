@@ -52,7 +52,7 @@
 @mixin badge($size) {
   width: $size;
   height: $size;
-  line-height: $size - 1px;
+  line-height: $size;
   @include border-radius($size/2);
   text-align: center;
 }

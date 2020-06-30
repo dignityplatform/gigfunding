@@ -242,7 +242,7 @@ $elementSpacing: lines(0.5);
   position: absolute;
   top: em(30); // Magic, just looks good
   left: em(23); // Magic, just looks good
-  background: $link;
+  background: rgb(238, 36, 64);
   color: $background;
   @include badge(20px);
 
