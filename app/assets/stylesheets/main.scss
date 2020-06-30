@@ -330,7 +330,7 @@ ul {
     top: em(2);
   }
   .text-part {
-    @include source-sans-pro;
+    @include source-comfortaa;
     padding-left: em(23);
     min-height: em(30);
   }
@@ -587,7 +587,7 @@ label.error {
   bottom: em(-4);
   left: em(2);
 
-  @include source-sans-pro;
+  @include source-comfortaa;
   @include mega-type;
   z-index: 0;
   @include media(tablet) {
