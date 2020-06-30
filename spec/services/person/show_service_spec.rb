@@ -1,0 +1,61 @@
+require 'spec_helper'
+
+describe Person::ShowService do
+
+  let(:community) { FactoryGirl.create(:community) }
+
+  let(:seller) do
+    FactoryGirl.create(:person, member_of: community,
+                                given_name: 'Sherry',
+                                family_name: 'Rivera',
+                                display_name: 'Sky caterpillar'
+                      )
+  end
+
+  let(:listing_shape1) do
+    FactoryGirl.create(:listing_shape, community_id: community.id)
+  end
+  let(:listing_shape2) do
+    FactoryGirl.create(:listing_shape, community_id: community.id)
+  end
+
+  let(:listing1) do
+    FactoryGirl.create(:listing, community_id: community.id,
+                                 title: 'Apple cake',
+                                 author: seller,
+                                 listing_shape_id: listing_shape1.id
+                                 )
+  end
+  let(:listing2) do
+    FactoryGirl.create(:listing, community_id: community.id,
+                                 title: 'Bannana Cake',
+                                 author: seller,
+                                 listing_shape_id: listing_shape1.id
+                                 )
+  end
+  let(:listing3) do
+    FactoryGirl.create(:listing, community_id: community.id,
+                                 title: 'Pineapple cake',
+                                 author: seller,
+                                 listing_shape_id: listing_shape2.id
+                                 )
+  end
+
+  let(:subject) do
+    params = {'username': seller.username, 'show_closed': false}
+    Person::ShowService.new(community: community, params: params, current_user: seller)
+  end
+
+  describe "#listings_per_shape" do
+    it 'listing_shape_ids as keys of returned hash' do
+      allow(subject).to receive(:listings).and_return([listing1, listing2, listing3])
+      expect(subject.listings_per_shape.keys).to eq([listing_shape1.id, listing_shape2.id])
+    end
+
+    it 'sorts listings by listing_shape_id' do
+      allow(subject).to receive(:listings).and_return([listing1, listing2, listing3])
+      expect(subject.listings_per_shape[listing_shape1.id]).to eq([listing1, listing2])
+      expect(subject.listings_per_shape[listing_shape2.id]).to eq([listing3])
+    end
+  end
+end

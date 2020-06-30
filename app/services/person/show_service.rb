@@ -72,6 +72,17 @@ class Person::ShowService
       }.data
   end
 
+  def listings_per_shape
+    return @listings_by_shape if defined?(@listings_by_shape)
+    @listings_by_shape = listings.each_with_object({}) do |item, hash|
+      if hash[item.listing_shape_id]
+        hash[item.listing_shape_id].push(item)
+      else
+        hash[item.listing_shape_id] = [item]
+      end
+    end
+  end
+
   def admin?
     current_user&.has_admin_rights?(community)
   end
