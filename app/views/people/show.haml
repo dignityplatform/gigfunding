@@ -53,8 +53,9 @@
         - if current_user?(person)
           = link_to t("people.profile_listings.manage_listings"), listings_person_settings_path(person.username)
     
-    - if @service.listings.total_entries > 0
-      - @service.listings_per_shape.each do |listing_shape, listings_array|
+    - users_listings = @service.listings_per_shape
+    - unless users_listings.values.all?(&:empty?)
+      - users_listings.each do |listing_shape, listings_array|
         .row
           %h2.people-header
             - if current_user?(person) && params[:show_closed]
