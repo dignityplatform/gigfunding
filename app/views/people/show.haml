@@ -58,13 +58,13 @@
         .row
           %h2.people-header
             - if current_user?(person) && params[:show_closed]
-              = pluralize(listings_array.length, "#{t(listing_shape.name_tr_key).downcase} #{t(".listing")}", "#{t(listing_shape.name_tr_key).downcase} #{t(".listings")}")
+              = pluralize(listings_array.total_entries, "#{t(listing_shape.name_tr_key).downcase} #{t(".listing")}", "#{t(listing_shape.name_tr_key).downcase} #{t(".listings")}")
             - else
-              = pluralize(listings_array.length, "#{t(".open")} #{t(listing_shape.name_tr_key).downcase} #{t(".listing")}", "#{t(".open")} #{t(listing_shape.name_tr_key).downcase} #{t(".listings")}")
+              = pluralize(listings_array.total_entries, "#{t(".open")} #{t(listing_shape.name_tr_key).downcase} #{t(".listing")}", "#{t(".open")} #{t(listing_shape.name_tr_key).downcase} #{t(".listings")}")
                
-        #profile-listings-list
+        %div{id: "profile-listings-list-#{listing_shape.id}"}
           - limit = 6
-          = render :partial => 'listings/profile_listings', :locals => {person: person, limit: limit, listings: listings_array}
+          = render :partial => 'listings/profile_listings', :locals => {person: person, limit: limit, listings: listings_array, container_id_tag: "#profile-listings-list-#{listing_shape.id}", listing_shape: listing_shape}
     
     - else
       .row
