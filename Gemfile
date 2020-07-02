@@ -196,3 +196,5 @@ gem 'rack-cors'
 
 # Transpile es6 modules in Sprockets 3
 gem 'sprockets-bumble_d', '>= 2.2.0'
+
+gem "daemons"
