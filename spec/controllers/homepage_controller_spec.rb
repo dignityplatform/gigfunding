@@ -130,6 +130,9 @@ describe HomepageController, type: :controller do
 
     it 'shows approved listing' do
       listing
+      mock_search_result = [listing]
+      allow(mock_search_result).to receive(:total_entries).and_return(1)
+      allow(Listing).to receive(:search).and_return(mock_search_result)
       get :index
       listings = assigns(:listings)
       expect(listings.count).to eq 1

@@ -297,7 +297,8 @@ default: &default_settings
   external_plan_service_secret:
   external_plan_service_login_url:
 
-  # External search service connection
+  # External search service connection only for hosted version, not opensource
+  # https://www.sharetribe.com/community/t/external-search-in-use-problem/1215
   external_search_in_use: false
   external_search_url:
   external_search_apikey:

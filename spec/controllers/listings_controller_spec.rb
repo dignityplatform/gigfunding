@@ -220,6 +220,10 @@ describe ListingsController, type: :controller do
 
       @request.host = "#{@c1.ident}.lvh.me"
       @request.env[:current_marketplace] = @c1
+
+      mock_search_result = [@l2, @l1]
+      allow(mock_search_result).to receive(:total_entries).and_return(2)
+      allow(Listing).to receive(:search).and_return(mock_search_result)
     end
 
     it "lists the most recent listings in order" do

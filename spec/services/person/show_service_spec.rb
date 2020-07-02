@@ -51,15 +51,18 @@ describe Person::ShowService do
   end
 
   describe "#listings_per_shape" do
-    it 'listing_names as keys of returned hash' do
-      allow(subject).to receive(:listings).and_return([listing1, listing2, listing3])
+    it 'listing_shapes as keys of returned hash' do
+      allow(ListingShape).to receive(:where).and_return([listing_shape1, listing_shape2])
+      allow(subject).to receive(:listings_search)
       expect(subject.listings_per_shape.keys).to eq([listing_shape1, listing_shape2])
     end
 
     it 'sorts listings by listing_name' do
-      allow(subject).to receive(:listings).and_return([listing1, listing2, listing3])
-      expect(subject.listings_per_shape[listing_shape1]).to eq([listing1, listing2])
-      expect(subject.listings_per_shape[listing_shape2]).to eq([listing3])
+      allow(ListingShape).to receive(:where).and_return([listing_shape1, listing_shape2])
+      allow(subject).to receive(:listings_search).and_return([listing1, listing2], [listing3])
+      result = subject.listings_per_shape
+      expect(result[listing_shape1]).to eq([listing1, listing2])
+      expect(result[listing_shape2]).to eq([listing3])
     end
   end
 end

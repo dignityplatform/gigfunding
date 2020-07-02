@@ -39,6 +39,7 @@ prefork = lambda {
   require 'rspec/rails'
   require "email_spec"
   require './spec/support/webmock'
+  require 'sphinx_helper'
 
   # Requires supporting files with custom matchers and macros, etc,
   # in ./support/ and its subdirectories.
@@ -59,6 +60,13 @@ prefork = lambda {
     config.mock_with :rspec
     config.include Devise::Test::ControllerHelpers, type: :controller
     config.include SpecUtils
+    config.use_transactional_fixtures = false
+    config.include SphinxHelpers
+
+    config.before(:suite) do
+      ThinkingSphinx::Test.init
+      ThinkingSphinx::Test.start_with_autostop
+    end
 
     Timecop.safe_mode = true
 

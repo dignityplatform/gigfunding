@@ -18,11 +18,6 @@ module ListingIndexService::Search
       # rename listing_shape_ids to singular so that Sphinx understands it
       search = HashUtils.rename_keys({:listing_shape_ids => :listing_shape_id}, search)
 
-      if DatabaseSearchHelper.needs_db_query?(search) && DatabaseSearchHelper.needs_search?(search)
-        return Result::Error.new(ArgumentError.new("Both DB query and search engine would be needed to fulfill the search"))
-      end
-
-      if DatabaseSearchHelper.needs_search?(search)
         if search_out_of_bounds?(search[:per_page], search[:page])
           DatabaseSearchHelper.success_result(0, [], includes)
         else
@@ -31,12 +26,7 @@ module ListingIndexService::Search
                              included_models: included_models,
                              includes: includes)
         end
-      else
-        DatabaseSearchHelper.fetch_from_db(community_id: community_id,
-                                           search: search,
-                                           included_models: included_models,
-                                           includes: includes)
-      end
+
     end
 
     private
@@ -61,13 +51,19 @@ module ListingIndexService::Search
         DatabaseSearchHelper.success_result(0, [], nil)
       else
 
+        conditions = HashUtils.compact(
+          {
+            author_id: search[:author_id]
+          })
+
         with = HashUtils.compact(
           {
             community_id: community_id,
             category_id: search[:categories], # array of accepted ids
             listing_shape_id: search[:listing_shape_id],
             price_cents: search[:price_cents],
-            listing_id: numeric_search_match_listing_ids
+            listing_id: numeric_search_match_listing_ids,
+            open: (search[:include_closed] ? [1,0] : [1])
           })
 
         selection_groups = search[:fields].select { |v| v[:type] == :selection_group }
@@ -83,6 +79,7 @@ module ListingIndexService::Search
           sql: {
             include: included_models
           },
+          conditions: conditions,
           page: search[:page],
           per_page: search[:per_page],
           star: true,

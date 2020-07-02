@@ -42,45 +42,27 @@ class Person::ShowService
     return @listings if defined?(@listings)
 
     include_closed = current_user == person && params[:show_closed]
-    search = {
+    search_params = {
       author_id: person.id,
       include_closed: include_closed,
       page: 1,
       per_page: 6
     }
-
-    includes = [:author, :listing_images]
-    raise_errors = Rails.env.development?
-
-    @listings =
-      ListingIndexService::API::Api
-      .listings
-      .search(
-        community_id: community.id,
-        search: search,
-        engine: FeatureFlagHelper.search_engine,
-        raise_errors: raise_errors,
-        includes: includes
-      ).and_then { |res|
-      Result::Success.new(
-        ListingIndexViewUtils.to_struct(
-        result: res,
-        includes: includes,
-        page: search[:page],
-        per_page: search[:per_page]
-      ))
-      }.data
+    @listings = listings_search(search_params)
   end
 
   def listings_per_shape
-    return @listings_by_shape if defined?(@listings_by_shape)
-    @listings_by_shape = listings.each_with_object({}) do |item, hash|
-      listing_shape = ListingShape.find_by(id: item.listing_shape_id)
-      if hash[listing_shape]
-        hash[listing_shape].push(item)
-      else
-        hash[listing_shape] = [item]
-      end
+    include_closed = current_user == person && params[:show_closed]
+    search_params = {
+      author_id: person.id,
+      include_closed: include_closed,
+      page: 1,
+      per_page: 6
+    }
+    listing_shapes = ListingShape.where(deleted: false)
+    @listings_by_shape = listing_shapes.each_with_object({}) do |shape, hash|
+      search_params[:listing_shape_ids] = [shape.id]
+      hash[shape] = listings_search(search_params)
     end
   end
 
@@ -97,5 +79,30 @@ class Person::ShowService
         membership.accepted?
       end
     end
+  end
+
+  private
+
+  def listings_search(search)
+    includes = [:author, :listing_images]
+    raise_errors = Rails.env.development?
+
+    ListingIndexService::API::Api
+      .listings
+      .search(
+        community_id: community.id,
+        search: search,
+        engine: FeatureFlagHelper.search_engine,
+        raise_errors: raise_errors,
+        includes: includes
+      ).and_then { |res|
+      Result::Success.new(
+        ListingIndexViewUtils.to_struct(
+        result: res,
+        includes: includes,
+        page: search[:page],
+        per_page: search[:per_page]
+      ))
+      }.data
   end
 end
