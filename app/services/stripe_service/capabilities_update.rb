@@ -71,13 +71,13 @@ class StripeService::CapabilitiesUpdate
       account_id: stripe_account.stripe_seller_id
     )
     if result
-      stripe_account.update_column(:api_version, StripeService::API::StripeApiWrapper::API_2019_12_03)
+      stripe_account.update_column(:api_version, StripeService::API::StripeApiWrapper::API_2020_03_02)
     end
   end
 
   def stripe_account_scope
     StripeAccount.active_users
-      .where('api_version != ? OR api_version IS NULL', [StripeService::API::StripeApiWrapper::API_2019_12_03])
+      .where('api_version != ? OR api_version IS NULL', [StripeService::API::StripeApiWrapper::API_2020_03_02])
   end
 end
 # rubocop:enable Rails/Output

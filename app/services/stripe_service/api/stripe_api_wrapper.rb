@@ -1,6 +1,7 @@
 class StripeService::API::StripeApiWrapper
   DEFAULT_MCC = 5734 # Computer Software Stores
-  API_2019_12_03 = '2019-12-03'.freeze
+  # API_2019_12_03 = '2019-12-03'.freeze
+  API_2020_03_02 = '2020-03-02'.freeze
   API_2019_02_19 = '2019-02-19'.freeze
 
   class << self
@@ -12,7 +13,7 @@ class StripeService::API::StripeApiWrapper
     end
 
     def configure_payment_for(settings)
-      Stripe.api_version = API_2019_12_03
+      Stripe.api_version = API_2020_03_02
       Stripe.api_key = TransactionService::Store::PaymentSettings.decrypt_value(settings.api_private_key, settings.key_encryption_padding)
     end
 
