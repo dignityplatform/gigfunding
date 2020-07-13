@@ -4,7 +4,7 @@ default: &default_settings
   # If you are running on localhost, you can write here "lvh.me:3000" (which redirects to localhost port 3000)
   # The community subdomains will be added to this top domain.
   # NOTE: Do not include http(s) here, or subdomains, just the top level domain, like "sharetribe.com" for example
-  domain: "dignityplatform.org"
+  domain: "gigfunding.org"
 
   # A comma separated string of trusted proxies. If you host your
   # application behind proxies this configuration allows
@@ -180,7 +180,7 @@ default: &default_settings
   mail_delivery_method: "letter_opener"
 
   # This will be the from field in the mails sent from Sharetribe
-  sharetribe_mail_from_address: "marketplace@dignityplatform.org"
+  sharetribe_mail_from_address: "marketplace@gigfunding.org"
 
   # The address where the notifications of feedbacks from Sharetribe UI are sent
   feedback_mailer_recipients:  'admins@example.com'
