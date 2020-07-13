@@ -4,6 +4,12 @@
     .col-12
       %h3
         = t(".pay_with_card")
+
+  .row
+    .col-12
+      %p
+        = t("listing_conversations.preauthorize.you_will_be_charged", author: author_link, expiration_period: paypal_expiration_period).html_safe
+
 .form-row
   .row
     .col-12
