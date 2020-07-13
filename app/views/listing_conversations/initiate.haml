@@ -61,8 +61,7 @@
         .row
           .col-12
             %h2
-              = t("listing_conversations.stripe_payment.payment")
-              
+              = t("listing_conversations.stripe_payment.payment")  
         = render :partial => "listing_conversations/stripe_payment", locals: {  publishable_key: stripe_publishable_key, stripe_shipping_required: stripe_shipping_required, paypal_in_use: paypal_in_use, author_link: author_link, paypal_expiration_period: paypal_expiration_period}
 
       - if paypal_in_use && !stripe_in_use
