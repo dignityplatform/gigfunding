@@ -240,7 +240,7 @@ describe PersonMailer, type: :mailer do
       confirmed_transaction.update_column(:payment_gateway, 'stripe')
       confirmed_transaction.reload
       email = PersonMailer.transaction_confirmed(confirmed_transaction, community)
-      expect(email.body).to have_text("Proto T has marked the order <b>Sledgehammer</b> completed. The payment for this transaction has now been released. You can now give feedback to Proto.")
+      expect(email.body).to have_text("Proto has marked the order <b>Sledgehammer</b> completed. The payment for this transaction has now been released. You can now give feedback to Proto.")
     end
   end
 end

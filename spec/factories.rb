@@ -100,6 +100,7 @@ FactoryGirl.define do
     phone_number "0000-123456"
     username
     password "testi"
+    deleted 0
 
     has_many :emails do |person|
       FactoryGirl.build(:email, person: person)

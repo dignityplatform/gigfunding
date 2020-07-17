@@ -515,9 +515,11 @@ function initialize_reset_password_form() {
 
 function initialize_profile_view(profile_id) {
   $('#load-more-listings a').on("click", function() {
-    var request_path = $(this).data().url;
+    var buttonData = $(this).data()
+    var request_path = buttonData.url;
+    var containerIdTag = buttonData.containeridtag;
     $.get(request_path, function(data) {
-      $('#profile-listings-list').html(data);
+      $(containerIdTag).html(data);
     });
     return false;
   });

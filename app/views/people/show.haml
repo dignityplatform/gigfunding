@@ -48,26 +48,33 @@
                 - else
                   %span.people-custom-fields-value
                     = custom_field_value.display_value
-
     .row
-      %h2.people-header
-        - if @service.listings.total_entries > 0
-          - if current_user?(person) && params[:show_closed]
-            = pluralize(@service.listings.total_entries, t(".listing"), t(".listings"))
-          - else
-            = pluralize(@service.listings.total_entries, t(".open_listing"), t(".open_listings"))
-        - else
+      %span.people-show-closed-link
+        - if current_user?(person)
+          = link_to t("people.profile_listings.manage_listings"), listings_person_settings_path(person.username)
+    
+    - users_listings = @service.listings_per_shape
+    - unless users_listings.values.all?(&:empty?)
+      - users_listings.each do |listing_shape, listings_array|
+        .row
+          %h2.people-header
+            - if current_user?(person) && params[:show_closed]
+              = pluralize(listings_array.total_entries, "#{t(listing_shape.name_tr_key).downcase} #{t(".listing")}", "#{t(listing_shape.name_tr_key).downcase} #{t(".listings")}")
+            - else
+              = pluralize(listings_array.total_entries, "#{t(".open")} #{t(listing_shape.name_tr_key).downcase} #{t(".listing")}", "#{t(".open")} #{t(listing_shape.name_tr_key).downcase} #{t(".listings")}")
+               
+        %div{id: "profile-listings-list-#{listing_shape.id}"}
+          - limit = 6
+          = render :partial => 'listings/profile_listings', :locals => {person: person, limit: limit, listings: listings_array, container_id_tag: "#profile-listings-list-#{listing_shape.id}", listing_shape: listing_shape}
+    
+    - else
+      .row
+        %h2.people-header
           - if current_user?(person) && params[:show_closed]
             = t(".no_listings")
           - else
             = t(".no_open_listings")
-        %span.people-show-closed-link
-          - if current_user?(person)
-            = link_to t("people.profile_listings.manage_listings"), listings_person_settings_path(person.username)
 
-    #profile-listings-list
-      - limit = 6
-      = render :partial => 'listings/profile_listings', :locals => {person: person, limit: limit, listings: @service.listings}
 
     - if @service.community.follow_in_use?
       = render :partial => "followed_people", :locals => { person: person, followed_people: @service.followed_people, limit: 6 }

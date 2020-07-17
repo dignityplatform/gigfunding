@@ -11,7 +11,8 @@ class ListingsPersonPresenter
       author_id: @person.id,
       include_closed: include_closed,
       page: 1,
-      per_page: @per_page
+      per_page: @per_page,
+      listing_shape_ids: ([params[:listing_shape_id].to_i] if params[:listing_shape_id])
     }
 
     @listings =
