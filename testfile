@@ -37,7 +37,7 @@ script.src = "https://checkout.stripe.com/checkout.js";
 script.setAttribute("class", "stripe-button");
 script.setAttribute("data-key", "pk_test_gJIeYpuvZc56uI22j5yr7h3s");
 script.setAttribute("data-amount", totalAmount );
-script.setAttribute("data-name", "Dignity Platform");
+script.setAttribute("data-name", "Gigfunding");
 script.setAttribute("data-description", "Task");
 script.setAttribute("data-image", "image.png");
 script.setAttribute("data-label", "Pay for this request");
