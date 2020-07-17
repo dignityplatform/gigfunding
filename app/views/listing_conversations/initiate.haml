@@ -61,8 +61,8 @@
         .row
           .col-12
             %h2
-              = t("listing_conversations.stripe_payment.payment")
-        = render :partial => "listing_conversations/stripe_payment", locals: {  publishable_key: stripe_publishable_key, stripe_shipping_required: stripe_shipping_required, paypal_in_use: paypal_in_use}
+              = t("listing_conversations.stripe_payment.payment")  
+        = render :partial => "listing_conversations/stripe_payment", locals: {  publishable_key: stripe_publishable_key, stripe_shipping_required: stripe_shipping_required, paypal_in_use: paypal_in_use, author_link: author_link, paypal_expiration_period: paypal_expiration_period}
 
       - if paypal_in_use && !stripe_in_use
         .row
@@ -82,10 +82,7 @@
               = image_tag 'checkout_with_paypal.png'
 
       - if stripe_in_use || paypal_in_use
-        .row
-          .col-12
-            %p
-              = t("listing_conversations.preauthorize.you_will_be_charged", author: author_link, expiration_period: paypal_expiration_period).html_safe
+        = render :partial => "listing_conversations/you_will_be_charged_notice", locals: { author_link: author_link, paypal_expiration_period: paypal_expiration_period }
 
   %noscript
     = "For security reasons JavaScript has to be enabled"

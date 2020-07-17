@@ -12,3 +12,8 @@
 .preauthorize-details-title {
   margin-bottom: lines(0.25);
 }
+
+.you_will_be_charged_notice {
+  @include small-type;
+  font-style: italic;
+}
