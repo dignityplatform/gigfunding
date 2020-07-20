@@ -16,6 +16,7 @@ class TransactionMailer < ActionMailer::Base
   default :from => APP_CONFIG.sharetribe_mail_from_address
   layout 'email'
 
+  add_template_helper(EmailHelper)
   add_template_helper(EmailTemplateHelper)
 
   def transaction_preauthorized(transaction)
@@ -27,6 +28,7 @@ class TransactionMailer < ActionMailer::Base
       else
         transaction.author
     end
+    
     set_up_layout_variables(recipient, transaction.community)
     with_locale(recipient.locale, transaction.community.locales.map(&:to_sym), transaction.community.id) do
 

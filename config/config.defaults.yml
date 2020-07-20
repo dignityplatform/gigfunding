@@ -86,7 +86,7 @@ default: &default_settings
   # - 0c84dc78c9435aec606bbf2428c2c476.cloudfront.com
   # - assets%0.your_domain.com
   #
-  asset_host:
+  asset_host: "https://gigfunding.org"
 
   # Your user-uploaded assets CDN distribution host name, including the desired protocol (http or https).
   #
@@ -508,6 +508,10 @@ staging:
 
 development:
   <<: *default_settings
+
+  # Use localhost for dev
+  domain: 'lvh.me:5000'
+  asset_host: 'http://lvh.me:5000'
 
   # Usually it's easier to run development without SSL
   always_use_ssl: false

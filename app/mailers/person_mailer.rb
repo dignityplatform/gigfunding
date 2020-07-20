@@ -16,6 +16,7 @@ class PersonMailer < ActionMailer::Base
   default :from => APP_CONFIG.sharetribe_mail_from_address
   layout 'email'
 
+  add_template_helper(EmailHelper)
   add_template_helper(EmailTemplateHelper)
 
   def conversation_status_changed(transaction, community)
