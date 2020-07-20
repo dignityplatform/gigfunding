@@ -39,9 +39,9 @@
             -# .link-text= t(".selected_transaction_type", :transaction_type => t(value[:name_tr_key]))
             .link-text
               - if value[:name] == 'requesting'
-                = 'Volunteer a skill'
+                = t('listings.new.select_requesting_listing_shape')
               - elsif value[:name] == 'offering'
-                = ' Request a skill'
+                = t('listings.new.select_offering_listing_shape')
 
   %h2.listing-form-title{:id => "foo"}
 
@@ -66,8 +66,8 @@
             -# .link-text= t(value[:name_tr_key])
             .link-text
               - if value[:name] == 'requesting'
-                = 'Volunteer a skill'
+                = t('listings.new.select_requesting_listing_shape')
               - elsif value[:name] == 'offering'
-                = ' Request a skill'
+                = t('listings.new.select_offering_listing_shape')
 
   .js-form-fields.hidden

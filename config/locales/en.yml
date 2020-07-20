@@ -2503,6 +2503,8 @@ en:
       payment_settings_link: "payment settings"
       community_not_configured_for_payments_admin: "%{service_name} hasn't been configured for payments, so you cannot post new listings yet. Go to %{payment_settings_link} to fill in the payment details."
       you_are_now_posting_a_listing_on_behalf_of: "You are now posting a listing on behalf of %{name}"
+      select_requesting_listing_shape: 'Request a skill'
+      select_offering_listing_shape: 'Volunteer a skill'
     quantity:
       hour: "Number of hours:"
       day: "Number of days:"
