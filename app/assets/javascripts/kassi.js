@@ -342,7 +342,7 @@ function initialize_give_feedback_form(locale, grade_error_message, text_error_m
   });
 }
 
-function initialize_signup_form(locale, email_in_use_message, invalid_invitation_code_message, name_required, invitation_required) {
+function initialize_signup_form(locale, email_already_in_use_message, invalid_invitation_code_message, name_required, invitation_required) {
   $('#help_invitation_code_link').click(function(link) {
     //link.preventDefault();
     $('#help_invitation_code').lightbox_me({centered: true, zIndex: 1000000 });
@@ -366,17 +366,17 @@ function initialize_signup_form(locale, email_in_use_message, invalid_invitation
       }
     },
     rules: {
-      "person[given_name]": {required: name_required, maxlength: 30},
-      "person[family_name]": {required: name_required, maxlength: 30},
-      "person[email]": {required: true, email_remove_spaces: true, remote: "/people/check_email_availability_and_validity"},
-      "person[terms]": "required",
+      "person[given_name]": { required: name_required, maxlength: 30 },
+      "person[family_name]": { required: name_required, maxlength: 30 },
+      "person[email]": { required: true, email_remove_spaces: true, remote: "/people/check_email_availability_and_validity" },
+      "person[terms]": { required: true },
       "person[password]": { required: true, minlength: 4 },
       "person[password2]": { required: true, minlength: 4, equalTo: "#person_password1" },
-      "invitation_code": {required: invitation_required, remote: "/people/check_invitation_code"}
+      "invitation_code": { required: invitation_required, remote: "/people/check_invitation_code" }
     },
     messages: {
-      "person[email]": { remote: email_in_use_message, email_remove_spaces: $.validator.messages.email },
-      "invitation_code": { remote: invalid_invitation_code_message }
+      "person[email]": { remote: `${email_already_in_use_message}` },
+      "invitation_code": { remote: `${invalid_invitation_code_message}` }
     },
     onkeyup: false, //Only do validations when form focus changes to avoid exessive ASI calls
     submitHandler: function(form) {
