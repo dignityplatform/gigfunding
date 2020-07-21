@@ -236,6 +236,7 @@ $elementSpacing: lines(0.5);
 
 .header-inbox {
   @include big-type;
+  font-family: FontAwesome;
 }
 
 .badge {
