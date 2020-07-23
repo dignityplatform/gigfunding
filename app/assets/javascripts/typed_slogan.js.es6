@@ -4,10 +4,10 @@ window.addEventListener('load', () => {
 	if (document.querySelector('#typed_slogan')) {
 		const options = {
 			stringsElement: '#typed_slogan_strings',
-			typeSpeed: 25,
+			typeSpeed: 40,
 			startDelay: 0,
-			backSpeed: 25,
-			backDelay: 800,
+			backSpeed: 35,
+			backDelay: 900,
 			loop: true,
 			loopCount: Infinity,
 			showCursor: false,
