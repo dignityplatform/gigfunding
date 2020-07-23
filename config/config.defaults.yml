@@ -4,7 +4,7 @@ default: &default_settings
   # If you are running on localhost, you can write here "lvh.me:3000" (which redirects to localhost port 3000)
   # The community subdomains will be added to this top domain.
   # NOTE: Do not include http(s) here, or subdomains, just the top level domain, like "sharetribe.com" for example
-  domain: "gigfunding.org"
+  # domain: "gigfunding.org"
 
   # A comma separated string of trusted proxies. If you host your
   # application behind proxies this configuration allows
@@ -86,7 +86,7 @@ default: &default_settings
   # - 0c84dc78c9435aec606bbf2428c2c476.cloudfront.com
   # - assets%0.your_domain.com
   #
-  asset_host: "https://gigfunding.org"
+  # asset_host: "https://gigfunding.org"
 
   # Your user-uploaded assets CDN distribution host name, including the desired protocol (http or https).
   #
@@ -510,8 +510,8 @@ development:
   <<: *default_settings
 
   # Use localhost for dev
-  domain: 'lvh.me:5000'
-  asset_host: 'http://lvh.me:5000'
+  # domain: 'lvh.me:5000'
+  # asset_host: 'http://lvh.me:5000'
 
   # Usually it's easier to run development without SSL
   always_use_ssl: false

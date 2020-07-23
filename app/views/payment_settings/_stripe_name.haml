@@ -16,7 +16,7 @@
         = form.text_field :last_name, class: 'required'
 
   - name_jp_class = "#{presenter.stripe_account_ready ? '' : 'country-dependent'}"
-  - if (presenter.stripe_account_ready && presenter.stripe_seller_account[:address_country] == 'JP') || !presenter.stripe_account_ready
+  - if (presenter.stripe_account_ready && presenter.stripe_seller_account[:address_country] == 'JP')
     %div{class: name_jp_class, "data-country-only" => 'JP'}
       .row
         .col-6
