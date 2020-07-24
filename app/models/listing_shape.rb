@@ -15,7 +15,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  deleted                :boolean          default(FALSE)
-#  listing_color          :string(255)      default("#FFFFFF")
+#  listing_color          :string(255)      default("FFFFFF")
 #
 # Indexes
 #
@@ -44,6 +44,8 @@ class ListingShape < ApplicationRecord
   validates :name_tr_key, :action_button_tr_key, :transaction_process_id, presence: true
   validates :price_enabled, :shipping_enabled, inclusion: [true, false]
   validates :availability, inclusion: AVAILABILITIES # Possibly :stock in the future
+  validates :listing_color, 
+            format: { :with => /\A[A-F0-9]{6}\z/i, :allow_nil => true }
 
   def units
     @units ||= listing_units.map(&:to_unit_hash)

@@ -15,7 +15,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  deleted                :boolean          default(FALSE)
-#  listing_color          :string(255)      default("#FFFFFF")
+#  listing_color          :string(255)      default("FFFFFF")
 #
 # Indexes
 #
@@ -66,6 +66,28 @@ describe ListingShape, type: :model do
       listing_shape.update_with_opts(opts3)
       units = listing_shape.listing_units
       expect(units.count).to eq 0
+    end
+  end
+
+  context 'listing_color validations' do
+    it 'correct hex format' do
+      listing_shape.listing_color = "F0F0F0"
+      expect(listing_shape).to be_valid
+      listing_shape.listing_color = "000000"
+      expect(listing_shape).to be_valid
+      listing_shape.listing_color = nil
+      expect(listing_shape).to be_valid
+    end
+
+    it 'incorrect hex format' do
+      listing_shape.listing_color = "#F0F0F0"
+      expect(listing_shape).to_not be_valid
+      listing_shape.listing_color = "00000"
+      expect(listing_shape).to_not be_valid
+      listing_shape.listing_color = "ZZZZZZ"
+      expect(listing_shape).to_not be_valid
+      listing_shape.listing_color = "Z ZZZZ"
+      expect(listing_shape).to_not be_valid
     end
   end
 end

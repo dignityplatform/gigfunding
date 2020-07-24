@@ -792,7 +792,7 @@ CREATE TABLE `listing_shapes` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `deleted` tinyint(1) DEFAULT '0',
-  `listing_color` varchar(255) DEFAULT '#FFFFFF',
+  `listing_color` varchar(255) DEFAULT 'FFFFFF',
   PRIMARY KEY (`id`),
   KEY `multicol_index` (`community_id`,`deleted`,`sort_priority`) USING BTREE,
   KEY `index_listing_shapes_on_community_id` (`community_id`) USING BTREE,
