@@ -7,6 +7,7 @@
 #  transaction_process_id :integer          not null
 #  price_enabled          :boolean          not null
 #  shipping_enabled       :boolean          not null
+#  availability           :string(32)       default("none")
 #  name                   :string(255)      not null
 #  name_tr_key            :string(255)      not null
 #  action_button_tr_key   :string(255)      not null
@@ -14,7 +15,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  deleted                :boolean          default(FALSE)
-#  availability           :string(32)       default("none")
+#  listing_color          :string(255)      default("#FFFFFF")
 #
 # Indexes
 #

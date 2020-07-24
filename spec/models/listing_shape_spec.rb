@@ -15,6 +15,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  deleted                :boolean          default(FALSE)
+#  listing_color          :string(255)      default("#FFFFFF")
 #
 # Indexes
 #
