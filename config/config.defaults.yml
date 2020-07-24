@@ -510,8 +510,8 @@ development:
   <<: *default_settings
 
   # Use localhost for dev
-  # domain: 'lvh.me:5000'
-  # asset_host: 'http://lvh.me:5000'
+  domain: 'lvh.me:5000'
+  asset_host: 'http://lvh.me:5000'
 
   # Usually it's easier to run development without SSL
   always_use_ssl: false
