@@ -43,6 +43,13 @@
   .name-locale-text_field.col-10
     = text_field_tag("listing_color", shape[:listing_color], class: "input", placeholder: t("admin.listing_shapes.listing_color_placeholder"))
 
+.row
+  .name-locale-label.input
+    = label_tag "listing_title_color", t("admin.listing_shapes.listing_title_color_title")
+  .row
+  .name-locale-text_field.col-10
+    = text_field_tag("listing_title_color", shape[:listing_title_color], class: "input", placeholder: t("admin.listing_shapes.listing_color_placeholder"))
+
 
 .row
   .col-12

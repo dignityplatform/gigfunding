@@ -50,10 +50,12 @@ window.ST.initializeListingShapesOrder = function() {
 window.ST.initializeListingShapeForm = function(formId, invalidHexMessage) {
   $(formId).validate({
     rules: {
-      "listing_color": {required: false, minlength: 6, maxlength: 6, regex: "^([a-fA-F0-9]+)?$"}
+      "listing_color": {required: false, minlength: 6, maxlength: 6, regex: "^([a-fA-F0-9]+)?$"},
+      "listing_title_color": {required: false, minlength: 6, maxlength: 6, regex: "^([a-fA-F0-9]+)?$"}
     },
     messages: {
       "listing_color": { regex: invalidHexMessage },
+      "listing_title_color": { regex: invalidHexMessage },
     },
     errorPlacement: function(error, element) {
       if (element.hasClass("js-custom-unit-kind-radio")) {
