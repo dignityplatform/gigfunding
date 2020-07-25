@@ -35,6 +35,15 @@
           .content
             = t("admin.listing_shapes.close_listings_action", count: count)
 
+
+.row
+  .name-locale-label.input
+    = label_tag "listing_color", t("admin.listing_shapes.listing_color_title")
+  .row
+  .name-locale-text_field.col-10
+    = text_field_tag("listing_color", shape[:listing_color], class: "input", placeholder: t("admin.listing_shapes.listing_color_placeholder"))
+
+
 .row
   .col-12
     = label_tag("", t("admin.listing_shapes.pricing_and_checkout_title"), class: "input")

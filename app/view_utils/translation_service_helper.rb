@@ -32,6 +32,7 @@ module TranslationServiceHelper
       f_values[form_name] = tr_key_to_form_value(tr_key, locales)
       f_values
     }
+    ap form_values
     entity.merge(form_values)
   end
 
