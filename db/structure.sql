@@ -793,6 +793,7 @@ CREATE TABLE `listing_shapes` (
   `updated_at` datetime NOT NULL,
   `deleted` tinyint(1) DEFAULT '0',
   `listing_color` varchar(255) DEFAULT 'FFFFFF',
+  `listing_title_color` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `multicol_index` (`community_id`,`deleted`,`sort_priority`) USING BTREE,
   KEY `index_listing_shapes_on_community_id` (`community_id`) USING BTREE,
@@ -2478,6 +2479,7 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20200617170525'),
 ('20200617180909'),
 ('20200617181714'),
-('20200724231501');
+('20200724231501'),
+('20200725114710');
 
 
