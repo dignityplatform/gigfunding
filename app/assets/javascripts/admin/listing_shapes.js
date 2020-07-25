@@ -55,9 +55,6 @@ window.ST.initializeListingShapeForm = function(formId, invalidHexMessage) {
     messages: {
       "listing_color": { regex: invalidHexMessage },
     },
-    submitHandler: function(form) {
-      disable_and_submit(form_id, form, "false", locale);
-    },
     errorPlacement: function(error, element) {
       if (element.hasClass("js-custom-unit-kind-radio")) {
         error.appendTo($(".js-custom-unit-kind-container"));
