@@ -48,6 +48,8 @@ class ListingShape < ApplicationRecord
   validates :listing_color, 
             format: { :with => /\A[A-F0-9]{6}\z/i, :allow_blank => true }
   validate :assign_default_listing_color
+  validates :listing_title_color, 
+            format: { :with => /\A[A-F0-9]{6}\z/i, :allow_blank => true }
 
   def units
     @units ||= listing_units.map(&:to_unit_hash)
@@ -83,7 +85,7 @@ class ListingShape < ApplicationRecord
   end
 
   def self.permitted_attributes(opts)
-    HashUtils.compact(opts.slice(:transaction_process_id, :price_enabled, :shipping_enabled, :name_tr_key, :action_button_tr_key, :sort_priority, :deleted, :availability, :listing_color))
+    HashUtils.compact(opts.slice(:transaction_process_id, :price_enabled, :shipping_enabled, :name_tr_key, :action_button_tr_key, :sort_priority, :deleted, :availability, :listing_color, :listing_title_color))
   end
 
   def self.next_sort_priority(shapes)
