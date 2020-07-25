@@ -45,7 +45,8 @@ class ListingShape < ApplicationRecord
   validates :price_enabled, :shipping_enabled, inclusion: [true, false]
   validates :availability, inclusion: AVAILABILITIES # Possibly :stock in the future
   validates :listing_color, 
-            format: { :with => /\A[A-F0-9]{6}\z/i, :allow_nil => true }
+            format: { :with => /\A[A-F0-9]{6}\z/i, :allow_blank => true }
+  validate :assign_default_listing_color
 
   def units
     @units ||= listing_units.map(&:to_unit_hash)
@@ -119,5 +120,12 @@ class ListingShape < ApplicationRecord
 
   def booking?
     availability == AVAILABILITY_BOOKING
+  end
+  
+  def assign_default_listing_color
+    if listing_color.blank?
+      self.listing_color = 'FFFFFF'
+      self.save
+    end
   end
 end
