@@ -32,9 +32,9 @@
 }
 
 .fluid-thumbnail-grid-image-overlay {
-  // @include border-top-radius($default-border-radius);
   @include overlay;
   @include absolutely-all;
+  @include border-bottom-radius($default-border-radius);
 }
 
 .fluid-thumbnail-grid-image-image {

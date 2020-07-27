@@ -18,7 +18,9 @@ module ListingIndexViewUtils
     :quantity,
     :shape_name_tr_key,
     :listing_shape_id,
-    :icon_name)
+    :icon_name,
+    :listing_color,
+    :listing_title_color)
 
   Author = Struct.new(
     :id,
@@ -38,6 +40,13 @@ module ListingIndexViewUtils
   module_function
 
   def to_struct(result:, includes:, per_page:, page:)
+    custom_listing_colors = ListingShape.where(deleted: 0).each_with_object({}) {|listing_shape, obj|
+    obj[listing_shape.id] = {
+        listing_color: '#' + listing_shape.listing_color,
+        listing_title_color: '#' + listing_shape.listing_title_color
+      }
+    }
+
     listings = result[:listings].map { |l|
       author =
         if includes.include?(:author)
@@ -63,6 +72,8 @@ module ListingIndexViewUtils
         else
           []
         end
+      
+      listing_colors = custom_listing_colors[l[:listing_shape_id]]
 
       ListingItem.new(
         l[:id],
@@ -82,7 +93,9 @@ module ListingIndexViewUtils
         l[:quantity],
         l[:shape_name_tr_key],
         l[:listing_shape_id],
-        l[:icon_name]
+        l[:icon_name],
+        listing_colors[:listing_color],
+        listing_colors[:listing_title_color]
       )
     }
 

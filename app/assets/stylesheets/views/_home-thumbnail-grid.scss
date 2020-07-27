@@ -9,6 +9,10 @@ $home-thumbnail-grid-avatar-padding: 6px;
 $home-thumbnail-grid-author: $home-thumbnail-grid-avatar +
   ($home-thumbnail-grid-avatar-padding * 2);
 
+.home-fluid-thumbnail-grid-container {
+  border-radius: $default-border-radius;
+}
+
 .home-fluid-thumbnail-grid-narrow {
   @include create-fluid-thumbnail-grid(home, 1, 1, 2, 3, 3, 3, 3, 3);
 }
@@ -18,8 +22,6 @@ $home-thumbnail-grid-author: $home-thumbnail-grid-avatar +
 }
 
 .home-fluid-thumbnail-grid-author {
-  @include border-bottom-radius($default-border-radius);
-  // background-color: $highlight;
   height: $home-thumbnail-grid-author;
   position: relative;
 }
