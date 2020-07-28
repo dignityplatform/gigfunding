@@ -48,14 +48,41 @@ window.ST.initializeListingShapesOrder = function() {
 };
 
 window.ST.initializeListingShapeForm = function(formId, invalidHexMessage) {
+  var customListingBackgroundColor = document.querySelector('#custom-listing-background-color')
+  var customListingTitleColor = document.querySelector('#custom-listing-title-color')
+  var hexRegex = /^([a-fA-F0-9]{6})?$/
+
+  $.validator.addMethod("customBackgroundColor",
+    function(value) {
+      if (value.match(hexRegex)) {
+        customListingBackgroundColor.setAttribute('style', "background-color: #" + value + ';')
+        return true
+      } else if (value == '') {
+        customListingBackgroundColor.setAttribute('style', '')
+      }
+    }
+  );
+
+  $.validator.addMethod("customTitleColor",
+    function(value) {
+      console.log(value)
+      if (value.match(hexRegex)) {
+        customListingTitleColor.setAttribute('style', "color: #" + value + ';')
+        return true
+      } else if (value == '') {
+        customListingTitleColor.setAttribute('style', '')
+      }
+    }
+  );
+
   $(formId).validate({
     rules: {
-      "listing_color": {required: false, minlength: 6, maxlength: 6, regex: "^([a-fA-F0-9]+)?$"},
-      "listing_title_color": {required: false, minlength: 6, maxlength: 6, regex: "^([a-fA-F0-9]+)?$"}
+      "listing_color": { required: false, minlength: 6, maxlength: 6, customBackgroundColor: true },
+      "listing_title_color": { required: false, minlength: 6, maxlength: 6, customTitleColor: true }
     },
     messages: {
-      "listing_color": { regex: invalidHexMessage },
-      "listing_title_color": { regex: invalidHexMessage },
+      "listing_color": { customBackgroundColor: invalidHexMessage },
+      "listing_title_color": { customTitleColor: invalidHexMessage },
     },
     errorPlacement: function(error, element) {
       if (element.hasClass("js-custom-unit-kind-radio")) {
