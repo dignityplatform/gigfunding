@@ -50,6 +50,10 @@
   .name-locale-text_field.col-10
     = text_field_tag("listing_title_color", shape[:listing_title_color], class: "input", placeholder: t("admin.listing_shapes.listing_color_placeholder"))
 
+.row
+  .custom-listing-color#custom-listing-colors{ style: "background-color: ##{shape[:listing_color]};" }
+    %div{ style: "color: ##{shape[:listing_title_color]};" }
+      = t("admin.listing_shapes.listing_title_color_label")
 
 .row
   .col-12

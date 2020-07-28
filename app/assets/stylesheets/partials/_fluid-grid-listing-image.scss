@@ -51,6 +51,7 @@
   font-size: 12px; // Quantity placeholder font-size, so that the ellipsis looks nice
   max-width: 50%;
   @include ellipsis;
+  border-bottom-right-radius: $default-border-radius;
 }
 
 .fluid-thumbnail-grid-image-price {

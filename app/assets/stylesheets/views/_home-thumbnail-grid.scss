@@ -10,7 +10,10 @@ $home-thumbnail-grid-author: $home-thumbnail-grid-avatar +
   ($home-thumbnail-grid-avatar-padding * 2);
 
 .home-fluid-thumbnail-grid-container {
+  border-width: 2px;
+  border-style: solid;
   border-radius: $default-border-radius;
+  // border-color: custom colors added dynamically inline based off ListingShape.listing_color
 }
 
 .home-fluid-thumbnail-grid-narrow {
