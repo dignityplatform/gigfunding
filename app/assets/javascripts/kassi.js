@@ -567,6 +567,56 @@ function initialize_homepage() {
       return false;
     }
   );
+
+  // custom hover listing colors
+
+  var addListingColorToButton = function(element) {
+    var listing_color =  element.attr('data-listing-color')
+    var listing_title_color =  element.attr('data-listing-title-color')
+    element.css( 'background-color', '#' + listing_color)
+    element.css( 'color', '#' + listing_title_color)
+  }
+
+  var removeListingColorFromButton = function(element) {
+    element.css( 'background-color', '')
+    element.css( 'color', '')
+  }
+
+  $('.toggle-header-button').hover(
+    function() {
+      var element = $(this)
+      if (element.attr('id') == 'toggle-header-button-selected') {
+        removeListingColorFromButton(element)
+      } else {
+        addListingColorToButton(element)
+      }
+    }, function() {
+      var element = $(this)
+      if (element.attr('id') == 'toggle-header-button-selected') {
+        addListingColorToButton(element)
+      } else {
+        removeListingColorFromButton(element)
+      }
+    }
+  )
+
+  $('.toggle-header-button').click(function(event){
+    var element = $(this)
+    if (element.attr('id') == 'toggle-header-button-selected') {
+      event.preventDefault()
+      element.attr('id', '')
+      removeListingColorFromButton(element)
+      var currentURL = window.location.href
+      location.href = currentURL.substring(0, currentURL.indexOf('?'))
+    } else {
+      var otherSelected = $('#toggle-header-button-selected')
+      if (otherSelected.length) {
+        removeListingColorFromButton(otherSelected)
+        otherSelected.attr('id', '')
+      }
+      element.attr('id', 'toggle-header-button-selected')
+    }
+  })
 }
 
 function initialize_invitation_form(locale, email_error_message, invitation_limit) {

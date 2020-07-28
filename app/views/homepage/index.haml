@@ -87,11 +87,14 @@
       .home-toolbar-filters.home-toolbar-filters-mobile-hidden#home-toolbar-filters
         - if listing_shape_menu_enabled
           .toggle-container.home-toolbar-toggle-container
-            .toggle.with-borders#home_toolbar-select-share-type{data: {toggle: '.home-toolbar-share-type-menu'}}
+            .with-borders#home_toolbar-select-share-type{data: {toggle: '.home-toolbar-share-type-menu'}}
               .toggle-header-container
                 .toggle-header
                   - shapes.each_with_index do |shape, index|
-                    = link_to search_path(search_params.merge({transaction_type: shape[:name]})), class:  "home-toolbar-button-group-button-2" do
+                    - is_selected_shape = (shape == selected_shape)
+                    - shape_toggled_id = (is_selected_shape ? "toggle-header-button-selected" : nil )
+                    - shape_toggled_style = (is_selected_shape ? "background-color: ##{shape[:listing_color]}; color: ##{shape[:listing_title_color]};" : nil )
+                    = link_to search_path(search_params.merge({transaction_type: shape[:name]})), class:  "home-toolbar-button-group-button-2 toggle-header-button", id: shape_toggled_id, style: shape_toggled_style, data: { listing_color: shape[:listing_color], listing_title_color: shape[:listing_title_color] }  do
                       = t("homepage.filters.listing#{index}")
 
                 -# = icon_tag("dropdown", ["icon-dropdown"])
