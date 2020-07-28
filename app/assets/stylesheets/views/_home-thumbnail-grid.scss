@@ -13,7 +13,7 @@ $home-thumbnail-grid-author: $home-thumbnail-grid-avatar +
   border-width: 2px;
   border-style: solid;
   border-radius: $default-border-radius;
-  // border-color: custom colors added dynamically inline based off ListingShape.listing_color
+  border-color: rgba(255, 255, 255, 0); //custom colors added dynamically inline based off ListingShape.listing_color
 }
 
 .home-fluid-thumbnail-grid-narrow {
