@@ -108,6 +108,7 @@
   left: 0;
   right: 0;
   top: 0;
+  letter-spacing: 0em;
 
   // In Google Chrome, there was a 1px empty space on top of the image. This is probably due to the 3/2 padding,
   // which results in not a whole number 66.6666667%. -1px from top seems to fix it and not cause problems in other
