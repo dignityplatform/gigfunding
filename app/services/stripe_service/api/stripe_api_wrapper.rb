@@ -191,7 +191,7 @@ class StripeService::API::StripeApiWrapper
       end
     end
 
-    def get_balance_txn(community:, balance_txn_id:, account_id:)
+    def get_balance_txn(community:, balance_txn_id:)
       with_stripe_payment_config(community) do |payment_settings|
         case charges_mode(community)
         when :separate, :destination

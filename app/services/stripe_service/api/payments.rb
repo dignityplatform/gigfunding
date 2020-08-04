@@ -221,7 +221,6 @@ module StripeService::API
 
       def do_capture(tx)
         payment = PaymentStore.get(tx.community_id, tx.id)
-        seller_account = accounts_api.get(community_id: tx.community_id, person_id: tx.listing_author_id).data
         payment_data = {status: 'paid'}
         if payment[:stripe_payment_intent_id].present?
           intent = stripe_api.capture_payment_intent(community: tx.community,
@@ -231,7 +230,7 @@ module StripeService::API
         else
           return Result::Error.new("Cannot capture: no intent in payment data")
         end
-        balance_txn = stripe_api.get_balance_txn(community: tx.community_id, balance_txn_id: charge.balance_transaction, account_id: seller_account[:stripe_seller_id])
+        balance_txn = stripe_api.get_balance_txn(community: tx.community_id, balance_txn_id: charge.balance_transaction)
         payment = PaymentStore.update(transaction_id: tx.id, community_id: tx.community_id,
                                       data: payment_data.merge!({
                                         real_fee_cents: balance_txn.fee,
