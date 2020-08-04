@@ -10,8 +10,4 @@ module EmailHelper
       email_allowed?(email.address)
     end
   end
-
-  def email_image_url(image_url)
-    URI.join(ActionController::Base.asset_host, image_url).to_s
-  end
 end
