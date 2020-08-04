@@ -7,6 +7,7 @@
 #  transaction_process_id :integer          not null
 #  price_enabled          :boolean          not null
 #  shipping_enabled       :boolean          not null
+#  availability           :string(32)       default("none")
 #  name                   :string(255)      not null
 #  name_tr_key            :string(255)      not null
 #  action_button_tr_key   :string(255)      not null
@@ -14,7 +15,8 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  deleted                :boolean          default(FALSE)
-#  availability           :string(32)       default("none")
+#  listing_color          :string(255)      default("FFFFFF")
+#  listing_title_color    :string(255)
 #
 # Indexes
 #
@@ -43,6 +45,11 @@ class ListingShape < ApplicationRecord
   validates :name_tr_key, :action_button_tr_key, :transaction_process_id, presence: true
   validates :price_enabled, :shipping_enabled, inclusion: [true, false]
   validates :availability, inclusion: AVAILABILITIES # Possibly :stock in the future
+  validates :listing_color, 
+            format: { :with => /\A[A-F0-9]{6}\z/i, :allow_blank => true }
+  validate :assign_default_listing_color
+  validates :listing_title_color, 
+            format: { :with => /\A[A-F0-9]{6}\z/i, :allow_blank => true }
 
   def units
     @units ||= listing_units.map(&:to_unit_hash)
@@ -78,7 +85,7 @@ class ListingShape < ApplicationRecord
   end
 
   def self.permitted_attributes(opts)
-    HashUtils.compact(opts.slice(:transaction_process_id, :price_enabled, :shipping_enabled, :name_tr_key, :action_button_tr_key, :sort_priority, :deleted, :availability))
+    HashUtils.compact(opts.slice(:transaction_process_id, :price_enabled, :shipping_enabled, :name_tr_key, :action_button_tr_key, :sort_priority, :deleted, :availability, :listing_color, :listing_title_color))
   end
 
   def self.next_sort_priority(shapes)
@@ -116,5 +123,12 @@ class ListingShape < ApplicationRecord
 
   def booking?
     availability == AVAILABILITY_BOOKING
+  end
+  
+  def assign_default_listing_color
+    if listing_color.blank?
+      self.listing_color = 'FFFFFF'
+      self.save
+    end
   end
 end

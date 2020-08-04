@@ -459,6 +459,7 @@ FactoryGirl.define do
     name_tr_key            'unit.day'
     action_button_tr_key   'unit.days'
     sort_priority          0
+    listing_color          "000000"
   end
 
   factory :listing_unit do

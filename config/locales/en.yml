@@ -1020,6 +1020,11 @@ en:
         can_not_delete_only_one_in_categories: "You can't delete this order type because in following categories this order type is the only one in use: %{categories}"
       listing_shape_name: Name
       listing_shape_name_placeholder: "E.g. Sell"
+      listing_color_title: 'Listing color'
+      listing_title_color_title: 'Listing title color (shown on homepage)'
+      listing_title_color_label: 'Current listing colors'
+      listing_color_placeholder: "Hex color: E.g. F0F0F0"
+      listing_color_invalid: "Invalid hex color, please use valid 6 character hex character e.g. F0F0F0"
       action_button_label: "Checkout button label"
       action_button_placeholder: "E.g. Buy"
       open_listings_warning:
