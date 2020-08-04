@@ -1,7 +1,8 @@
 - frontpage_fragment_cache("grid_item", listing) do
   .home-fluid-thumbnail-grid-item
-    .home-fluid-thumbnail-grid-container{ style: "border-color: #{listing.listing_color};" }
-      .home-fluid-thumbnail-grid-author{ style: "background-color: #{listing.listing_color};" }
+    - listing_color = (listing.listing_color ? listing.listing_color : '')
+    .home-fluid-thumbnail-grid-container{ style: "border-color: #{listing_color};" }
+      .home-fluid-thumbnail-grid-author{ style: "background-color: #{listing_color};" }
         .home-fluid-thumbnail-grid-author-avatar
           = link_to(person_path(username: listing.author.username)) do
             = image_tag(listing.author.avatar.thumb || missing_avatar(:thumb), :class => "home-fluid-thumbnail-grid-author-avatar-image")
@@ -9,7 +10,8 @@
         - distance = Maybe(listing.distance).or_else(nil)
         - name = PersonViewUtils.person_entity_display_name(listing.author, @current_community.name_display_type)
         - if(!show_distance || distance.blank?)
-          = link_to(person_path(username: listing.author.username), :class => "home-fluid-thumbnail-grid-author-name", title: name, style: "color: #{listing.listing_title_color};" ) do
+          - listing_title_color = (listing.listing_title_color ? listing.listing_title_color : '')
+          = link_to(person_path(username: listing.author.username), :class => "home-fluid-thumbnail-grid-author-name", title: name, style: "color: #{listing_title_color};" ) do
             = name
             is
             = shape_name(listing)
