@@ -254,7 +254,7 @@ class StripeService::API::StripeApiWrapper
       end
     end
 
-    def create_payment_intent(community:, seller_account_id:, payment_method_id:, amount:, currency:, fee:, description:, metadata:)
+    def create_payment_intent(community:, payment_method_id:, amount:, currency:, fee:, description:, metadata:)
       with_stripe_payment_config(community) do |payment_settings|
         Stripe::PaymentIntent.create(
           capture_method: 'manual',

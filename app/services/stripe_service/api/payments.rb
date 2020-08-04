@@ -6,14 +6,9 @@ module StripeService::API
       TransactionStore = TransactionService::Store::Transaction
 
       def create_preauth_payment(tx, gateway_fields)
-        seller_account = accounts_api.get(community_id: tx.community_id, person_id: tx.listing_author_id).data
-        if !seller_account || !seller_account[:stripe_seller_id].present?
-          return Result::Error.new("No Seller Account")
-        end
-
         if gateway_fields[:stripe_payment_method_id].present?
           wrap_in_report(tx: tx, start: :create_intent_start, success: :create_intent_success, failed: :create_intent_failed) do
-            do_create_preauth_payment(tx, gateway_fields, seller_account)
+            do_create_preauth_payment(tx, gateway_fields)
           end
         else
           Result::Error.new("No payment method present")
@@ -143,8 +138,7 @@ module StripeService::API
         Result::Error.new(exception.message, exception)
       end
 
-      def do_create_preauth_payment(tx, gateway_fields, seller_account)
-        seller_id  = seller_account[:stripe_seller_id]
+      def do_create_preauth_payment(tx, gateway_fields)
         payment_method_id = gateway_fields[:stripe_payment_method_id]
 
         subtotal   = order_total(tx)
@@ -164,7 +158,6 @@ module StripeService::API
         if payment_method_id.present?
           intent = stripe_api.create_payment_intent(
             community: tx.community_id,
-            seller_account_id: seller_id,
             payment_method_id: payment_method_id,
             amount: total.cents,
             currency: total.currency.iso_code,
