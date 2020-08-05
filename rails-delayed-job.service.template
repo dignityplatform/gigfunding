@@ -1,0 +1,31 @@
+# rails-delayed-job.service
+# 
+# System service for rails delayed job workers running using systemd on ubuntu
+# 
+# Enable "sudo systemctl enable rails-delayed-job.service"
+# Disable "sudo systemctl disable rails-delayed-job.service"
+# Start "sudo systemctl start rails-delayed-job.service"
+# Stop "sudo systemctl stop rails-delayed-job.service"
+# Restart "sudo systemctl restart rails-delayed-job.service"
+# Status "sudo systemctl status rails-delayed-job.service"
+
+[Unit]
+Description=Rails delayed_job service
+After=network-online.target
+
+[Service]
+Type=simple
+User=<user>
+Group=<group>
+WorkingDirectory=/home/<user>/sharetribe
+Environment=RAILS_ENV=production
+ExecStart=/bin/bash -lc 'source /home/<user>/.profile && source /home/<user>/.rvm/scripts/rvm && bundle exec rake jobs:work'
+KillSignal=SIGTERM
+RestartSec=60s
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=rails_delayed_job_service
+
+[Install]
+WantedBy=multi-user.target
