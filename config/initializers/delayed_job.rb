@@ -54,3 +54,4 @@ Delayed::Worker.default_priority = 5
 Delayed::Worker.default_queue_name = "default"
 Delayed::Worker.plugins << DelayedJobLoggerPlugin
 Delayed::Worker.plugins << Delayed::Plugins::RequestStorePlugin
+Delayed::Worker.raise_signal_exceptions = :term
