@@ -279,7 +279,7 @@ class Transaction < ApplicationRecord
   #
   # Note: I'm not sure whether we want to have this method or not but at least it makes refactoring easier.
   def other_party(person)
-    person == starter ? listing.author : starter
+    person == starter ? listing_author : starter
   end
 
   def unit_type
