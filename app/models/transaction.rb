@@ -109,7 +109,9 @@ class Transaction < ApplicationRecord
   scope :non_free_including_uninitialized, -> { where('current_state IS NULL OR current_state <> ?', ['free']) }
   scope :by_community, -> (community_id) { where(community_id: community_id) }
   scope :with_payment_conversation, -> {
-    left_outer_joins(:conversation).merge(Conversation.payment)
+    left_outer_joins(:conversation)
+    # all listing conversations are started under Conversation.starting_page = listing
+    # left_outer_joins(:conversation).merge(Conversation.payment)
   }
   scope :with_payment_conversation_latest, -> (sort_direction) {
     with_payment_conversation.order(Arel.sql(
