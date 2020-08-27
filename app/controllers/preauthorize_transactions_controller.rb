@@ -402,7 +402,6 @@ class PreauthorizeTransactionsController < ApplicationController
       end
 
     flash[:error] = error_msg
-    # byebug
     logger.error(error_msg, :transaction_initiate_error, data)
     redirect_to listing_path(listing.id)
   end
@@ -413,7 +412,6 @@ class PreauthorizeTransactionsController < ApplicationController
       tx_params: tx_params,
       listing: listing)
 
-    # byebug
     tx_response = create_preauth_transaction(
       conversation_id: tx_params[:conversation_id],
       payment_type: params[:payment_type].to_sym,
@@ -432,6 +430,14 @@ class PreauthorizeTransactionsController < ApplicationController
         end_time: tx_params[:end_time],
         per_hour: tx_params[:per_hour]
       })
+    
+    if tx_response[:success] 
+      transactions_for_conversation = Transaction.where(conversation_id: tx_response.data[:transaction][:conversation_id])
+      if transactions_for_conversation.length == 2
+        old_free_transaction = transactions_for_conversation.detect {|transaction| transaction.current_state == 'free'}
+        old_free_transaction.destroy if old_free_transaction
+      end
+    end
 
     handle_tx_response(tx_response, params[:payment_type].to_sym)
   end
