@@ -590,7 +590,8 @@ class ApplicationController < ActionController::Base
           "feedback",
           "invite",
           "redirect",
-          "admin"
+          "admin",
+          "how_to_use"
         ])
     }
 
