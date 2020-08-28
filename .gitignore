@@ -83,3 +83,4 @@ shared/pids/
 /config/master.key
 
 .sql
+file-exports/**/*
