@@ -47,7 +47,7 @@ class HomepageController < ApplicationController
       end
     end
 
-    listing_shape_param = params[:transaction_type]
+    listing_shape_param = params[:transaction_type] == "offering" ? params[:transaction_type] : "requesting"
 
     selected_shape = all_shapes.find { |s| s[:name] == listing_shape_param }
 

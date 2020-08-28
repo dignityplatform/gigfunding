@@ -12,7 +12,7 @@
         - if(!show_distance || distance.blank?)
           - listing_title_color = (listing.listing_title_color ? listing.listing_title_color : '')
           = link_to(person_path(username: listing.author.username), :class => "home-fluid-thumbnail-grid-author-name", title: name, style: "color: #{listing_title_color};" ) do
-            = name
+            = name.split(' ').first
             is
             = shape_name(listing)
         - else
