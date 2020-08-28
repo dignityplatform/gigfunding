@@ -10,7 +10,7 @@ class PreauthorizeTransactionsController < ApplicationController
   before_action :ensure_can_receive_payment
 
   def initiate
-    # byebug
+    
     params_validator = params_per_hour? ? TransactionService::Validation::NewPerHourTransactionParams : TransactionService::Validation::NewTransactionParams
     validation_result = params_validator.validate(params.to_unsafe_hash).and_then { |params_entity|
       tx_params = add_defaults(
@@ -30,7 +30,7 @@ class PreauthorizeTransactionsController < ApplicationController
         stripe_in_use: StripeHelper.user_and_community_ready_for_payments?(listing.author_id, @current_community.id))
     }
 
-    # byebug
+    
 
     if validation_result.success
       initiation_success(validation_result.data)
@@ -40,7 +40,7 @@ class PreauthorizeTransactionsController < ApplicationController
   end
 
   def initiated
-    # byebug
+    
     params_validator = params_per_hour? ? TransactionService::Validation::NewPerHourTransactionParams : TransactionService::Validation::NewTransactionParams
     validation_result = params_validator.validate(params.to_unsafe_hash).and_then { |params_entity|
       tx_params = add_defaults(
@@ -60,7 +60,7 @@ class PreauthorizeTransactionsController < ApplicationController
         stripe_in_use: StripeHelper.user_and_community_ready_for_payments?(listing.author_id, @current_community.id))
     }
 
-    # byebug
+    
     if validation_result.success
       initiated_success(validation_result.data)
     else
@@ -218,7 +218,7 @@ class PreauthorizeTransactionsController < ApplicationController
   end
 
   def ensure_can_receive_payment
-    # byebug
+    
     payment_type = @current_community.active_payment_types || :none
 
     ready = TransactionService::Transaction.can_start_transaction(transaction: {
@@ -272,7 +272,6 @@ class PreauthorizeTransactionsController < ApplicationController
         }
     end
 
-    # byebug
     transaction = {
           conversation_id: opts[:conversation_id],
           community_id: opts[:community].id,
@@ -293,10 +292,7 @@ class PreauthorizeTransactionsController < ApplicationController
           delivery_method: opts[:delivery_method] || :none
     }
 
-    # byebug
     if (opts[:listing].listing_shape.name == 'requesting')
-      puts "-----------------------------------"
-      puts "its requesting listing"
       transaction.merge!({
         starter_id: opts[:listing].author.id,
         starter_uuid: opts[:listing].author.uuid_object,
@@ -312,7 +308,7 @@ class PreauthorizeTransactionsController < ApplicationController
       })
     end
 
-    # byebug
+    
     if(opts[:delivery_method] == :shipping)
       transaction[:shipping_price] = opts[:shipping_price]
     end

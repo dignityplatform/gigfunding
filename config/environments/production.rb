@@ -51,7 +51,8 @@ Rails.application.configure do
   config.lograge.custom_options = ->(event) {
     params = event.payload[:params].except('controller', 'action')
 
-    { params: params,
+    { time: Time.now,
+      params: params,
       host: event.payload[:host],
       community_id: event.payload[:community_id],
       current_user_id: event.payload[:current_user_id],
