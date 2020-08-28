@@ -1,0 +1,131 @@
+rails about                                                                           # List versions of all Rails frameworks and the environment
+rails active_storage:install                                                          # Copy over the migration needed to the application
+rails airbrake:deploy                                                                 # Notify Airbrake of a new deploy
+rails airbrake:install_heroku_deploy_hook                                             # Install a Heroku deploy hook to notify Airbrake of deploys
+rails airbrake:test                                                                   # Verify your gem installation by sending a test exception
+rails annotate_models                                                                 # Add schema information (as comments) to model and fixture files
+rails annotate_routes                                                                 # Adds the route map to routes.rb
+rails app:template                                                                    # Applies the template supplied by LOCATION=(/path/to/template) or URL
+rails app:update                                                                      # Update configs and some other initially generated files (or use just update:configs or update:bin)
+rails assets:clean[keep]                                                              # Remove old compiled assets
+rails assets:clobber                                                                  # Remove compiled assets
+rails assets:environment                                                              # Load asset compile environment
+rails assets:precompile                                                               # Compile all the assets named in config.assets.precompile
+rails assets:webpack                                                                  # Compile assets with webpack
+rails cache_digests:dependencies                                                      # Lookup first-level dependencies for TEMPLATE (like messages/show or comments/_comment.html)
+rails cache_digests:nested_dependencies                                               # Lookup nested dependencies for TEMPLATE (like messages/show or comments/_comment.html)
+rails cucumber                                                                        # Alias for cucumber:ok
+rails cucumber:all                                                                    # Run all features
+rails cucumber:ok                                                                     # Run features that should pass
+rails cucumber:rerun                                                                  # Record failing features and run only them if any exist
+rails cucumber:wip                                                                    # Run features that are being worked on
+rails db:create                                                                       # Creates the database from DATABASE_URL or config/database.yml for the current RAILS_ENV (use db:create:all to create all databases in the config). Without RAILS_ENV or when RAILS_ENV is development, it defaults to creating the development and test databases
+rails db:drop                                                                         # Drops the database from DATABASE_URL or config/database.yml for the current RAILS_ENV (use db:drop:all to drop all databases in the config). Without RAILS_ENV or when RAILS_ENV is development, it defaults to dropping the development and test databases
+rails db:environment:set                                                              # Set the environment value for the database
+rails db:fixtures:load                                                                # Loads fixtures into the current environment's database
+rails db:migrate                                                                      # Migrate the database (options: VERSION=x, VERBOSE=false, SCOPE=blog)
+rails db:migrate:status                                                               # Display status of migrations
+rails db:rollback                                                                     # Rolls the schema back to the previous version (specify steps w/ STEP=n)
+rails db:schema:cache:clear                                                           # Clears a db/schema_cache.yml file
+rails db:schema:cache:dump                                                            # Creates a db/schema_cache.yml file
+rails db:schema:dump                                                                  # Creates a db/schema.rb file that is portable against any DB supported by Active Record
+rails db:schema:load                                                                  # Loads a schema.rb file into the database
+rails db:seed                                                                         # Loads the seed data from db/seeds.rb
+rails db:sessions:clear                                                               # Clear the sessions table
+rails db:sessions:create                                                              # Creates a sessions migration for use with ActiveRecord::SessionStore
+rails db:sessions:trim                                                                # Trim old sessions from the table (default: > 30 days)
+rails db:setup                                                                        # Creates the database, loads the schema, and initializes with the seed data (use db:reset to also drop the database first)
+rails db:structure:dump                                                               # Dumps the database structure to db/structure.sql
+rails db:structure:load                                                               # Recreates the databases from the structure.sql file
+rails db:version                                                                      # Retrieves the current schema version number
+rails dev:cache                                                                       # Toggle development mode caching on/off
+rails erd                                                                             # Generate an Entity-Relationship Diagram based on your models
+rails export:community_image_urls[community_id]                                       # Prints out a list of all the URLs of all uploaded files of the community whose ID is given as parameter
+rails fs:index                                                                        # Upload Sphinx configuration and process indices
+rails fs:rebuild                                                                      # Stop, configure, index and then start Sphinx
+rails fs:regenerate                                                                   # Stop, clear, configure, start then populate Sphinx
+rails fs:restart                                                                      # Restart the Sphinx daemon on Flying Sphinx servers
+rails fs:start                                                                        # Start the Sphinx daemon on Flying Sphinx servers
+rails fs:stop                                                                         # Stop the Sphinx daemon on Flying Sphinx servers
+rails i18n:js:export                                                                  # Export translations to JS file(s)
+rails initializers                                                                    # Print out all defined initializers in the order they are invoked by Rails
+rails jobs:check[max_age]                                                             # Exit with error status if any jobs older than max_age seconds haven't been attempted yet
+rails jobs:clear                                                                      # Clear the delayed_job queue
+rails jobs:work                                                                       # Start a delayed_job worker
+rails jobs:workoff                                                                    # Start a delayed_job worker and exit when all available jobs are complete
+rails js:routes                                                                       # Make a js file that will have functions that will return restful routes/urls
+rails log:clear                                                                       # Truncates all/specified *.log files in log/ to zero bytes (specify which logs with LOGS=test,development)
+rails middleware                                                                      # Prints out your Rack middleware stack
+rails notes                                                                           # Enumerate all annotations (use notes:optimize, :fixme, :todo for focus)
+rails notes:custom                                                                    # Enumerate a custom annotation, specify with ANNOTATION=CUSTOM
+rails paperclip:clean                                                                 # Cleans out invalid attachments
+rails paperclip:find_broken_attachments                                               # find missing attachments
+rails paperclip:refresh                                                               # Refreshes both metadata and thumbnails
+rails paperclip:refresh:fingerprints                                                  # Regenerates fingerprints for a given CLASS (and optional ATTACHMENT). Useful when changing digest
+rails paperclip:refresh:metadata                                                      # Regenerates content_type/size metadata for a given CLASS (and optional ATTACHMENT)
+rails paperclip:refresh:missing_styles                                                # Regenerates missing thumbnail styles for all classes using Paperclip
+rails paperclip:refresh:thumbnails                                                    # Regenerates thumbnails for a given CLASS (and optional ATTACHMENT and STYLES splitted by comma)
+rails react_on_rails:assets:clobber                                                   # Delete assets created with webpack, in the generated assetst directory (/app/assets/webpack)
+rails react_on_rails:assets:compile_environment                                       # Create webpack assets before calling assets:environment
+rails react_on_rails:assets:delete_broken_symlinks                                    # Cleans all broken symlinks for the assets in the public asset dir
+rails react_on_rails:assets:symlink_non_digested_assets                               # Creates non-digested symlinks for the assets in the public asset dir
+rails react_on_rails:assets:webpack                                                   # Compile assets with webpack
+rails react_on_rails:locale                                                           # Generate i18n javascript files
+rails remove_annotation                                                               # Remove schema information from model and fixture files
+rails remove_routes                                                                   # Removes the route map from routes.rb
+rails restart                                                                         # Restart app by touching tmp/restart.txt
+rails routes                                                                          # Print out all defined routes in match order, with names
+rails secret                                                                          # Generate a cryptographically secure secret key (this is typically used to generate a secret for cookie sessions)
+rails sharetribe:community_updates:deliver                                            # Sends the community updates email to everyone who should receive it now
+rails sharetribe:delete_expired_auth_tokens                                           # Cleans the auth_tokens table in the DB by deleting expired ones
+rails sharetribe:landing_pages:install_static                                         # Install sample landing page into initializers/landing_page.rb
+rails sharetribe:marketplace:delete[marketplace_id,force]                             # DANGER: Deletes all marketplace data
+rails sharetribe:marketplace:delete_stripe_accounts[marketplace_id,force]             # DANGER: Attempt to delete all Stripe Connect accounts for a marketplace
+rails sharetribe:marketplace:run_shredder[sleep_time,query_sleep_time]                # DANGER: Run a continuous task that deletes all data for marketplaces with old expired trials or plans
+rails sharetribe:person_custom_fields:copy_phone_number_community[community_ident]    # Copying person's phone number to custom fields
+rails sharetribe:person_custom_fields:remove_phone_number_community[community_ident]  # Remove person's phone number from custom fields
+rails sharetribe:retry_and_clean_paypal_tokens                                        # Retries set express checkouts
+rails sharetribe:stripe:capabilites:update_all                                        # Updates capabilities of whole project
+rails sharetribe:stripe:capabilites:update_marketplace[marketplace_id]                # Updates capabilities of marketplace
+rails sharetribe:stripe:capabilites:update_person[person_id]                          # Updates capabilities of person
+rails sharetribe:synchronize_verified_with_ses                                        # Synchnorizes verified email address states from SES to local DB
+rails sitemap:clean                                                                   # Delete all Sitemap files in public/ directory
+rails sitemap:create                                                                  # Generate sitemaps but don't ping search engines
+rails sitemap:install                                                                 # Install a default config/sitemap.rb file
+rails sitemap:refresh                                                                 # Generate sitemaps and ping search engines
+rails sitemap:refresh:no_ping                                                         # Generate sitemaps but don't ping search engines
+rails statesman:backfill_most_recent[parent_model_name]                               # Set most_recent to false for old transitions and to true for the latest one
+rails stats                                                                           # Report code statistics (KLOCs, etc) from the application or engine
+rails test                                                                            # Runs all tests in test folder except system ones
+rails test:db                                                                         # Run tests quickly, but also reset db
+rails test:system                                                                     # Run system tests only
+rails time:zones[country_or_offset]                                                   # List all time zones, list by two-letter country code (`rails time:zones[US]`), or list by UTC offset (`rails time:zones[-8]`)
+rails tmp:clear                                                                       # Clear cache, socket and screenshot files from tmp/ (narrow w/ tmp:cache:clear, tmp:sockets:clear, tmp:screenshots:clear)
+rails tmp:create                                                                      # Creates tmp directories for cache, sockets, and pids
+rails ts:clear                                                                        # Clear out Sphinx files
+rails ts:clear_rt                                                                     # Clear out real-time index files
+rails ts:configure                                                                    # Generate the Sphinx configuration file
+rails ts:generate                                                                     # Generate fresh index files for real-time indices
+rails ts:index                                                                        # Generate the Sphinx configuration file and process all indices
+rails ts:rebuild                                                                      # Stop Sphinx, index and then restart Sphinx
+rails ts:regenerate                                                                   # Stop Sphinx, clear files, reconfigure, start Sphinx, generate files
+rails ts:restart                                                                      # Restart the Sphinx daemon
+rails ts:start                                                                        # Start the Sphinx daemon
+rails ts:status                                                                       # Determine whether Sphinx is running
+rails ts:stop                                                                         # Stop the Sphinx daemon
+rails yarn:install                                                                    # Install all JavaScript dependencies as specified via Yarn
+
+Delayed job tasks
+# Enable "sudo systemctl enable rails-delayed-job.service"
+# Disable "sudo systemctl disable rails-delayed-job.service"
+# Start "sudo systemctl start rails-delayed-job.service"
+# Stop "sudo systemctl stop rails-delayed-job.service"
+# Restart "sudo systemctl restart rails-delayed-job.service"
+# Status "sudo systemctl status rails-delayed-job.service"
+
+Application server
+sudo /etc/init.d/unicorn_sharetribe stop	# Stop
+sudo /etc/init.d/unicorn_sharetribe start	# Start
+
+Reverse proxy
+sudo service nginx start
