@@ -88,7 +88,7 @@ module TransactionService::Transaction
   end
 
   def can_start_transaction(opts)
-    # byebug
+    
     payment_gateway = opts[:transaction][:payment_gateway]
     author_id = opts[:transaction][:listing_author_id]
     community_id = opts[:transaction][:community_id]
@@ -105,6 +105,18 @@ module TransactionService::Transaction
 
   def create(opts, force_sync: true)
     opts_tx = opts[:transaction].to_hash
+
+    #add in check here to throw error if not verified
+    starter =  Person.find_by(id: opts[:transaction].to_hash[:starter_id])
+    author = Person.find_by(id: opts[:transaction].to_hash[:listing_author_id])
+    community = Community.find_by(id: opts[:transaction].to_hash[:community_id])
+
+    is_starter_valid = starter.has_valid_email_for_community?(community)
+    is_author_valid = author.has_valid_email_for_community?(community)
+
+    unless is_starter_valid && is_author_valid
+      return Result::Error.new(StandardError.new(I18n.t("error_messages.user.email_unconfirmed")))
+    end
 
     set_adapter = settings_adapter(opts_tx[:payment_gateway])
     tx_process_settings = set_adapter.tx_process_settings(opts_tx)
