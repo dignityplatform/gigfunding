@@ -4,6 +4,11 @@
     = icon_map_tag(icons, "home", ["icon-with-text"])
     = t("header.home")
 
+  - if @current_community.configuration.display_about_menu?
+    = link_to how_to_use_infos_path do
+      = icon_map_tag(icons, "how_to_use", ["icon-with-text"])
+      = t("header.how_it_works")
+
   = link_to new_listing_path do
     = icon_map_tag(icons, "new_listing", ["icon-with-text"])
     = t("homepage.index.post_new_listing")
