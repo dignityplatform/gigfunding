@@ -76,7 +76,7 @@
             = t(".no_open_listings")
 
 
-    - if @service.community.follow_in_use?
+    - if @service.community.follow_in_use? && current_user?(person)
       = render :partial => "followed_people", :locals => { person: person, followed_people: @service.followed_people, limit: 6 }
 
     #people-testimonials.listing-main

@@ -15,6 +15,9 @@
           = t(".they_follow_plural", :count => followed_people.count)
     - else
       = t(".no_followed_people")
+    %span.small
+      (not publicly visible)
+  
 .people-fluid-thumbnail-grid-container
   .people-fluid-thumbnail-grid#profile-followed-people-list
     = render :partial => "people/followed_person", :collection => displayed_people, :as => :person
