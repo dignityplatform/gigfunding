@@ -145,7 +145,10 @@
         s0.parentNode.insertBefore(s1, s0);
       })();
 
-    :javascript#mcjs
+    :javascript
       setTimeout( function() {
-        !function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/c158e9ec9850d979c69897fe8/9ab9584e5f02c81a2de9a3c3c.js")
+        var mailChimpScript = document.createElement('script')
+        mailChimpScript.id = "mcjs"
+        mailChimpScript.setAttribute('src','https://chimpstatic.com/mcjs-connected/js/users/c158e9ec9850d979c69897fe8/9ab9584e5f02c81a2de9a3c3c.js')
+        document.head.appendChild(mailChimpScript)
       }, 0);
