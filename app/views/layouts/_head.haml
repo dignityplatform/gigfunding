@@ -36,3 +36,14 @@
 
   - if @hide_referer
     %meta{name: "referrer", content: "no-referrer"}
+
+  %script{:id => "mcjs"}
+    :plain
+      setTimeout( function(c,h,i,m,p){
+        m=c.createElement(h)
+        p=c.getElementsByTagName(h)[0]
+        m.async=1
+        m.src=i
+        p.parentNode.insertBefore(m,p)
+      }, 10000, document,"script","https://chimpstatic.com/mcjs-connected/js/users/c158e9ec9850d979c69897fe8/1e1e95cd985ff74fcdff67a90.js")
+      
