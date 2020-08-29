@@ -50,6 +50,7 @@ class ListingShape < ApplicationRecord
   validate :assign_default_listing_color
   validates :listing_title_color, 
             format: { :with => /\A[A-F0-9]{6}\z/i, :allow_blank => true }
+  validate :assign_default_listing_title_color
 
   def units
     @units ||= listing_units.map(&:to_unit_hash)
@@ -128,6 +129,13 @@ class ListingShape < ApplicationRecord
   def assign_default_listing_color
     if listing_color.blank?
       self.listing_color = 'FFFFFF'
+      self.save
+    end
+  end
+
+  def assign_default_listing_title_color
+    if listing_title_color.blank?
+      self.listing_title_color = '000000'
       self.save
     end
   end
