@@ -58,10 +58,8 @@
       - users_listings.each do |listing_shape, listings_array|
         .row
           %h2.people-header
-            - if current_user?(person) && params[:show_closed]
-              = pluralize(listings_array.total_entries, "#{t(listing_shape.name_tr_key).downcase} #{t(".listing")}", "#{t(listing_shape.name_tr_key).downcase} #{t(".listings")}")
-            - else
-              = pluralize(listings_array.total_entries, "#{t(".open")} #{t(listing_shape.name_tr_key).downcase} #{t(".listing")}", "#{t(".open")} #{t(listing_shape.name_tr_key).downcase} #{t(".listings")}")
+            = listings_array.total_entries
+            = listings_array.total_entries == 1 ? t(".#{listing_shape.name}") : t(".#{listing_shape.name}") + 's'
                
         %div{id: "profile-listings-list-#{listing_shape.id}"}
           - limit = 6
@@ -70,10 +68,7 @@
     - else
       .row
         %h2.people-header
-          - if current_user?(person) && params[:show_closed]
-            = t(".no_listings")
-          - else
-            = t(".no_open_listings")
+          = t(".no_listings")
 
 
     - if @service.community.follow_in_use? && current_user?(person)
