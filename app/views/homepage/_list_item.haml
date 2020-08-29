@@ -27,7 +27,7 @@
     %div{:class => (listing.listing_images.size > 0 ? "home-list-details-with-image" : "")}
       %h2.home-list-title
         = link_to listing_path(listing.url) do
-          = listing.title
+          = prepend_listing_shape_name(listing)
           - if @current_community.show_category_in_listing_list
             %a.home-share-type-link{:href => search_path(:transaction_type => shape_name_map[listing.listing_shape_id], :view => :list)}
               = icon_tag(listing.icon_name, ["icon-fix"])
