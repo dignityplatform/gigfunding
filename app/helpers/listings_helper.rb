@@ -133,6 +133,6 @@ module ListingsHelper
   end
 
   def prepend_listing_shape_name(listing)
-    "#{shape_name(listing)}: #{listing.title.sub(/$#{Regexp.quote(shape_name(listing))} */i, '').capitalize}"
+    "#{shape_name(listing).capitalize}: #{listing.title.sub(/^#{Regexp.quote(shape_name(listing))} */i, '').capitalize}"
   end
 end
