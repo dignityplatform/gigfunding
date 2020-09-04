@@ -294,6 +294,7 @@ ICON_MAP = {
       "pending" => "icon-time",
       "minus" => "icon-minus",
       "trash" => "icon-trash",
-      "rocket" => "icon-magic"
+      "rocket" => "icon-magic",
+      "causes" => "icon-hand-holding-heart"
     }
   }

@@ -494,6 +494,14 @@ module ApplicationHelper
       }
     ]
 
+    links << {
+      :topic => :configure,
+      :text => t("admin.left_hand_navigation.causes"),
+      :icon_class => icon_class("causes"),
+      :path => edit_welcome_email_admin_community_path(@current_community),
+      :name => "causes"
+    }
+
     links += [
       {
         :topic => :configure,

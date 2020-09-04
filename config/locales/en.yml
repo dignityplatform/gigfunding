@@ -962,6 +962,7 @@ en:
       general: General
       users_and_transactions: Manage
       configure: Configure
+      causes: Causes
       emails_title: Emails
       subscription: Subscription
       preview: 'Preview site'
