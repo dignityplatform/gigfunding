@@ -1,0 +1,8 @@
+= form.label :name_attributes, t(".name_label")
+- available_locales.each do |locale_name, locale_value|
+  .row
+    - if available_locales.size > 1
+      .col-2
+        = label_tag "cause[translation_attributes][#{locale_value}][name]", locale_name + ": ", :class => "new-field-name-locale-label"
+    .col-8
+      = text_field_tag "cause[translation_attributes][#{locale_value}][name]", '', :class => "required", placeholder: 'Enter cause name...'

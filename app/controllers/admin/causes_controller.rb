@@ -2,6 +2,10 @@ class Admin::CausesController < Admin::AdminBaseController
   before_action :set_selected_left_navi_link
   # before_action :set_service
 
+  def new
+    @cause = Cause.new
+  end
+
   private
 
   def set_selected_left_navi_link
