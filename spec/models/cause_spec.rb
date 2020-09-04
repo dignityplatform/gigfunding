@@ -33,4 +33,20 @@ RSpec.describe Cause, type: :model do
       expect(cause).to be_valid
     end
   end
+
+  context 'description validations' do
+    it 'is present' do
+      cause.description = nil
+      expect(cause).to_not be_valid
+      cause.description = 'test'
+      expect(cause).to be_valid
+    end
+
+    it 'length' do
+      cause.description = ''
+      expect(cause).to_not be_valid
+      cause.description = 't'
+      expect(cause).to be_valid
+    end
+  end
 end
