@@ -190,6 +190,10 @@ CREATE TABLE `causes` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `link` varchar(255) DEFAULT NULL,
+  `logo_file_name` varchar(255) DEFAULT NULL,
+  `logo_content_type` varchar(255) DEFAULT NULL,
+  `logo_file_size` int DEFAULT NULL,
+  `logo_updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -2496,6 +2500,7 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20200725114710'),
 ('20200829125313'),
 ('20200904214544'),
-('20200904215905');
+('20200904215905'),
+('20200904221930');
 
 
