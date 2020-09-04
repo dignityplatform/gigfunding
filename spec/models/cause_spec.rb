@@ -9,8 +9,17 @@
 #  updated_at  :datetime         not null
 #
 
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe Cause, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:cause) { FactoryGirl.create(:cause) }
+
+  context 'name validations' do
+    it 'is present' do
+      cause.name = nil
+      expect(cause).to_not be_valid
+      cause.name = 'test'
+      expect(cause).to be_valid
+    end
+  end
 end
