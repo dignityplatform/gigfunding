@@ -58,5 +58,14 @@ RSpec.describe Cause, type: :model do
       cause.link = 'http://example.com'
       expect(cause).to be_valid
     end
+
+    it 'format' do
+      cause.link = 'not_a_URL'
+      expect(cause).to_not be_valid
+      cause.link = 'www.example.com'
+      expect(cause).to_not be_valid
+      cause.link = 'http://example.com'
+      expect(cause).to be_valid
+    end
   end
 end

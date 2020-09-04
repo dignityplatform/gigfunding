@@ -633,6 +633,9 @@ GEM
       kgio (~> 2.6)
       raindrops (~> 0.7)
     uuidtools (2.1.5)
+    validate_url (1.0.11)
+      activemodel (>= 3.0.0)
+      public_suffix
     warden (1.2.8)
       rack (>= 2.0.6)
     web-console (3.7.0)
@@ -781,6 +784,7 @@ DEPENDENCIES
   uglifier (~> 4.2.0)
   unicorn
   uuidtools (~> 2.1.5)
+  validate_url
   web-console (~> 3.7.0)
   web_translate_it (~> 2.4.1)
   webdrivers
