@@ -1207,6 +1207,7 @@ en:
       index:
         causes: 'Causes'
         causes_help: 'Here you can edit the causes which a user will select to donate their gigs to.'
+        create_a_new_cause: '+ Create a New Cause'
   common:
     edit_page: 'Edit page'
     default_community_slogan: 'Community marketplace'

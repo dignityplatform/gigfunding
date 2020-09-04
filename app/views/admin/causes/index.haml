@@ -16,3 +16,10 @@
 
     = render :partial => "layouts/info_text", :locals => { :text => t(".causes_help")}
     
+  
+  .top-level-category-divider-wrapper
+    .top-level-category-divider
+
+  .row
+    .col-12
+      = link_to t(".create_a_new_cause"), new_admin_cause_path
