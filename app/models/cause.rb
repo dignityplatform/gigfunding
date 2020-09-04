@@ -7,6 +7,7 @@
 #  description :text(65535)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  link        :string(255)
 #
 
 class Cause < ApplicationRecord

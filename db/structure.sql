@@ -189,6 +189,7 @@ CREATE TABLE `causes` (
   `description` text,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
+  `link` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -2494,6 +2495,7 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20200724231501'),
 ('20200725114710'),
 ('20200829125313'),
-('20200904214544');
+('20200904214544'),
+('20200904215905');
 
 
