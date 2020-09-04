@@ -26,8 +26,4 @@ class Cause < ApplicationRecord
   validates_attachment_content_type :logo, content_type: IMAGE_CONTENT_TYPE
 
   process_in_background :logo
-
-  def display_name(locale)
-    TranslationCache.new(self, :translations).translate(locale, :name)
-  end
 end

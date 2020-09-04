@@ -1211,8 +1211,12 @@ en:
       form:
         cause_name:
           name_label: 'Name'
+        buttons:
+          save: 'Save'
+          cancel: 'Cancel'
       new:
         new_cause: 'New Cause'
+
  
   common:
     edit_page: 'Edit page'
