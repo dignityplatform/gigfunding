@@ -21,5 +21,16 @@ RSpec.describe Cause, type: :model do
       cause.name = 'test'
       expect(cause).to be_valid
     end
+
+    it 'length' do
+      cause.name = ''
+      expect(cause).to_not be_valid
+      cause.name = 't'
+      expect(cause).to be_valid
+      cause.name = 'a' * 256
+      expect(cause).to_not be_valid
+      cause.name = 'a' * 255
+      expect(cause).to be_valid
+    end
   end
 end

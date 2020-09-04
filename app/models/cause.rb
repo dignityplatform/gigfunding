@@ -10,5 +10,5 @@
 #
 
 class Cause < ApplicationRecord
-  validates :name, presence: true
+  validates :name, presence: true, length: { in: 1..255 }
 end
