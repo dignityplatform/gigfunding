@@ -1209,8 +1209,12 @@ en:
         causes_help: 'Here you can edit the causes which a user will select to donate their gigs to.'
         create_a_new_cause: '+ Create a New Cause'
       form:
-        cause_name:
-          name_label: 'Name'
+        name:
+          label: 'Name'
+          placeholder: 'Enter cause name...'
+        description:
+          label: 'Description'
+          placeholder: 'Enter cause description...'
         buttons:
           save: 'Save'
           cancel: 'Cancel'

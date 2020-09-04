@@ -8,7 +8,7 @@
 
 .left-navi-section
   = form_for [:admin, @cause] do |form|
-    = render :partial => "admin/causes/form/cause_name", :locals => { :form => form }
-
+    = render :partial => "admin/causes/form/name", :locals => { :form => form }
+    = render :partial => "admin/causes/form/description", :locals => { :form => form }
     = render :partial => "admin/causes/form/buttons", :locals => { :form => form }
 
