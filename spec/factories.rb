@@ -53,6 +53,9 @@ class FactoryGirl::DefinitionProxy
 end
 
 FactoryGirl.define do
+  factory :cause do
+    
+  end
   sequence :id do |_|
     SecureRandom.urlsafe_base64
   end
