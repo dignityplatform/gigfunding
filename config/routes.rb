@@ -584,6 +584,9 @@ Rails.application.routes.draw do
           post :order
         end
       end
+      resources :causes do
+        
+      end
       resources :categories do
         member do
           get :remove

@@ -1203,6 +1203,10 @@ en:
         manage_reviews: 'Manage reviews'
         you_should_investigate: 'You should investigate the situation by discussing with both parties and decide to refund or dismiss the dispute. %{learn_more_link}'
         learn_more: 'Learn more.'
+    causes:
+      index:
+        causes: 'Causes'
+        causes_help: 'Here you can edit the causes which a user will select to donate their gigs to.'
   common:
     edit_page: 'Edit page'
     default_community_slogan: 'Community marketplace'

@@ -498,7 +498,7 @@ module ApplicationHelper
       :topic => :configure,
       :text => t("admin.left_hand_navigation.causes"),
       :icon_class => icon_class("causes"),
-      :path => edit_welcome_email_admin_community_path(@current_community),
+      :path => admin_causes_url,
       :name => "causes"
     }
 
