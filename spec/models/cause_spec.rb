@@ -50,4 +50,13 @@ RSpec.describe Cause, type: :model do
       expect(cause).to be_valid
     end
   end
+
+  context 'link validations' do
+    it 'is present' do
+      cause.link = nil
+      expect(cause).to_not be_valid
+      cause.link = 'http://example.com'
+      expect(cause).to be_valid
+    end
+  end
 end
