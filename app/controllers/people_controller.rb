@@ -336,6 +336,7 @@ class PeopleController < Devise::RegistrationsController
       :image,
       :description,
       :username,
+      :cause_id,
       location: [:address, :google_address, :latitude, :longitude],
       custom_field_values_attributes: [
         :id,
