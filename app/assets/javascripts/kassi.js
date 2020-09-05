@@ -361,6 +361,7 @@ function initialize_signup_form(locale, email_already_in_use_message, invalid_in
     errorPlacement: function(errorLabel, element) {
       if (( /radio|checkbox/i ).test( element[0].type )) {
         element.closest('.checkbox-container').append(errorLabel);
+        element.closest('.radio-error-container').append(errorLabel);
       } else {
         errorLabel.insertAfter( element );
       }
@@ -372,7 +373,8 @@ function initialize_signup_form(locale, email_already_in_use_message, invalid_in
       "person[terms]": { required: true },
       "person[password]": { required: true, minlength: 4 },
       "person[password2]": { required: true, minlength: 4, equalTo: "#person_password1" },
-      "invitation_code": { required: invitation_required, remote: "/people/check_invitation_code" }
+      "invitation_code": { required: invitation_required, remote: "/people/check_invitation_code" },
+      "person[cause_id]": { required: true }
     },
     messages: {
       "person[email]": { remote: `${email_already_in_use_message}` },
