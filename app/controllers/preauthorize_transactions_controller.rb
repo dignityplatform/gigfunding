@@ -297,14 +297,18 @@ class PreauthorizeTransactionsController < ApplicationController
         starter_id: opts[:listing].author.id,
         starter_uuid: opts[:listing].author.uuid_object,
         listing_author_id: opts[:user].id,
-        listing_author_uuid: opts[:user].uuid_object
+        listing_author_uuid: opts[:user].uuid_object,
+        starter_cause_id: opts[:listing].author.cause.id,
+        author_cause_id: opts[:user].cause.id
       })
     else
       transaction.merge!({
         starter_id: opts[:user].id,
         starter_uuid: opts[:user].uuid_object,
         listing_author_id: opts[:listing].author.id,
-        listing_author_uuid: opts[:listing].author.uuid_object
+        listing_author_uuid: opts[:listing].author.uuid_object,
+        starter_cause_id: opts[:user].cause.id,
+        author_cause_id: opts[:listing].author.cause.id
       })
     end
 

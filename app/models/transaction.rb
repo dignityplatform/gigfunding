@@ -77,8 +77,8 @@ class Transaction < ApplicationRecord
   has_many :testimonials, dependent: :destroy
   belongs_to :listing_author, class_name: 'Person'
   has_many :stripe_payments, dependent: :destroy
-  belongs_to :cause, foreign_key: 'starter_cause_id'
-  belongs_to :cause, foreign_key: 'author_cause_id'
+  belongs_to :starter_cause, foreign_key: 'starter_cause_id', class_name: 'Cause'
+  belongs_to :author_cause, foreign_key: 'author_cause_id', class_name: 'Cause'
 
   delegate :author, to: :listing
   delegate :title, to: :listing, prefix: true
