@@ -4,7 +4,7 @@
 - content_for :title_header do
   %h1= t('.sign_up')
 
-.signup-form.centered-section
+.signup-form.centered-section-wide
 
   - if @community_customization && @community_customization.signup_info_content
     %p
@@ -72,13 +72,19 @@
     = form.label :password2, t('.password_again')
     = form.password_field :password2, :class => :text_field, :maxlength => "255"
 
+    .label
+      = t('.select_cause')
+      %small= t('.this_field_will_be_publicly_visible')
+
+    - @causes.each do |cause|
+      = render :partial => "layouts/cause_layout", :locals => {cause: cause, edit_cause: false, delete_cause: false}
 
 
 
 
 
 
-    
+
 
     - if @service.has_person_custom_fields?
       - @service.custom_field_values.each_with_index do |custom_field_value, index|

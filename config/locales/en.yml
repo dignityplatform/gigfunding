@@ -2779,6 +2779,7 @@ en:
       OR: OR
       signup_with_email: 'Sign up with email'
       this_field_will_be_publicly_visible: '(This field will be publicly visible)'
+      select_cause: 'Which cause do you want to fundraise for?'
     profile_feedback:
       grade: 'grade:'
       and_gave_following_feedback: 'and gave the following feedback'
