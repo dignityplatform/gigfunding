@@ -1215,6 +1215,11 @@ en:
         description:
           label: 'Description'
           placeholder: 'Enter cause description...'
+        link:
+          label: 'Link'
+          placeholder: 'Enter URL to cause website...'
+        logo:
+          label: 'Cause logo'
         buttons:
           save: 'Save'
           cancel: 'Cancel'

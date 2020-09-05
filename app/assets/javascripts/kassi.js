@@ -761,7 +761,6 @@ function initialize_admin_category_form_view(locale, form_id) {
       disable_and_submit(form_id, form, "false", locale);
     }
    });
-
 }
 
 function initialize_pending_consent_form(email_invalid_message, invitation_required, invalid_invitation_code_message) {
@@ -896,3 +895,4 @@ function autoSetMinimalPriceFromCountry() {
       _min_price.next(".paypal-preferences-currency-label").text(currency);
     }).trigger('change');
 }
+
