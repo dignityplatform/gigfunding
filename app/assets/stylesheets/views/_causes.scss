@@ -1,5 +1,7 @@
 @import "mixins/all";
 
+$hover-transition: 0.1s;
+
 .cause-container {
   box-sizing: border-box;
   display: flex;
@@ -10,6 +12,7 @@
   width: 100%;
   margin-top: 15px;
   overflow: hidden;
+  transition: border $hover-transition ease;
 }
 
 .cause-logo-container {
@@ -97,10 +100,20 @@
 .cause-radio-label {
   cursor: pointer;
   @include border-radius(em(5));
+  transition: box-shadow $hover-transition ease;
 
   &:hover, &:active {
     box-shadow: 0 0 2pt 2pt $success-green inset;
 
+    .cause-container {
+      border: 2px solid $success-green;
+    }
+  }
+}
+
+.cause-radio-button:checked {
+  & ~ .cause-radio-label {
+    box-shadow: 0 0 2pt 2pt $success-green inset;
     .cause-container {
       border: 2px solid $success-green;
     }
