@@ -30,10 +30,11 @@
             .ss-chat.icon-part
             .ss.text-part= t(".add_description")
     
-    .label
-      = t('settings.profile.selected_cause')
+
 
     - if @service.person.cause
+      .label
+        = t('settings.profile.selected_cause')
       = render :partial => "layouts/cause_layout", :locals => {cause: @service.person.cause, edit_cause: false, delete_cause: false}
 
 
