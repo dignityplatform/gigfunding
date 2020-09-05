@@ -22,7 +22,8 @@
 require 'spec_helper'
 
 RSpec.describe Cause, type: :model do
-  let(:cause) { FactoryGirl.create(:cause) }
+  let(:community) { FactoryGirl.create(:community) }
+  let(:cause) { FactoryGirl.create(:cause, community: community) }
 
   context 'name validations' do
     it 'is present' do
@@ -75,6 +76,13 @@ RSpec.describe Cause, type: :model do
       expect(cause).to_not be_valid
       cause.link = 'http://example.com'
       expect(cause).to be_valid
+    end
+  end
+
+  context 'community validations' do
+    it 'is present' do
+      cause.community = nil
+      expect(cause).to_not be_valid
     end
   end
 end

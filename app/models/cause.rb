@@ -21,10 +21,11 @@
 
 class Cause < ApplicationRecord
   belongs_to :community, foreign_key: 'community_id'
-  
+
   validates :name, presence: true, length: { in: 1..255 }
   validates :description, presence: true, length: { minimum: 1 }
   validates :link, presence: true, url: true
+  validates :community_id, presence: true
 
   has_attached_file :logo, :styles => {
     :square => "408x408#",
