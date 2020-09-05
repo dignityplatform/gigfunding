@@ -1559,6 +1559,8 @@ CREATE TABLE `transactions` (
   `commission_from_buyer` int DEFAULT NULL,
   `minimum_buyer_fee_cents` int DEFAULT '0',
   `minimum_buyer_fee_currency` varchar(3) DEFAULT NULL,
+  `starter_cause_id` int DEFAULT NULL,
+  `author_cause_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_transactions_on_listing_id` (`listing_id`) USING BTREE,
   KEY `index_transactions_on_conversation_id` (`conversation_id`) USING BTREE,
@@ -2507,6 +2509,7 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20200904215905'),
 ('20200904221930'),
 ('20200905121501'),
-('20200905165457');
+('20200905165457'),
+('20200905200905');
 
 
