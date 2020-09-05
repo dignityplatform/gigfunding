@@ -12,6 +12,11 @@
 #  logo_content_type :string(255)
 #  logo_file_size    :integer
 #  logo_updated_at   :datetime
+#  community_id      :bigint
+#
+# Indexes
+#
+#  index_causes_on_community_id  (community_id)
 #
 
 require 'spec_helper'

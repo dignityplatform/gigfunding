@@ -12,9 +12,16 @@
 #  logo_content_type :string(255)
 #  logo_file_size    :integer
 #  logo_updated_at   :datetime
+#  community_id      :bigint
+#
+# Indexes
+#
+#  index_causes_on_community_id  (community_id)
 #
 
 class Cause < ApplicationRecord
+  belongs_to :community, foreign_key: 'community_id'
+  
   validates :name, presence: true, length: { in: 1..255 }
   validates :description, presence: true, length: { minimum: 1 }
   validates :link, presence: true, url: true

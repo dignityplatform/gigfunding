@@ -194,7 +194,9 @@ CREATE TABLE `causes` (
   `logo_content_type` varchar(255) DEFAULT NULL,
   `logo_file_size` int DEFAULT NULL,
   `logo_updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `community_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_causes_on_community_id` (`community_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `checkout_accounts`;
@@ -2501,6 +2503,7 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20200829125313'),
 ('20200904214544'),
 ('20200904215905'),
-('20200904221930');
+('20200904221930'),
+('20200905121501');
 
 
