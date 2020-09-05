@@ -896,16 +896,20 @@ function autoSetMinimalPriceFromCountry() {
     }).trigger('change');
 }
 
-function initialize_admin_causes_form_validations(form_id) {
+function initialize_admin_causes_form_validations(form_id, ignore_file_field = false) {
+
+  var rules = {
+    "cause[name]": {required: true, maxlength: 255},
+    "cause[description]": {required: true},
+    "cause[link]": {required: true, url: true}
+  }
+
+  if (!!ignore_file_field) rules["cause[logo]"] = {required: true}
+
   $(form_id).validate({
-    rules: {
-      "cause[name]": {required: true, maxlength: 255},
-      "cause[description]": {required: true},
-      "cause[link]": {required: true, url: true},
-      "cause[logo]": {required: true}
-    },
+    rules: rules,
     submitHandler: function(form) {
       disable_and_submit(form_id, form, "false", locale);
     }
-   });
+  })
 }
