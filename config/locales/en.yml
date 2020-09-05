@@ -1232,6 +1232,7 @@ en:
       cause_view:
         link: "Click here to visit '%{cause_name}' website"
         edit_cause: 'Edit'
+        delete_cause: 'Delete'
 
  
   common:

@@ -41,7 +41,8 @@
 
 .cause-action-button {
   position: relative;
-  height: 100px;
+  height: 50px;
+  margin: 5px 0px;
   background: $highlight;
   color: $body;
   display: flex;
@@ -52,6 +53,21 @@
 
   &:hover, &:active {
     background: darken($highlight, 30%);
+    color: $background;
+  }
+
+  span {
+    text-align: center;
+  }
+}
+
+.cause-action-delete {
+  background: $error-red;
+  color: $background;
+  border: none;
+
+  &:hover, &:active {
+    background: darken($error-red, 20%);
     color: $background;
   }
 }
