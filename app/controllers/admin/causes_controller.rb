@@ -5,9 +5,24 @@ class Admin::CausesController < Admin::AdminBaseController
     @cause = Cause.new
   end
 
+  def create
+    @cause = Cause.new(cause_params)
+    
+    if @cause.save
+      redirect_to admin_causes_path, notice:  "Cause created"
+    else
+      flash[:error] = "Cause creation failed"
+      render :action => :new
+    end
+  end
+
   private
 
   def set_selected_left_navi_link
     @selected_left_navi_link = 'causes'
+  end
+
+  def cause_params
+    params.require(:cause).permit(:name, :description, :link, :logo)
   end
 end

@@ -10,6 +10,7 @@
 = render :partial => "admin/left_hand_navigation", :locals => { :links => admin_links_for(@current_community) }
 
 .left-navi-section
+
   = form_for [:admin, @cause] do |form|
     = render :partial => "admin/causes/form/name", :locals => { :form => form }
     = render :partial => "admin/causes/form/description", :locals => { :form => form }
