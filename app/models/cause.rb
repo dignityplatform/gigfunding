@@ -30,13 +30,12 @@ class Cause < ApplicationRecord
 
   has_attached_file :logo, 
     :styles => {
-      :square => "408x408",
-      :square_2x => "816x816"},
+      :square => "408x408"},
     :processor => "mini_magick",
     :convert_options => {
-      square: '-compose Copy -gravity center -extent 408x408',
-      square_2x: '-compose Copy -gravity center -extent 816x816'}
+      square: '-compose Copy -gravity center -extent 408x408'}
 
+      
   validates_attachment_content_type :logo, content_type: IMAGE_CONTENT_TYPE
 
   process_in_background :logo

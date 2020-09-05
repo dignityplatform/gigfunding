@@ -1,23 +1,22 @@
-.row
-  .cause-container
-    .cause-logo-container
-      = image_tag cause.logo.url(:square)
-    .cause-info-container
-      .cause-name
-        = cause.name
-      .cause-description
-        = cause.description
-      .cause-link
-        = link_to t('.link', cause_name: cause.name), cause.link
-    - if edit_cause || delete_cause
-      .cause-action-container 
-        - if edit_cause
-          %a{href: edit_admin_cause_path(cause), class: 'cause-action-button'}        
-            %span
-              = t('.edit_cause')
-        - if delete_cause
-          = form_for cause, :method => :delete, url: admin_cause_path(cause) do |f|
-            = f.submit t('.delete_cause'), class: 'cause-action-button cause-action-delete'
+.row.cause-container
+  .cause-logo-container
+    = image_tag cause.logo.url(:square)
+  .cause-info-container
+    .cause-name
+      = cause.name
+    .cause-description
+      = cause.description
+    .cause-link
+      = link_to t('.link', cause_name: cause.name), cause.link
+  - if edit_cause || delete_cause
+    .cause-action-container 
+      - if edit_cause
+        %a{href: edit_admin_cause_path(cause), class: 'cause-action-button'}        
+          %span
+            = t('.edit_cause')
+      - if delete_cause
+        = form_for cause, :method => :delete, url: admin_cause_path(cause) do |f|
+          = f.submit t('.delete_cause'), class: 'cause-action-button cause-action-delete'
 
-            - content_for :javascript do
-              initialize_admin_causes_delete_warning('##{j(f.options[:html][:id])}', '##{j(cause.name)}');
+          - content_for :javascript do
+            initialize_admin_causes_delete_warning('##{j(f.options[:html][:id])}', '##{j(cause.name)}');
