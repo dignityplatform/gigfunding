@@ -17,7 +17,7 @@
     = render :partial => "layouts/info_text", :locals => { :text => t(".causes_help")} 
 
   - @causes.each do |cause|
-    = render :partial => "cause_view", :locals => {cause: cause, edit_cause: true, delete_cause: true}
+    = render :partial => "layouts/cause_layout", :locals => {cause: cause, edit_cause: true, delete_cause: true}
   
   .top-level-category-divider-wrapper
     .top-level-category-divider

@@ -1228,13 +1228,7 @@ en:
         header: 'New Cause'
       edit:
         header: 'Edit Cause'
-        current_cause_details: 'Current details'
-      cause_view:
-        link: "Click here to visit %{cause_name}'s website"
-        edit_cause: 'Edit'
-        delete_cause: 'Delete'
-
- 
+        current_cause_details: 'Current details' 
   common:
     edit_page: 'Edit page'
     default_community_slogan: 'Community marketplace'
@@ -2329,6 +2323,10 @@ en:
       listings_search_placeholder: 'Search for a listing title'
       transactions_search_placeholder: 'Search for a transaction title or other party involved'
       transactions: Transactions
+    cause_layout:
+        link: "Click here to visit %{cause_name}'s website"
+        edit_cause: 'Edit'
+        delete_cause: 'Delete'
   listings:
     bubble_listing_not_visible:
       listing_not_visible: 'You do not have permission to view this listing.'
