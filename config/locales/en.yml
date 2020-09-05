@@ -1230,7 +1230,7 @@ en:
         header: 'Edit Cause'
         current_cause_details: 'Current details'
       cause_view:
-        link: "Click here to visit '%{cause_name}' website"
+        link: "Click here to visit %{cause_name}'s website"
         edit_cause: 'Edit'
         delete_cause: 'Delete'
 
