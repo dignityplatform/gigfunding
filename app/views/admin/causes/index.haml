@@ -27,10 +27,11 @@
           .cause-description
             = cause.description
           .cause-link
-            = link_to t('.link'), cause.link
-        %a{href: edit_admin_cause_path(cause), class: 'cause-action-container'}
-          %span
-            = t('.edit_cause')
+            = link_to t('.link', cause_name: cause.name), cause.link
+        .cause-action-container 
+          %a{href: edit_admin_cause_path(cause), class: 'cause-action-button'}        
+            %span
+              = t('.edit_cause')
           
 
   

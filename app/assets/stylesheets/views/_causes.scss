@@ -4,7 +4,6 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  height: 140px;
   padding: 10px;
 }
 
@@ -34,7 +33,15 @@
 .cause-action-container {
   position: relative;
   height: 100%;
-  align-self: flex-end;
+  align-self: end;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cause-action-button {
+  position: relative;
+  height: 100px;
   background: $highlight;
   color: $body;
   display: flex;
