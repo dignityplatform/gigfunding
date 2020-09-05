@@ -1,6 +1,10 @@
 class Admin::CausesController < Admin::AdminBaseController
   before_action :set_selected_left_navi_link
 
+  def index
+    @causes = Cause.where(community: @current_community)
+  end
+
   def new
     @cause = Cause.new
   end

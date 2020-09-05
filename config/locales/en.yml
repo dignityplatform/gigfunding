@@ -1208,6 +1208,8 @@ en:
         causes: 'Causes'
         causes_help: 'Here you can edit the causes which a user will select to donate their gigs to.'
         create_a_new_cause: '+ Create a New Cause'
+        link: 'Click here to visit cause website and read more'
+        edit_cause: 'Edit'
       form:
         name:
           label: 'Name'
