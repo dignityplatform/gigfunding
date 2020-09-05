@@ -21,6 +21,7 @@
 
 class Cause < ApplicationRecord
   belongs_to :community, foreign_key: 'community_id'
+  has_many :people, :foreign_key => "cause_id"
 
   validates :name, presence: true, length: { in: 1..255 }
   validates :description, presence: true, length: { minimum: 1 }

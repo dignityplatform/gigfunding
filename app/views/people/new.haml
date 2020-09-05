@@ -77,14 +77,12 @@
       %small= t('.this_field_will_be_publicly_visible')
 
     - @causes.each do |cause|
-      = render :partial => "layouts/cause_layout", :locals => {cause: cause, edit_cause: false, delete_cause: false}
+
+      -# = form.label cause.id do
+      -#   = form.radio_button(:cause, cause.id)
 
 
-
-
-
-
-
+      = render :partial => "layouts/cause_layout", :locals => {cause: cause, edit_cause: false, delete_cause: false, form: form}
 
     - if @service.has_person_custom_fields?
       - @service.custom_field_values.each_with_index do |custom_field_value, index|

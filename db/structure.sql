@@ -1322,6 +1322,7 @@ CREATE TABLE `people` (
   `cloned_from` varchar(22) DEFAULT NULL,
   `google_oauth2_id` varchar(255) DEFAULT NULL,
   `linkedin_id` varchar(255) DEFAULT NULL,
+  `cause_id` bigint DEFAULT NULL,
   UNIQUE KEY `index_people_on_username_and_community_id` (`username`,`community_id`) USING BTREE,
   UNIQUE KEY `index_people_on_uuid` (`uuid`),
   UNIQUE KEY `index_people_on_email` (`email`) USING BTREE,
@@ -1335,7 +1336,8 @@ CREATE TABLE `people` (
   KEY `index_people_on_google_oauth2_id` (`google_oauth2_id`),
   KEY `index_people_on_community_id_and_google_oauth2_id` (`community_id`,`google_oauth2_id`),
   KEY `index_people_on_linkedin_id` (`linkedin_id`),
-  KEY `index_people_on_community_id_and_linkedin_id` (`community_id`,`linkedin_id`)
+  KEY `index_people_on_community_id_and_linkedin_id` (`community_id`,`linkedin_id`),
+  KEY `index_people_on_cause_id` (`cause_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `schema_migrations`;
@@ -2504,6 +2506,7 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20200904214544'),
 ('20200904215905'),
 ('20200904221930'),
-('20200905121501');
+('20200905121501'),
+('20200905165457');
 
 
