@@ -361,6 +361,7 @@ function initialize_signup_form(locale, email_already_in_use_message, invalid_in
     errorPlacement: function(errorLabel, element) {
       if (( /radio|checkbox/i ).test( element[0].type )) {
         element.closest('.checkbox-container').append(errorLabel);
+        element.closest('.radio-error-container').append(errorLabel);
       } else {
         errorLabel.insertAfter( element );
       }
@@ -372,7 +373,8 @@ function initialize_signup_form(locale, email_already_in_use_message, invalid_in
       "person[terms]": { required: true },
       "person[password]": { required: true, minlength: 4 },
       "person[password2]": { required: true, minlength: 4, equalTo: "#person_password1" },
-      "invitation_code": { required: invitation_required, remote: "/people/check_invitation_code" }
+      "invitation_code": { required: invitation_required, remote: "/people/check_invitation_code" },
+      "person[cause_id]": { required: true }
     },
     messages: {
       "person[email]": { remote: `${email_already_in_use_message}` },
@@ -403,7 +405,8 @@ function initialize_update_profile_info_form(locale, person_id, name_required) {
       "person[given_name]": {required: name_required, maxlength: 30},
       "person[family_name]": {required: name_required, maxlength: 30},
       "person[phone_number]": {required: false, maxlength: 25},
-      "person[image]": { accept: "(jpe?g|gif|png)" }
+      "person[image]": { accept: "(jpe?g|gif|png)" },
+      "person[cause_id]": { required: true }
     },
     onkeyup: false,
     onclick: false,
@@ -415,6 +418,7 @@ function initialize_update_profile_info_form(locale, person_id, name_required) {
     errorPlacement: function(errorLabel, element) {
       if (( /radio|checkbox/i ).test( element[0].type )) {
         element.closest('.checkbox-container').append(errorLabel);
+        element.closest('.radio-error-container').append(errorLabel);
       } else {
         errorLabel.insertAfter( element );
       }
@@ -761,7 +765,6 @@ function initialize_admin_category_form_view(locale, form_id) {
       disable_and_submit(form_id, form, "false", locale);
     }
    });
-
 }
 
 function initialize_pending_consent_form(email_invalid_message, invitation_required, invalid_invitation_code_message) {
@@ -895,4 +898,28 @@ function autoSetMinimalPriceFromCountry() {
       }
       _min_price.next(".paypal-preferences-currency-label").text(currency);
     }).trigger('change');
+}
+
+function initialize_admin_causes_form_validations(form_id, ignore_file_field = false) {
+
+  var rules = {
+    "cause[name]": {required: true, maxlength: 255},
+    "cause[description]": {required: true},
+    "cause[link]": {required: true, url: true}
+  }
+
+  if (!!ignore_file_field) rules["cause[logo]"] = {required: true}
+
+  $(form_id).validate({
+    rules: rules,
+    submitHandler: function(form) {
+      disable_and_submit(form_id, form, "false", locale);
+    }
+  })
+}
+
+function initialize_admin_causes_delete_warning(form_id, cause_name) {
+  $(form_id).on('submit', function() {
+    return confirm('Do you really want to delete ' + cause_name + '?');
+  });
 }

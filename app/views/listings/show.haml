@@ -113,6 +113,11 @@
                 :javascript
                   !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
 
+    - if @listing.author.cause
+      .label
+        = t('settings.profile.selected_cause')
+      = render :partial => "layouts/cause_layout", :locals => {cause: @listing.author.cause, edit_cause: false, delete_cause: false}
+
     - unless (@listing.closed? && !current_user?(@listing.author)) || !@current_community.listing_comments_in_use
       .view-item
         #comments.discussion.overflow-allowed

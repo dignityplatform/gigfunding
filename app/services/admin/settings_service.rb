@@ -45,7 +45,7 @@ class Admin::SettingsService
     stripe_settings = PaymentSettings.stripe.find_by(community_id: community.id)
     stripe_settings&.update_column(:confirmation_after_days, automatic_confirmation_after_days.to_i)
   end
-  # rubocop:enable Rails/SkipsModelValidations
+
 
   def update_configuration
     if FeatureFlagHelper.location_search_available

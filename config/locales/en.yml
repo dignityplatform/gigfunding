@@ -962,6 +962,7 @@ en:
       general: General
       users_and_transactions: Manage
       configure: Configure
+      causes: Causes
       emails_title: Emails
       subscription: Subscription
       preview: 'Preview site'
@@ -1202,6 +1203,34 @@ en:
         manage_reviews: 'Manage reviews'
         you_should_investigate: 'You should investigate the situation by discussing with both parties and decide to refund or dismiss the dispute. %{learn_more_link}'
         learn_more: 'Learn more.'
+        buyer_cause: 'Buyer charity:'
+        seller_cause: 'Seller charity:'
+    causes:
+      index:
+        causes: 'Causes'
+        causes_help: 'Here you can edit the causes which a user will select to donate their gigs to.'
+        create_a_new_cause: '+ Create a New Cause'
+      form:
+        name:
+          label: 'Name'
+          placeholder: 'Enter cause name...'
+        description:
+          label: 'Description'
+          placeholder: 'Enter cause description...'
+        link:
+          label: 'Link'
+          placeholder: 'Enter URL to cause website...'
+          link_info: 'Links must be full, valid URLs. e.g. http://example.com'
+        logo:
+          label: 'Cause logo'
+        buttons:
+          save: 'Save'
+          cancel: 'Cancel'
+      new:
+        header: 'New Cause'
+      edit:
+        header: 'Edit Cause'
+        current_cause_details: 'Current details' 
   common:
     edit_page: 'Edit page'
     default_community_slogan: 'Community marketplace'
@@ -2296,6 +2325,10 @@ en:
       listings_search_placeholder: 'Search for a listing title'
       transactions_search_placeholder: 'Search for a transaction title or other party involved'
       transactions: Transactions
+    cause_layout:
+        link: "Click here to visit %{cause_name}'s website"
+        edit_cause: 'Edit'
+        delete_cause: 'Delete'
   listings:
     bubble_listing_not_visible:
       listing_not_visible: 'You do not have permission to view this listing.'
@@ -2748,6 +2781,7 @@ en:
       OR: OR
       signup_with_email: 'Sign up with email'
       this_field_will_be_publicly_visible: '(This field will be publicly visible)'
+      select_cause: 'Which cause do you want to fundraise for?'
     profile_feedback:
       grade: 'grade:'
       and_gave_following_feedback: 'and gave the following feedback'
@@ -2921,6 +2955,9 @@ en:
       format_markdown: 'You can %{link}.'
       username: Username
       username_description: 'Your username is used as part of the unique URL of your profile page. You can only use letters and numbers for your username, without spaces. When you change your username, your URL will automatically change and your previous URL will not be redirected. The old username will become available for other users.'
+      cause: 'Cause'
+      select_cause: 'Which cause do you want to fundraise for?'
+      selected_cause: "I'm fundraising for:"
     save_information: 'Save information'
   shipping_address:
     shipping_address: 'Shipping address'
@@ -3084,6 +3121,11 @@ en:
     unit_price: 'Unit price: %{unit_price}'
     total: 'Total:'
     total_to_pay: 'Payment total:'
+    details:
+      your_cause: 'Your cause'
+      their_cause: 'Their cause'
+      cause_not_selected: 'Cause not selected yet'
+      cause_can_change: '(Causes can be changed until payment is made)'
   unit:
     day: day
     days: days

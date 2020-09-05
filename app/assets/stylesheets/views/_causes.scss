@@ -1,0 +1,121 @@
+@import "mixins/all";
+
+$hover-transition: 0.1s;
+
+.cause-container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  padding: 10px 10px;
+  border: 2px solid $highlight;
+  border-radius: lines(0.25);
+  width: 100%;
+  margin-top: 15px;
+  overflow: hidden;
+  transition: border $hover-transition ease;
+}
+
+.cause-logo-container {
+  position: relative;
+  height: 80px;
+  min-width: 80px;
+  max-width: 80px;
+  margin-right: 20px;
+  
+  img {
+    position: relative;
+    object-fit: cover;
+    height: 100%;
+  }
+}
+
+.cause-info-container {
+  position: relative;
+  height: 100%;
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  & + {
+    margin-left: 20px;
+  }
+}
+
+.cause-action-container {
+  position: relative;
+  height: 100%;
+  align-self: end;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cause-action-button {
+  position: relative;
+  height: 50px;
+  margin: 5px 0px;
+  background: $highlight;
+  color: $body;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  @include border-radius(em(5));
+  padding: 0 lines(0.3);
+
+  &:hover, &:active {
+    background: darken($highlight, 30%);
+    color: $background;
+  }
+
+  span {
+    text-align: center;
+  }
+}
+
+.cause-action-delete {
+  background: $error-red;
+  color: $background;
+  border: none;
+
+  &:hover, &:active {
+    background: darken($error-red, 20%);
+    color: $background;
+  }
+}
+
+.cause-name {
+  @include big-type;
+  margin-bottom: 5px;
+}
+
+.cause-description {
+  font-style: italic;
+  margin-bottom: 5px;
+  font-weight: 400;
+}
+
+.cause-link {
+  text-decoration: underline;
+}
+
+.cause-radio-label {
+  cursor: pointer;
+  @include border-radius(em(5));
+  transition: box-shadow $hover-transition ease;
+
+  &:hover, &:active {
+    box-shadow: 0 0 2pt 2pt $success-green inset;
+
+    .cause-container {
+      border: 2px solid $success-green;
+    }
+  }
+}
+
+.cause-radio-button:checked {
+  & ~ .cause-radio-label {
+    box-shadow: 0 0 2pt 2pt $success-green inset;
+    .cause-container {
+      border: 2px solid $success-green;
+    }
+  }
+}

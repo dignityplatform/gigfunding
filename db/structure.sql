@@ -180,6 +180,25 @@ CREATE TABLE `category_translations` (
   KEY `index_category_translations_on_category_id` (`category_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `causes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `causes` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `description` text,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `link` varchar(255) DEFAULT NULL,
+  `logo_file_name` varchar(255) DEFAULT NULL,
+  `logo_content_type` varchar(255) DEFAULT NULL,
+  `logo_file_size` int DEFAULT NULL,
+  `logo_updated_at` datetime DEFAULT NULL,
+  `community_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_causes_on_community_id` (`community_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `checkout_accounts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -1303,6 +1322,7 @@ CREATE TABLE `people` (
   `cloned_from` varchar(22) DEFAULT NULL,
   `google_oauth2_id` varchar(255) DEFAULT NULL,
   `linkedin_id` varchar(255) DEFAULT NULL,
+  `cause_id` bigint DEFAULT NULL,
   UNIQUE KEY `index_people_on_username_and_community_id` (`username`,`community_id`) USING BTREE,
   UNIQUE KEY `index_people_on_uuid` (`uuid`),
   UNIQUE KEY `index_people_on_email` (`email`) USING BTREE,
@@ -1316,7 +1336,8 @@ CREATE TABLE `people` (
   KEY `index_people_on_google_oauth2_id` (`google_oauth2_id`),
   KEY `index_people_on_community_id_and_google_oauth2_id` (`community_id`,`google_oauth2_id`),
   KEY `index_people_on_linkedin_id` (`linkedin_id`),
-  KEY `index_people_on_community_id_and_linkedin_id` (`community_id`,`linkedin_id`)
+  KEY `index_people_on_community_id_and_linkedin_id` (`community_id`,`linkedin_id`),
+  KEY `index_people_on_cause_id` (`cause_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `schema_migrations`;
@@ -1538,6 +1559,8 @@ CREATE TABLE `transactions` (
   `commission_from_buyer` int DEFAULT NULL,
   `minimum_buyer_fee_cents` int DEFAULT '0',
   `minimum_buyer_fee_currency` varchar(3) DEFAULT NULL,
+  `starter_cause_id` int DEFAULT NULL,
+  `author_cause_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_transactions_on_listing_id` (`listing_id`) USING BTREE,
   KEY `index_transactions_on_conversation_id` (`conversation_id`) USING BTREE,
@@ -2481,6 +2504,12 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20200617181714'),
 ('20200724231501'),
 ('20200725114710'),
-('20200829125313');
+('20200829125313'),
+('20200904214544'),
+('20200904215905'),
+('20200904221930'),
+('20200905121501'),
+('20200905165457'),
+('20200905200905');
 
 

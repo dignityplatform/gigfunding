@@ -133,6 +133,7 @@ class Community < ApplicationRecord
   has_one :location, :dependent => :destroy
   has_many :community_customizations, :dependent => :destroy
   has_many :typed_slogans, :dependent => :destroy
+  has_many :causes, :dependent => :destroy
   has_many :menu_links, -> { for_topbar.sorted }, :dependent => :destroy, :inverse_of => :community
   has_many :footer_menu_links, -> { for_footer.sorted }, :class_name => "MenuLink",  :dependent => :destroy, :inverse_of => :community
 

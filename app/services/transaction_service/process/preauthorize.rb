@@ -106,7 +106,7 @@ module TransactionService::Process
     end
 
     def complete_preauthorization(tx:, message:, sender_id:, gateway_adapter:)
-      
+
       res = Gateway.unwrap_completion(
         gateway_adapter.complete_preauthorization(tx: tx)) do
 

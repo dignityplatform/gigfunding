@@ -50,13 +50,13 @@ class Admin2::MembershipService
   def promote_admin
     resource_scope.where(person_id: params[:add_admin]).update_all("admin = 1")
     resource_scope.where(person_id: params[:remove_admin]).update_all("admin = 0")
-    # rubocop:enable Rails/SkipsModelValidations
+
   end
 
   def posting_allowed
     resource_scope.where(person_id: params[:allowed_to_post]).update_all("can_post_listings = 1")
     resource_scope.where(person_id: params[:disallowed_to_post]).update_all("can_post_listings = 0")
-    # rubocop:enable Rails/SkipsModelValidations
+
   end
 
   def resend_confirmation

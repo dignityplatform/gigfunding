@@ -198,3 +198,6 @@ gem 'rack-cors'
 gem 'sprockets-bumble_d', '>= 2.2.0'
 
 gem "daemons"
+
+# Validate URLs
+gem "validate_url"

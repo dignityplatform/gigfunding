@@ -306,7 +306,8 @@ class PeopleController < Devise::RegistrationsController
         :email,
         :test_group_number,
         :community_id,
-        :admin_emails_consent
+        :admin_emails_consent,
+        :cause_id
     ).permit!
     result.merge(params.require(:person)
       .slice(:custom_field_values_attributes)
@@ -335,6 +336,7 @@ class PeopleController < Devise::RegistrationsController
       :image,
       :description,
       :username,
+      :cause_id,
       location: [:address, :google_address, :latitude, :longitude],
       custom_field_values_attributes: [
         :id,

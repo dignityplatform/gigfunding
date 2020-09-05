@@ -88,7 +88,7 @@ module TransactionService::Transaction
   end
 
   def can_start_transaction(opts)
-    
+
     payment_gateway = opts[:transaction][:payment_gateway]
     author_id = opts[:transaction][:listing_author_id]
     community_id = opts[:transaction][:community_id]

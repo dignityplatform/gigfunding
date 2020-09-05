@@ -39,6 +39,8 @@
 #  commission_from_buyer             :integer
 #  minimum_buyer_fee_cents           :integer          default(0)
 #  minimum_buyer_fee_currency        :string(3)
+#  starter_cause_id                  :integer
+#  author_cause_id                   :integer
 #
 # Indexes
 #
@@ -75,6 +77,8 @@ class Transaction < ApplicationRecord
   has_many :testimonials, dependent: :destroy
   belongs_to :listing_author, class_name: 'Person'
   has_many :stripe_payments, dependent: :destroy
+  belongs_to :starter_cause, foreign_key: 'starter_cause_id', class_name: 'Cause'
+  belongs_to :author_cause, foreign_key: 'author_cause_id', class_name: 'Cause'
 
   delegate :author, to: :listing
   delegate :title, to: :listing, prefix: true
