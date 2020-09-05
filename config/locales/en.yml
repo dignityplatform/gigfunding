@@ -1218,6 +1218,7 @@ en:
         link:
           label: 'Link'
           placeholder: 'Enter URL to cause website...'
+          link_info: 'Links must be full, valid URLs. e.g. http://example.com'
         logo:
           label: 'Cause logo'
         buttons:
@@ -1225,6 +1226,8 @@ en:
           cancel: 'Cancel'
       new:
         new_cause: 'New Cause'
+        create_cause: 'Create a new cause'
+        causes_help: 'All fields mandatory'
 
  
   common:
