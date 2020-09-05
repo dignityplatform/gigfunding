@@ -1203,6 +1203,8 @@ en:
         manage_reviews: 'Manage reviews'
         you_should_investigate: 'You should investigate the situation by discussing with both parties and decide to refund or dismiss the dispute. %{learn_more_link}'
         learn_more: 'Learn more.'
+        buyer_cause: 'Buyer charity:'
+        seller_cause: 'Seller charity:'
     causes:
       index:
         causes: 'Causes'
