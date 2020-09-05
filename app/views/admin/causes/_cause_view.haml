@@ -1,0 +1,16 @@
+.row
+  .col-12.cause-container
+    .cause-logo-container
+      = image_tag cause.logo.url(:square)
+    .cause-info-container
+      .cause-name
+        = cause.name
+      .cause-description
+        = cause.description
+      .cause-link
+        = link_to t('.link', cause_name: cause.name), cause.link
+    - if edit_cause
+      .cause-action-container 
+        %a{href: edit_admin_cause_path(cause), class: 'cause-action-button'}        
+          %span
+            = t('.edit_cause')

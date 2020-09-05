@@ -21,6 +21,10 @@ class Admin::CausesController < Admin::AdminBaseController
     end
   end
 
+  def edit
+    @cause = Cause.find(params[:id])
+  end
+
   private
 
   def set_selected_left_navi_link

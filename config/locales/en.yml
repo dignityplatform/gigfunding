@@ -1208,8 +1208,6 @@ en:
         causes: 'Causes'
         causes_help: 'Here you can edit the causes which a user will select to donate their gigs to.'
         create_a_new_cause: '+ Create a New Cause'
-        link: "Click here to visit '%{cause_name}' website"
-        edit_cause: 'Edit'
       form:
         name:
           label: 'Name'
@@ -1227,9 +1225,13 @@ en:
           save: 'Save'
           cancel: 'Cancel'
       new:
-        new_cause: 'New Cause'
-        create_cause: 'Create a new cause'
-        causes_help: 'All fields mandatory'
+        header: 'New Cause'
+      edit:
+        header: 'Edit Cause'
+        current_cause_details: 'Current details'
+      cause_view:
+        link: "Click here to visit '%{cause_name}' website"
+        edit_cause: 'Edit'
 
  
   common:

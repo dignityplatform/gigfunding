@@ -11,6 +11,16 @@
 
 .left-navi-section
 
+  .row 
+    .col-12.label
+      = t('.current_cause_details')
+  .row
+    .col-12
+      = render :partial => "cause_view", :locals => {cause: @cause, edit_cause: false}
+
+  .top-level-category-divider-wrapper
+    .top-level-category-divider
+
   = form_for [:admin, @cause] do |form|
     = render :partial => "admin/causes/form/name", :locals => { :form => form }
     = render :partial => "admin/causes/form/description", :locals => { :form => form }

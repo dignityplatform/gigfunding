@@ -17,23 +17,7 @@
     = render :partial => "layouts/info_text", :locals => { :text => t(".causes_help")} 
 
   - @causes.each do |cause|
-    .row
-      .col-12.cause-container
-        .cause-logo-container
-          = image_tag cause.logo.url(:square)
-        .cause-info-container
-          .cause-name
-            = cause.name
-          .cause-description
-            = cause.description
-          .cause-link
-            = link_to t('.link', cause_name: cause.name), cause.link
-        .cause-action-container 
-          %a{href: edit_admin_cause_path(cause), class: 'cause-action-button'}        
-            %span
-              = t('.edit_cause')
-          
-
+    = render :partial => "cause_view", :locals => {cause: cause, edit_cause: true}
   
   .top-level-category-divider-wrapper
     .top-level-category-divider
