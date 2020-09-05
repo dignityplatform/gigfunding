@@ -3119,6 +3119,11 @@ en:
     unit_price: 'Unit price: %{unit_price}'
     total: 'Total:'
     total_to_pay: 'Payment total:'
+    details:
+      your_cause: 'Your cause'
+      their_cause: 'Their cause'
+      cause_not_selected: 'Cause not selected yet'
+      cause_can_change: '(Causes can be changed until payment is made)'
   unit:
     day: day
     days: days
