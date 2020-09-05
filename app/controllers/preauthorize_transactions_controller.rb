@@ -10,7 +10,7 @@ class PreauthorizeTransactionsController < ApplicationController
   before_action :ensure_can_receive_payment
 
   def initiate
-    
+
     params_validator = params_per_hour? ? TransactionService::Validation::NewPerHourTransactionParams : TransactionService::Validation::NewTransactionParams
     validation_result = params_validator.validate(params.to_unsafe_hash).and_then { |params_entity|
       tx_params = add_defaults(
@@ -30,7 +30,7 @@ class PreauthorizeTransactionsController < ApplicationController
         stripe_in_use: StripeHelper.user_and_community_ready_for_payments?(listing.author_id, @current_community.id))
     }
 
-    
+
 
     if validation_result.success
       initiation_success(validation_result.data)
@@ -40,7 +40,7 @@ class PreauthorizeTransactionsController < ApplicationController
   end
 
   def initiated
-    
+
     params_validator = params_per_hour? ? TransactionService::Validation::NewPerHourTransactionParams : TransactionService::Validation::NewTransactionParams
     validation_result = params_validator.validate(params.to_unsafe_hash).and_then { |params_entity|
       tx_params = add_defaults(
@@ -60,7 +60,7 @@ class PreauthorizeTransactionsController < ApplicationController
         stripe_in_use: StripeHelper.user_and_community_ready_for_payments?(listing.author_id, @current_community.id))
     }
 
-    
+
     if validation_result.success
       initiated_success(validation_result.data)
     else
@@ -218,7 +218,7 @@ class PreauthorizeTransactionsController < ApplicationController
   end
 
   def ensure_can_receive_payment
-    
+
     payment_type = @current_community.active_payment_types || :none
 
     ready = TransactionService::Transaction.can_start_transaction(transaction: {
@@ -312,7 +312,7 @@ class PreauthorizeTransactionsController < ApplicationController
       })
     end
 
-    
+
     if(opts[:delivery_method] == :shipping)
       transaction[:shipping_price] = opts[:shipping_price]
     end
@@ -430,12 +430,12 @@ class PreauthorizeTransactionsController < ApplicationController
         end_time: tx_params[:end_time],
         per_hour: tx_params[:per_hour]
       })
-    
-    if tx_response[:success] 
+
+    if tx_response[:success]
       transactions_for_conversation = Transaction.where(conversation_id: tx_response.data[:transaction][:conversation_id])
       if transactions_for_conversation.length == 2
         old_free_transaction = transactions_for_conversation.detect {|transaction| transaction.current_state == 'free'}
-        old_free_transaction.destroy if old_free_transaction
+        old_free_transaction&.destroy
       end
     end
 

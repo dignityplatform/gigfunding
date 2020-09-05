@@ -12,7 +12,7 @@ class Admin::CausesController < Admin::AdminBaseController
   def create
     @cause = Cause.new(cause_params)
     @cause.community = @current_community
-    
+
     if @cause.save
       redirect_to admin_causes_path, notice:  "Cause created"
     else

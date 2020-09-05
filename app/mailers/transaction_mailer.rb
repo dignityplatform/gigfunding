@@ -28,7 +28,7 @@ class TransactionMailer < ActionMailer::Base
       else
         transaction.author
     end
-    
+
     set_up_layout_variables(recipient, transaction.community)
     with_locale(recipient.locale, transaction.community.locales.map(&:to_sym), transaction.community.id) do
 

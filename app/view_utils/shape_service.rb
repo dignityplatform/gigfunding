@@ -61,7 +61,7 @@ class ShapeService
     shape = process_shape(community_id: community.id, opts: shape_opts)
 
     with_basename = shape.merge(basename: shape[:name][default_locale])
-    
+
     validate_upsert_opts(with_basename.merge(community_id: community.id)).and_then { |create_opts|
       Result::Success.new(ListingShape.create_with_opts(community: community, opts: create_opts))
     }

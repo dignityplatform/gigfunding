@@ -18,14 +18,14 @@ module ListingIndexService::Search
       # rename listing_shape_ids to singular so that Sphinx understands it
       search = HashUtils.rename_keys({:listing_shape_ids => :listing_shape_id}, search)
 
-        if search_out_of_bounds?(search[:per_page], search[:page])
-          DatabaseSearchHelper.success_result(0, [], includes)
-        else
-          search_with_sphinx(community_id: community_id,
-                             search: search,
-                             included_models: included_models,
-                             includes: includes)
-        end
+      if search_out_of_bounds?(search[:per_page], search[:page])
+        DatabaseSearchHelper.success_result(0, [], includes)
+      else
+        search_with_sphinx(community_id: community_id,
+                           search: search,
+                           included_models: included_models,
+                           includes: includes)
+      end
 
     end
 

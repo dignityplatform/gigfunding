@@ -80,4 +80,4 @@ class StripeService::CapabilitiesUpdate
       .where('api_version != ? OR api_version IS NULL', [StripeService::API::StripeApiWrapper::API_2020_03_02])
   end
 end
-# rubocop:enable Rails/Output
+

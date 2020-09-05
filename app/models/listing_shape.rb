@@ -45,10 +45,10 @@ class ListingShape < ApplicationRecord
   validates :name_tr_key, :action_button_tr_key, :transaction_process_id, presence: true
   validates :price_enabled, :shipping_enabled, inclusion: [true, false]
   validates :availability, inclusion: AVAILABILITIES # Possibly :stock in the future
-  validates :listing_color, 
+  validates :listing_color,
             format: { :with => /\A[A-F0-9]{6}\z/i, :allow_blank => true }
   validate :assign_default_listing_color
-  validates :listing_title_color, 
+  validates :listing_title_color,
             format: { :with => /\A[A-F0-9]{6}\z/i, :allow_blank => true }
   validate :assign_default_listing_title_color
 
@@ -125,7 +125,7 @@ class ListingShape < ApplicationRecord
   def booking?
     availability == AVAILABILITY_BOOKING
   end
-  
+
   def assign_default_listing_color
     if listing_color.blank?
       self.listing_color = 'FFFFFF'
