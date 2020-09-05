@@ -66,7 +66,7 @@ class PeopleController < Devise::RegistrationsController
         invitation = Invitation.find_by_code(params[:invitation_code].upcase)
       end
     end
-
+    
     return if email_not_valid(params, error_redirect_path)
 
     email = nil
@@ -307,7 +307,8 @@ class PeopleController < Devise::RegistrationsController
         :email,
         :test_group_number,
         :community_id,
-        :admin_emails_consent
+        :admin_emails_consent,
+        :cause_id
     ).permit!
     result.merge(params.require(:person)
       .slice(:custom_field_values_attributes)

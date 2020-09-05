@@ -78,8 +78,8 @@
 
     - @causes.each do |cause|
       .cause-radio-continer
-        = form.radio_button(:cause, cause.id, hidden: true, required: true, class: 'cause-radio-button')
-        = form.label "cause_#{cause.id}", class: 'cause-radio-label' do
+        = form.radio_button(:cause_id, cause.id, hidden: true, required: true, class: 'cause-radio-button')
+        = form.label "cause_id_#{cause.id}", class: 'cause-radio-label' do
           = render :partial => "layouts/cause_layout", :locals => {cause: cause, edit_cause: false, delete_cause: false, form: true}
 
     - if @service.has_person_custom_fields?
