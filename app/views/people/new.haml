@@ -76,7 +76,7 @@
       = t('.select_cause')
       %small= t('.this_field_will_be_publicly_visible')
 
-    - @causes.each do |cause|
+    - @service.causes.each do |cause|
       .cause-radio-continer
         = form.radio_button(:cause_id, cause.id, hidden: true, required: true, class: 'cause-radio-button')
         = form.label "cause_id_#{cause.id}", class: 'cause-radio-label' do

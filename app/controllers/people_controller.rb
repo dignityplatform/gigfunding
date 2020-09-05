@@ -38,7 +38,6 @@ class PeopleController < Devise::RegistrationsController
 
     @container_class = params[:private_community] ? "container_12" : "container_24"
     @grid_class = params[:private_community] ? "grid_6 prefix_3 suffix_3" : "grid_10 prefix_7 suffix_7"
-    @causes = Cause.where(community: @current_community)
   end
 
   def create
@@ -66,7 +65,7 @@ class PeopleController < Devise::RegistrationsController
         invitation = Invitation.find_by_code(params[:invitation_code].upcase)
       end
     end
-    
+
     return if email_not_valid(params, error_redirect_path)
 
     email = nil
