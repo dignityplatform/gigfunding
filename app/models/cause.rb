@@ -27,9 +27,14 @@ class Cause < ApplicationRecord
   validates :link, presence: true, url: true
   validates :community_id, presence: true
 
-  has_attached_file :logo, :styles => {
-    :square => "408x408#",
-    :square_2x => "816x816#"}
+  has_attached_file :logo, 
+    :styles => {
+      :square => "408x408",
+      :square_2x => "816x816"},
+    :processor => "mini_magick",
+    :convert_options => {
+      square: '-compose Copy -gravity center -extent 408x408',
+      square_2x: '-compose Copy -gravity center -extent 816x816'}
 
   validates_attachment_content_type :logo, content_type: IMAGE_CONTENT_TYPE
 
