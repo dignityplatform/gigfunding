@@ -76,11 +76,12 @@
       = t('.select_cause')
       %small= t('.this_field_will_be_publicly_visible')
 
-    - @service.causes.each do |cause|
-      .cause-radio-continer
-        = form.radio_button(:cause_id, cause.id, hidden: true, required: true, class: 'cause-radio-button')
-        = form.label "cause_id_#{cause.id}", class: 'cause-radio-label' do
-          = render :partial => "layouts/cause_layout", :locals => {cause: cause, edit_cause: false, delete_cause: false, form: true}
+    .radio-error-container
+      - @service.causes.each do |cause|
+        .cause-radio-continer
+          = form.radio_button(:cause_id, cause.id, hidden: true, required: true, class: 'cause-radio-button')
+          = form.label "cause_id_#{cause.id}", class: 'cause-radio-label' do
+            = render :partial => "layouts/cause_layout", :locals => {cause: cause, edit_cause: false, delete_cause: false, form: true}
 
     - if @service.has_person_custom_fields?
       - @service.custom_field_values.each_with_index do |custom_field_value, index|

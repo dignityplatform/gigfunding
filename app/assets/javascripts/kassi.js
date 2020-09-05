@@ -403,7 +403,8 @@ function initialize_update_profile_info_form(locale, person_id, name_required) {
       "person[given_name]": {required: name_required, maxlength: 30},
       "person[family_name]": {required: name_required, maxlength: 30},
       "person[phone_number]": {required: false, maxlength: 25},
-      "person[image]": { accept: "(jpe?g|gif|png)" }
+      "person[image]": { accept: "(jpe?g|gif|png)" },
+      "person[cause_id]": { required: true }
     },
     onkeyup: false,
     onclick: false,
@@ -415,6 +416,7 @@ function initialize_update_profile_info_form(locale, person_id, name_required) {
     errorPlacement: function(errorLabel, element) {
       if (( /radio|checkbox/i ).test( element[0].type )) {
         element.closest('.checkbox-container').append(errorLabel);
+        element.closest('.radio-error-container').append(errorLabel);
       } else {
         errorLabel.insertAfter( element );
       }
