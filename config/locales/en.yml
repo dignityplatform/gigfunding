@@ -3125,6 +3125,7 @@ en:
       your_cause: 'Your cause'
       their_cause: 'Their cause'
       cause_not_selected: 'Cause not selected yet'
+      cause_not_selected_legacy: 'Legacy transaction: Check user profile for cause'
       cause_can_change: '(Causes can be changed until payment is made)'
   unit:
     day: day
