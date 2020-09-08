@@ -8,8 +8,12 @@
 - transaction_type = transaction.listing.listing_shape.name
 - seller = transaction.author
 - buyer = transaction_type == 'requesting' ? transaction.listing_author : transaction.starter
-- seller_cause = transaction.current_state == 'free' ? seller.cause.name : transaction.author_cause.name + ' (fixed)'
-- buyer_cause = transaction.current_state == 'free' ? buyer.cause.name : transaction.starter_cause.name + ' (fixed)'
+- if transaction.current_state == 'free'
+  - seller_cause = (seller.cause ? seller.cause.name : t('transactions.details.cause_not_selected'))
+  - buyer_cause = (buyer.cause ? buyer.cause.name : t('transactions.details.cause_not_selected'))
+- else 
+  - seller_cause = (transaction.author_cause ? transaction.author_cause.name + ' (fixed)' : t('transactions.details.cause_not_selected_legacy'))
+  - buyer_cause = (transaction.starter_cause ? transaction.starter_cause.name + ' (fixed)' : t('transactions.details.cause_not_selected_legacy'))
 
 - content_for :title_header do
   %h1
