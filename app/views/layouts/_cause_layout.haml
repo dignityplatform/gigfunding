@@ -21,6 +21,11 @@
 
         - content_for :javascript do
           initialize_admin_causes_archive_warning('##{j(archive_cause_form_id)}', '#{j(cause.name)}');
+
+      - unarchive_cause_form_id = 'unarchive_cause_' + cause.id.to_s
+      = form_for cause, :method => :put, url: admin_cause_path(cause), html: { id: unarchive_cause_form_id } do |f|
+        = f.hidden_field :archived, value: false
+        = f.submit t('.unarchive_cause'), class: 'cause-action-button cause-action-unarchive'
       
       - delete_cause_form_id = 'delete_cause_' + cause.id.to_s
       = form_for cause, :method => :delete, url: admin_cause_path(cause), html: { id: delete_cause_form_id } do |f|

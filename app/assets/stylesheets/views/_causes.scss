@@ -95,6 +95,17 @@ $hover-transition: 0.1s;
   }
 }
 
+.cause-action-unarchive {
+  background: #27a727;
+  color: $background;
+  border: none;
+
+  &:hover, &:active {
+    background: darken(#27a727, 30%);
+    color: $background;
+  }
+}
+
 .cause-name {
   @include big-type;
   margin-bottom: 5px;
