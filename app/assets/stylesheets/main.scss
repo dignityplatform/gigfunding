@@ -1680,6 +1680,10 @@ input[type="text"].delivery-price-field {
   @include media(tablet) {
     min-height: 250px;
   }
+
+  img {
+    object-fit: contain;
+  }
 }
 
 /*
