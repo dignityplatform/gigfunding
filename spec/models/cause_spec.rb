@@ -14,6 +14,7 @@
 #  logo_updated_at   :datetime
 #  community_id      :bigint
 #  default_cause     :boolean          default(FALSE)
+#  archived          :boolean          default(FALSE)
 #
 # Indexes
 #

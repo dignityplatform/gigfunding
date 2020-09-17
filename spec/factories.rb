@@ -101,6 +101,7 @@ FactoryGirl.define do
     username
     password "testi"
     deleted 0
+    build_association(:cause)
 
     has_many :emails do |person|
       FactoryGirl.build(:email, person: person)
