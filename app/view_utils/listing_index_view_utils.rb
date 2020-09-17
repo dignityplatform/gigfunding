@@ -41,9 +41,9 @@ module ListingIndexViewUtils
 
   def to_struct(result:, includes:, per_page:, page:)
     custom_listing_colors = ListingShape.where(deleted: 0).each_with_object({}) {|listing_shape, obj|
-    obj[listing_shape.id] = {
-      listing_color: '#' + listing_shape.listing_color.to_s,
-      listing_title_color: '#' + listing_shape.listing_title_color.to_s
+      obj[listing_shape.id] = {
+        listing_color: '#' + listing_shape.listing_color.to_s,
+        listing_title_color: '#' + listing_shape.listing_title_color.to_s
       }
     }
 
@@ -72,6 +72,8 @@ module ListingIndexViewUtils
         else
           []
         end
+
+      # byebug
 
       listing_colors = custom_listing_colors[l[:listing_shape_id]]
 

@@ -126,11 +126,11 @@ FactoryGirl.define do
     title "Sledgehammer"
     description("test")
     build_association(:author)
+    build_association(:listing_shape)
     category { TestHelpers::find_or_build_category("item") }
     valid_until { Time.current + 3.months }
     times_viewed 0
     privacy "public"
-    listing_shape_id 123
     shape_name_tr_key "admin.listing_shapes.listing_shape_name"
     price Money.new(20, "USD")
     uuid
@@ -474,7 +474,6 @@ FactoryGirl.define do
     kind                'time'
     name_tr_key         nil
     selector_tr_key     nil
-    listing_shape_id    123
   end
 
   factory :invitation_unsubscribe, class: 'Invitation::Unsubscribe' do
