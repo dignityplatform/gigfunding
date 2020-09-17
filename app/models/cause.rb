@@ -50,4 +50,13 @@ class Cause < ApplicationRecord
   validates_attachment_content_type :logo, content_type: IMAGE_CONTENT_TYPE
 
   process_in_background :logo
+
+  before_destroy :reset_person_cause
+
+  def reset_person_cause
+    self.people.each{|person| 
+      person.cause_id = nil
+      person.save
+    }
+  end
 end
