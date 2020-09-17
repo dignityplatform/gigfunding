@@ -51,7 +51,6 @@ $hover-transition: 0.1s;
 
 .cause-action-button {
   position: relative;
-  height: 50px;
   margin: 5px 0px;
   background: $highlight;
   color: $body;
@@ -59,7 +58,10 @@ $hover-transition: 0.1s;
   flex-direction: column;
   justify-content: center;
   @include border-radius(em(5));
-  padding: 0 lines(0.3);
+  padding: lines(0.3) lines(0.3);
+  width: 100%;
+  align-items: center;
+  line-height: inherit;
 
   &:hover, &:active {
     background: darken($highlight, 30%);
@@ -78,6 +80,17 @@ $hover-transition: 0.1s;
 
   &:hover, &:active {
     background: darken($error-red, 20%);
+    color: $background;
+  }
+}
+
+.cause-action-archive {
+  background: #3ab7fa;
+  color: $background;
+  border: none;
+
+  &:hover, &:active {
+    background: darken(#3ab7fa, 30%);
     color: $background;
   }
 }

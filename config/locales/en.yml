@@ -2328,6 +2328,7 @@ en:
     cause_layout:
         link: "Click here to visit %{cause_name}'s website"
         edit_cause: 'Edit'
+        archive_cause: 'Archive'
         delete_cause: 'Delete'
   listings:
     bubble_listing_not_visible:

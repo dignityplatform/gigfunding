@@ -29,7 +29,7 @@
     - unless payment_complete
       = render :partial => "layouts/info_text", :locals => { :text => t(".cause_can_change")}
   - if current_user_cause
-    = render :partial => "layouts/cause_layout", :locals => {cause: current_user_cause, edit_cause: false, delete_cause: false}
+    = render :partial => "layouts/cause_layout", :locals => {cause: current_user_cause, admin: false}
   - else
     = t('.cause_not_selected')
 
@@ -38,7 +38,7 @@
     - unless payment_complete
       = render :partial => "layouts/info_text", :locals => { :text => t(".cause_can_change")}
   - if other_user_cause
-    = render :partial => "layouts/cause_layout", :locals => {cause: other_user_cause, edit_cause: false, delete_cause: false}
+    = render :partial => "layouts/cause_layout", :locals => {cause: other_user_cause, admin: false}
   - else
     = t('.cause_not_selected')
 
