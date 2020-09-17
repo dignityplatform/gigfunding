@@ -6,8 +6,13 @@
       = cause.name
     .cause-description
       = cause.description
+
     .cause-link
-      = link_to t('.link', cause_name: cause.name), cause.link, target: :_blank
+      - if cause.default_cause
+        = link_to t('.edit_person_settings'), person_settings_path(@current_user)
+      - else
+        = link_to t('.link', cause_name: cause.name), cause.link, target: :_blank
+
   - if admin
     .cause-action-container 
       %a{href: edit_admin_cause_path(cause), class: 'cause-action-button'}        

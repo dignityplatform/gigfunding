@@ -26,7 +26,6 @@ class Cause < ApplicationRecord
   DEFAULT = {
     name: 'Unselected (Gigfunding)',
     description: 'Your cause is not selected. Until you select a cause, all donations will be paid to Gigfunding.org. Causes can be selected and changed near the bottom of your Settings page.',
-    link: 'https://gigfunding.org',
     default_cause: true
   }
 
