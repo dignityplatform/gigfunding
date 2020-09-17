@@ -51,7 +51,7 @@ describe PersonMailer, type: :mailer do
 
     assert !ActionMailer::Base.deliveries.empty?
     assert_equal recipient.confirmed_notification_email_addresses, email.to
-    assert_equal "Remember to add your payment details to receive payments", email.subject
+    assert_equal "You need to add your details to be verified", email.subject
   end
 
   describe "status changed" do

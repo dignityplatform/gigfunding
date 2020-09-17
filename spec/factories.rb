@@ -53,12 +53,6 @@ class FactoryGirl::DefinitionProxy
 end
 
 FactoryGirl.define do
-  factory :cause do
-    name 'Name of cause'
-    description 'description of cause'
-    link 'http://example.com'
-  end
-
   sequence :id do |_|
     SecureRandom.urlsafe_base64
   end
@@ -558,5 +552,12 @@ FactoryGirl.define do
     community_id 999
     locale 'en'
     typed_slogan_text 'some typed slogan text'
+  end
+
+  factory :cause do
+    community_id 999
+    name 'Name of cause'
+    description 'description of cause'
+    link 'http://example.com'
   end
 end
