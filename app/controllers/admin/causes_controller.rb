@@ -52,6 +52,6 @@ class Admin::CausesController < Admin::AdminBaseController
   end
 
   def cause_params
-    params.require(:cause).permit(:name, :description, :link, :logo)
+    params.require(:cause).permit(:name, :description, :link, :logo, :archived)
   end
 end
