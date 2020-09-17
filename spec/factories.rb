@@ -562,5 +562,6 @@ FactoryGirl.define do
     link 'http://example.com'
     default_cause true
     archived false
+    deleted false
   end
 end

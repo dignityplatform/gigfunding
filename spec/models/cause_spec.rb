@@ -15,6 +15,7 @@
 #  community_id      :bigint
 #  default_cause     :boolean          default(FALSE)
 #  archived          :boolean          default(FALSE)
+#  deleted           :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -25,7 +26,7 @@ require 'spec_helper'
 
 RSpec.describe Cause, type: :model do
   let(:community) { FactoryGirl.create(:community) }
-  let(:cause) { FactoryGirl.create(:cause, community: community) }
+  let(:cause) { FactoryGirl.create(:cause, community: community, default_cause: false) }
 
   context 'name validations' do
     it 'is present' do
@@ -102,6 +103,23 @@ RSpec.describe Cause, type: :model do
       normal_cause.archived = true
       normal_cause.save
       expect(person.reload.cause.default_cause).to eq(true)
+    end
+
+    it "cause deleted" do
+      normal_cause = FactoryGirl.create(:cause, name: 'another cause', default_cause: false)
+      person = FactoryGirl.create(:person, cause_id: normal_cause.id)
+      normal_cause.deleted = true
+      normal_cause.save
+      expect(person.reload.cause.default_cause).to eq(true)
+    end
+  end
+
+  context 'paranoid deletes' do
+    it 'cause is deleted' do
+      normal_cause = FactoryGirl.create(:cause, name: 'another cause', default_cause: false)
+      normal_cause.deleted = true
+      normal_cause.save
+      expect(Cause.available.where(name: normal_cause.name).length).to eq(0)
     end
   end
 end

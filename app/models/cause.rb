@@ -15,6 +15,7 @@
 #  community_id      :bigint
 #  default_cause     :boolean          default(FALSE)
 #  archived          :boolean          default(FALSE)
+#  deleted           :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -51,6 +52,8 @@ class Cause < ApplicationRecord
 
   process_in_background :logo
 
+  scope :available, -> {where(:deleted => false)}
+
   after_save :apply_archived
   before_destroy :reset_person_cause
 
@@ -64,6 +67,6 @@ class Cause < ApplicationRecord
   private
 
   def apply_archived
-    self.reset_person_cause if self.archived
+    self.reset_person_cause if self.archived || self.deleted
   end
 end
