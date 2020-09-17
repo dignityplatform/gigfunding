@@ -13,6 +13,7 @@
 #  logo_file_size    :integer
 #  logo_updated_at   :datetime
 #  community_id      :bigint
+#  default_cause     :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -20,6 +21,14 @@
 #
 
 class Cause < ApplicationRecord
+
+  DEFAULT = {
+    name: 'Unselected (Gigfunding)',
+    description: 'Your cause is not selected. Until you select a cause, all donations will be paid to Gigfunding.org. Causes can be selected and changed near the bottom of your Settings page.',
+    link: 'https://gigfunding.org',
+    default_cause: true
+  }
+
   belongs_to :community, foreign_key: 'community_id'
   has_many :people, foreign_key: "cause_id"
   has_many :transactions, foreign_key: 'starter_cause_id'

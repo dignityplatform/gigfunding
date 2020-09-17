@@ -13,6 +13,7 @@
 #  logo_file_size    :integer
 #  logo_updated_at   :datetime
 #  community_id      :bigint
+#  default_cause     :boolean          default(FALSE)
 #
 # Indexes
 #
