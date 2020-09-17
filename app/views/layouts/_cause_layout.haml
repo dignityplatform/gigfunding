@@ -27,24 +27,27 @@
           = t('.edit_cause')
 
       - unless cause.default_cause
-        - archive_cause_form_id = 'archive_cause_' + cause.id.to_s
-        = form_for cause, :method => :put, url: admin_cause_path(cause), html: { id: archive_cause_form_id } do |f|
-          = f.hidden_field :archived, value: true
-          = f.submit t('.archive_cause'), class: 'cause-action-button cause-action-archive'
+        - if cause.archived
+          - unarchive_cause_form_id = 'unarchive_cause_' + cause.id.to_s
+          = form_for cause, :method => :put, url: admin_cause_path(cause), html: { id: unarchive_cause_form_id } do |f|
+            = f.hidden_field :archived, value: false
+            = f.submit t('.unarchive_cause'), class: 'cause-action-button cause-action-unarchive'
+          
+          - delete_cause_form_id = 'delete_cause_' + cause.id.to_s
+          = form_for cause, :method => :delete, url: admin_cause_path(cause), html: { id: delete_cause_form_id } do |f|
+            = f.submit t('.delete_cause'), class: 'cause-action-button cause-action-delete'
 
-          - content_for :javascript do
-            initialize_admin_causes_archive_warning('##{j(archive_cause_form_id)}', '#{j(cause.name)}');
+            - content_for :javascript do
+              initialize_admin_causes_delete_warning('##{j(delete_cause_form_id)}', '#{j(cause.name)}');
+        - else
+          - archive_cause_form_id = 'archive_cause_' + cause.id.to_s
+          = form_for cause, :method => :put, url: admin_cause_path(cause), html: { id: archive_cause_form_id } do |f|
+            = f.hidden_field :archived, value: true
+            = f.submit t('.archive_cause'), class: 'cause-action-button cause-action-archive'
 
-        - unarchive_cause_form_id = 'unarchive_cause_' + cause.id.to_s
-        = form_for cause, :method => :put, url: admin_cause_path(cause), html: { id: unarchive_cause_form_id } do |f|
-          = f.hidden_field :archived, value: false
-          = f.submit t('.unarchive_cause'), class: 'cause-action-button cause-action-unarchive'
+            - content_for :javascript do
+              initialize_admin_causes_archive_warning('##{j(archive_cause_form_id)}', '#{j(cause.name)}');
+
         
-        - delete_cause_form_id = 'delete_cause_' + cause.id.to_s
-        = form_for cause, :method => :delete, url: admin_cause_path(cause), html: { id: delete_cause_form_id } do |f|
-          = f.submit t('.delete_cause'), class: 'cause-action-button cause-action-delete'
-
-          - content_for :javascript do
-            initialize_admin_causes_delete_warning('##{j(delete_cause_form_id)}', '#{j(cause.name)}');
 
 

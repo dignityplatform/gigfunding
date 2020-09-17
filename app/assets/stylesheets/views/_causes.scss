@@ -79,7 +79,7 @@ $hover-transition: 0.1s;
   border: none;
 
   &:hover, &:active {
-    background: darken($error-red, 20%);
+    background: darken($error-red, 15%);
     color: $background;
   }
 }
@@ -90,7 +90,7 @@ $hover-transition: 0.1s;
   border: none;
 
   &:hover, &:active {
-    background: darken(#3ab7fa, 30%);
+    background: darken(#3ab7fa, 15%);
     color: $background;
   }
 }
@@ -101,7 +101,7 @@ $hover-transition: 0.1s;
   border: none;
 
   &:hover, &:active {
-    background: darken(#27a727, 30%);
+    background: darken(#27a727, 15%);
     color: $background;
   }
 }

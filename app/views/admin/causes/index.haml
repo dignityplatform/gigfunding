@@ -35,3 +35,15 @@
     = render :partial => "layouts/info_text", :locals => { :text => t(".default_causes_help")} 
 
   = render :partial => "layouts/cause_layout", :locals => {cause: @default_cause, admin: true, is_current_user_viewing: true}
+
+
+  %br
+  .row
+    .col-12
+    %h3
+      = t(".archived_causes")
+
+    = render :partial => "layouts/info_text", :locals => { :text => t(".archived_causes_help")} 
+  
+  - @archived_causes.each do |cause|
+    = render :partial => "layouts/cause_layout", :locals => {cause: cause, admin: true, is_current_user_viewing: true}
