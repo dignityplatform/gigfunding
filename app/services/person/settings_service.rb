@@ -77,6 +77,6 @@ class Person::SettingsService
   end
 
   def get_causes
-    Cause.where(community: @community)
+    Cause.where(community: @community, default_cause: false, archived: false)
   end
 end

@@ -3,7 +3,7 @@ class Admin::CausesController < Admin::AdminBaseController
 
   def index
     @causes = Cause.where(community: @current_community, archived: false, default_cause: false)
-    @default_cause = Cause.find_by(default_cause: true)
+    @default_cause = Cause.find_by(community: @current_community, default_cause: true)
     @archived_causes = Cause.where(community: @current_community, archived: true, default_cause: false)
   end
 
