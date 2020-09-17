@@ -1208,7 +1208,9 @@ en:
     causes:
       index:
         causes: 'Causes'
+        default_causes: 'Default Cause'
         causes_help: 'Here you can edit the causes which a user will select to donate their gigs to.'
+        default_causes_help: 'This is the default cause which will be selected if a cause is not selected on signup, or causes are deleted or archived.'
         create_a_new_cause: '+ Create a New Cause'
       form:
         name:

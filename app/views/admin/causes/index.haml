@@ -25,3 +25,13 @@
   .row
     .col-12
       = link_to t(".create_a_new_cause"), new_admin_cause_path
+  
+  %br
+  .row
+    .col-12
+    %h3
+      = t(".default_causes")
+
+    = render :partial => "layouts/info_text", :locals => { :text => t(".default_causes_help")} 
+
+  = render :partial => "layouts/cause_layout", :locals => {cause: @default_cause, admin: true}
