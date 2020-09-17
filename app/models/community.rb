@@ -173,7 +173,7 @@ class Community < ApplicationRecord
   accepts_nested_attributes_for :social_links, allow_destroy: true
   accepts_nested_attributes_for :community_customizations
 
-  after_create :initialize_settings
+  after_create :initialize_settings, :add_default_cause
 
   monetize :minimum_price_cents, :allow_nil => true, :with_model_currency => :currency
 
@@ -703,5 +703,11 @@ class Community < ApplicationRecord
   def initialize_settings
     update_attribute(:settings,{"locales"=>[APP_CONFIG.default_locale]}) if self.settings.blank?
     true
+  end
+
+  def add_default_cause
+    cause_params = Cause::DEFAULT
+    cause_params[:community_id] = self.id
+    Cause.create(cause_params)
   end
 end
