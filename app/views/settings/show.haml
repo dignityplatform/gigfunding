@@ -119,7 +119,7 @@
         .cause-radio-continer
           = form.radio_button(:cause_id, cause.id, hidden: true, required: true, class: 'cause-radio-button', checked: (cause.id == current_cause_id ? true : nil))
           = form.label "cause_id_#{cause.id}", class: 'cause-radio-label' do
-            = render :partial => "layouts/cause_layout", :locals => {cause: cause, admin: false}
+            = render :partial => "layouts/cause_layout", :locals => {cause: cause, admin: false, is_current_user_viewing: (@service.person == @current_user)}
 
 
     - if @service.has_person_custom_fields?

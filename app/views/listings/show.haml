@@ -116,7 +116,7 @@
     - if @listing.author.cause
       .label
         = t('settings.profile.selected_cause')
-      = render :partial => "layouts/cause_layout", :locals => {cause: @listing.author.cause, admin: false}
+      = render :partial => "layouts/cause_layout", :locals => {cause: @listing.author.cause, admin: false, is_current_user_viewing: (@listing.author == @current_user)}
 
     - unless (@listing.closed? && !current_user?(@listing.author)) || !@current_community.listing_comments_in_use
       .view-item
