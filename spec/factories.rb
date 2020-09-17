@@ -559,5 +559,6 @@ FactoryGirl.define do
     name 'Name of cause'
     description 'description of cause'
     link 'http://example.com'
+    default_cause true
   end
 end

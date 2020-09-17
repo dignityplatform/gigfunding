@@ -380,4 +380,22 @@ describe Person, type: :model do
 
     end
   end
+
+  describe "assign default cause" do
+    # let(:another_cause) { FactoryGirl.create(:cause, name: 'another cause', default_cause: false) }
+
+    it "no cause on creation" do
+      person = FactoryGirl.create(:person)
+      ap person.cause
+      expect(person.cause).to_not eq(nil)
+    end
+
+    # it "cause deleted" do
+    #   person = FactoryGirl.create(:person, cause_id: another_cause.id)
+    #   expect(person.cause).to eq(another_cause)
+    #   another_cause.destroy
+    #   ap person.cause
+    #   expect(person.cause.default_cause).to eq(true)
+    # end
+  end
 end
