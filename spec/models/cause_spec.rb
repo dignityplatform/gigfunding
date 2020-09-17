@@ -87,4 +87,23 @@ RSpec.describe Cause, type: :model do
       expect(cause).to_not be_valid
     end
   end
+
+  context 'apply default cause to persons' do
+    it "cause deleted" do
+      normal_cause = FactoryGirl.create(:cause, name: 'another cause', default_cause: false)
+      person = FactoryGirl.create(:person, cause_id: normal_cause.id)
+      normal_cause.destroy
+      expect(person.reload.cause.default_cause).to eq(true)
+    end
+
+    it "cause archived" do
+      normal_cause = FactoryGirl.create(:cause, name: 'another cause', default_cause: false)
+      person = FactoryGirl.create(:person, cause_id: normal_cause.id)
+      normal_cause.archived = true
+      normal_cause.save
+      expect(person.reload.cause.default_cause).to eq(true)
+    end
+  end
 end
+
+
