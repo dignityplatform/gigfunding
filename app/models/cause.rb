@@ -54,19 +54,21 @@ class Cause < ApplicationRecord
 
   scope :available, -> {where(:deleted => false)}
 
-  after_save :apply_archived
+  after_save :apply_archived_deleted
   before_destroy :reset_person_cause
 
   def reset_person_cause
     self.people.each{|person| 
+      previous_cause_id = person.cause_id
       person.cause_id = nil
       person.save
+      Delayed::Job.enqueue(CauseResetJob.new(person.id, previous_cause_id, person.community.id))
     }
   end
 
   private
 
-  def apply_archived
+  def apply_archived_deleted
     self.reset_person_cause if self.archived || self.deleted
   end
 end

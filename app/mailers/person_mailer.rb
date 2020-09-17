@@ -479,6 +479,12 @@ class PersonMailer < ActionMailer::Base
     premailer(mail(opts, &block))
   end
 
+  def cause_reset(person, cause)
+    @person = person
+    @cause = cause
+    # add email to notify user to select a new cause, include link to user settings
+  end
+
   private
 
   def feedback_author_name_and_email(author, email, community)
