@@ -2109,6 +2109,7 @@ en:
       meta: 'Details of the Causes Gigfunding is working with and donations from completed gigs are going to.'
       title: 'Our Causes'
       info: 'Click on a cause to see more information'
+      link: "Click here to visit %{cause_name}'s website"
   landing_page:
     hero:
       search: Search

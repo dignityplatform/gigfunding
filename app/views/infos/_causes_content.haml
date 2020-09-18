@@ -2,7 +2,7 @@
   - content_for :meta_description, t('.meta_description')
 
 .row
-  %h2
+  %h1
     = t('.title')
   = render :partial => "layouts/info_text", :locals => { :text => t(".info") }
 
@@ -16,3 +16,13 @@
 .top-level-category-divider-wrapper
   .top-level-category-divider
 
+- @causes.each do |cause|
+  %br
+  .row.hidden{id: "cause-extended-description-#{cause.id}"}
+    %h2
+      = cause.name
+    .cause-link
+      %a{href: cause.link, target: '_blank'}
+        = t('.link', cause_name: cause.name)
+    .cause-extended-description
+      = markdown(cause.extended_description)
