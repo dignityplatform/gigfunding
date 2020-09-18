@@ -1,0 +1,9 @@
+- if params[:controller] == 'infos'
+  - content_for :meta_description, t('.meta_description')
+
+.row
+  %h2
+    = t('.title')
+  = render :partial => "layouts/info_text", :locals => { :text => t(".info") }
+
+
