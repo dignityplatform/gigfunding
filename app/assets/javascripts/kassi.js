@@ -929,3 +929,28 @@ function initialize_admin_causes_archive_warning(form_id, cause_name) {
     return confirm('Do you really want to archive ' + cause_name + '? This will reset all users who have selected it to the default cause, which can not be undone.');
   });
 }
+
+function initialize_causes_page_selection() {
+  $('.clickable-cause-container').click(function(event) {
+    $('.clickable-cause-container').each(function(i, obj) {
+      var buttonContainer = $(obj)
+      if (buttonContainer.data('selected') == true) {
+        buttonContainer.removeClass('selected')
+        buttonContainer.data('selected', false)
+      }
+    })
+    $('.cause-extended-description-container').each(function(i, obj) {
+      var descriptionContainer = $(obj)
+      if (descriptionContainer.data('selected') == true) {
+        descriptionContainer.addClass('hidden')
+        descriptionContainer.data('selected', false)
+      }
+    })
+    var clickedButton = $(event.currentTarget)
+    clickedButton.data('selected', true)
+    clickedButton.addClass('selected')
+    var relatedDescription = $(`#cause-extended-description-${clickedButton.data('cause-id')}`)
+    relatedDescription.data('selected', true)
+    relatedDescription.removeClass('hidden')
+  })
+}
