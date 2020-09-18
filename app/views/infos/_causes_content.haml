@@ -14,14 +14,13 @@
     - @causes.each do |cause|
       = render :partial => 'infos/cause_content/clickable_cause', locals: { cause: cause }
 
-%br
 .top-level-category-divider-wrapper
   .top-level-category-divider
 
 %br
 - @causes.each do |cause|
   .row.hidden.cause-extended-description-container{id: "cause-extended-description-#{cause.id}", data: {selected: false}}
-    %h1
+    %h2
       = cause.name
     .cause-link
       %a{href: cause.link, target: '_blank'}
