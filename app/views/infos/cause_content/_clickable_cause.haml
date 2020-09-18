@@ -1,0 +1,5 @@
+%button.clickable-cause-container{data: {cause_id: cause.id, selected: false}}
+  .clickable-cause-logo
+    = image_tag(cause.logo.url(:square), alt: cause.name)
+  .clickable-cause-name
+    = cause.name

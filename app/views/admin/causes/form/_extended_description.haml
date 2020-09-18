@@ -1,0 +1,5 @@
+.row
+  .col-12
+    = form.label :extended_description_attributes, t(".label")
+    = render :partial => "layouts/info_text", :locals => { :text => t(".info").html_safe }
+    = form.text_area :extended_description, class: "text_area", placeholder: t('.placeholder')

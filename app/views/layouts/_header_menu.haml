@@ -8,6 +8,10 @@
     = link_to how_to_use_infos_path do
       = icon_map_tag(icons, "how_to_use", ["icon-with-text"])
       = t("header.how_it_works")
+  
+  = link_to causes_infos_path do
+    = icon_tag("causes", ["icon-with-text"])
+    = t("header.our_causes")
 
   = link_to new_listing_path do
     = icon_map_tag(icons, "new_listing", ["icon-with-text"])

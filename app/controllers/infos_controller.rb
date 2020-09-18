@@ -29,6 +29,12 @@ class InfosController < ApplicationController
     @selected_left_navi_link = "privacy"
   end
 
+  def causes
+    @causes = Cause.available.where(community: @current_community, archived: false, default_cause: false)
+    @selected_tribe_navi_tab = "about"
+    @selected_left_navi_link = "causes"
+  end
+
   private
 
   def how_to_use_content?

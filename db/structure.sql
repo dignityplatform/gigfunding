@@ -198,6 +198,7 @@ CREATE TABLE `causes` (
   `default_cause` tinyint(1) DEFAULT '0',
   `archived` tinyint(1) DEFAULT '0',
   `deleted` tinyint(1) DEFAULT '0',
+  `extended_description` text,
   PRIMARY KEY (`id`),
   KEY `index_causes_on_community_id` (`community_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -2516,6 +2517,7 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20200905200905'),
 ('20200917160415'),
 ('20200917173642'),
-('20200917220120');
+('20200917220120'),
+('20200918184345');
 
 

@@ -1221,10 +1221,14 @@ en:
         description:
           label: 'Description'
           placeholder: 'Enter cause description...'
+        extended_description:
+          label: 'Causes Page Description'
+          placeholder: 'Enter description which will be displayed on the public Causes page...'
+          info: "This information will be displayed on the public Causes page. You can use Markdown to format it. <a href='https://guides.github.com/features/mastering-markdown/' target='_blank'>Learn Markdown</a>"
         link:
           label: 'Link'
           placeholder: 'Enter URL to cause website...'
-          link_info: 'Links must be full, valid URLs. e.g. http://example.com'
+          info: 'Links must be full, valid URLs. e.g. http://example.com'
         logo:
           label: 'Cause logo'
         buttons:
@@ -1984,6 +1988,7 @@ en:
     signup: 'Sign up'
     menu: Menu
     how_it_works: 'How it works'
+    our_causes: 'Our Causes'
   homepage:
     additional_private_listings_slate:
       additionally_one_private_offer_exists: 'Additionally  there is <b>one other offer</b>,'
@@ -2101,6 +2106,11 @@ en:
     how_to_use:
       default_title: 'How it works'
       default_content: 'Here you can find information about how %{marketplace_name} works.'
+    causes_content:
+      meta: 'Details of the Causes Gigfunding is working with and donations from completed gigs are going to.'
+      title: 'Our Causes'
+      info: 'Click on a cause to see more information'
+      link: "Click here to visit %{cause_name}'s website"
   landing_page:
     hero:
       search: Search
@@ -2153,6 +2163,7 @@ en:
       news: News
       register_details: 'Privacy policy'
       terms: 'Terms of use'
+      causes: 'Our Causes'
     logged_in:
       admin: Admin
       go_to_your_profile_page: Profile
