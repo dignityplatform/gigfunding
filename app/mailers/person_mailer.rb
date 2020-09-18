@@ -489,7 +489,7 @@ class PersonMailer < ActionMailer::Base
       mail(:to => recipient.confirmed_notification_emails_to,
            :from => community_specific_sender(community),
            :subject => subject) do |format|
-        format.html { render v2_template(community.id, 'cause_reset'), layout: v2_layout(community.id, 'email_blank_layout') }
+        format.html { render v2_template(community.id, 'cause_reset'), layout: v2_layout(community.id) }
       end
     end
   end
