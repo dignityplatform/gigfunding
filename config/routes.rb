@@ -679,6 +679,7 @@ Rails.application.routes.draw do
         get :terms
         get :privacy
         get :news
+        get :causes
       end
     end
     resource :terms do

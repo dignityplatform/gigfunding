@@ -302,6 +302,12 @@ module ApplicationHelper
       :name => "how_to_use"
     }
     links << {
+      :text => t('layouts.infos.causes'),
+      :icon_class => icon_class("causes"),
+      :path => causes_infos_path,
+      :name => "causes"
+    }
+    links << {
       :text => t('layouts.infos.register_details'),
       :icon_class => icon_class("privacy"),
       :path => privacy_infos_path,
