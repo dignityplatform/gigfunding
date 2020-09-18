@@ -6,4 +6,13 @@
     = t('.title')
   = render :partial => "layouts/info_text", :locals => { :text => t(".info") }
 
+%br
+.row
+  .causes-flex-container
+    - @causes.each do |cause|
+      = render :partial => 'infos/cause_content/clickable_cause', locals: { cause: cause }
+
+%br
+.top-level-category-divider-wrapper
+  .top-level-category-divider
 
