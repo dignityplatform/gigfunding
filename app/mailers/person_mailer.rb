@@ -272,7 +272,7 @@ class PersonMailer < ActionMailer::Base
 
   # Used to send notification to marketplace admins when somebody
   # gives feedback on marketplace throught the contact us button in menu
-  def new_feedback(feedback, community)e
+  def new_feedback(feedback, community)
     subject = t("feedback.feedback_subject", service_name: community.name(I18n.locale))
 
     premailer_mail(
@@ -483,6 +483,7 @@ class PersonMailer < ActionMailer::Base
     @email_type =  "email_about_cause_being_reset"
     @cause_name = cause.name
     @community_name = community.name(I18n.locale)
+    @skip_unsubscribe_footer = true
     set_up_layout_variables(recipient, community, @email_type)
     with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
       subject = t("emails.cause_reset.subject", :community => community.full_name(recipient.locale))

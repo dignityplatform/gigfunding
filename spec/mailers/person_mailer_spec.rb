@@ -243,4 +243,15 @@ describe PersonMailer, type: :mailer do
       expect(email.body).to have_text("Proto has marked the order <b>Sledgehammer</b> completed. The payment for this transaction has now been released. You can now give feedback to Proto.")
     end
   end
+
+  describe '#reset_cause' do
+    it "cause is displayed in email" do
+      cause = FactoryGirl.create(:cause, community: @community)
+      email = MailCarrier.deliver_now(PersonMailer.cause_reset(@test_person, cause, @community))
+      assert !ActionMailer::Base.deliveries.empty?
+      assert_equal @test_person.confirmed_notification_email_addresses, email.to
+      assert_equal "Please select a new Cause", email.subject
+      expect(email).to have_body_text(cause.name)
+    end
+  end
 end
