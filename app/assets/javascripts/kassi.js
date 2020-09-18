@@ -920,6 +920,12 @@ function initialize_admin_causes_form_validations(form_id, ignore_file_field = f
 
 function initialize_admin_causes_delete_warning(form_id, cause_name) {
   $(form_id).on('submit', function() {
-    return confirm('Do you really want to delete ' + cause_name + '?');
+    return confirm('Do you really want to delete ' + cause_name + '? This can not be undone');
+  });
+}
+
+function initialize_admin_causes_archive_warning(form_id, cause_name) {
+  $(form_id).on('submit', function() {
+    return confirm('Do you really want to archive ' + cause_name + '? This will reset all users who have selected it to the default cause, which can not be undone.');
   });
 }

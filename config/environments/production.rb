@@ -136,8 +136,9 @@ Rails.application.configure do
   end
 
   # Serve assets from host
-  config.action_controller.asset_host = "https://gigfunding.org"
-  config.action_mailer.asset_host = config.action_controller.asset_host
+  config.action_controller.asset_host = APP_CONFIG.asset_host
+  config.action_mailer.asset_host = APP_CONFIG.asset_host
+  config.action_mailer.default_url_options = {host: APP_CONFIG.asset_host }
 
   # Sendmail is used for some mails (e.g. Newsletter) so configure it even when smtp is the main method
   if mail_delivery_method == :sendmail

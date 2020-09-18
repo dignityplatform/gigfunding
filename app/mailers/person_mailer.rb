@@ -98,7 +98,7 @@ class PersonMailer < ActionMailer::Base
   end
 
   def new_testimonial(testimonial, community)
-    @email_type =  "email_about_new_received_testimonials"
+    @email_type = "email_about_new_received_testimonials"
     recipient = testimonial.receiver
     set_up_layout_variables(recipient, community, @email_type)
     with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
@@ -477,6 +477,21 @@ class PersonMailer < ActionMailer::Base
 
   def premailer_mail(opts, &block)
     premailer(mail(opts, &block))
+  end
+
+  def cause_reset(recipient, cause, community)
+    @cause_name = cause.name
+    @community_name = community.name(I18n.locale)
+    @skip_unsubscribe_footer = true
+    set_up_layout_variables(recipient, community, @email_type)
+    with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
+      subject = t("emails.cause_reset.subject", :community => community.full_name(recipient.locale))
+      mail(:to => recipient.confirmed_notification_emails_to,
+           :from => community_specific_sender(community),
+           :subject => subject) do |format|
+        format.html { render v2_template(community.id, 'cause_reset'), layout: v2_layout(community.id) }
+      end
+    end
   end
 
   private

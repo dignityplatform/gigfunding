@@ -13,6 +13,9 @@
 #  logo_file_size    :integer
 #  logo_updated_at   :datetime
 #  community_id      :bigint
+#  default_cause     :boolean          default(FALSE)
+#  archived          :boolean          default(FALSE)
+#  deleted           :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -23,7 +26,7 @@ require 'spec_helper'
 
 RSpec.describe Cause, type: :model do
   let(:community) { FactoryGirl.create(:community) }
-  let(:cause) { FactoryGirl.create(:cause, community: community) }
+  let(:cause) { FactoryGirl.create(:cause, community: community, default_cause: false) }
 
   context 'name validations' do
     it 'is present' do
@@ -85,4 +88,50 @@ RSpec.describe Cause, type: :model do
       expect(cause).to_not be_valid
     end
   end
+
+  context 'apply default cause to persons' do
+    before(:each) do
+      @normal_cause = FactoryGirl.create(:cause, community: community, name: 'another cause', default_cause: false)
+      @person = FactoryGirl.create(:person, cause_id: @normal_cause.id)
+    end
+
+    it "cause destroyed" do
+      @normal_cause.destroy
+      expect(@person.reload.cause.default_cause).to eq(true)
+    end
+
+    it "cause archived" do
+      @normal_cause.archived = true
+      @normal_cause.save
+      expect(@person.reload.cause.default_cause).to eq(true)
+    end
+
+    it "cause deleted" do
+      @normal_cause.deleted = true
+      @normal_cause.save
+      expect(@person.reload.cause.default_cause).to eq(true)
+    end
+  end
+
+  context 'paranoid deletes' do
+    it 'cause is deleted' do
+      normal_cause = FactoryGirl.create(:cause, community: community, name: 'another cause', default_cause: false)
+      normal_cause.deleted = true
+      normal_cause.save
+      expect(Cause.available.where(name: normal_cause.name).length).to eq(0)
+    end
+  end
+
+  context 'person notifications' do
+    it 'cause reset' do
+      normal_cause = FactoryGirl.create(:cause, community: community, name: 'another cause', default_cause: false)
+      person = FactoryGirl.create(:person, community: community, cause_id: normal_cause.id)
+      expect(Delayed::Job).to receive(:enqueue)
+      expect(CauseResetJob).to receive(:new).with(person.id, normal_cause.id, community.id)
+      normal_cause.deleted = true
+      normal_cause.save
+    end
+  end
 end
+
+

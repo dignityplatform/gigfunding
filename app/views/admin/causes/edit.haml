@@ -16,7 +16,7 @@
       = t('.current_cause_details')
   .row
     .col-12
-      = render :partial => "layouts/cause_layout", :locals => {cause: @cause, edit_cause: false, delete_cause: false}
+      = render :partial => "layouts/cause_layout", :locals => {cause: @cause, admin: false, is_current_user_viewing: @cause.default_cause}
 
   .top-level-category-divider-wrapper
     .top-level-category-divider
@@ -24,7 +24,8 @@
   = form_for [:admin, @cause] do |form|
     = render :partial => "admin/causes/form/name", :locals => { :form => form }
     = render :partial => "admin/causes/form/description", :locals => { :form => form }
-    = render :partial => "admin/causes/form/link", :locals => { :form => form }
+    - unless @cause.default_cause
+      = render :partial => "admin/causes/form/link", :locals => { :form => form }
     = render :partial => "admin/causes/form/logo", :locals => { :form => form }
     = render :partial => "admin/causes/form/buttons", :locals => { :form => form }
 

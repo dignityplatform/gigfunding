@@ -240,6 +240,8 @@ class Person < ApplicationRecord
     set_default_preferences unless self.preferences
   end
 
+  before_save :assign_default_cause
+
   after_initialize :add_uuid
   def add_uuid
     self.uuid ||= UUIDUtils.create_raw
@@ -618,6 +620,13 @@ class Person < ApplicationRecord
 
   def logger_metadata
     { person_uuid: uuid }
+  end
+
+  def assign_default_cause
+    unless self.cause_id
+      default_cause = Cause.available.find_by(default_cause: true)
+      self.cause_id = (default_cause ? default_cause.id : nil)
+    end
   end
 
   class << self

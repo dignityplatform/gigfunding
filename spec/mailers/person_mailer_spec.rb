@@ -51,7 +51,7 @@ describe PersonMailer, type: :mailer do
 
     assert !ActionMailer::Base.deliveries.empty?
     assert_equal recipient.confirmed_notification_email_addresses, email.to
-    assert_equal "Remember to add your payment details to receive payments", email.subject
+    assert_equal "You need to add your details to be verified", email.subject
   end
 
   describe "status changed" do
@@ -241,6 +241,17 @@ describe PersonMailer, type: :mailer do
       confirmed_transaction.reload
       email = PersonMailer.transaction_confirmed(confirmed_transaction, community)
       expect(email.body).to have_text("Proto has marked the order <b>Sledgehammer</b> completed. The payment for this transaction has now been released. You can now give feedback to Proto.")
+    end
+  end
+
+  describe '#reset_cause' do
+    it "cause is displayed in email" do
+      cause = FactoryGirl.create(:cause, community: @community)
+      email = MailCarrier.deliver_now(PersonMailer.cause_reset(@test_person, cause, @community))
+      assert !ActionMailer::Base.deliveries.empty?
+      assert_equal @test_person.confirmed_notification_email_addresses, email.to
+      assert_equal "Please select a new Cause", email.subject
+      expect(email).to have_body_text(cause.name)
     end
   end
 end

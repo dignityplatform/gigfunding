@@ -2,7 +2,9 @@ class Admin::CausesController < Admin::AdminBaseController
   before_action :set_selected_left_navi_link
 
   def index
-    @causes = Cause.where(community: @current_community)
+    @causes = Cause.available.where(community: @current_community, archived: false, default_cause: false)
+    @default_cause = Cause.available.find_by(community: @current_community, default_cause: true)
+    @archived_causes = Cause.available.where(community: @current_community, archived: true, default_cause: false)
   end
 
   def new
@@ -22,11 +24,11 @@ class Admin::CausesController < Admin::AdminBaseController
   end
 
   def edit
-    @cause = Cause.find(params[:id])
+    @cause = Cause.available.find(params[:id])
   end
 
   def update
-    @cause = Cause.find(params[:id])
+    @cause = Cause.available.find(params[:id])
     if @cause.update(cause_params)
       redirect_to admin_causes_path, notice:  "Cause updated"
     else
@@ -36,8 +38,8 @@ class Admin::CausesController < Admin::AdminBaseController
   end
 
   def destroy
-    @cause = Cause.find(params[:id])
-    if @cause.destroy()
+    @cause = Cause.available.find(params[:id])
+    if @cause.update(deleted: true)
       redirect_to admin_causes_path, notice: 'Cause deleted'
     else
       flash[:error] = @cause.errors.map {|k, v| (k.to_s + ' ' + v.to_s).humanize}.join(', ')
@@ -52,6 +54,6 @@ class Admin::CausesController < Admin::AdminBaseController
   end
 
   def cause_params
-    params.require(:cause).permit(:name, :description, :link, :logo)
+    params.require(:cause).permit(:name, :description, :link, :logo, :archived)
   end
 end

@@ -35,7 +35,7 @@
     - if @service.person.cause
       .label
         = t('settings.profile.selected_cause')
-      = render :partial => "layouts/cause_layout", :locals => {cause: @service.person.cause, edit_cause: false, delete_cause: false}
+      = render :partial => "layouts/cause_layout", :locals => {cause: @service.person.cause, admin: false, is_current_user_viewing: (@service.person == @current_user)}
 
 
     - if @service.community_person_custom_fields.any?

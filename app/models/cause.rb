@@ -13,6 +13,9 @@
 #  logo_file_size    :integer
 #  logo_updated_at   :datetime
 #  community_id      :bigint
+#  default_cause     :boolean          default(FALSE)
+#  archived          :boolean          default(FALSE)
+#  deleted           :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -20,6 +23,13 @@
 #
 
 class Cause < ApplicationRecord
+
+  DEFAULT = {
+    name: 'Unselected (Gigfunding)',
+    description: 'Your cause is not selected. Until you select a cause, all donations will be paid to Gigfunding.org. Causes can be selected and changed near the bottom of your Settings page.',
+    default_cause: true
+  }
+
   belongs_to :community, foreign_key: 'community_id'
   has_many :people, foreign_key: "cause_id"
   has_many :transactions, foreign_key: 'starter_cause_id'
@@ -41,4 +51,24 @@ class Cause < ApplicationRecord
   validates_attachment_content_type :logo, content_type: IMAGE_CONTENT_TYPE
 
   process_in_background :logo
+
+  scope :available, -> {where(:deleted => false)}
+
+  after_save :apply_archived_deleted
+  before_destroy :reset_person_cause
+
+  def reset_person_cause
+    self.people.each{|person|
+      previous_cause_id = person.cause_id
+      person.cause_id = nil
+      person.save
+      Delayed::Job.enqueue(CauseResetJob.new(person.id, previous_cause_id, person.community.id))
+    }
+  end
+
+  private
+
+  def apply_archived_deleted
+    self.reset_person_cause if self.archived || self.deleted
+  end
 end

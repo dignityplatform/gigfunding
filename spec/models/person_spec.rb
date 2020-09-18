@@ -380,4 +380,11 @@ describe Person, type: :model do
 
     end
   end
+
+  describe "assign default cause" do
+    it "no cause on creation" do
+      person = FactoryGirl.create(:person, cause_id: nil)
+      expect(person.cause).to_not eq(nil)
+    end
+  end
 end

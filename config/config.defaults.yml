@@ -494,6 +494,8 @@ production: &production_settings
 
   eager_load: true
 
+  asset_host: 'https://gigfunding.org'
+
   log_level: INFO
   stripe_private_key_pattern: "\\Ask_live_.{24,200}\\z"
   stripe_publishable_key_pattern: "\\Apk_live_.{24,200}\\z"

@@ -17,7 +17,7 @@
     = render :partial => "layouts/info_text", :locals => { :text => t(".causes_help")} 
 
   - @causes.each do |cause|
-    = render :partial => "layouts/cause_layout", :locals => {cause: cause, edit_cause: true, delete_cause: true}
+    = render :partial => "layouts/cause_layout", :locals => {cause: cause, admin: true, is_current_user_viewing: true}
   
   .top-level-category-divider-wrapper
     .top-level-category-divider
@@ -25,3 +25,25 @@
   .row
     .col-12
       = link_to t(".create_a_new_cause"), new_admin_cause_path
+  
+  %br
+  .row
+    .col-12
+    %h3
+      = t(".default_causes")
+
+    = render :partial => "layouts/info_text", :locals => { :text => t(".default_causes_help")} 
+
+  = render :partial => "layouts/cause_layout", :locals => {cause: @default_cause, admin: true, is_current_user_viewing: true}
+
+
+  %br
+  .row
+    .col-12
+    %h3
+      = t(".archived_causes")
+
+    = render :partial => "layouts/info_text", :locals => { :text => t(".archived_causes_help")} 
+  
+  - @archived_causes.each do |cause|
+    = render :partial => "layouts/cause_layout", :locals => {cause: cause, admin: true, is_current_user_viewing: true}
