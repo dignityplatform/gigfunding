@@ -2,20 +2,21 @@
 #
 # Table name: causes
 #
-#  id                :bigint           not null, primary key
-#  name              :string(255)
-#  description       :text(65535)
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  link              :string(255)
-#  logo_file_name    :string(255)
-#  logo_content_type :string(255)
-#  logo_file_size    :integer
-#  logo_updated_at   :datetime
-#  community_id      :bigint
-#  default_cause     :boolean          default(FALSE)
-#  archived          :boolean          default(FALSE)
-#  deleted           :boolean          default(FALSE)
+#  id                   :bigint           not null, primary key
+#  name                 :string(255)
+#  description          :text(65535)
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  link                 :string(255)
+#  logo_file_name       :string(255)
+#  logo_content_type    :string(255)
+#  logo_file_size       :integer
+#  logo_updated_at      :datetime
+#  community_id         :bigint
+#  default_cause        :boolean          default(FALSE)
+#  archived             :boolean          default(FALSE)
+#  deleted              :boolean          default(FALSE)
+#  extended_description :text(65535)
 #
 # Indexes
 #
