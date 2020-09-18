@@ -1,5 +1,5 @@
 .row
   .col-12
     = form.label :link_attributes, t(".label")
-    = render :partial => "layouts/info_text", :locals => { :text => t(".link_info")}
+    = render :partial => "layouts/info_text", :locals => { :text => t(".info")}
     = form.text_field :link, class: "required", placeholder: t('.placeholder')

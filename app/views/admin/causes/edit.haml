@@ -24,6 +24,7 @@
   = form_for [:admin, @cause] do |form|
     = render :partial => "admin/causes/form/name", :locals => { :form => form }
     = render :partial => "admin/causes/form/description", :locals => { :form => form }
+    = render :partial => "admin/causes/form/extended_description", :locals => { :form => form }
     - unless @cause.default_cause
       = render :partial => "admin/causes/form/link", :locals => { :form => form }
     = render :partial => "admin/causes/form/logo", :locals => { :form => form }

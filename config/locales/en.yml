@@ -1221,10 +1221,14 @@ en:
         description:
           label: 'Description'
           placeholder: 'Enter cause description...'
+        extended_description:
+          label: 'Causes Page Description'
+          placeholder: 'Enter description which will be displayed on the public Causes page...'
+          info: "This information will be displayed on the public Causes page. You can use Markdown to format it. <a href='https://guides.github.com/features/mastering-markdown/' target='_blank'>Learn Markdown</a>"
         link:
           label: 'Link'
           placeholder: 'Enter URL to cause website...'
-          link_info: 'Links must be full, valid URLs. e.g. http://example.com'
+          info: 'Links must be full, valid URLs. e.g. http://example.com'
         logo:
           label: 'Cause logo'
         buttons:
