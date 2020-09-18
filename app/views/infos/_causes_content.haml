@@ -21,7 +21,7 @@
 %br
 - @causes.each do |cause|
   .row.hidden.cause-extended-description-container{id: "cause-extended-description-#{cause.id}", data: {selected: false}}
-    %h2
+    %h1
       = cause.name
     .cause-link
       %a{href: cause.link, target: '_blank'}

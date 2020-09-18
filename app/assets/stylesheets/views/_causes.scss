@@ -163,12 +163,12 @@ $hover-transition: 0.1s;
   position: relative;
   height: max-content;
   width: max-content;
-  min-width: 30%;
+  max-width: 45%;
   box-sizing: border-box;
   background-color: inherit;
   color: inherit;
-  padding: lines(0.5) lines(0.5);
-  margin: lines(0.7);
+  padding: lines(0.2);
+  margin: lines(0.2);
 
   display: flex;
   flex-direction: column;
@@ -188,15 +188,21 @@ $hover-transition: 0.1s;
     box-shadow: 0 0 2pt 2pt $highlight-blue inset;
     outline: $highlight-blue;
   }
+
+  @include media(tablet) {
+    max-width: 30%;
+    padding: lines(0.5);
+    margin: lines(0.7);
+  }
 }
 
 .clickable-cause-logo {
   position: relative;
   box-sizing: border-box;
-  height: 80px;
+  height: 75px;
 
   @include media(tablet) {
-    height: 150px;
+    height: 100px;
   }
   
   img {
@@ -216,4 +222,8 @@ $hover-transition: 0.1s;
     @include big-type;
     margin-top: 20px;
   }
+}
+
+.cause-extended-description {
+  margin-top: 10px;
 }
