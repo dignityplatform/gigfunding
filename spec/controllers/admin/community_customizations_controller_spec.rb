@@ -45,7 +45,7 @@ describe Admin::CommunityCustomizationsController, type: :controller do
         update_typed_slogans_params = {"#{@typed_slogan1.id}": {"typed_slogan_text": "test1"}, "#{@typed_slogan2.id}": {"typed_slogan_text": "test2"}}
         full_post_params = {"new_typed_slogans": new_typed_slogan_params, "update_typed_slogans": update_typed_slogans_params, "community_customizations": community_customizations_params}
 
-        expect{post :update_details, params: full_post_params}.to change{TypedSlogan.all.length}.from(2).to(3)
+        expect{post :update_details, params: full_post_params}.to(change{TypedSlogan.all.length}).from(2).to(3)
         expect(TypedSlogan.last.typed_slogan_text).to eq('new typed slogan')
       end
 
@@ -54,7 +54,7 @@ describe Admin::CommunityCustomizationsController, type: :controller do
         update_typed_slogans_params = {"#{@typed_slogan1.id}": {"typed_slogan_text": "test1"}, "#{@typed_slogan2.id}": {"typed_slogan_text": "test2"}}
         full_post_params = {"new_typed_slogans": new_typed_slogan_params, "update_typed_slogans": update_typed_slogans_params, "community_customizations": community_customizations_params}
 
-        expect{post :update_details, params: full_post_params}.to_not change{TypedSlogan.all.length}
+        expect{post :update_details, params: full_post_params}.to_not(change{TypedSlogan.all.length})
       end
 
       it 'ignores new typed_slogans if ignore key passed' do
@@ -62,7 +62,7 @@ describe Admin::CommunityCustomizationsController, type: :controller do
         update_typed_slogans_params = {"#{@typed_slogan1.id}": {"typed_slogan_text": "test1"}, "#{@typed_slogan2.id}": {"typed_slogan_text": "test2"}}
         full_post_params = {"new_typed_slogans": new_typed_slogan_params, "update_typed_slogans": update_typed_slogans_params, "community_customizations": community_customizations_params}
 
-        expect{post :update_details, params: full_post_params}.to_not change{TypedSlogan.all.length}
+        expect{post :update_details, params: full_post_params}.to_not(change{TypedSlogan.all.length})
       end
     end
   end

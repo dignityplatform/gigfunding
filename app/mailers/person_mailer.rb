@@ -480,7 +480,6 @@ class PersonMailer < ActionMailer::Base
   end
 
   def cause_reset(recipient, cause, community)
-    @email_type =  "email_about_cause_being_reset"
     @cause_name = cause.name
     @community_name = community.name(I18n.locale)
     @skip_unsubscribe_footer = true

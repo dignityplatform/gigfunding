@@ -7,7 +7,7 @@ class Person::SettingsService
     @required_fields_only = required_fields_only
     @person = person
     @current_user = current_user
-    @causes = get_causes
+    @causes = available_causes
   end
 
   delegate :person_custom_fields, to: :community, prefix: true
@@ -76,7 +76,7 @@ class Person::SettingsService
     scope
   end
 
-  def get_causes
+  def available_causes
     Cause.available.where(community: @community, default_cause: false, archived: false)
   end
 end

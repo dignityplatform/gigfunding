@@ -625,7 +625,7 @@ class Person < ApplicationRecord
   def assign_default_cause
     unless self.cause_id
       default_cause = Cause.available.find_by(default_cause: true)
-      self.cause_id = (default_cause ? default_cause.id : nil )
+      self.cause_id = (default_cause ? default_cause.id : nil)
     end
   end
 

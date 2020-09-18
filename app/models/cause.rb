@@ -58,7 +58,7 @@ class Cause < ApplicationRecord
   before_destroy :reset_person_cause
 
   def reset_person_cause
-    self.people.each{|person| 
+    self.people.each{|person|
       previous_cause_id = person.cause_id
       person.cause_id = nil
       person.save

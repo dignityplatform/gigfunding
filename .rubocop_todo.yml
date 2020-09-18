@@ -603,7 +603,7 @@ Lint/Void:
 
 # Offense count: 314
 Metrics/AbcSize:
-  Max: 103
+  Max: 104
 
 # Offense count: 268
 # Configuration parameters: CountComments, ExcludedMethods.
@@ -613,7 +613,7 @@ Metrics/BlockLength:
 # Offense count: 39
 # Configuration parameters: CountComments.
 Metrics/ClassLength:
-  Max: 446
+  Max: 600
 
 # Offense count: 56
 Metrics/CyclomaticComplexity:

@@ -224,7 +224,7 @@ class StripeService::Report
   def create_charge
     {
       "stripe_op": "create_charge",
-      "transaction_id": tx.id,
+      "transaction_id": tx.id
     }
   end
 
