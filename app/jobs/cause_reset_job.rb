@@ -13,7 +13,8 @@ class CauseResetJob < Struct.new(:person_id, :cause_id, :community_id)
   def perform
     person = Person.find(person_id)
     cause = Cause.find(cause_id)
+    community = Community.find(community_id)
 
-    MailCarrier.deliver_now(PersonMailer.cause_reset(person, cause))
+    MailCarrier.deliver_now(PersonMailer.cause_reset(person, cause, community))
   end
 end

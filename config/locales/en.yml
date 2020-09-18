@@ -1854,6 +1854,12 @@ en:
       this_usually_means: "This usually means that there is something blocking the commission from the seller's PayPal account. In most cases the issue is that the seller does not have a valid and verified funding source connected to their PayPal account."
       if_you_would_like_to_investigate: 'If you would like to investigate this further, a good first step is to contact the seller about this.'
       contact_the_seller: 'Contact the seller'
+    cause_reset:
+      subject: 'Please select a new Cause'
+      intro: 'Occasionally at %{service} our Causes change. These changes allow us to bring exciting new partnerships with people doing great work around the world.'
+      your_cause_has_changed: "Unfortunately, your currently selected Cause %{cause_name} has been withdrawn from %{service}. Don't worry, any donations from previous gigs you have paid for or completed will still go to %{cause_name}, we simply need to you select a new Cause from our list of current partners. Until you select a new Cause, the donations of any future gigs you complete will be automatically donated to %{service}."
+      how_to_select_a_cause: "To select a new Cause, please visit %{service}, log in, and navigate to your user settings (top of page user menu 'Settings' button). New Causes can be selected near the bottom of the page and saved by clicking the 'Save information' button. Alternatively, click the link below to visit your user settings."
+      settings_button: "Select a new Cause"
   error_messages:
     booking:
       booking_failed_payment_voided: "Booking failed due to an unexpected error. Please try again later. You haven't been charged."

@@ -1,0 +1,18 @@
+- settings_url = url_for(person_settings_url(I18n.locale, @recipient))
+
+%tr
+  %td.person-name
+    - recipient_name = PersonViewUtils.person_display_name_for_type(@recipient, 'first_name_only')
+    %h1
+      = t("emails.common.hi", name: recipient_name)
+
+%tr
+  %td.email-content
+    %p
+      = t("emails.cause_reset.intro", service: @community_name)
+    %p
+      = t("emails.cause_reset.your_cause_has_changed", service: @community_name, cause_name: @cause_name)
+    %p
+      = t("emails.cause_reset.how_to_select_a_cause", service: @community_name)
+
+= render :partial => "action_button", :locals => { :text => t("emails.cause_reset.settings_button"), :url => settings_url}
