@@ -26,4 +26,4 @@
       %a{href: cause.link, target: '_blank'}
         = t('.link', cause_name: cause.name)
     .cause-extended-description
-      = markdown(cause.extended_description)
+      = markdown_admin(cause.extended_description)

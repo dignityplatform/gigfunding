@@ -5,6 +5,12 @@ module MarkdownHelper
     end
   end
 
+  def markdown_admin(text)
+    if text.is_a?(String)
+      markdown_renderer_admin.render(text).html_safe
+    end
+  end
+
   def markdown_renderer
     @markdown_renderer ||= Redcarpet::Markdown.new(
       Redcarpet::Render::HTML.new(
@@ -13,6 +19,16 @@ module MarkdownHelper
         no_images: true,
         no_styles: true
       ),
+      strikethrough: true,
+      underline: true,
+      autolink: true,
+      tables: true
+    )
+  end
+
+  def markdown_renderer_admin
+    @markdown_renderer ||= Redcarpet::Markdown.new(
+      Redcarpet::Render::HTML.new(),
       strikethrough: true,
       underline: true,
       autolink: true,
