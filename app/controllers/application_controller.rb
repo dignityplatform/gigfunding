@@ -373,13 +373,12 @@ class ApplicationController < ActionController::Base
       paypal_community  = PaypalHelper.community_ready_for_payments?(@current_community.id)
       stripe_community  = StripeHelper.community_ready_for_payments?(@current_community.id)
       paypal_ready      = PaypalHelper.account_prepared_for_user?(@current_user.id, @current_community.id)
-      stripe_ready      = StripeHelper.user_stripe_active?(@current_community.id, @current_user.id)
 
       accept_payments = []
       if paypal_community && paypal_ready
         accept_payments << :paypal
       end
-      if stripe_community && stripe_ready
+      if stripe_community
         accept_payments << :stripe
       end
 
