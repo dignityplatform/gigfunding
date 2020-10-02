@@ -7,10 +7,7 @@ module TransactionService::Gateway
       payment_settings = Maybe(PaymentSettingsStore.get_active_by_gateway(community_id: community_id, payment_gateway: :stripe))
                          .select {|set| stripe_settings_configured?(set)}
 
-      personal_account_verified = stripe_account_created?(community_id: community_id, person_id: author_id, settings: payment_settings)
-      payment_settings_available = payment_settings.map {|_| true }.or_else(false)
-
-      [personal_account_verified, payment_settings_available].all?
+      payment_settings.map {|_| true }.or_else(false)
     end
 
     def tx_process_settings(opts_tx)
