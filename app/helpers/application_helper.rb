@@ -638,19 +638,6 @@ module ApplicationHelper
         ]
     end
 
-    paypal_ready = PaypalHelper.community_ready_for_payments?(@current_community.id)
-    stripe_ready = StripeHelper.community_ready_for_payments?(@current_community.id)
-
-    if !restrict_for_admin && (paypal_ready || stripe_ready)
-      links << {
-        :id => "settings-tab-payments",
-        :text => t("layouts.settings.payments"),
-        :icon_class => icon_class("payments"),
-        :path => person_payment_settings_path(@current_user),
-        :name => "payments"
-      }
-    end
-
     return links
   end
 
