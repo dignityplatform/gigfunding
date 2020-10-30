@@ -247,7 +247,7 @@ describe TransactionMailer, type: :mailer do
     it 'works' do
       email = TransactionMailer.new_transaction(paypal_transaction, admin)
       expect(email.body).to have_text('Hello Estelle,')
-      expect(email.body).to have_text('There is a new transaction in Sharetribe.')
+      expect(email.body).to have_text('There is a new transaction on Sharetribe.')
       expect(email.body).to have_text('Listing: Sledgehammer', normalize_ws: true)
       expect(email.body).to have_text('Sum: €5', normalize_ws: true)
       expect(email.body).to have_text('Starter: Proto T', normalize_ws: true)
