@@ -263,7 +263,7 @@ fr:
         you_will_be_redirected_to: "Une fois que vous aurez supprimé votre place de marché vous serez redirigé vers %{destination}. Vous ne pourrez plus accéder à votre place de marché."
         delete_this_marketplace: "Supprimer cette place de marché"
         payment_preferences: "Système de paiements"
-        pre_approved_listings: "Vérifier toutes les annonces avant qu'elles ne soient publiées"
+        pre_approved_listings: "Vérifier toutes les annonces avant qu'elles soient publiées"
         email_admins_about_new_transactions: "Envoyer un email aux administrateurs à chaque fois qu'il y a une nouvelle transaction"
       manage_members:
         manage_members: Utilisateurs
@@ -677,6 +677,38 @@ fr:
         when_you_change_your_sharetribe_domain: "Lorsque vous changez votre domaine Sharetribe, toutes vos URLs seront automatiquement modifiées. Vous serez redirigé vers la nouvelle adresse de votre place de marché. Vous et vos utilisateurs devrez vous connecter de nouveau. L'ancien domaine de votre place de marché ne sera pas du tout lié ou redirigé vers le nouveau. L'ancien domaine sera rendu disponible pour quiconque souhaite l'utiliser."
         would_you_like_to_proceed: "Voulez-vous continuer ?"
         change: Changer
+        you_can_now_enable_a_custom_domain: ~
+        read_more_about_the_set_up_of_your_custom_domain: ~
+        set_custom_domain: ~
+        in_order_to_set_your_custom_domain: ~
+        instructions_to_point_your_domain: ~
+        main_domain: ~
+        main_domain_info_text: ~
+        main_domain_link_text: ~
+        check_domain: ~
+        domain_being_checked: ~
+        status: ~
+        checks_pending: ~
+        please_check_back: ~
+        checks_not_passed: ~
+        check_the_domain_again_info: ~
+        check_the_domain_again: ~
+        use_another_domain: ~
+        checks_passed: ~
+        domain_being_set_up: ~
+        setup_in_progress: ~
+        setup_check_back: ~
+        setup_check_back_critical_error: ~
+        setup_failed: ~
+        setup_the_domain_again_info: ~
+        setup_the_domain_again: ~
+        summary:
+          main_domain: ~
+          redirect: ~
+        check_another_domain: ~
+        checks_passed_with_warning: ~
+        this_domain_is_not_configured_correctly: ~
+        start_using_the_custom_domain: ~
       landing_pages:
         landing_pages: "Page d'accueil"
         info_1: "La page d'accueil est peut être la page la plus importante de votre place de marché. C'est la première page que vos visiteurs voient, un peu comme la porte d'entrée de votre maison. Vous n'avez que quelques secondes pour convaincre les nouveaux visiteurs qu'ils devraient parcourir votre site. Cette page doit être attirante et votre proposition claire et attractive."
@@ -823,8 +855,8 @@ fr:
           main_title: "Titre principal"
           column_header: "Colonne %{index}"
           column_title: "Titre de la colonne %{index}"
-          web_viewer: interface
-          column_icon_info: "Vous pouvez choisir votre icône depuis cette %{link}. Une fois que vous avez sélectionné l'icône, copiez le 'Directory path\" (par exemple '01-Interface Essential/01-Home/house-2.svg' et collez le ici."
+          column_icon_info: "Ajouter des icônes nécessite une action manuelle de la part de l'équipe Sharetribe. Veuillez %{link} pour sélectionner l'icône de votre choix et le partager avec le support Sharetribe."
+          column_icon_info_link: "suivre les instructions dans cet article"
           column_icon: "Icône de la colonne %{index}"
           column_paragraph: "Paragraphe de la colonne %{index}"
           column_button: "Bouton de la colonne %{index}"
@@ -1584,11 +1616,11 @@ fr:
       has_commented_listing_you_follow_in_kassi: "%{author} a commenté l'annonce '%{listing}' que vous suivez sur %{service_name}."
     new_message:
       view_message: "Voir le message"
-      has_sent_you_a_message_in_kassi: "%{sender} vous a envoyé un message sur %{service_name}."
-      you_have_a_new_message: "Vous avez un nouveau message sur %{service_name} de la part de %{sender_name}"
+      has_sent_you_a_message_in_kassi: "%{sender} vous a envoyé un message. Rendez-vous sur %{service_name} pour y répondre."
+      you_have_a_new_message: "Vous avez un nouveau message de la part de %{sender_name} sur %{service_name}"
     new_message_v2:
       headline: "vous avez un nouveau message !"
-      reply: "Répondre à %{sender}"
+      reply: "Cliquez ici pour répondre à %{sender}"
     new_payment:
       new_payment: "Vous avez reçu un nouveau paiement"
       price_per_unit_type: "Prix par %{unit_type}"
@@ -2846,10 +2878,10 @@ fr:
       newsletters: "Emails de la part des administrateurs"
       community_updates: Newsletters
       email_about_confirm_reminders: "...j'ai oublié de confirmer une commande comme réalisée"
-      email_about_new_comments_to_own_listing: "...quelqu'un dépose un commentaire sur une de mes offres ou de mes demandes"
+      email_about_new_comments_to_own_listing: "...quelqu'un dépose un commentaire sur une de mes annonces"
       email_about_new_messages: "...quelqu'un m'envoie un message"
       email_about_new_received_testimonials: "...quelqu'un me donne un avis"
-      email_about_testimonial_reminders: "...j'ai oublié de donner mon avis sur un événement"
+      email_about_testimonial_reminders: "...j'ai oublié de donner mon avis sur une commande"
       email_daily_community_updates: "Recevoir un email <b>chaque jour</b> s'il y a des nouvelles annonces"
       email_weekly_community_updates: "Recevoir un email <b>chaque semaine</b> s'il y a des nouvelles annonces"
       do_not_email_community_updates: "Ne pas recevoir d'emails même s'il y a de nouvelles annonces"
@@ -3130,6 +3162,10 @@ fr:
         zero: transaction
         one: transaction
         other: transactions
+      listing:
+        zero: annonce
+        one: annonce
+        other: annonces
     previous_label: "&#8592; Précédent"
     next_label: "Suivant &#8594;"
     page_gap: "&hellip;"
@@ -3256,7 +3292,7 @@ fr:
       ssn_last_4: "Quatre derniers chiffres du numéro de sécurité sociale (SSN)"
       hong_kong_identity_card: "Numéro de carte d'identité de Hong Kong (HKID)"
       singapore_identity_card: "National Registration Identity Card (NRIC) ou Foreign Identification Number (FIN)"
-      mexico_id_number: "Identifiant personnel (CURP)"
+      mexico_id_number: "Numéro fédéral d'imposition (RFC)"
       messages:
         social_insurance_number: "doit être un Numéro d'Assurance Sociale (NAS) valide"
   payment_settings:

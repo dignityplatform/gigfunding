@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.6.5'
 
-gem 'rails', '5.2.3'
+gem 'rails', '5.2.4.4'
 
 gem 'coffee-rails', '~> 4.2.2'
 gem 'uglifier', '~> 4.2.0'
@@ -105,6 +105,10 @@ gem "request_store", '~> 1.3.2'
 gem 'mail', '~> 2.6.6.rc1'
 
 gem 'tzinfo-data', '~> 1.2017', '>= 1.2017.2'
+
+gem 'recaptcha', '~> 5.5'
+
+gem 'simpleidn', '~> 0.1'
 
 group :staging, :production do
   gem 'newrelic_rpm', '~> 6.11.0'

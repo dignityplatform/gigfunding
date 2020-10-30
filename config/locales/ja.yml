@@ -467,7 +467,7 @@ ja:
           confirmed: 完了しました
           paid: 支払済み
           canceled: キャンセルされた
-          disputed: ~
+          disputed: 異議あり
           preauthorized: 事前に承認済み
           rejected: 拒否されました
           payment_intent_requires_action: 保留中
@@ -493,7 +493,7 @@ ja:
           paid: 支払い済み
           confirmed: 確定済み
           canceled: キャンセル済
-          disputed: ~
+          disputed: 異議あり
           initiated: PayPalの支払いを待っています
           pending_ext: PayPalの支払いを待っています
           none:
@@ -507,7 +507,7 @@ ja:
             paid: 支払い済み
             confirmed: 完了しました
             canceled: キャンセル
-            disputed: ~
+            disputed: 異議あり
             initiated: PayPal決済待ち
             pending_ext: ペイパル支払い待ち
             refunded: 返金済み
@@ -521,7 +521,7 @@ ja:
             paid: 支払済み
             confirmed: 完了しました
             canceled: キャンセルされました
-            disputed: ~
+            disputed: 異議あり
             initiated: Stripe支払い待ち
             pending_ext: Stripe支払い待ち
             payment_intent_requires_action: 保留中
@@ -672,6 +672,38 @@ ja:
         when_you_change_your_sharetribe_domain: ~
         would_you_like_to_proceed: ~
         change: ~
+        you_can_now_enable_a_custom_domain: ~
+        read_more_about_the_set_up_of_your_custom_domain: ~
+        set_custom_domain: ~
+        in_order_to_set_your_custom_domain: ~
+        instructions_to_point_your_domain: ~
+        main_domain: ~
+        main_domain_info_text: ~
+        main_domain_link_text: ~
+        check_domain: ~
+        domain_being_checked: ~
+        status: ~
+        checks_pending: ~
+        please_check_back: ~
+        checks_not_passed: ~
+        check_the_domain_again_info: ~
+        check_the_domain_again: ~
+        use_another_domain: ~
+        checks_passed: ~
+        domain_being_set_up: ~
+        setup_in_progress: ~
+        setup_check_back: ~
+        setup_check_back_critical_error: ~
+        setup_failed: ~
+        setup_the_domain_again_info: ~
+        setup_the_domain_again: ~
+        summary:
+          main_domain: ~
+          redirect: ~
+        check_another_domain: ~
+        checks_passed_with_warning: ~
+        this_domain_is_not_configured_correctly: ~
+        start_using_the_custom_domain: ~
       landing_pages:
         landing_pages: ~
         info_1: ~
@@ -818,8 +850,8 @@ ja:
           main_title: メインタイトル
           column_header: ~
           column_title: ~
-          web_viewer: ~
           column_icon_info: ~
+          column_icon_info_link: ~
           column_icon: ~
           column_paragraph: ~
           column_button: ~
@@ -1428,7 +1460,7 @@ ja:
       dismiss: 却下して支払う
   feedback:
     feedback_subject: ~
-    feedback_body: ~
+    feedback_body: "%{author_name_and_email} は、%{service_name} のお問い合わせフォームに以下の項目を送信しました。この通知は、すべて%{service_name} 管理者に送信されます。"
     unlogged_user: 記録されてないユーザー
     anonymous_user: 匿名ユーザー
   community_memberships:
@@ -1538,7 +1570,7 @@ ja:
       unsubscribe_from_these_emails: これらのメールを購読解除する
       unsubscribe_from_invitation_emails_info: "%{service_name} のメンバーから招待されたため、このメールを受信しました。"
       unsubscribe_from_invitation_emails: "%{service_name} からの招待メールの受信を解除します。"
-      here_is_your_receipt: ~
+      here_is_your_receipt: こちらが領収書です。
     conversation_status_changed:
       has_accepted_your_offer: "%{accepter}さんはあなたの%{listing}のオファーを受け入れました"
       has_accepted_your_request: "%{accepter}さんはあなたの%{listing}のリクエストを受け入れました"
@@ -1573,11 +1605,11 @@ ja:
       has_commented_listing_you_follow_in_kassi: "いつも%{service_name}のご利用ありがとうございます。「%{listing}」で%{author}さんより新しいコメントがありましたのでお知らせいたします。"
     new_message:
       view_message: メッセージを閲覧
-      has_sent_you_a_message_in_kassi: "%{sender}さんは%{service_name}でメッセージを送信しました。"
-      you_have_a_new_message: "%{service_name}の%{sender_name}さんから新しいメッセージがあります"
+      has_sent_you_a_message_in_kassi: ~
+      you_have_a_new_message: ~
     new_message_v2:
       headline: ~
-      reply: "%{sender} さんへ返信する"
+      reply: ~
     new_payment:
       new_payment: 新しいお支払いを受け取りました
       price_per_unit_type: "%{unit_type}ごとの料金"
@@ -1601,7 +1633,7 @@ ja:
         you_have_received_new_payment: "<b>%{payment_sum}</b>の金額が、%{payer_full_name} から<b>%{listing_title}</b>に支払われました。注文が完了としてマークされるまで、お金は%{service_name} によって保持されています。こちらは領収書です。"
     payment_receipt_to_seller_v2:
       headline: "こんにちは。%{payer_name} さんから、%{listing_link} の件で%{payment_sum} 支払われました。"
-      main_text_stripe: ~
+      main_text_stripe: "注文完了までの間、%{service_name} 事務局で代金を預かっています。"
       price_breakdown: ~
     payment_receipt_to_payer:
       receipt_of_payment: お支払いの領収書
@@ -1619,7 +1651,7 @@ ja:
       paypal_gateway_fee: PayPalの手数料
       money_will_be_transferred: "a ) あなたがリクエストを完了しステータスを変更したとき、あるいはb ) あなたがお支払い後、%{automatic_confirmation_days} 日が経過したとき、お代金は%{recipient_name}さんの口座に送金されます。"
     payment_receipt_to_payer_v2:
-      headline: ~
+      headline: "こちらが%{listing_link} の領収書です。"
       you_have_made_new_payment: "あなたは<b>%{listing_title}</b>の件で、<b>%{payment_sum} </b>支払いました。"
     paypal_new_payment:
       paypal_gateway_fee: PayPalの手数料：
@@ -1773,14 +1805,14 @@ ja:
       give_feedback_to: ~
     transaction_disputed:
       subject: "リクエストはキャンセルされました。%{service_name} 事務局は状況を確認しています。"
-      subject_admin: ~
+      subject_admin: 取引に異議が申し立てられたので、この後どうするかを決めなければいけません。
       order_about: "%{listing_title} を注文"
       the_order_has_been_canceled: "%{transaction_link} に異議が申し立てられています。"
       the_order_between_buyer_and_seller_has_been_canceled: "%{buyer} と%{seller} の間で%{transaction_link} に関して異議が申し立てられています。"
       the_marketplace_has_been_notified: "%{service_name} 事務局は通知を受け、状況を調査しています。あなたは事務局に連絡し詳細を共有することができます。"
       contact_the_marketplace_team: "%{service_name} へ問い合わせる"
       you_must_now_decide: "払い戻しを行うか、異議を却下するかを決める必要があります。詳細はこちらのリンクをご覧ください。%{learn_more_link} "
-      learn_more_about: ~
+      learn_more_about: なにするかについては、こちらをご覧ください。
       review_the_transaction: 取引を確認する
     transaction_refunded:
       subject: ~
@@ -2381,8 +2413,8 @@ ja:
         the_exact_location: ~
       send_button:
         save_listing: 投稿する
-        submit_for_review: ~
-        will_be_reviewed: ~
+        submit_for_review: 投稿確認を依頼する
+        will_be_reviewed: "%{service_name} における全ての投稿は、公開前に運営の承認が必要です。承認が下りるとメールにて通知が届き、プラットフォーム上で投稿が公開されます。"
         we_noticed_youre_an_admin: ~
       share_type:
         select: 選択
@@ -2832,7 +2864,7 @@ ja:
       newsletters: ☆速報☆
       community_updates: メルマガ登録
       email_about_confirm_reminders: "...取引完了ボタンをクリックし忘れた時"
-      email_about_new_comments_to_own_listing: 私の公開された依頼または要望ページに新しいコメントがあった場合
+      email_about_new_comments_to_own_listing: "...自分の投稿に新しいコメントがあった時"
       email_about_new_messages: "...メッセージを受信したとき"
       email_about_new_received_testimonials: "...レビューを受け取った時"
       email_about_testimonial_reminders: "...レビュー書くのを忘れてしまった時"
@@ -2864,7 +2896,7 @@ ja:
       phone_number: 電話番号
       profile_picture: プロフィール画像
       postal_code: 郵便番号
-      profile_page: プロフィール情報を設定
+      profile_page: プロフィール表示を確認する
       profilemap: 地図で見る
       street_address: 所在地
       these_fields_are_shown_in_your: "この情報は、%{service_name}のすべてのユーザーに表示されます。"
@@ -2921,7 +2953,7 @@ ja:
       about_listing: さんから以下の件でレビューいただきました
   date:
     formats:
-      long_with_abbr_day_name: "%Y/%m/%d （%a）"
+      long_with_abbr_day_name: "%Y %m %d %a"
     first_day_of_week: ０
   datepicker:
     days:
@@ -2979,7 +3011,7 @@ ja:
     format: yyyy/mm/dd
   time:
     formats:
-      short: "%Y年 %H:%M"
+      short: "%Y年 %b %e日 %H:%M"
       shorter: "%m/%e %H:%M"
       short_date: "%Y/%m/%e"
       hours_only: ~
@@ -3171,7 +3203,7 @@ ja:
       cancel: キャンセル
       gender: 性別
       phone_number: "電話番号：+81に続き頭の\"0\"を除いた番号をハイフンなしでご記載下さい。例：090-xxxx-xxxx --> +8190xxxxxxxx"
-      phone_info_text: ~
+      phone_info_text: 電話番号は国際番号をつけて入力してください、例えば
       address_kana_postal_code: 郵便番号
       address_kana_state: "都道府県 (カナ)"
       address_kana_city: 市町区村（カナ）

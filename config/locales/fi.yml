@@ -113,7 +113,7 @@ fi:
         community_description_color_instructions_text: "Voit vaihtaa kuvauksen väriä antamalla värin heksakoodin. Kuvaus näytetään etusivulla käyttäjille, jotka eivät ole kirjautuneina sisään. %{colorpicker} auttaa sinua valitsemaan värin ja antaa sen heksakoodin. Voit kopioida värin tähän. %{see_how_it_looks_like}."
         new_listing_button_custom_color: "Lisää uusi ilmoitus -napin väri"
         logo_instructions_text_with_dimensions: "Peruslogon koon tulee olla %{width}x%{height} pikseliä. Se näytetään käyttäjille, jotka katsovat sivua suuremmalta näytöltä."
-        logo_instructions_text_with_dimensions_no_placing: "Login koon tulisi olla %{height}x%{width} pikseliä."
+        logo_instructions_text_with_dimensions_no_placing: "Login koon tulisi olla %{width} x%{height} pikseliä."
         logo_icon_instructions_text_with_dimensions: "Tämä neliönmuotoinen logo näytetään, kun käyttäjät jakavat sivustosi Facebookissa, vierailevat sivustollasi mobiililaitteellaan tai lisäävät sivustosi kirjanmerkiksi mobiililaitteensa aloitusnäytölle. Tämän logon koon tulee olla (vähintään) %{width}x%{height} pikseliä."
         logo_icon_instructions_text_with_dimensions_no_placing: "Tämä neliönmuotoinen logo näytetään, kun käyttäjät jakavat sivustosi Facebookissa, vierailevat sivustollasi mobiililaitteellaan tai lisäävät sivustosi kirjanmerkiksi mobiililaitteensa aloitusnäytölle. Tämän logon koon tulee olla (vähintään) %{width}x%{height} pikseliä."
         logo_mobile_icon_instructions_text_with_dimensions: "Tämä neliömuotoinen logo näytetään kun suoritat tiettyjä toimia ylläpitäjänä ja kun käyttäjät lisäävät sivusi kännykkänsä koti-näkymään kirjanmerkiksi. Suositeltu koko on (vähintään) %{width} x %{height} pikseliä."
@@ -677,6 +677,38 @@ fi:
         when_you_change_your_sharetribe_domain: "Kun vaihdat Sharetribe-domainiasi, kaikki URL-osoitteesi muuttuvat automaattisesti. Sinut viedään markkinapaikkasi uuteen osoitteeseen. Sinun ja käyttäjiesi tulee kirjautua uudelleen sisään. Vanha markkinapaikka-domainisi ei ole linkattu uuteen eikä uudelleenohjaa uudelle domainillesi millään tavalla. Vanha domain vapautuu muiden käytettäväksi."
         would_you_like_to_proceed: "Haluatko jatkaa?"
         change: Vaihda
+        you_can_now_enable_a_custom_domain: ~
+        read_more_about_the_set_up_of_your_custom_domain: ~
+        set_custom_domain: ~
+        in_order_to_set_your_custom_domain: ~
+        instructions_to_point_your_domain: ~
+        main_domain: ~
+        main_domain_info_text: ~
+        main_domain_link_text: ~
+        check_domain: ~
+        domain_being_checked: ~
+        status: ~
+        checks_pending: ~
+        please_check_back: ~
+        checks_not_passed: ~
+        check_the_domain_again_info: ~
+        check_the_domain_again: ~
+        use_another_domain: ~
+        checks_passed: ~
+        domain_being_set_up: ~
+        setup_in_progress: ~
+        setup_check_back: ~
+        setup_check_back_critical_error: ~
+        setup_failed: ~
+        setup_the_domain_again_info: ~
+        setup_the_domain_again: ~
+        summary:
+          main_domain: ~
+          redirect: ~
+        check_another_domain: ~
+        checks_passed_with_warning: ~
+        this_domain_is_not_configured_correctly: ~
+        start_using_the_custom_domain: ~
       landing_pages:
         landing_pages: Landing-sivu
         info_1: "Landing-sivu on markkinapaikkasi mahdollisesti tärkein sivu. Se on vierailijoidesi ensiksi näkemä sivu, ikäänkuin etuovi taloosi. Sinulla on vain muutama sekunti aikaa vakuuttaa vierailija jäämään sivustollesi. Sivun tulee olla kutsuva ja kommunikoida sivustosi käyttäjille antama arvo selkeästi ja houkuttelevasti."
@@ -823,8 +855,8 @@ fi:
           main_title: Pääotsikko
           column_header: "Sarake %{index}"
           column_title: "Sarakkeen %{index} otsikko"
-          web_viewer: verkkopalvelusta
-          column_icon_info: "Voit valita ikonin tästä %{link}. Kun olet valinnut ikonin, kopioi sen 'Directory path' (esimerkiksi '01-Interface Essential/01-Home/house-2.svg') ja liitä se tähän."
+          column_icon_info: ~
+          column_icon_info_link: ~
           column_icon: "Sarakkeen %{index} ikoni"
           column_paragraph: "Sarakkeen %{index} tekstikappale"
           column_button: "Sarakkeen %{index} nappi"
@@ -1584,11 +1616,11 @@ fi:
       has_commented_listing_you_follow_in_kassi: "%{author} on kommentoinut seuraamaasi ilmoitusta '%{listing}'."
     new_message:
       view_message: "Näytä viesti"
-      has_sent_you_a_message_in_kassi: "%{sender} on lähettänyt sinulle viestin %{service_name}-palvelussa."
-      you_have_a_new_message: "Viesti %{service_name}-palvelun käyttäjältä %{sender_name}"
+      has_sent_you_a_message_in_kassi: ~
+      you_have_a_new_message: ~
     new_message_v2:
       headline: "sinulle on viesti!"
-      reply: "Vastaa käyttäjälle %{sender}"
+      reply: ~
     new_payment:
       new_payment: "Olet saanut uuden maksusuorituksen"
       price_per_unit_type: "Hinta per %{unit_type}"

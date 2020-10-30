@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
   # This updates translation files from WTI on every page load. Only useful in translation test servers.
   before_action :fetch_translations if APP_CONFIG.update_translations_on_every_page_load == "true"
 
-  helper_method :root, :logged_in?, :current_user?
+  helper_method :root, :logged_in?, :current_user?, :get_full_locale_name
 
   attr_reader :current_user
 
@@ -97,9 +97,8 @@ class ApplicationController < ActionController::Base
 
     # A hack to get the path where the user is
     # redirected after the locale is changed
-    new_path = request.fullpath.clone
-    a = new_path
-    new_path = a.slice("/#{params[:locale]}")
+    new_path = request.fullpath.dup
+    new_path.slice!("/#{params[:locale]}")
     new_path.slice!(0,1) if new_path =~ /^\//
     @return_to = new_path
 
@@ -382,7 +381,7 @@ class ApplicationController < ActionController::Base
         accept_payments << :stripe
       end
 
-      if has_paid_listings && accept_payments.blank?
+      if has_paid_listings && accept_payments.blank? && !admin_controller?
         payment_settings_link = view_context.link_to(t("paypal_accounts.from_your_payment_settings_link_text"),
           person_payment_settings_path(@current_user), target: "_blank", rel: "noopener")
 

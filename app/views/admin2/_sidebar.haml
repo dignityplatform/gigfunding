@@ -7,7 +7,7 @@
       / Dashboard
       %ul.category-title
         %li#dashboard{class: active_li('dashboard')}
-          = link_to t('admin2.sidebar.dashboard'), admin2_dashboard_index_path
+          = link_to t('admin2.sidebar.dashboard'), admin2_path
       / General
       %ul.category-title
         %li
@@ -16,7 +16,7 @@
         %li#essentials{class: active_li('essentials')}
           = link_to t('admin2.sidebar.general.essentials'), admin2_general_essentials_path
         %li#domain
-          %a{:href => 'domain.php'} Domain
+          = link_to t('admin2.sidebar.general.domain'), admin_domain_path
         %li#privacy{class: active_li('privacy')}
           = link_to t('admin2.sidebar.general.privacy'), admin2_general_privacy_index_path
         %li#staticcontent-mobile{class: active_li('static_content')}
@@ -34,17 +34,15 @@
         %li#coverphotos{class: active_li('cover_photos')}
           = link_to t('admin2.sidebar.design.cover_photos'), admin2_design_cover_photos_path
         %li#landingpage{class: active_li('landing_page')}
-          = link_to t('admin2.sidebar.design.landing_page'), admin2_design_landing_page_index_path
+          = link_to t('admin2.sidebar.design.landing_page'), admin2_landing_page_path
         %li#topbar{class: active_li('topbar')}
           = link_to t('admin2.sidebar.design.topbar'), admin2_design_topbar_index_path
         %li#footer{class: active_li('footer')}
           = link_to t('admin2.sidebar.design.footer'), admin2_design_footer_index_path
         %li#display{class: active_li('display')}
           = link_to t('admin2.sidebar.design.display'), admin2_design_display_index_path
-        %li#experimental{class: active_li('experimental')}
-          = link_to t('admin2.sidebar.design.experimental'), admin2_design_experimental_index_path
       / Divider
-      %hr/
+      %hr
       / Users
       %ul.category-title
         %li
@@ -52,8 +50,8 @@
       %ul#users.collapse.subtitle{class: expand_ul('users')}
         %li#manageusers{class: active_li('manage_users')}
           = link_to t('admin2.sidebar.users.manage_users'), admin2_users_manage_users_path(direction: :desc, sort: :join_date)
-        %li#userfields
-          %a{:href => 'user-fields.php'} User fields
+        %li#userfields{class: active_li('user_fields')}
+          = link_to t('admin2.sidebar.users.user_fields'), admin2_users_user_fields_path
         %li#signuplogin{class: active_li('signup_login')}
           = link_to t('admin2.sidebar.users.signup_login'), admin2_users_signup_login_index_path
         %li#userrights{class: active_li('user_rights')}
@@ -69,10 +67,10 @@
           = link_to t('admin2.sidebar.listings.manage_listings'), admin2_listings_manage_listings_path(direction: 'desc', sort: 'updated')
         %li#categories{class: active_li('categories')}
           = link_to t('admin2.sidebar.listings.categories'), admin2_listings_categories_path
-        %li#ordertypes
-          %a{:href => 'order-types.php'} Order types
-        %li#listingfields
-          %a{:href => 'listing-fields.php'} Listing fields
+        %li#ordertypes{class: active_li('order_types')}
+          = link_to t('admin2.sidebar.listings.order_types'), admin2_listings_order_types_path
+        %li#listingfields{class: active_li('listing_fields')}
+          = link_to t('admin2.sidebar.listings.listing_fields'), admin2_listings_listing_fields_path
         %li#listingapproval{class: active_li('listing_approval')}
           = link_to t('admin2.sidebar.listings.listing_approval'), admin2_listings_listing_approval_index_path
         %li#listingcomments{class: active_li('listing_comments')}
@@ -93,19 +91,23 @@
       / Divider
       %hr
       / Payment system
-      - if PaypalHelper.paypal_active?(@current_community.id) || StripeHelper.stripe_provisioned?(@current_community.id)
+      - stripe_allowed = StripeHelper.stripe_provisioned?(@current_community.id)
+      - paypal_allowed = PaypalHelper.paypal_provisioned?(@current_community.id)
+      - if paypal_allowed || stripe_allowed
         %ul.category-title
           %li
             = link_to t('admin2.sidebar.payment_group'), '#paymentsystem', class: %i[dropdown-toggle], 'aria-controls' => 'paymentsystem', 'aria-expanded' => 'false', 'data-toggle' => 'collapse', role: :button
         %ul#paymentsystem.collapse.subtitle{class: expand_ul('payment_system')}
           %li#countrycurrency{class: active_li('country_currencies')}
             = link_to t('admin2.sidebar.payment_system.country_currency'), admin2_payment_system_country_currencies_path
-          %li#transactionsize
-            %a{:href => 'transaction-size.php'} Transaction size
-          %li#paypal
-            %a{:href => 'paypal.php'} PayPal
-          %li#stripe
-            %a{:href => 'stripe.php'} Stripe
+          %li#transactionsize{class: active_li('transaction_size')}
+            = link_to t('admin2.sidebar.payment_system.transaction_size'), admin2_payment_system_transaction_size_index_path
+          - if paypal_allowed
+            %li#paypal{class: active_li('paypal')}
+              = link_to t('admin2.sidebar.payment_system.paypal'), admin2_payment_system_paypal_index_path
+          - if stripe_allowed
+            %li#stripe{class: active_li('stripe')}
+              = link_to t('admin2.sidebar.payment_system.stripe'), admin2_payment_system_stripe_index_path
       / Email
       %ul.category-title
         %li
@@ -117,8 +119,8 @@
           = link_to t('admin2.sidebar.emails.welcome_email'), admin2_emails_welcome_emails_path
         %li#automaticnewsletter{class: active_li('newsletters')}
           = link_to t('admin2.sidebar.emails.automatic_newsletter'), admin2_emails_newsletters_path
-        %li#customoutgoingaddress
-          %a{:href => 'custom-outgoing-address.php'} Custom outgoing address
+        %li#customoutgoingaddress{class: active_li('outgoing_emails')}
+          = link_to t('admin2.sidebar.emails.custom_outgoing_address'), admin2_emails_outgoing_emails_path
       / Search & Location
       - if FeatureFlagHelper.location_search_available
         %ul.category-title
@@ -176,6 +178,8 @@
       %ul#advanced.collapse.subtitle{class: expand_ul('advanced')}
         %li#customscript{class: active_li('custom_scripts')}
           = link_to t('admin2.sidebar.advanced.custom_script'), admin2_advanced_custom_scripts_path
+        %li#experimental{class: active_li('experimental')}
+          = link_to t('admin2.sidebar.advanced.experimental'), admin2_advanced_experimental_index_path
         %li#deletemarketplace{class: active_li('delete_marketplaces')}
           = link_to t('admin2.sidebar.advanced.delete_marketplace'), admin2_advanced_delete_marketplaces_path
   / Bottom links for branded links
@@ -189,3 +193,5 @@
         = link_to t('admin2.sidebar.marketplace_guide'), 'https://www.sharetribe.com/academy/guide/?utm_source=marketplaceadminpanel&utm_medium=referral&utm_campaign=leftnavi', rel: :noopener, target: :_blank
       %li
         = link_to t('admin2.sidebar.what_new'), 'https://www.sharetribe.com/products/go/updates?utm_source=marketplaceadminpanel&utm_medium=referral&utm_campaign=leftnavi', rel: :noopener, target: :_blank
+      %li
+        = link_to t('admin2.sidebar.legacy_admin_panel'), admin_path

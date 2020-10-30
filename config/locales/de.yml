@@ -74,7 +74,7 @@ de:
         community_description_display: "Beschreibung auf der Startseite oder Custom Landing Page anzeigen"
         edit_community_description_description: "Dies wird den Nutzern auf der Startseite des Marktplatzes angezeigt, die nicht angemeldet sind. %{see_how_it_looks_like}."
         edit_community_description_description_hideable: "Das hier wird auf Webbrowsern, Suchmaschinen und sozialen Netzwerken angezeigt. Du kannst es auch auf der Startseite deines Marktplatzes den Nutzern anzeigen, die nicht angemeldet sind. %{see_how_it_looks_like}."
-        community_search_placeholder: "Hilfe-Text durchsuchen"
+        community_search_placeholder: "Hilfe-Text der Suchleiste"
         edit_community_search_placeholder_description: "Dies wird auf der Homepage des Marktes als Platzhaltertext in der Suchleiste angezeigt. %{see_how_it_looks_like}"
         private_community_homepage_content: "Privater Inhalt der Marktplatz Startseite"
         edit_private_community_homepage_content_description: "Dieser Content ist nur bei privaten Marktplätzen sichtbar. User, die nicht eingeloggt sind, sehen den Text auf der Startseite. Beschreibe hier deinen Marktplatz und wie man ihm beitreten kann. Du kannst hier außerdem Bilder, Videos und HTML-Content hinzufügen. %{see_how_it_looks_like}."
@@ -133,7 +133,7 @@ de:
         map: Karte
         name_display_type: "Art der Namensdarstellung"
         name_display_type_instructions_text: "Entscheide, wie der Name jedes Benutzers auf der Seite angezeigt werden soll."
-        full_name: "Ganzer Name (Vorname zuletzt)"
+        full_name: "Ganzer Name (Vorname Nachname)"
         first_name_with_initial: "Vorname mit Initial (erster Buchstabe)"
         first_name_only: "Nur der Vorname"
         invalid_color_code: "Der Farben Code sollte 6 Ziffern oder Buchstaben A-F haben, zum Beispiel D96E21"
@@ -637,7 +637,7 @@ de:
           reject: Ablehnen
           cancel: Abbrechen
       user_fields:
-        user_fields: "Benutzer Feld"
+        user_fields: Benutzerfelder
       footer:
         footer: Fußzeile
         offer_pro: "Sharetribe-Branding aus der Fußzeile entfernen und die Fußzeile konfigurieren durch %{upgrade_pro_plan_link}"
@@ -677,6 +677,38 @@ de:
         when_you_change_your_sharetribe_domain: "Wenn du deine Sharetribe-Domain änderst, werden alle deine URL-Adressen automatisch geändert. Du wirst zu deiner neuen Domain weitergeleitet. Du und deine Kunden müssen sich erneut einloggen. Deine alte Domain wird nicht mit der neuen verlinkt sein oder zu der neuen Domain weiterleiten. Die alte Domain wird wieder für anderen Verfügbar sein."
         would_you_like_to_proceed: "Möchtest du weitergehen?"
         change: Ändern
+        you_can_now_enable_a_custom_domain: ~
+        read_more_about_the_set_up_of_your_custom_domain: ~
+        set_custom_domain: ~
+        in_order_to_set_your_custom_domain: ~
+        instructions_to_point_your_domain: ~
+        main_domain: ~
+        main_domain_info_text: ~
+        main_domain_link_text: ~
+        check_domain: ~
+        domain_being_checked: ~
+        status: ~
+        checks_pending: ~
+        please_check_back: ~
+        checks_not_passed: ~
+        check_the_domain_again_info: ~
+        check_the_domain_again: ~
+        use_another_domain: ~
+        checks_passed: ~
+        domain_being_set_up: ~
+        setup_in_progress: ~
+        setup_check_back: ~
+        setup_check_back_critical_error: ~
+        setup_failed: ~
+        setup_the_domain_again_info: ~
+        setup_the_domain_again: ~
+        summary:
+          main_domain: ~
+          redirect: ~
+        check_another_domain: ~
+        checks_passed_with_warning: ~
+        this_domain_is_not_configured_correctly: ~
+        start_using_the_custom_domain: ~
       landing_pages:
         landing_pages: "Landing Page"
         info_1: "Die Landing Page ist vielleicht die wichtigste Seite deines Marktplatzes. Sie ist die erste Seite, die deine Nutzer sehen, etwa wie die Eingangstür deines Hauses. Du hast nur einigen Sekunden, deine Kunden davon zu überzeugen, dass sie auf der Seite bleiben sollen. Die Seite sollte attraktiv sein, und das Leistungsversprechen deiner Seite sollte klar und verlockend sein."
@@ -823,8 +855,8 @@ de:
           main_title: Haupttitel
           column_header: "Spalte %{index}"
           column_title: "Spalte %{index} -Titel"
-          web_viewer: "Web Viewer"
-          column_icon_info: "Du kannst dein Icon hier wählen: %{link}. Wenn du das Icon gewählt hast, kopiere die 'Directory path' (zum Beispiel '01-InterfaceEssential/01-Home/house-2.svg') und sie hier einfügen."
+          column_icon_info: ~
+          column_icon_info_link: ~
           column_icon: "Spalte %{index} -Symbol"
           column_paragraph: "Spalte %{index} -Paragraph"
           column_button: "Spalte %{index} -Taste"
@@ -897,9 +929,9 @@ de:
         file: Datei
         location: Standort
     person_custom_fields:
-      saving_failed: "Speicherung Benutzer Feld fehlgeschlagen"
+      saving_failed: "Speicherung der Benutzerfelder fehlgeschlagen"
       index:
-        user_fields: "Benutzer Felder"
+        user_fields: Benutzerfelder
         field_title: "Feld Name"
         field_type: "Feld Typ"
         signup: Anmeldung
@@ -912,14 +944,14 @@ de:
         allow_decimals: "Dezimalstellen erlauben"
         add_option: "Option hinzufügen"
       new:
-        new_user_field: "Neues Benutzer Feld"
+        new_user_field: "Neues Benutzerfeld"
       form:
         field_required:
           this_field_is_required: "Dieses Feld zum Pflichtfeld machen, wenn eine Registrierung auf dem Marktplatz erfolgt"
           this_field_is_required_checkbox: "Dieses Feld zum Pflichtfeld machen, wenn eine Registrierung auf dem Marktplatz erfolgt (Nutzer muss mindestens eine Option auswählen)"
           this_field_is_public: "Dieses Feld in der öffentlichen Profilseite anzeigen"
       edit:
-        edit_user_field: "Benutzer Feld anpassen %{field_name}"
+        edit_user_field: "Benutzerfeld %{field_name} anpassen"
     emails:
       new:
         send_email_to_members: "E-Mail an alle Mitglieder senden"
@@ -1584,11 +1616,11 @@ de:
       has_commented_listing_you_follow_in_kassi: "%{author} hat den Eintrag %{listing} kommentiert, dem du in %{service_name} folgst."
     new_message:
       view_message: "Nachricht ansehen"
-      has_sent_you_a_message_in_kassi: "%{sender} hat dir eine Nachricht auf %{service_name} gesendet."
-      you_have_a_new_message: "Du hast eine neue Nachricht von %{sender_name} auf %{service_name}"
+      has_sent_you_a_message_in_kassi: ~
+      you_have_a_new_message: ~
     new_message_v2:
       headline: "du hast eine Nachricht!"
-      reply: "Antwort an %{sender}"
+      reply: ~
     new_payment:
       new_payment: "Du hast eine neue Zahlung erhalten"
       price_per_unit_type: "Preis pro %{unit_type}"

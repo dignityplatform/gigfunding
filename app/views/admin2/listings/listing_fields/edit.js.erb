@@ -1,0 +1,8 @@
+var popup = $('#listingFieldsEditModal');
+if (popup.length) {
+    popup.remove();
+}
+
+$('body').append('<%= j render 'admin2/listings/listing_fields/edit_popup', custom_field: @custom_field %>');
+$('#listingFieldsEditModal').modal('show');
+initValidate('<%= I18n.locale %>', '#submit_edit_listing_field');

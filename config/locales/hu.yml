@@ -678,6 +678,38 @@ hu:
         when_you_change_your_sharetribe_domain: "Amikor megváltoztatja a Sharetribe domainjét, az összes URL automatikusan megváltozik. A rendszer átirányítja a piac új címére. Önnek és a felhasználóknak újra be kell jelentkezniük. A korábbi piactér domainjét semmilyen módon nem köti össze vagy irányítja át az új domainhez. A régi domain mások számára is elérhető lesz."
         would_you_like_to_proceed: "Szeretné folytatni?"
         change: Változás
+        you_can_now_enable_a_custom_domain: ~
+        read_more_about_the_set_up_of_your_custom_domain: ~
+        set_custom_domain: ~
+        in_order_to_set_your_custom_domain: ~
+        instructions_to_point_your_domain: ~
+        main_domain: ~
+        main_domain_info_text: ~
+        main_domain_link_text: ~
+        check_domain: ~
+        domain_being_checked: ~
+        status: ~
+        checks_pending: ~
+        please_check_back: ~
+        checks_not_passed: ~
+        check_the_domain_again_info: ~
+        check_the_domain_again: ~
+        use_another_domain: ~
+        checks_passed: ~
+        domain_being_set_up: ~
+        setup_in_progress: ~
+        setup_check_back: ~
+        setup_check_back_critical_error: ~
+        setup_failed: ~
+        setup_the_domain_again_info: ~
+        setup_the_domain_again: ~
+        summary:
+          main_domain: ~
+          redirect: ~
+        check_another_domain: ~
+        checks_passed_with_warning: ~
+        this_domain_is_not_configured_correctly: ~
+        start_using_the_custom_domain: ~
       landing_pages:
         landing_pages: Nyitóoldal
         info_1: "A kezdőoldal talán a piactér legfontosabb oldala. Ez az első oldal, amelyet a látogatók látnak - olyan, mint az Ön házának a bejárata. Csak néhány másodperc van arra, hogy meggyőzze az új látogatókat arról, hogy felfedezzék az Ön oldalát. Az oldalnak megnyerőnek, ajánlatának érthetőnek és vonzónak kell lennie."
@@ -824,8 +856,8 @@ hu:
           main_title: Főcím
           column_header: "Oszlop %{index}"
           column_title: "Oszlop %{index} cím"
-          web_viewer: webfigyelő
-          column_icon_info: "Kiválaszthatja az ikonját ezen a linken %{link}. Miután kiválasztotta az ikont, másolja ki az 'elérési utat' (például '01 -Interface Essential / 01-Home / house-2.svg '), és illessze be ide."
+          column_icon_info: ~
+          column_icon_info_link: ~
           column_icon: "Oszlop %{index} ikon"
           column_paragraph: "Oszlop %{index} bekezdés"
           column_button: "Oszlop %{index} gomb"
@@ -1585,11 +1617,11 @@ hu:
       has_commented_listing_you_follow_in_kassi: "%{author} hozzászólt a hirdetéshez '%{listing}' amelyet ön is követ a %{service_name} oldalon."
     new_message:
       view_message: "Üzenet megtekintése"
-      has_sent_you_a_message_in_kassi: "%{sender} üzenetet küldött Önnek itt: %{service_name}"
-      you_have_a_new_message: "Egy új  %{service_name} üzenet tőle: %{sender_name}"
+      has_sent_you_a_message_in_kassi: ~
+      you_have_a_new_message: ~
     new_message_v2:
       headline: "Üzenete érkezett!"
-      reply: "Válasz a feladónak: %{sender}"
+      reply: ~
     new_payment:
       new_payment: "Új utalást kellett kapjon"
       price_per_unit_type: "Ár: %{unit_type}"

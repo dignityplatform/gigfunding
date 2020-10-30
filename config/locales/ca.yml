@@ -677,6 +677,38 @@ ca:
         when_you_change_your_sharetribe_domain: "Quan canvieu el domini de Sharetribe, tots els vostres URL canviaran automàticament. Se us redirigirà a la nova adreça del vostre mercat. Vostè i els usuaris hauran de tornar a iniciar la sessió. El vostre domini anterior del mercat no serà en cap cas enllaçat ni redirigit al nou. El domini antic quedarà disponible per a que l’utilitzin altres."
         would_you_like_to_proceed: "Voleu continuar?"
         change: Canviar
+        you_can_now_enable_a_custom_domain: ~
+        read_more_about_the_set_up_of_your_custom_domain: ~
+        set_custom_domain: ~
+        in_order_to_set_your_custom_domain: ~
+        instructions_to_point_your_domain: ~
+        main_domain: "Domini principal"
+        main_domain_info_text: ~
+        main_domain_link_text: ~
+        check_domain: "Comprovar domini"
+        domain_being_checked: "Comprovant domini:"
+        status: "Estat:"
+        checks_pending: "Comprovacions pendents:"
+        please_check_back: ~
+        checks_not_passed: "Comprovacions no passades!"
+        check_the_domain_again_info: "Assegureu-vos que els vostres registres DNS estan configurats correctament."
+        check_the_domain_again: "Comprovar el domini altre cop"
+        use_another_domain: "Utilitzar un altre domini"
+        checks_passed: "Comprovacions passades!"
+        domain_being_set_up: ~
+        setup_in_progress: ~
+        setup_check_back: ~
+        setup_check_back_critical_error: ~
+        setup_failed: ~
+        setup_the_domain_again_info: ~
+        setup_the_domain_again: ~
+        summary:
+          main_domain: ~
+          redirect: ~
+        check_another_domain: "Comprovar un altre domini"
+        checks_passed_with_warning: ~
+        this_domain_is_not_configured_correctly: ~
+        start_using_the_custom_domain: ~
       landing_pages:
         landing_pages: "Pàgina de destinació"
         info_1: "És possible que la pàgina de destinació sigui la pàgina més important del vostre mercat. És la primera pàgina que veuen els visitants, com la porta principal de casa vostra. Només tens uns segons per convèncer els nous visitants que explorin el vostre lloc. La pàgina ha de ser atractiva i la vostra proposta de valor ha de ser clara i atractiva."
@@ -823,8 +855,8 @@ ca:
           main_title: "Títol principal"
           column_header: "Columna %{index}"
           column_title: "Títol de la columna %{index}"
-          web_viewer: "visualitzador en línia"
-          column_icon_info: "Pots triar la icona d'aquesta columna en aquest %{link}. Una vegada que seleccionis la icona còpia tot el \"Directory path\" (per exemple '01 -Interface Essential / 01-Home / house-2.svg ') i enganxa'l aquí."
+          column_icon_info: "Per afegir icones cal un pas manual per part de l’equip de Sharetribe. Si us plau, %{link} per seleccionar la icona que hagueu triat i compartiu-la amb l'assistència de Sharetribe."
+          column_icon_info_link: "seguiu les instruccions d'aquest article"
           column_icon: "Icona de la columna %{index}"
           column_paragraph: "Paràgraf de la columna %{index}"
           column_button: "Botó de la columna %{index}"
@@ -1584,11 +1616,11 @@ ca:
       has_commented_listing_you_follow_in_kassi: "%{author} ha comentat a l'anunci '%{listing}' que estàs seguint a %{service_name}."
     new_message:
       view_message: "Veure missatge"
-      has_sent_you_a_message_in_kassi: "%{sender} t'ha enviat un missatge en %{service_name}."
-      you_have_a_new_message: "Tens un nou missatge en %{service_name} de %{sender_name}"
+      has_sent_you_a_message_in_kassi: "%{sender} us ha enviat un missatge. Aneu a %{service_name} per respondre."
+      you_have_a_new_message: "Tens un nou missatge de %{sender_name} a %{service_name}"
     new_message_v2:
       headline: "tens un missatge"
-      reply: "Respondre a %{sender}"
+      reply: "Cliqueu aquí per respondre a %{sender}"
     new_payment:
       new_payment: "Has rebut un nou pagament"
       price_per_unit_type: "Preu per %{unit_type}"
@@ -2846,10 +2878,10 @@ ca:
       newsletters: "Correus electrònics dels administradors"
       community_updates: Butlletins
       email_about_confirm_reminders: "... m'he oblidat de confirmar una comanda com a completada"
-      email_about_new_comments_to_own_listing: "...algú ha comentat la meva oferta o sol·licitud"
+      email_about_new_comments_to_own_listing: "...algú ha comentat al meu anunci"
       email_about_new_messages: "...algú m'envia un missatge"
       email_about_new_received_testimonials: "...algú em dóna suggeriments"
-      email_about_testimonial_reminders: "...he oblidat fer un suggeriment o donar informació sobre un esdeveniment"
+      email_about_testimonial_reminders: "...he oblidat fer un suggeriment o donar informació sobre una comanda"
       email_daily_community_updates: "Envieu-me un butlletí <b>diari</b> si hi ha anuncis nous"
       email_weekly_community_updates: "Envieu-me un butlletí <b>setmanal</b> si hi ha anuncis nous"
       do_not_email_community_updates: "No m’envieu butlletins"
@@ -2990,7 +3022,7 @@ ca:
       december: Des
     today: Avui
     clear: Reiniciar
-    format: mm/dd/aaaa
+    format: mm/dd/yyyy
   time:
     formats:
       short: "%b %e %Y al %H:%M"
