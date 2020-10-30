@@ -312,7 +312,6 @@ class PreauthorizeTransactionsController < ApplicationController
       })
     end
 
-
     if(opts[:delivery_method] == :shipping)
       transaction[:shipping_price] = opts[:shipping_price]
     end
