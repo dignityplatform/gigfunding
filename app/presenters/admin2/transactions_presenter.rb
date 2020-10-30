@@ -21,12 +21,12 @@ class Admin2::TransactionsPresenter
   def sorted_statuses
     statuses = FILTER_STATUSES
     statuses.map {|status|
-      ["#{I18n.t("admin.communities.transactions.status_filter.#{status}")} (#{count_by_status(status)})", status]
+      ["#{I18n.t("admin2.manage_transactions.status_filter.#{status}")} (#{count_by_status(status)})", status]
     }.sort_by{|translation, _status| collator.get_sort_key(translation) }
   end
 
   def count_by_status(status = nil)
-    scope = Transaction.exist.by_community(community.id)
+    scope = service.transactions_scope.unscope(where: :current_state)
     if status.present?
       scope.where(current_state: status).count
     else
@@ -132,7 +132,7 @@ class Admin2::TransactionsPresenter
   end
 
   def has_provider_fee
-    fee.present? && fee > 0
+    fee.present? && fee.positive?
   end
 
   def marketplace_collects
@@ -142,7 +142,7 @@ class Admin2::TransactionsPresenter
   def messages_and_actions
     @messages_and_actions ||= TransactionViewUtils.merge_messages_and_transitions(
       TransactionViewUtils.conversation_messages(transaction.conversation.messages, community.name_display_type),
-      TransactionViewUtils.transition_messages(transaction, transaction.conversation, community.name_display_type)).reverse
+      TransactionViewUtils.transition_messages(transaction, transaction.conversation, community)).reverse
   end
 
   def preauthorized?

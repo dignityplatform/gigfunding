@@ -27,7 +27,7 @@ module MarkdownHelper
   end
 
   def markdown_renderer_admin
-    @markdown_renderer ||= Redcarpet::Markdown.new(
+    @markdown_renderer_admin ||= Redcarpet::Markdown.new(
       Redcarpet::Render::HTML.new(),
       strikethrough: true,
       underline: true,

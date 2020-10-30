@@ -7,14 +7,14 @@ module WaitSteps
 
   matcher :become_true do
     match do |block|
-      begin
+
         Timeout.timeout(Capybara.default_max_wait_time) do
           sleep(0.05) until value = block.call
           value
         end
-      rescue TimeoutError
+    rescue TimeoutError
         false
-      end
+
     end
 
     supports_block_expectations

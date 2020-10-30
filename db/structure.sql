@@ -599,6 +599,25 @@ CREATE TABLE `delayed_jobs` (
   KEY `delayed_jobs_priority` (`priority`,`run_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `domain_setups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `domain_setups` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `community_id` bigint DEFAULT NULL,
+  `domain` varchar(255) NOT NULL,
+  `state` varchar(255) NOT NULL,
+  `error` varchar(255) DEFAULT NULL,
+  `critical_error` tinyint(1) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_domain_setups_on_domain` (`domain`),
+  UNIQUE KEY `index_domain_setups_on_community_id` (`community_id`),
+  KEY `index_domain_setups_on_state_and_updated_at` (`state`,`updated_at`),
+  KEY `index_domain_setups_on_critical_error` (`critical_error`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `emails`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -2518,6 +2537,7 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20200917160415'),
 ('20200917173642'),
 ('20200917220120'),
-('20200918184345');
+('20200918184345'),
+('20201012091009');
 
 

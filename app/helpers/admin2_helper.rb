@@ -11,18 +11,22 @@ module Admin2Helper
   def expand_rules
     {
       general: %w[essentials privacy static_content admin_notifications],
-      design: %w[logos_color landing_page display experimental cover_photos topbar footer],
-      users: %w[manage_users signup_login user_rights invitations],
-      listings: %w[listing_approval listing_comments manage_listings categories],
+      design: %w[logos_color landing_page display cover_photos topbar footer],
+      users: %w[manage_users signup_login user_rights invitations user_fields],
+      listings: %w[listing_approval listing_comments manage_listings order_types categories listing_fields],
       transactions_reviews: %w[config_transactions manage_transactions conversations manage_reviews],
-      payment_system: %w[country_currencies],
-      emails: %w[newsletters email_users welcome_emails],
+      payment_system: %w[country_currencies transaction_size stripe paypal],
+      emails: %w[newsletters email_users welcome_emails outgoing_emails],
       search_location: %w[search locations],
       social_media: %w[image_tags twitter],
       seo: %w[sitemap landing_pages search_pages listing_pages category_pages profile_pages google_console],
       analytics: %w[google sharetribe google_manager],
-      advanced: %w[custom_scripts delete_marketplaces]
+      advanced: %w[custom_scripts delete_marketplaces experimental]
     }
+  end
+
+  def admin2_landing_page_path
+    @current_plan.try(:[], :features).try(:[], :landing_page) ? admin_landing_page_versions_path : admin2_design_landing_page_index_path
   end
 
   def community_name_tag(locale)
@@ -146,10 +150,46 @@ module Admin2Helper
   def admin_email_options
     options = %i[all_users posting_allowed with_listing with_listing_no_payment with_payment_no_listing no_listing_no_payment]
     options.delete(:posting_allowed) unless @current_community.require_verification_to_post_listings
-    options.map { |option| [I18n.t("admin.emails.new.recipients.options.#{option}"), option] }
+    options.map { |option| [I18n.t("admin2.email_users.recipients.options.#{option}"), option] }
   end
 
   def email_languages
     [[t('admin2.email_users.any_language'), 'any']] | available_locales
+  end
+
+  def confirm_opts_order_type(shape)
+    count = @current_community.listings.currently_open.where(listing_shape_id: shape.id).count
+    if count.positive?
+      { url: admin2_listings_order_type_path(shape),
+        caption: t('admin2.order_types.delete_caption', order_type: t(shape.name_tr_key)),
+        notice: t('admin2.order_types.confirm_delete_order_type', count: count) }
+    else
+      { url: admin2_listings_order_type_path(shape),
+        caption: t('admin2.order_types.delete_caption', order_type: t(shape.name_tr_key)),
+        notice: t('admin2.order_types.confirm_delete_simple_order_type') }
+    end
+  end
+
+  def transaction_status_class(status)
+    case status
+    when 'paid', 'confirmed', 'free', 'refunded'
+      'positive'
+    when 'payment_intent_action_expired', 'dismissed', 'rejected'
+      'neutral'
+    when 'canceled', 'disputed'
+      'negative'
+    when 'pending', 'preauthorized'
+      'attention'
+    end
+  end
+
+  def date_format(date)
+    base = "#{I18n.l(date, format: :short)} (UTC)"
+    base.slice!(DateTime.current.year.to_s) if DateTime.current.year == date.year
+    base
+  end
+
+  def layout_class
+    controller_name == 'dashboard' ? 'dashboard-content-wrapper' : 'content-card'
   end
 end

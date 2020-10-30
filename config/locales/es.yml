@@ -177,7 +177,7 @@ es:
         status_resent: "Correo de verificación reenviado a %{email}. %{resend_link}"
         resend_link: Reenviar
         invalid_email_error: "Formato de correo electrónico para '%{email}' es inválido"
-        invalid_email_address: ~
+        invalid_email_address: "Por favor añade una dirección de email válida"
         invalid_email_domain: "La dirección de correo '%{email}' usa un proveedor de correo no soportado por nuestro sistema: '%{domain}'. %{invalid_email_domain_read_more_link}"
         invalid_email_domain_read_more_link: "Lee el artículo en nuestro centro de ayuda para obtener más información."
         unknown_error: "Algo salió mal"
@@ -677,6 +677,38 @@ es:
         when_you_change_your_sharetribe_domain: "Cuando cambias tu dominio de Sharetribe, todas tus URL automáticamente cambian. Serás redirigido a la nueva dirección. Tus usuarios y tú tendrán que iniciar sesión nuevamente. Tu dominio anterior no estará conectado a tu nuevo dominio o hará redirección. Tu dominio viejo quedará disponible para otros usuarios."
         would_you_like_to_proceed: "¿Quieres continuar?"
         change: Cambiar
+        you_can_now_enable_a_custom_domain: ~
+        read_more_about_the_set_up_of_your_custom_domain: ~
+        set_custom_domain: ~
+        in_order_to_set_your_custom_domain: ~
+        instructions_to_point_your_domain: ~
+        main_domain: ~
+        main_domain_info_text: ~
+        main_domain_link_text: ~
+        check_domain: ~
+        domain_being_checked: ~
+        status: ~
+        checks_pending: ~
+        please_check_back: ~
+        checks_not_passed: ~
+        check_the_domain_again_info: ~
+        check_the_domain_again: ~
+        use_another_domain: ~
+        checks_passed: ~
+        domain_being_set_up: ~
+        setup_in_progress: ~
+        setup_check_back: ~
+        setup_check_back_critical_error: ~
+        setup_failed: ~
+        setup_the_domain_again_info: ~
+        setup_the_domain_again: ~
+        summary:
+          main_domain: ~
+          redirect: ~
+        check_another_domain: ~
+        checks_passed_with_warning: ~
+        this_domain_is_not_configured_correctly: ~
+        start_using_the_custom_domain: ~
       landing_pages:
         landing_pages: "Página de inicio"
         info_1: "La página de inicio es quizás la página más importante de tu marketplace. Es la primera página que los visitantes ven- casi como la fachada de tu casa. Tienes tan sólo unos segundos para convencer a nuevos visitantes para que exploren tu sitio. La página necesita ser atractiva y tu propuesta clara y tentadora."
@@ -823,8 +855,8 @@ es:
           main_title: "Título principal"
           column_header: "Columna %{index}"
           column_title: "Título de la columna %{index}"
-          web_viewer: "visualizador en línea"
-          column_icon_info: "Puedes elegir el ícono de esta columna en este %{link}. Una vez que selecciones el ícono copia todo el \"Directory path\" (por ejemplo '01-Interface Essential/01-Home/house-2.svg') y pégalo aquí."
+          column_icon_info: "Añadir íconos requiere un cambio manual por parte del equipo de Sharetribe. Por favor, %{link} para seleccionar el ícono que quieres y déjaselo saber al equipo de Sharetribe."
+          column_icon_info_link: "sigue las instrucciones en este artículo"
           column_icon: "Ícono de la columna %{index}"
           column_paragraph: "Párrafo de la columna %{index}"
           column_button: "Botón de la columna %{index}"
@@ -1492,7 +1524,7 @@ es:
       payment_settings_link: "configuración de pagos"
     payment_settings_reminder_v2:
       fill_payout_details: "Completa tus detalles de pago"
-      you_have_added_listing_with_payment: "Has añadido un anuncio %{listing_link} con pagos en línea. Sin embargo, hemos notado que no has añadido tus detalles de pago. Para poder recibir pagos en línea debes añadir tus información de pago."
+      you_have_added_listing_with_payment: "Has añadido un anuncio %{listing_link} con pagos en línea. Sin embargo, hemos notado que no has añadido tus detalles de pago. Para poder recibir pagos en línea debes añadir tu información de pago."
     transaction_confirmed:
       here_is_a_message_from: "Tienes un mensaje de %{other_party_given_name}:"
       request_marked_as_confirmed: "Solicitud completada - Recuerda dar una valoración"
@@ -1584,11 +1616,11 @@ es:
       has_commented_listing_you_follow_in_kassi: "%{author} ha comentado en el anuncio '%{listing}' que estás siguiendo en %{service_name}."
     new_message:
       view_message: "Ver mensaje"
-      has_sent_you_a_message_in_kassi: "%{sender} te ha enviado un mensaje en %{service_name}."
-      you_have_a_new_message: "Tienes un nuevo mensaje de %{sender_name} en %{service_name}"
+      has_sent_you_a_message_in_kassi: ~
+      you_have_a_new_message: ~
     new_message_v2:
       headline: "tienes un mensaje."
-      reply: "Responder a %{sender}"
+      reply: ~
     new_payment:
       new_payment: "Has recibido un nuevo pago"
       price_per_unit_type: "Precio por %{unit_type}"
@@ -1703,7 +1735,7 @@ es:
       transaction_requested_by_user: "Buenas noticias! %{requester} está interesado en \"%{listing_title}\" y ya ha autorizado el pago por este anuncio."
       you_have_time_to_accept: "Debes aceptar o rechazar la solicitud dentro de %{payment_expires_in}."
       if_you_do_accept: "Si aceptas la transacción durante este tiempo, recibirás el dinero inmediatamente en tu cuenta."
-      if_you_do_accept_stripe: "Si aceptas la solicitud dentro de este periodo, el pago será completado. Recibirás el dinero directamente en tu cuenta de banco después de que hayas completado %{listing_title} para %{requester}."
+      if_you_do_accept_stripe: "Si aceptas la solicitud dentro de este periodo, el pago será cargado y retenido. Recibirás el dinero en tu cuenta de banco sólo cuando hayas completado %{listing_title} para %{requester}."
       if_you_do_not_accept: "Si rechazas la transacción o no aceptas la oferta durante este tiempo, la transacción se cancelará automáticamente, no se le cobrará a %{requester} y no recibirás el pago."
       click_here_to_reply: "Haz clic aquí para responder a la solicitud"
     transaction_preauthorized_v2:
@@ -2303,7 +2335,7 @@ es:
       edit_listing: "Editar anuncio"
       reopen_listing: "Reactivar anuncio"
       move_to_top: "Mover a la parte superior de la página principal"
-      show_in_updates_email: "Mostrar en el próximo correo de actualizaciones de la comunidad."
+      show_in_updates_email: "Mostrar en el próximo correo de actualizaciones de la comunidad"
       show_in_updates_email_loading: Cargando...
       show_in_updates_email_error: "No se ha podido conectar con el servidor. Por favor, actualiza la página y vuelve a intentarlo."
       show_in_updates_email_success: "Este producto será mostrado en el próximo correo de actualización para los usuarios"
@@ -2927,7 +2959,7 @@ es:
       slightly_better_than_expected: "Un poco mejor de lo esperado"
       slightly_less_than_expected: "Un poco peor de lo esperado"
       textual_feedback: "Danos tu sugerencia textual"
-      this_will_be_shown_in_profile: "La valoración que tú des será visible para otros usuarios en la página del perfil de %{person}. Esto ayudará a los otros miembros de esta comunidad a evaluar si %{person} es una persona confiable."
+      this_will_be_shown_in_profile: "La valoración que tú des será visible para otros usuarios en la página del perfil de %{person}. Esto ayudará a los otros miembros de esta comunidad a evaluar si %{person} es un usuario confiable."
       positive: Positiva
       negative: Negativa
       default_textual_feedback: "Todo perfecto, muchas gracias."
@@ -3256,7 +3288,7 @@ es:
       ssn_last_4: "Número de Seguridad Social (últimos 4 dígitos)"
       hong_kong_identity_card: "Hong Kong Identity Card Number (HKID)"
       singapore_identity_card: "Tarjeta de Identidad de Registro Nacional (NRIC) o Número de Identificación Extranjero (FIN)"
-      mexico_id_number: "Clave única de registro de población (CURP)"
+      mexico_id_number: "Registro Federal de Contribuyente (RFC)"
       messages:
         social_insurance_number: "debe ser un número de seguridad social (SIN) válido"
   payment_settings:
