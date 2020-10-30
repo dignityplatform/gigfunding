@@ -80,8 +80,9 @@ shared/log/
 shared/log/
 shared/pids/
 
-# Ignore master key for decrypting credentials and more.
-/config/master.key
-
 .sql
 file-exports/**/*
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
+**/*.key
