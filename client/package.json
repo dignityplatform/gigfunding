@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@babel/cli": "7.4.4",
-    "@babel/core": "^7.4.4",
+    "@babel/core": "^7.12.3",
     "@babel/plugin-proposal-decorators": "7.4.4",
     "@babel/plugin-proposal-export-namespace-from": "7.2.0",
     "@babel/plugin-proposal-function-sent": "7.2.0",
@@ -86,7 +86,7 @@
     "whatwg-fetch": "2.0.1"
   },
   "devDependencies": {
-    "@babel/plugin-external-helpers": "^7.10.1",
+    "@babel/plugin-external-helpers": "^7.12.1",
     "@babel/register": "7.4.4",
     "@storybook/addon-actions": "^4.1.18",
     "@storybook/addon-links": "^4.1.18",
