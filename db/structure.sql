@@ -601,10 +601,10 @@ CREATE TABLE `delayed_jobs` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `domain_setups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `domain_setups` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `community_id` bigint(20) DEFAULT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `community_id` bigint DEFAULT NULL,
   `domain` varchar(255) NOT NULL,
   `state` varchar(255) NOT NULL,
   `error` varchar(255) DEFAULT NULL,
@@ -2537,5 +2537,7 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20200917160415'),
 ('20200917173642'),
 ('20200917220120'),
-('20200918184345');
+('20200918184345'),
 ('20201012091009');
+
+
