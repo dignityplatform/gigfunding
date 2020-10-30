@@ -541,4 +541,8 @@ module TransactionHelper
     transaction_type = transaction.listing.listing_shape.name
     transaction_type == 'requesting' ? transaction.listing_author : transaction.starter
   end
+
+  def transaction_author(transaction:)
+    transaction.author
+  end
 end
