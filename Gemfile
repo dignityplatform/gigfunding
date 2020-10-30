@@ -92,7 +92,7 @@ gem 'faraday', '~> 0.13.0'
 gem 'faraday_middleware', '~> 0.11.0'
 gem 'faraday-encoding', '~> 0.0.4'
 
-gem "react_on_rails", ">= 11.3.0"
+gem "react_on_rails", "11.3.1"
 
 gem 'sitemap_generator', '~> 5.3.1'
 
@@ -167,7 +167,7 @@ group :development, :test do
 end
 
 
-gem 'mini_racer', platforms: :ruby
+gem 'mini_racer', '0.2.14', platforms: :ruby
 gem 'js-routes', '~> 1.3.3'
 
 # Color utilities needed for landing page
@@ -186,7 +186,7 @@ gem 'memoist'
 gem 'biz'
 gem 'ffi', '>= 1.9.25'
 gem 'rubyzip', '~> 1.3.0'
-gem 'bootsnap', require: false
+gem 'bootsnap', '1.4.6', require: false
 gem "select2-rails"
 gem "cocoon"
 gem "fast-polylines"
