@@ -2633,9 +2633,9 @@ en-GB:
       connect_paypal_account_instructions: ~
       connect_paypal_account: ~
       paypal_account_billing_agreement_with_step: ~
-      paypal_account_billing_agreement_info_both: "After you make a sale on %{service_name}, a service fee (%{commission_from_seller} of the total item price, excluding delivery, minimum fee %{minimum_commission}) will be charged from your PayPal account. Permission to do this is required in order to accept payments in %{service_name}. The fee does not include %{paypal_info_link}."
+      paypal_account_billing_agreement_info_both: "After you make a sale on %{service_name}, a service fee (%{commission_from_seller} of the total item price, excluding delivery, minimum fee %{minimum_commission}) will be charged from your PayPal account. Permission to do this is required in order to accept payments on %{service_name}. The fee does not include %{paypal_info_link}."
       paypal_account_billing_agreement_info_fixed: ~
-      paypal_account_billing_agreement_info_relative: "After you make a sale on %{service_name}, a service fee (%{commission_from_seller} of the total item price, excluding delivery) will be charged from your PayPal account. Permission to do this is required in order to accept payments in %{service_name}. The fee does not include %{paypal_info_link}."
+      paypal_account_billing_agreement_info_relative: "After you make a sale on %{service_name}, a service fee (%{commission_from_seller} of the total item price, excluding delivery) will be charged from your PayPal account. Permission to do this is required in order to accept payments on %{service_name}. The fee does not include %{paypal_info_link}."
       paypal_account_billing_agreement_info_none: ~
       paypal_info_link_text: ~
       billing_agreement_description: ~
