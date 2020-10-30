@@ -233,7 +233,7 @@ describe ListingsController, type: :controller do
       doc.remove_namespaces!
       expect(doc.at('feed/logo').text).to eq("https://s3.amazonaws.com/sharetribe/assets/dashboard/sharetribe_logo.png")
 
-      expect(doc.at("feed/title").text).to match(/Listings in Sharetribe /)
+      expect(doc.at("feed/title").text).to match(/Listings on Sharetribe /)
       expect(doc.search("feed/entry").count).to eq(2)
       expect(doc.search("feed/entry/title")[0].text).to eq("Sell: hammer")
       expect(doc.search("feed/entry/listing_id")[0].text).to eq(@l2.id.to_s)

@@ -197,7 +197,7 @@ describe Admin::CommunityListingsController, type: :controller do
         expect(ActionMailer::Base.deliveries).not_to be_empty
         email = ActionMailer::Base.deliveries.last
         expect(email.to.include?(follower_of_listing_author.confirmed_notification_emails_to)).to eq true
-        expect(email.subject).to eq 'Proto T has posted a new listing in Sharetribe'
+        expect(email.subject).to eq 'Proto T has posted a new listing on Sharetribe'
 
         listing.state = Listing::APPROVAL_PENDING
         listing.save
