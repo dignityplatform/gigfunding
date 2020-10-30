@@ -32,14 +32,28 @@ RSpec.describe TransactionHelper, type: :helper do
                                  listing_shape: requesting_listing_shape)
   end
 
-  let(:offering_transaction) do
+  let(:free_offering_transaction) do
+    FactoryGirl.create(:transaction, community: community,
+                                     listing: offering_listing,
+                                     starter: starter,
+                                     listing_author_id: author.id,
+                                     current_state: 'free')
+  end
+  let(:initalized_offering_transaction) do
     FactoryGirl.create(:transaction, community: community,
                                      listing: offering_listing,
                                      starter: starter,
                                      listing_author_id: author.id,
                                      current_state: 'preauthorized')
   end
-  let(:requesting_transaction) do
+  let(:free_requesting_transaction) do
+    FactoryGirl.create(:transaction, community: community,
+                                     listing: requesting_listing,
+                                     starter: starter,
+                                     listing_author_id: author,
+                                     current_state: 'free')
+  end
+  let(:initalized_requesting_transaction) do
     FactoryGirl.create(:transaction, community: community,
                                      listing: requesting_listing,
                                      starter: author,
@@ -48,22 +62,34 @@ RSpec.describe TransactionHelper, type: :helper do
   end
 
   describe '#transaction_starter' do
-    it 'requesting transaction type' do
-      expect(transaction_starter(transaction: requesting_transaction)).to eq(starter)
+    describe 'requesting transaction type' do
+      it 'intialized transaction' do
+        expect(transaction_starter(transaction: initalized_requesting_transaction)).to eq(starter)
+      end
+
+      it 'free transaction' do
+        expect(transaction_starter(transaction: free_requesting_transaction)).to eq(starter)
+      end
     end
 
-    it 'offering transaction type' do
-      expect(transaction_starter(transaction: offering_transaction)).to eq(starter)
+    describe 'offering transaction type' do
+      it 'intialized transaction' do
+        expect(transaction_starter(transaction: initalized_offering_transaction)).to eq(starter)
+      end
+
+      it 'free transaction' do
+        expect(transaction_starter(transaction: free_offering_transaction)).to eq(starter)
+      end
     end
   end
 
   describe '#transaction_author' do
     it 'requesting transaction type' do
-      expect(transaction_author(transaction: requesting_transaction)).to eq(author)
+      expect(transaction_author(transaction: initalized_requesting_transaction)).to eq(author)
     end
 
     it 'offering transaction type' do
-      expect(transaction_author(transaction: offering_transaction)).to eq(author)
+      expect(transaction_author(transaction: initalized_offering_transaction)).to eq(author)
     end
   end
 end

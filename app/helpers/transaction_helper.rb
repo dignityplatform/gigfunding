@@ -539,7 +539,7 @@ module TransactionHelper
 
   def transaction_starter(transaction:)
     transaction_type = transaction.listing.listing_shape.name
-    transaction_type == 'requesting' ? transaction.listing_author : transaction.starter
+    (transaction_type == 'requesting' && transaction.current_state != 'free') ? transaction.listing_author : transaction.starter
   end
 
   def transaction_author(transaction:)
