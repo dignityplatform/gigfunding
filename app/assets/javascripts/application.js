@@ -107,5 +107,5 @@
 //= require confirm_conversation
 //= require typed.js
 //= require typed_slogan
-//= require punycode
+// //= require punycode
 //= require_self
