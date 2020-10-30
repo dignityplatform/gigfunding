@@ -532,7 +532,7 @@ en:
       any_language: 'Any language'
       subject: 'Email subject'
       subject_info_text: "To improve email deliverability the email subject is generated automatically and can't be changed."
-      email_subject_text: "A new message from the %{service_name} team"
+      email_subject_text: "A new message from e %{service_name} team"
       message_will_be_sent_only_to_people_with_this_language: "The email will be only sent to users who are using %{service_name} in the language you choose."
       content: 'Email content'
       content_info_text: "\"Firstname\" can't be removed and will be automatically replaced by the actual first name of each recipient."

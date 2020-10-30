@@ -1274,7 +1274,7 @@ en-NZ:
       title: "Payment processing fee"
       stripe: Stripe
       paypal: PayPal
-      info: "Payments in %{service_name} are processed by either Stripe or PayPal. They both charge a fee from each payment."
+      info: "Payments on %{service_name} are processed by either Stripe or PayPal. They both charge a fee from each payment."
     paypal_fee_info:
       title: "PayPal's payment processing fee"
       body_text: |-
@@ -1487,12 +1487,12 @@ en-NZ:
       you_can_join_email_confirmation: "To join %{service_name} you need to have a valid email address that ends with %{email_ending}. You can join by filling in your email address, accepting the terms of use and clicking 'Join %{service_name}' below, and confirming your email."
       you_can_join_email_confirmation_multiple_addresses: "%{service_name} has email restrictions. You can only join if you have an allowed email address. You can join by filling in your email address, accepting the terms of use of %{service_name} and clicking 'Join %{service_name}' below."
       you_can_join_with_invite_only: "You have to have an invitation from another member to join %{service_name}. If you have an invitation code, you can join by typing the code to the field below, accepting the terms of use and clicking 'Join %{service_name}' below."
-      if_want_to_view_content: "If you want to view the content in %{service_name} without joining it as a member you need to"
+      if_want_to_view_content: "If you want to view the content on %{service_name} without joining it as a member you need to"
       log_out: "log out"
       join_community_button: "Join %{service_name}"
     give_consent:
       invitation_code_invalid_or_used: "The invitation code was invalid or already used."
-      email_not_allowed: "This email is not allowed in %{service_name}."
+      email_not_allowed: "This email is not allowed on %{service_name}."
       email_not_available: "The email you gave is already in use."
       consent_not_given: "The terms were not accepted."
   emails:
@@ -1611,9 +1611,9 @@ en-NZ:
     new_comment:
       has_commented_your_listing_in_kassi: "%{author} has commented on your listing '%{listing}'."
       view_comment: "View comment"
-      you_have_a_new_comment: "%{author} has commented on your listing in %{service_name}"
-      listing_you_follow_has_a_new_comment: "%{author} has commented on a listing you follow in %{service_name}"
-      has_commented_listing_you_follow_in_kassi: "%{author} has commented on the listing '%{listing}' you are following in %{service_name}."
+      you_have_a_new_comment: "%{author} has commented on your listing on %{service_name}"
+      listing_you_follow_has_a_new_comment: "%{author} has commented on a listing you follow on %{service_name}"
+      has_commented_listing_you_follow_in_kassi: "%{author} has commented on the listing '%{listing}' you are following on %{service_name}."
     new_message:
       view_message: "View message"
       has_sent_you_a_message_in_kassi: ~
@@ -1690,14 +1690,14 @@ en-NZ:
       stripe:
         you_have_made_new_payment: ~
     new_testimonial:
-      has_given_you_feedback_in_kassi: "%{name} has given you feedback in %{service_name}"
+      has_given_you_feedback_in_kassi: "%{name} has given you feedback on %{service_name}"
       you_can_give_feedback_to: "You haven't yet given feedback to %{name}."
       view_feedback: "View feedback"
     new_testimonial_v2:
       headline: ~
     new_update_to_listing:
       listing_you_follow_has_been_updated: "Listing you follow has been updated"
-      has_updated_listing_you_follow_in_kassi: "%{author} has updated the listing '%{listing}' you are following in %{service_name}."
+      has_updated_listing_you_follow_in_kassi: "%{author} has updated the listing '%{listing}' you are following on %{service_name}."
       view_changes: "View changes"
     community_updates:
       added_offer: "%{name_link} added a listing:"
@@ -1728,7 +1728,7 @@ en-NZ:
       you_have_not_given_feedback_yet: ~
       leave_feedback: ~
     transaction_preauthorized:
-      subject: "%{requester} is interested and has authorized payment for %{listing_title} published in %{service_name}"
+      subject: "%{requester} is interested and has authorized payment for %{listing_title} published on %{service_name}"
       transaction_requested_by_user: "Great news! %{requester} is interested in \"%{listing_title}\" and has authorized payment for this listing."
       you_have_time_to_accept: "You need to accept or reject the request within %{payment_expires_in}. If you accept within this timeframe, the payment will go through. If you don't accept, the request will be automatically rejected and you will not get paid."
       if_you_do_accept: "If you accept the request within this timeframe, you will receive the money immediately to your account."
@@ -1752,7 +1752,7 @@ en-NZ:
       welcome_email_footer_text: "What kind of emails do you want to receive from %{service_name}? %{settings_link}"
       settings_link_text: "Check your settings"
     new_listing_by_followed_person:
-      subject: "%{author_name} has posted a new listing in %{service_name}"
+      subject: "%{author_name} has posted a new listing on %{service_name}"
       has_posted_a_new_listing: "%{author_name} has posted a new listing:"
       you_are_receiving_this_because: "You received this notification because you follow %{author_name}."
       view_listing: "View listing"
@@ -2106,7 +2106,7 @@ en-NZ:
       connect: "Sign up"
       invite_your_friends: "Invite friends!"
       invite_your_neighbors: "Invite neighbors!"
-      invite_your_friends_description: "The more people there are in %{service_name}, the more useful it is."
+      invite_your_friends_description: "The more people there are on %{service_name}, the more useful it is."
       invite_your_friends_invite_only_description: "People cannot join %{service_name} unless they are invited."
       join_without_facebook: "...or alternatively %{join_without_facebook_link}"
       join_without_facebook_link: "sign up without using Facebook"
@@ -2478,7 +2478,7 @@ en-NZ:
       requests: Requests
       rideshare: Rideshare
       you_have_something_others_do_not: "Have something to offer?"
-      feed_title: "%{listing_type} in %{service_name} %{optional_category}"
+      feed_title: "%{listing_type} on %{service_name} %{optional_category}"
     left_panel_link:
       borrows: Borrowing
       buys: Buying
@@ -2672,9 +2672,9 @@ en-NZ:
       connect_paypal_account_instructions: "Click on the button below to log in to PayPal and connect your PayPal account with %{service_name}."
       connect_paypal_account: "Connect your PayPal account"
       paypal_account_billing_agreement_with_step: "Step %{current_step}/%{total_steps}: Grant permission to charge a transaction fee"
-      paypal_account_billing_agreement_info_both: "After you make a sale on %{service_name}, a service fee (%{commission_from_seller} of the total item price, excluding shipping, minimum fee %{minimum_commission}) will be charged from your PayPal account. Permission to do this is required in order to accept payments in %{service_name}. The fee does not include %{paypal_info_link}."
-      paypal_account_billing_agreement_info_fixed: "After you make a sale on %{service_name}, a service fee of %{minimum_commission} will be charged from your PayPal account. Permission to do this is required in order to accept payments in %{service_name}. The fee does not include %{paypal_info_link}."
-      paypal_account_billing_agreement_info_relative: "After you make a sale on %{service_name}, a service fee (%{commission_from_seller} of the total item price, excluding shipping) will be charged from your PayPal account. Permission to do this is required in order to accept payments in %{service_name}. The fee does not include %{paypal_info_link}."
+      paypal_account_billing_agreement_info_both: "After you make a sale on %{service_name}, a service fee (%{commission_from_seller} of the total item price, excluding shipping, minimum fee %{minimum_commission}) will be charged from your PayPal account. Permission to do this is required in order to accept payments on %{service_name}. The fee does not include %{paypal_info_link}."
+      paypal_account_billing_agreement_info_fixed: "After you make a sale on %{service_name}, a service fee of %{minimum_commission} will be charged from your PayPal account. Permission to do this is required in order to accept payments on %{service_name}. The fee does not include %{paypal_info_link}."
+      paypal_account_billing_agreement_info_relative: "After you make a sale on %{service_name}, a service fee (%{commission_from_seller} of the total item price, excluding shipping) will be charged from your PayPal account. Permission to do this is required in order to accept payments on %{service_name}. The fee does not include %{paypal_info_link}."
       paypal_account_billing_agreement_info_none: "%{service_name} does not currently charge a service fee. If service fees are enabled, you will need to grant %{service_name} permission to charge a service fee in order to accept payments. The fee does not include %{paypal_info_link}."
       paypal_info_link_text: "PayPal's payment processing fee"
       billing_agreement_description: "Grant %{service_name} permission to charge a transaction fee."
@@ -2721,14 +2721,14 @@ en-NZ:
       invite_only_help_text: "Select this option if you want that new members can join only if they are invited by an existing user."
       invite_only_help_text_title: Invite-only
     inactive_notification:
-      this_person_is_not_active_in_kassi: "This user is no longer active in %{service_name}"
+      this_person_is_not_active_in_kassi: "This user is no longer active on %{service_name}"
       inactive_description: "This user has stopped using %{service_name}. You cannot contact this user, give feedback to them or comment their listings."
     new:
       create_new_account: "Create account"
       email: "Email address"
       email_is_in_use: "The email you gave is already in use."
       email_is_in_use_or_not_allowed: "This email is not allowed or it is already in use. If you can't get in, contact us."
-      email_not_allowed: "This email is not allowed in %{service_name}. Please use an email address that is allowed. If you still cannot get in, contact us."
+      email_not_allowed: "This email is not allowed on %{service_name}. Please use an email address that is allowed. If you still cannot get in, contact us."
       invalid_username_or_email: "The username or email are invalid or already in use"
       email_restriction_instructions:
         one: "The access to %{service_name} is restricted. To join you need a '%{allowed_emails}' email address."
@@ -2812,7 +2812,7 @@ en-NZ:
       connect_your_facebook_to_kassi: "Connect your Facebook account to %{service_name}"
       facebook_account: "Facebook account:"
       log_in_to_link_account: "If you already have a %{service_name} account, log in to link it with your Facebook account."
-      you_can_also_create_new_account: "If you don't have an account in %{service_name}, %{accont_creation_link} to create one with your Facebook login."
+      you_can_also_create_new_account: "If you don't have an account on %{service_name}, %{accont_creation_link} to create one with your Facebook login."
       account_creation_link_text: "click here"
       cancle_facebook_connect: "If you don't want to link this account, you can %{cancel_link}."
       facebook_cancel_link_text: cancel
