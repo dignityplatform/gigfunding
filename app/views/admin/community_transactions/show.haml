@@ -4,10 +4,8 @@
 - link = link_to_unless(transaction.listing.deleted, listing_title, listing_path(transaction.listing_id)) || listing_title
 - transaction_title = t('.transaction_for', link: link, transaction_id: transaction.id).html_safe
 
-
-- transaction_type = transaction.listing.listing_shape.name
-- seller = transaction.author
-- buyer = transaction_type == 'requesting' ? transaction.listing_author : transaction.starter
+- seller = transaction_author(transaction: transaction)
+- buyer = transaction_starter(transaction: transaction)
 - if transaction.current_state == 'free'
   - seller_cause = (seller.cause ? seller.cause.name : t('transactions.details.cause_not_selected'))
   - buyer_cause = (buyer.cause ? buyer.cause.name : t('transactions.details.cause_not_selected'))

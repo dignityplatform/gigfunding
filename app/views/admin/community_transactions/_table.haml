@@ -53,8 +53,8 @@
         %td=transaction.payment_total ? MoneyViewUtils.to_humanized(transaction.payment_total) : ""
         %td=l(transaction.created_at, format: :short_date)
         %td=l(transaction.last_activity, format: :short_date)
-        %td=Maybe(transaction.starter).map { |p| link_to_unless(p.deleted, PersonViewUtils.person_display_name(p, @current_community),person_path(p.username)) }.or_else("")
-        %td=Maybe(transaction.author).map { |p| link_to_unless(p.deleted, PersonViewUtils.person_display_name(p, @current_community), person_path(p.username)) }.or_else("")
+        %td=Maybe(transaction_starter(transaction: transaction)).map { |p| link_to_unless(p.deleted, PersonViewUtils.person_display_name(p, @current_community),person_path(p.username)) }.or_else("")
+        %td=Maybe(transaction_author(transaction: transaction)).map { |p| link_to_unless(p.deleted, PersonViewUtils.person_display_name(p, @current_community), person_path(p.username)) }.or_else("")
 .row
   .col-12
     = will_paginate @transactions_presenter.transactions
