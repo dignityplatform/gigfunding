@@ -29,16 +29,16 @@ module EmailService::SES
 
     def get_identity_verification_attributes(emails:)
       log_request_response(:get_identity_verification_attributes, nil) do
-        begin
+
           response = @ses.get_identity_verification_attributes(identities: emails)
           if response.successful?
             Result::Success.new(response.to_h[:verification_attributes])
           else
             Result::Error.new(response.error)
           end
-        rescue StandardError => e
+      rescue StandardError => e
           Result::Error.new(e)
-        end
+
       end
     end
 
@@ -50,16 +50,16 @@ module EmailService::SES
       end
 
       log_request_response(:verify_email_identity, {email_address: email}) do
-        begin
+
           response = @ses.verify_email_identity(email_address: email)
           if response.successful?
             Result::Success.new()
           else
             Result::Error.new(response.error)
           end
-        rescue StandardError => e
+      rescue StandardError => e
           Result::Error.new(e)
-        end
+
       end
     end
 
@@ -74,7 +74,7 @@ module EmailService::SES
                        sns_topic: @sns_topic}
 
       log_request_response(:set_identity_notification_topic, method_params) do
-        begin
+
           response = @ses.set_identity_notification_topic(method_params)
 
           if response.successful?
@@ -82,9 +82,9 @@ module EmailService::SES
           else
             Result::Error.new(response.error)
           end
-        rescue StandardError => e
+      rescue StandardError => e
           Result::Error.new(e)
-        end
+
       end
     end
 
@@ -96,16 +96,16 @@ module EmailService::SES
       method_params = {identity: email, forwarding_enabled: false}
 
       log_request_response(:set_identity_feedback_forwarding_enabled, method_params) do
-        begin
+
           response = @ses.set_identity_feedback_forwarding_enabled(method_params)
           if response.successful?
             Result::Success.new()
           else
             Result::Error.new(response.error)
           end
-        rescue StandardError => e
+      rescue StandardError => e
           Result::Error.new(e)
-        end
+
       end
 
     end

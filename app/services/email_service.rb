@@ -87,9 +87,9 @@ class EmailService
     allowed = false
     allowed_array = allowed_emails.split(",")
     allowed_array.each do |allowed_domain_or_address|
-      if allowed_domain_or_address =~ /^\//
+      if /^\//.match?(allowed_domain_or_address)
         # treat as if this is meant to be a regular expression
-        if address =~ Regexp.new(allowed_domain_or_address.delete("/"))
+        if address&.match?(Regexp.new(allowed_domain_or_address.delete("/")))
           allowed = true
           break
         end
@@ -97,7 +97,7 @@ class EmailService
         # treat as if this is not meant to be a regular expression
         allowed_domain_or_address.strip!
         allowed_domain_or_address.gsub!('.', '\.') #change . to be \. to only match a dot, not any char
-        if address =~ /#{allowed_domain_or_address}$/i
+        if /#{allowed_domain_or_address}$/i.match?(address)
           allowed = true
           break
         end

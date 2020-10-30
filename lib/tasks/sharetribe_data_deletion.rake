@@ -335,7 +335,7 @@ namespace :sharetribe do
     deleted_count = 1
 
     Listing.where(community_id: community.id).pluck(:id).each do |listing_id|
-      begin
+
         sleep sleep_time
         puts "Deleting listing #{listing_id} from community #{community.id} (#{progress(deleted_count, total_count)})"
         deleted_count += 1
@@ -345,21 +345,21 @@ namespace :sharetribe do
         ListingImage.where(listing_id: listing_id).delete_all
 
         Listing.find(listing_id).destroy
-      rescue StandardError => e
+    rescue StandardError => e
         puts "Destroy listing failed for #{listing_id}: #{e.message}"
-      end
+
     end
 
     Person.where(community_id: community.id).pluck(:id).each do |person_id|
-      begin
+
         sleep sleep_time
         puts "Deleting person #{person_id} from community #{community.id} (#{progress(deleted_count, total_count)})"
         deleted_count += 1
 
         Person.find(person_id).destroy
-      rescue StandardError => e
+    rescue StandardError => e
         puts "Destroy person failed for #{person_id}: #{e.message}"
-      end
+
     end
 
     delete_marketplace_db!(delete_marketplace_queries_final(community.id), query_sleep_time)
@@ -372,7 +372,7 @@ namespace :sharetribe do
       marketplace_id = args[:marketplace_id]
       force = (args[:force] == "true") || false
 
-      unless marketplace_id =~ /^\d+$/
+      unless /^\d+$/.match?(marketplace_id)
         raise "Invalid marketplace id."
       end
 
@@ -449,7 +449,7 @@ namespace :sharetribe do
       marketplace_id = args[:marketplace_id]
       force = (args[:force] == "true") || false
 
-      unless marketplace_id =~ /^\d+$/
+      unless /^\d+$/.match?(marketplace_id)
         railse "Invalid marketplace id."
       end
 
