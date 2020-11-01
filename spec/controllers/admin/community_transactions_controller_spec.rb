@@ -243,10 +243,9 @@ describe Admin::CommunityTransactionsController, type: :controller do
       expect(email_to_buyer.to.include?(buyer.confirmed_notification_emails_to)).to eq true
       expect(email_to_buyer.subject).to eq 'Order dispute dismissed - The Sharetribe team has rejected the dispute from Proto T'
 
-      expect(Delayed::Job.count).to eq 3
+      expect(Delayed::Job.count).to eq 2
       handlers = Delayed::Job.all.map(&:handler)
       expect(handlers.select{|x| x.match 'TestimonialReminderJob'}.size).to eq 2
-      expect(handlers.select{|x| x.match 'StripePayoutJob'}.size).to eq 1
     end
   end
 end

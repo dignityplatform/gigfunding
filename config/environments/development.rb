@@ -82,11 +82,9 @@ Rails.application.configure do
 
   if APP_CONFIG.mail_delivery_method == "letter_opener"
     ActionMailer::Base.delivery_method = :letter_opener
-    ActionMailer::Base..perform_deliveries = true
+    ActionMailer::Base.perform_deliveries = true
     LetterOpener.configure do |config|
-      # To render only the message body, without any metadata or extra containers or styling.
-      # Default value is `:default` that renders styled message with showing useful metadata.
-      config.message_template = :light
+      config.message_template = :default
     end
   elsif APP_CONFIG.mail_delivery_method == "sendmail"
     ActionMailer::Base.delivery_method = :sendmail
