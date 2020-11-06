@@ -54,16 +54,16 @@ class PersonMailer < ActionMailer::Base
     end
   end
 
-  def transaction_confirmed(conversation, community, send_to = :seller)
+  def transaction_confirmed(transaction, community, send_to = :seller)
     @email_type =  "email_about_completed_transactions"
-    @conversation = conversation
+    @transaction = transaction
     @recipient_is_seller = send_to == :seller
-    recipient = @recipient_is_seller ? conversation.seller : conversation.buyer
+    recipient = @recipient_is_seller ? transaction.seller : transaction.buyer
     set_up_layout_variables(recipient, community, @email_type)
     with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
       mail(:to => recipient.confirmed_notification_emails_to,
            :from => community_specific_sender(community),
-           :subject => t("emails.transaction_confirmed.request_marked_as_#{@conversation.status}")) do |format|
+           :subject => t("emails.transaction_confirmed.request_marked_as_#{@transaction.status}")) do |format|
         format.html { render v2_template(community.id, 'transaction_confirmed'), layout: v2_layout(community.id) }
       end
     end
