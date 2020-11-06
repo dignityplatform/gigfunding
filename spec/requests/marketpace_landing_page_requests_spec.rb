@@ -27,4 +27,13 @@ RSpec.describe MarketplaceLandingPageController, type: :request do
       expect(request).to render_template(:show)
     end
   end
+
+  describe 'user redirects' do
+    describe 'GET /' do
+      it 'user not logged in' do
+        get('/', headers: {host: "#{@community.ident}.lvh.me"})
+        expect(request).to redirect_to(landing_page_path)
+      end
+    end
+  end
 end

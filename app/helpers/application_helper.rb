@@ -742,8 +742,8 @@ module ApplicationHelper
     FeatureFlagHelper.location_search_available ? @current_community.configuration&.main_search&.to_sym : :keyword
   end
 
-  def landing_page_path
-    PathHelpers.landing_page_path(
+  def sharetribe_landing_page_path
+    PathHelpers.sharetribe_landing_page_path(
       community_id: @current_community.id,
       logged_in: @current_user.present?,
       default_locale: @current_community.default_locale,

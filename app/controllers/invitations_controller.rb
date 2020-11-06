@@ -74,7 +74,7 @@ class InvitationsController < ApplicationController
     else
       flash[:error] = t("layouts.notifications.invitation_cannot_unsubscribe")
     end
-    redirect_to landing_page_path
+    redirect_to sharetribe_landing_page_path
   end
 
   private
