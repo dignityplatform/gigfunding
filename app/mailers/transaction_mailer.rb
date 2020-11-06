@@ -23,10 +23,10 @@ class TransactionMailer < ActionMailer::Base
     @transaction = transaction
     @community = transaction.community
 
-    recipient = if @transaction.listing.listing_shape.name == 'requesting'
-        transaction.listing_author
-      else
-        transaction.author
+    recipient = if transaction.listing.listing_shape.name == 'requesting'
+      transaction.listing_author
+    else
+      transaction.author
     end
 
     set_up_layout_variables(recipient, transaction.community)
@@ -228,7 +228,7 @@ class TransactionMailer < ActionMailer::Base
 
   def transaction_refunded(transaction:, recipient:)
     @transaction = transaction
-    @is_seller = transaction.author == recipient
+    @is_seller = (recipient == transaction.other_party(transaction.buyer))
     community = transaction.community
     set_up_layout_variables(recipient, community)
     with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
