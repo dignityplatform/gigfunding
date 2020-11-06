@@ -1,6 +1,14 @@
 require "spec_helper"
 
 describe "HSTS header", type: :request do
+
+  before(:each) do
+    @community = FactoryGirl.create(:community)
+    @user = create_admin_for(@community)
+    @user.update(is_admin: true)
+    allow_any_instance_of(ApplicationController).to receive(:current_person).and_return(@user)
+  end
+
   before do
     @hsts_max_age = 10
   end
@@ -23,6 +31,11 @@ describe "HSTS header", type: :request do
   end
 
   shared_context "common without ssl" do
+
+    before do
+      APP_CONFIG.always_use_ssl = false
+    end
+
     it "header not set" do
       get "https://#{domain}"
 

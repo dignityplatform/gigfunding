@@ -120,6 +120,7 @@ describe HomepageController, type: :controller do
       @request.env["devise.mapping"] = Devise.mappings[:person]
       @request.host = "#{community.ident}.lvh.me"
       @request.env[:current_marketplace] = community
+      @request.session[:landing_page_visited] = true
     end
 
     let(:listing) { FactoryGirl.create(:listing, community_id: community.id) }

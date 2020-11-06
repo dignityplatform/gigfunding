@@ -12,6 +12,7 @@ class HomepageController < ApplicationController
     params = unsafe_params_hash.select{|k, v| v.present? }
 
     return redirect_to(landing_page_path) unless @current_user || session[:landing_page_visited]
+
     redirect_to sharetribe_landing_page_path and return if no_current_user_in_private_clp_enabled_marketplace?
 
     all_shapes = @current_community.shapes
