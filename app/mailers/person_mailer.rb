@@ -21,7 +21,9 @@ class PersonMailer < ActionMailer::Base
 
   def conversation_status_changed(transaction, community)
     @email_type =  (transaction.status == "accepted" ? "email_when_conversation_accepted" : "email_when_conversation_rejected")
-    recipient = transaction.other_party(transaction.listing.author)
+    recipient = transaction.buyer
+    @other_party = transaction.listing.listing_shape.name == 'requesting' ? transaction.listing_author : transaction.author
+
     set_up_layout_variables(recipient, community, @email_type)
     with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
       @transaction = transaction
