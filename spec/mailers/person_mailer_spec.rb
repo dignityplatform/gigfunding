@@ -57,7 +57,8 @@ describe PersonMailer, type: :mailer do
   describe "status changed" do
 
     let(:author) { FactoryGirl.build(:person) }
-    let(:listing) { FactoryGirl.build(:listing, author: author, listing_shape_id: 123) }
+    let(:listing_shape) { FactoryGirl.build(:listing_shape) }
+    let(:listing) { FactoryGirl.build(:listing, author: author, listing_shape: listing_shape) }
     let(:starter) { FactoryGirl.build(:person, given_name: "Teppo", family_name: "Testaaja") }
     let(:conversation) { FactoryGirl.build(:conversation) }
     let(:transaction) { FactoryGirl.create(:transaction, listing: listing, starter: starter, conversation: conversation) }
