@@ -78,7 +78,11 @@ class PersonMailer < ActionMailer::Base
   def transaction_automatically_confirmed(conversation, community)
     @email_type =  "email_about_completed_transactions"
     @conversation = conversation
-    recipient = conversation.buyer
+    recipient = if @recipient_is_seller
+      @transaction.listing.listing_shape.name == 'requesting' ? transaction.listing_author : transaction.seller
+    else
+      transaction.buyer
+    end
     set_up_layout_variables(recipient, community, @email_type)
     with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
       mail(:to => recipient.confirmed_notification_emails_to,
@@ -92,7 +96,11 @@ class PersonMailer < ActionMailer::Base
   def booking_transaction_automatically_confirmed(transaction, community)
     @email_type = "email_about_completed_transactions"
     @transaction = transaction
-    recipient = @transaction.buyer
+    recipient = if @recipient_is_seller
+      @transaction.listing.listing_shape.name == 'requesting' ? transaction.listing_author : transaction.seller
+    else
+      transaction.buyer
+    end
     set_up_layout_variables(recipient, community, @email_type)
     with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
       mail(:to => @recipient.confirmed_notification_emails_to,
@@ -143,12 +151,16 @@ class PersonMailer < ActionMailer::Base
   end
 
   # Remind users of conversations that have not been accepted or rejected
-  def confirm_reminder(conversation, _, community, days_to_cancel)
+  def confirm_reminder(transaction, _, community, days_to_cancel)
     @email_type = "email_about_confirm_reminders"
-    recipient = conversation.buyer
+    recipient = if @recipient_is_seller
+      @transaction.listing.listing_shape.name == 'requesting' ? transaction.listing_author : transaction.seller
+    else
+      transaction.buyer
+    end
     set_up_layout_variables(recipient, community, @email_type)
     with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
-      @conversation = conversation
+      @transaction = transaction
       @days_to_cancel = days_to_cancel
       mail(:to => recipient.confirmed_notification_emails_to,
            :from => community_specific_sender(community),

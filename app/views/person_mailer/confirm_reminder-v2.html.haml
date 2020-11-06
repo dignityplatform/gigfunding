@@ -1,21 +1,21 @@
-- conversation_url = person_message_url(@recipient, @url_params.merge({:id => @conversation.id.to_s}))
-- confirm_url = confirm_person_message_url(@recipient, @url_params.merge({:id => @conversation.id.to_s}))
-- cancel_url = cancel_person_message_url(@recipient, @url_params.merge({:id => @conversation.id.to_s}))
+- transaction_url = person_message_url(@recipient, @url_params.merge({:id => @transaction.id.to_s}))
+- confirm_url = confirm_person_message_url(@recipient, @url_params.merge({:id => @transaction.id.to_s}))
+- cancel_url = cancel_person_message_url(@recipient, @url_params.merge({:id => @transaction.id.to_s}))
 
 %tr
   %td.person-name
     %h1
-      = t("emails.common.hi", name: PersonViewUtils.person_display_name_for_type(@conversation.buyer, "first_name_only"))
-      = t("emails.confirm_reminder_v2.headline", :request_link => link_to(@conversation.listing_title, conversation_url)).html_safe
+      = t("emails.common.hi", name: PersonViewUtils.person_display_name_for_type(@transaction.buyer, "first_name_only"))
+      = t("emails.confirm_reminder_v2.headline", :request_link => link_to(@transaction.listing_title, transaction_url)).html_safe
 %tr
   %td.email-content
     %p.text-bold
-      = t("emails.confirm_reminder_v2.you_have_not_yet_confirmed_or_canceled_request", :date => time_ago(@conversation.created_at.to_date), :other_party_full_name => @conversation.seller.name(@conversation.community), :other_party_given_name => PersonViewUtils.person_display_name_for_type(@conversation.seller, "first_name_only")).html_safe
+      = t("emails.confirm_reminder_v2.you_have_not_yet_confirmed_or_canceled_request", :date => time_ago(@transaction.created_at.to_date), :other_party_full_name => @transaction.seller.name(@transaction.community), :other_party_given_name => PersonViewUtils.person_display_name_for_type(@transaction.seller, "first_name_only")).html_safe
 
     %p
       = t("emails.confirm_reminder.if_will_not_happen_you_should_cancel", :cancel_it_link => link_to(t("emails.confirm_reminder.cancel_it_link_text"), cancel_url)).html_safe
     %p
-      = t("emails.confirm_reminder.automatic_confirmation", :days_to_automatic_confirmation => @conversation.automatic_confirmation_after_days).html_safe
+      = t("emails.confirm_reminder.automatic_confirmation", :days_to_automatic_confirmation => @transaction.automatic_confirmation_after_days).html_safe
 
 = render :partial => "action_button-v2", :locals => { :text => t("conversations.status_link.confirm"), :url => confirm_url}
 
