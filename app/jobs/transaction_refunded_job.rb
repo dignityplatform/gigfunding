@@ -11,8 +11,8 @@ class TransactionRefundedJob < Struct.new(:transaction_id, :community_id)
   end
 
   def perform
-    tx = Transaction.find(transaction_id)
-    TransactionMailer.transaction_refunded(transaction: tx, recipient: tx.author).deliver_now
-    TransactionMailer.transaction_refunded(transaction: tx, recipient: tx.starter).deliver_now
+    transaction = Transaction.find(transaction_id)
+    TransactionMailer.transaction_refunded(transaction: transaction, recipient: transaction.other_party(transaction.buyer)).deliver_now
+    TransactionMailer.transaction_refunded(transaction: transaction, recipient: transaction.buyer).deliver_now
   end
 end
