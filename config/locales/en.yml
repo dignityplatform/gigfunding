@@ -1672,7 +1672,7 @@ en:
       headline: "you have a message!"
       reply: "Click here to reply to %{sender}"
     new_payment:
-      new_payment: 'A new payment has been made'
+      new_payment: 'A new payment has been made on %{service_name}'
       price_per_unit_type: 'Price per %{unit_type}'
       quantity: 'Quantity:'
       you_have_received_new_payment: 'The amount of <b>%{payment_sum}</b> has been paid for <b>%{listing_title}</b> by %{payer_full_name}. The money will be donated to the chosen causes. Here is your receipt.'
@@ -1686,7 +1686,7 @@ en:
       service_fee: '%{service_name} service fee:'
       buyer_service_fee: '%{service_name} service fee:'
       you_will_get: 'Total:'
-      new_payment: 'A new payment has been made'
+      new_payment: 'A new payment has been made on %{service_name}'
       price_per_unit_type: 'Price per %{unit_type}'
       quantity: 'Quantity:'
       you_have_received_new_payment: 'The amount of <b>%{payment_sum}</b> has been paid for <b>%{listing_title}</b> by %{payer_full_name}. The money will be donated to the chosen causes. Here is your receipt.'

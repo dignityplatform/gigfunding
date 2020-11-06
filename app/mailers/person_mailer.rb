@@ -58,7 +58,11 @@ class PersonMailer < ActionMailer::Base
     @email_type =  "email_about_completed_transactions"
     @transaction = transaction
     @recipient_is_seller = send_to == :seller
-    recipient = @recipient_is_seller ? transaction.seller : transaction.buyer
+    recipient = if @recipient_is_seller
+      @transaction.listing.listing_shape.name == 'requesting' ? transaction.listing_author : transaction.seller
+    else
+      transaction.buyer
+    end
     set_up_layout_variables(recipient, community, @email_type)
     with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
       mail(:to => recipient.confirmed_notification_emails_to,
