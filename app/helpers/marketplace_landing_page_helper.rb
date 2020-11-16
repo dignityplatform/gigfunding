@@ -6,7 +6,7 @@ module MarketplaceLandingPageHelper
         defaultLocale: I18n.default_locale
       },
       splashScreen: {
-        splashImageSrc: image_url('marketplace_landing_page/gigfunding-splash-image')
+        splashImageSrc: image_url('marketplace_landing_page/splash-image')
       }
     }
   end
