@@ -4,6 +4,8 @@
 @import "compass/css3/border-radius";
 @import "compass/utilities/general/clearfix";
 
+$header-color: #5987BD;
+
 .marketplace-landing-page-container {
   height: auto;
   width: 100%;
@@ -16,6 +18,14 @@
   position: relative;
   width: 100%;
   height: calc(100vh - 60px);
+
+  .wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: rgba(0,0,0,0);
+    height: 100%;
+  }
   
   & .background-image {
     position: absolute;
@@ -42,6 +52,47 @@
       background-position: right;
       background-size: 100% 50px;
       background-repeat: repeat-y;
+    }
+  }
+}
+
+.splash-header-container {
+  margin-top: 50px;
+  width: 65%;
+
+  @include media(tablet) {
+    width: 50%;
+  }
+
+  .splash-header {
+    @include source-neue-kabel;
+    margin: 0;
+    padding: 0;
+    color: rgb(255,255,255);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 0.9em;
+    font-size: 2em;
+
+    @include media(tablet) {
+      color: $header-color;
+      font-size: 4em;
+    }
+  }
+
+  .splash-subtitle {
+    @include source-chantal;
+    margin: 0;
+    padding: 0;
+    transform: rotate(-5deg);
+    color: rgb(0,0,0);
+    line-height: 1em;
+    font-style: italic;
+    font-size: 2em;
+
+    @include media(tablet) {
+      font-size: 3.5em;
+      margin-top: -10px;
     }
   }
 }
