@@ -163,3 +163,12 @@ $header-color: #5987BD;
     background-color: #EBB205;
   }
 }
+
+.marketplace-landing-page-sub-heading {
+  @include source-neue-kabel;
+  position: relative;
+  font-weight: 900;
+  text-align: center;
+  margin: 1em 0em;
+  color: rgb(0,0,0);
+}
