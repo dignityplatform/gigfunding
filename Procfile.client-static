@@ -3,3 +3,6 @@ rails-client-assets: script/export_routes_js.sh && cd client && npm run build:de
 
 # Build server assets, watching for changes. Remove if not server rendering.
 rails-server-assets: script/export_translations.sh && script/wait_for_routes_js.sh && cd client && npm run build:dev:server
+
+# Run background worker
+rails-background-worker: bundle exec rails jobs:work
