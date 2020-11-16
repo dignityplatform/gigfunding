@@ -48,7 +48,7 @@ $offering-color: #EBB205;
       z-index: -1;
       top: -65px;
       bottom: 0;
-      left: 50%;
+      left: calc( 50% - 1px);
       width: 3px;
       background-image: radial-gradient(circle at 50% 40%, black 0px, black 7.5%, rgba(0,0,0,0) 10%), radial-gradient(circle at 50% 60%, black 0px, black 7.5%, rgba(0,0,0,0) 10%), linear-gradient(to bottom, rgba(0,0,0,0) 40%, black 40%, black 60%, rgba(0,0,0,0) 60%);
       background-position: right;
@@ -102,7 +102,7 @@ $offering-color: #EBB205;
 .splash-actions {
   width: 100%;
   height: auto;
-  flex: 1 1 100%;
+  flex: 3 1 auto;
   display: flex;
   align-items: flex-end;
 }
@@ -209,5 +209,49 @@ $offering-color: #EBB205;
 
   @include media(tablet) {
     font-size: 1.2em;
+  }
+}
+
+.splash-scroll-container {
+  position: relative;;
+  width: 100%;
+  flex: 3 1 auto;
+  box-sizing: border-box;
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.splash-scroll-button {
+  position: relative;
+  color: rgb(255,255,255);
+  height: 60px;
+  width: 60px;
+  background: rgba(0,0,0,0);
+  padding: 0;
+  margin: 0;
+
+  &:hover {
+    background: inherit;
+    outline: none;
+  }
+
+  svg {
+    position: relative;
+    height: inherit;
+    width: inherit;
+    stroke-width: 0;
+
+    &:hover {
+      color: rgb(0,0,0);
+    }
+
+    @include media(tablet) {
+      color: rgb(0,0,0);
+      &:hover {
+        color:  rgb(255,255,255);
+      }
+    }
   }
 }

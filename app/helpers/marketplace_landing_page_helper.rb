@@ -5,7 +5,7 @@ module MarketplaceLandingPageHelper
         locale: I18n.locale,
         defaultLocale: I18n.default_locale
       },
-      splashScreen: {
+      images: {
         splashImageSrc: image_url('marketplace_landing_page/splash-image')
       }
     }
