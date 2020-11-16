@@ -96,3 +96,70 @@ $header-color: #5987BD;
     }
   }
 }
+
+.splash-actions {
+  width: 100%;
+  height: auto;
+  flex: 1 1 100%;
+  display: flex;
+}
+
+.splash-action {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &.mobile {
+    display: flex;
+  }
+
+  &.desktop {
+    display: none;
+  }
+
+  @include media(tablet) {
+    width: 50%;
+
+    &.mobile {
+      display: none;
+    }
+  
+    &.desktop {
+      display: flex;
+    }
+  }
+}
+
+.marketplace-landing-page-heading {
+  @include source-neue-kabel;
+  font-size: 1.5em;
+  font-weight: 900;
+  text-align: center;
+  color: rgb(0,0,0);
+  position: relative;
+  margin-bottom: 0.1em;
+}
+
+.half-highlight-element {
+  
+  &:after {
+    content: '';
+    height: 0.65em;
+    width: 101%;
+    position: absolute;
+    left: -0.5%;
+    top: 33%;
+    z-index: -1;
+    border-radius: 4px;
+  }
+
+  &.offering:after {
+    background-color: #59BFB8;
+  }
+
+  &.requesting:after {
+    background-color: #EBB205;
+  }
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SplashHeader from '../../elements/SplashHeader/SplashHeader';
+import SplashActions from '../SplashActions/SplashActions';
 
 class SplashScreen extends Component {
   render() {
@@ -8,6 +9,7 @@ class SplashScreen extends Component {
         <img src={this.props.splashScreen.splashImageSrc} className='background-image'/>
         <div className='wrapper'>
           <SplashHeader/>
+          <SplashActions/>
         </div>
       </div>
     )
