@@ -237,6 +237,10 @@ $offering-color: #EBB205;
     outline: none;
   }
 
+  &:focus {
+    outline: none;
+  }
+
   svg {
     position: relative;
     height: inherit;
