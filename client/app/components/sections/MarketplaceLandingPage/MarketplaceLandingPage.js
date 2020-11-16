@@ -10,7 +10,7 @@ class MarketplaceLandingPage extends Component {
   render() {
 
     return (
-      <div className='marketplace-landing-page'>Test</div>
+      <section className='marketplace-landing-page'>Test</section>
     )
   }
 }
