@@ -43,21 +43,22 @@
           .banner--title-wrapper
             .banner--title
               = yield :banner_warning
-      %section.marketplace-lander
-        - if @big_cover_photo
-          .coverimage
-            %figure.marketplace-cover.fluidratio
-              .lander-content.marketplace-lander-content
-                = yield :title_header
-        - elsif !(is_homepage && FeatureFlagHelper.feature_enabled?(:topbar_v1)) && !@is_landing_page
-          .coverimage
-            %figure.marketplace-cover-small.fluidratio
-            .coverimage-fade{:class => yield(:coverfade_class)}
-              %figure.marketplace-cover-small-fade.fluidratio
-          .title-container
-            .title-header-wrapper
-              .marketplace-title-header
-                = yield :title_header
+      - unless @is_landing_page
+        %section.marketplace-lander
+          - if @big_cover_photo
+            .coverimage
+              %figure.marketplace-cover.fluidratio
+                .lander-content.marketplace-lander-content
+                  = yield :title_header
+          - elsif !(is_homepage && FeatureFlagHelper.feature_enabled?(:topbar_v1))
+            .coverimage
+              %figure.marketplace-cover-small.fluidratio
+              .coverimage-fade{:class => yield(:coverfade_class)}
+                %figure.marketplace-cover-small-fade.fluidratio
+            .title-container
+              .title-header-wrapper
+                .marketplace-title-header
+                  = yield :title_header
 
       %article.page-content{class: is_homepage && !@big_cover_photo ? 'no-cover-photo' : ''}
         .wrapper
