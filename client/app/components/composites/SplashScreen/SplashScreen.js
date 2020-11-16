@@ -9,7 +9,7 @@ class SplashScreen extends Component {
         <img src={this.props.splashScreen.splashImageSrc} className='background-image'/>
         <div className='wrapper'>
           <SplashHeader/>
-          <SplashActions/>
+          <SplashActions routes={this.props.routes}/>
         </div>
       </div>
     )

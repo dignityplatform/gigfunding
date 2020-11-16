@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MarketplaceLandingPageHeading from '../../elements/MarketplaceLandingPage/Heading';
 import MarketplaceLandingPageSubHeading from '../../elements/MarketplaceLandingPage/SubHeading.js';
+import MarketplaceLandingPageActionButton from '../../elements/MarketplaceLandingPage/ActionButton';
 
 class SplashActions extends Component {
   render() {
@@ -11,7 +12,7 @@ class SplashActions extends Component {
           <MarketplaceLandingPageHeading text={'OR'}/>
           <MarketplaceLandingPageHeading text={'VOLUNTEER A SKILL'} highlight={'requesting'}/>
           <MarketplaceLandingPageSubHeading text={'and donate the payment to a good cause'}/>
-          {/* <LandingPageActionButton text={'Sign up for free'} color={'#EBB205'}/> */}
+          <MarketplaceLandingPageActionButton text={'Sign up for free'} colorClass={'offering'} action={this.props.routes.login_path()}/>
         </div>
         <div className='splash-action desktop'>
         </div>
