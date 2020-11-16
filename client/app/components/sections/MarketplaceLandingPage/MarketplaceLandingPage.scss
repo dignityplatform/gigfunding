@@ -1,4 +1,7 @@
-.marketplace-landing-page {
-  height: calc(100vh - 60px);
+.marketplace-landing-page-container {
+  height: auto;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }

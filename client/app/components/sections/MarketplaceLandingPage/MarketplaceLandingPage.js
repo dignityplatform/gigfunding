@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { routes as routesProp } from '../../../utils/PropTypes';
+import SplashScreen from '../../composites/SplashScreen/SplashScreen';
 
 if (typeof document !== 'undefined') {
   require('./MarketplaceLandingPage.scss');
@@ -8,9 +8,10 @@ if (typeof document !== 'undefined') {
 class MarketplaceLandingPage extends Component {
 
   render() {
-
     return (
-      <section className='marketplace-landing-page'>Test</section>
+      <section className='marketplace-landing-page'>
+        <SplashScreen {...this.props}/>
+      </section>
     )
   }
 }
