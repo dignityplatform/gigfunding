@@ -15,8 +15,16 @@ class SplashActions extends Component {
           <MarketplaceLandingPageActionButton text={'Sign up for free'} colorClass={'offering'} action={this.props.routes.login_path()}/>
         </div>
         <div className='splash-action desktop'>
+          <MarketplaceLandingPageHeading text={'I WANT TO'}/>
+          <MarketplaceLandingPageHeading text={'VOLUNTEER A SKILL'} highlight={'requesting'}/>
+          <MarketplaceLandingPageSubHeading text={'and donate the payment to a good cause'}/>
+          <MarketplaceLandingPageActionButton text={'Sign up for free'} colorClass={'requesting'} action={this.props.routes.login_path()}/>
         </div>
         <div className='splash-action desktop'>
+          <MarketplaceLandingPageHeading text={'I WANT TO'}/>
+          <MarketplaceLandingPageHeading text={'HIRE A SKILL'} highlight={'offering'}/>
+          <MarketplaceLandingPageSubHeading text={'and donate the payment to a good cause'}/>
+          <MarketplaceLandingPageActionButton text={'Sign up for free'} colorClass={'offering'} action={this.props.routes.login_path()}/>
         </div>
       </div>
     )

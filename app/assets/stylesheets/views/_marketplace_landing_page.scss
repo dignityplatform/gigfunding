@@ -144,6 +144,11 @@ $offering-color: #EBB205;
   color: rgb(0,0,0);
   position: relative;
   margin-bottom: 0.1em;
+
+  @include media(tablet) {
+    font-size: 2.2em;
+    margin-bottom: 0.35em;
+  }
 }
 
 .half-highlight-element {
@@ -175,6 +180,10 @@ $offering-color: #EBB205;
   text-align: center;
   margin: 1em 0em;
   color: rgb(0,0,0);
+
+  @include media(tablet) {
+    font-size: 1.2em;
+  }
 }
 
 .marketplace-landing-page-action-button {
@@ -196,5 +205,9 @@ $offering-color: #EBB205;
 
   &.requesting {
     background-color: $requesting-color;
+  }
+
+  @include media(tablet) {
+    font-size: 1.2em;
   }
 }
