@@ -11,18 +11,14 @@ config.module.rules.push(
   {
     test: /\.css$/,
     loaders: [
-      {
-        loader: 'style-loader',
-        options: {
-          sourceMap: true,
-        },
-      },
+      'style-loader',
       {
         loader: 'css-loader',
         options: {
-          modules: true,
           sourceMap: true,
-          localIdentName: '[name]__[local]__[hash:base64:5]',
+          modules: {
+            localIdentName: '[name]__[local]__[hash:base64:5]',
+          },
         },
       },
       {
