@@ -186,11 +186,11 @@ class ListingShape < ApplicationRecord
     collection = []
     counter = 0
     self.listings.includes(:author, :listing_images).shuffle.each do |listing|
-      if listing.has_image?
-        collection.push(listing)
-        counter += 1
-        return collection  if counter == count
-      end
+      next unless listing.has_image?
+
+      collection.push(listing)
+      counter += 1
+      return collection  if counter == count
     end
     collection
   end

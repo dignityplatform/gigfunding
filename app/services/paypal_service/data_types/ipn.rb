@@ -283,7 +283,7 @@ module PaypalService
         end
       end
       private_class_method :msg_type
-      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:enable Metrics/PerceivedComplexity
 
       def to_money(sum, currency)
         sum.to_money(currency)
