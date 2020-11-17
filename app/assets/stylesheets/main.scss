@@ -45,10 +45,6 @@ body {
   }
 }
 
-.sidewinder-wrapper {
-  min-height: 100%;
-}
-
 .page-content {
   padding-bottom: lines(3);
   padding-top: lines(0.5);
@@ -2313,4 +2309,9 @@ figure.fluidratio {
   0% { opacity:1; }
   50% { opacity:0; }
   100% { opacity:1; }
+}
+
+.full-page-container {
+  position: relative;
+  min-height: 100%;
 }
