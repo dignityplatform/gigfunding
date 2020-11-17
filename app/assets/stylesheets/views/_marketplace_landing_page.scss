@@ -104,7 +104,7 @@ $text-section-color: #FCF5F2;
 .splash-actions {
   width: 100%;
   height: auto;
-  flex: 3 1 auto;
+  flex: 5 1 auto;
   display: flex;
   align-items: flex-end;
   &:hover {
@@ -371,7 +371,7 @@ $text-section-color: #FCF5F2;
     max-width: 800px;
     min-width: 200px;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 20px;
     z-index: 1;
 
     .background-image {
@@ -403,6 +403,17 @@ $text-section-color: #FCF5F2;
   }
 }
 
+.how-it-works-action {
+  margin: 2em 0 5em 0;
+  justify-content: center;
+
+  a {
+    box-shadow: 0 2px 43px 0 rgba(36,36,36,0.2);
+    padding-left: 3em;
+    padding-right: 3em;
+  }
+}
+
 .desktop-order-1 {
   order: unset;
   @include media(tablet) {
@@ -414,5 +425,12 @@ $text-section-color: #FCF5F2;
   order: unset;
   @include media(tablet) {
     order: 2;
+  }
+}
+
+.desktop-order-3 {
+  order: unset;
+  @include media(tablet) {
+    order: 3;
   }
 }
