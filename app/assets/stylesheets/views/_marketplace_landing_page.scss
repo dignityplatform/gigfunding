@@ -150,6 +150,7 @@ $text-section-color: #FCF5F2;
   position: relative;
   margin-bottom: 0.1em;
   letter-spacing: 0;
+  color: rgb(0,0,0);
 
   @include media(tablet) {
     font-size: 2.2em;
@@ -265,6 +266,14 @@ $text-section-color: #FCF5F2;
   }
 }
 
+.marketplace-landing-page .wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  width: inherit;
+}
+
 .marketplace-landing-page > .how-it-works {
   position: relative;
   width: 100%;
@@ -272,14 +281,6 @@ $text-section-color: #FCF5F2;
   display: flex;
   flex-wrap: wrap;
   background: $text-section-color;
-
-  .wrapper {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    background: transparent;
-    width: inherit;
-  }
 
   .text-content-wrapper {
     position: relative;
@@ -413,6 +414,41 @@ $text-section-color: #FCF5F2;
     padding-right: 3em;
   }
 }
+
+.two-way-selector {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 2em 0;
+
+  .selector-container {
+    flex: 1 1 50%;
+    max-width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .selector-button {
+    min-width: 50%;
+    background: rgba(0,0,0,0);
+    box-sizing: border-box;
+    width: max-content;
+    &:hover {
+      cursor: pointer;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+
+
+
+
+
+
 
 .desktop-order-1 {
   order: unset;
