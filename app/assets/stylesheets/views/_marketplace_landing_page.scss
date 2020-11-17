@@ -7,6 +7,8 @@
 $header-color: #5987BD;
 $requesting-color: #59BFB8;
 $offering-color: #EBB205;
+$section-heading-color: #CFE3F5;
+$text-section-color: #FCF5F2;
 
 .marketplace-landing-page-container {
   height: auto;
@@ -259,5 +261,48 @@ $offering-color: #EBB205;
         color:  rgb(255,255,255);
       }
     }
+  }
+}
+
+.marketplace-landing-page > .how-it-works {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  background: $text-section-color;
+
+  .wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+    width: inherit;
+  }
+}
+
+.flex-container {
+  &.full-width {
+    position: relative;
+    flex: 1 1 100%;
+    display: flex;
+    height: auto;
+  }
+}
+
+.marketplace-landing-page-section-heading {
+  @include source-chantal;
+  font-weight: 600;
+  transform: rotate(-5deg);
+  font-size: 2em;
+  margin: 1.5em 0;
+  font-style: italic;
+
+  &:after {
+    background-color: $section-heading-color;
+  }
+
+  @include media(tablet) {
+    font-size: 3.5em;
   }
 }

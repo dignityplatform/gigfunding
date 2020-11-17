@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import MarketplaceLandingPageHeading from '../../elements/MarketplaceLandingPage/Heading';
-import MarketplaceLandingPageSubHeading from '../../elements/MarketplaceLandingPage/SubHeading.js';
-import MarketplaceLandingPageActionButton from '../../elements/MarketplaceLandingPage/ActionButton';
+import MarketplaceLandingPageHeading from '../../../elements/MarketplaceLandingPage/Heading';
+import MarketplaceLandingPageSubHeading from '../../../elements/MarketplaceLandingPage/SubHeading.js';
+import MarketplaceLandingPageActionButton from '../../../elements/MarketplaceLandingPage/ActionButton';
 
 class SplashActions extends Component {
   render() {
