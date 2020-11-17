@@ -10,7 +10,6 @@ export default (props) => {
   initializeI18n(locale, defaultLocale, process.env.NODE_ENV);
 
   const routes = subset([
-    'login',
     'sign_up',
     'listing',
     'homepage_without_locale',
