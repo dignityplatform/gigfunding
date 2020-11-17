@@ -426,11 +426,10 @@ $text-section-color: #FCF5F2;
     flex: 1 1 50%;
     max-width: 50%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
   }
 
   .selector-button {
-    min-width: 50%;
     background: rgba(0,0,0,0);
     box-sizing: border-box;
     width: max-content;
