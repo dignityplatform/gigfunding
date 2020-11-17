@@ -814,7 +814,7 @@ module ApplicationHelper
   end
 
   def marketpace_or_landing_page_path_helper
-    @user ? homepage_without_locale_path : landing_page_path
+    @current_user ? homepage_without_locale_path : landing_page_path
   end
 end
 # rubocop:enable Metrics/ModuleLength

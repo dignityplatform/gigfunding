@@ -6,7 +6,7 @@ module MarketplaceLandingPageHelper
         defaultLocale: I18n.default_locale
       },
       images: {
-        splashImageSrc: image_url('marketplace_landing_page/splash-image')
+        splashImageSrc: image_url('marketplace_landing_page/splash-image.jpg')
       },
       requestingListings: collect_card_attributes(listings_collection: @requesting_listings, type: 'is looking for'),
       offeringListings: collect_card_attributes(listings_collection: @offering_listings, type: 'is offering')
