@@ -8,8 +8,8 @@ class MarketplaceLandingPageSectionHeading extends Component {
           {this.props.text}
         </h2>
       </div>
-    )
+    );
   }
 }
 
-export default MarketplaceLandingPageSectionHeading
+export default MarketplaceLandingPageSectionHeading;

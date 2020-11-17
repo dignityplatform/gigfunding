@@ -6,8 +6,8 @@ class MarketplaceLandingPageTextBody extends Component {
       <div className='how-it-works-text-body'>
         {this.props.children}
       </div>
-    )
+    );
   }
 }
 
-export default MarketplaceLandingPageTextBody
+export default MarketplaceLandingPageTextBody;

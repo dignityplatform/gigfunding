@@ -6,7 +6,7 @@ class TwoWaySelector extends Component {
 
     let buttonOneHighlight;
     let buttonTwoHighlight;
-    if (!!this.props.sectionOneSelected) {
+    if (this.props.sectionOneSelected) {
       buttonOneHighlight = 'requesting';
       buttonTwoHighlight = '';
     } else {
@@ -27,8 +27,8 @@ class TwoWaySelector extends Component {
           </button>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default TwoWaySelector
+export default TwoWaySelector;

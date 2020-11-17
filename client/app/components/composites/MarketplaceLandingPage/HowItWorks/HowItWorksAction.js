@@ -7,8 +7,8 @@ class HowItWorksAction extends Component {
       <div className='how-it-works-action flex-container full-width desktop-order-3'>
         <ActionButton text='Sign up for free' colorClass='offering' action={this.props.routes.login_path()}/>
       </div>
-    )
+    );
   }
 }
 
-export default HowItWorksAction
+export default HowItWorksAction;

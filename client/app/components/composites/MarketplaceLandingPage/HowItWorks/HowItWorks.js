@@ -19,8 +19,8 @@ class HowItWorks extends Component {
           <HowItWorksAction routes={this.props.routes}/>
         </div>
       </section>
-    )
+    );
   }
 }
 
-export default HowItWorks
+export default HowItWorks;

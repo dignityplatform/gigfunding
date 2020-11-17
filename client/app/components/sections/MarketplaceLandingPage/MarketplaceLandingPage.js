@@ -12,8 +12,8 @@ class MarketplaceLandingPage extends Component {
         <HowItWorks {...this.props}/>
         <ExploreGigs {...this.props}/>
       </section>
-    )
+    );
   }
 }
 
-export default MarketplaceLandingPage
+export default MarketplaceLandingPage;

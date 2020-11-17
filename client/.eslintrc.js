@@ -226,7 +226,7 @@ module.exports = {
     'react/no-danger': 2,
     'react/no-set-state': 2,
     'react/no-string-refs': 2,
-    'react/no-find-dom-node': 1,
+    'react/no-find-dom-node': 0,
     'react/prefer-es6-class': 2,
     'react/require-render-return': 2,
     'react/self-closing-comp': 2,

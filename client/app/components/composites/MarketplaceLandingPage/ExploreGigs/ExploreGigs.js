@@ -5,44 +5,44 @@ import ExploreGigsAction from './ExploreGigsAction';
 import ViewGigs from './ViewGigs';
 
 class ExploreGigs extends Component {
-  constructor () {
-    super()
+  constructor() {
+    super();
     this.state = {
-      sectionOneSelected: true
-    }
+      sectionOneSelected: true,
+    };
   }
 
-  selectSectionOne () {
+  selectSectionOne() {
     this.setState({
-      sectionOneSelected: true
-    })
+      sectionOneSelected: true,
+    });
   }
 
-  selectSectionTwo () {
+  selectSectionTwo() {
     this.setState({
-      sectionOneSelected: false
-    })
+      sectionOneSelected: false,
+    });
   }
 
   render() {
 
-    const selectedGigs = this.state.sectionOneSelected ? 
-      this.props.requestingListings:
-      this.props.offeringListings
-    
+    const selectedGigs = this.state.sectionOneSelected ?
+      this.props.requestingListings :
+      this.props.offeringListings;
+
     return (
       <section className='explore-gigs wrapper'>
         <SectionHeading text='EXPLORE GIGS'/>
         <TwoWaySelector
-          sectionOneSelected={this.state.sectionOneSelected} 
+          sectionOneSelected={this.state.sectionOneSelected}
           handleButtonOneClick={this.selectSectionOne.bind(this)}
           handleButtonTwoClick={this.selectSectionTwo.bind(this)}
         />
         <ViewGigs gigs={selectedGigs} routes={this.props.routes}/>
         <ExploreGigsAction sectionOneSelected={this.state.sectionOneSelected} routes={this.props.routes} />
       </section>
-    )
+    );
   }
 }
 
-export default ExploreGigs
+export default ExploreGigs;

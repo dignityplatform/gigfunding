@@ -10,12 +10,12 @@ class SplashHeader extends Component {
         </h1>
         <div className='splash-subtitle'>
           FUND SOCIAL
-          <br></br>
+          <br />
           CHANGE
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default SplashHeader
+export default SplashHeader;

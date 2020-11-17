@@ -6,8 +6,8 @@ class MarketplaceLandingPageActionButton extends Component {
       <a href={this.props.action} className={`marketplace-landing-page-action-button ${this.props.colorClass}`} title='Sign up'>
         {this.props.text}
       </a>
-    )
+    );
   }
 }
 
-export default MarketplaceLandingPageActionButton
+export default MarketplaceLandingPageActionButton;

@@ -6,8 +6,8 @@ class MarketplaceLandingPageSubHeading extends Component {
       <div className='marketplace-landing-page-sub-heading'>
         {this.props.text}
       </div>
-    )
+    );
   }
 }
 
-export default MarketplaceLandingPageSubHeading
+export default MarketplaceLandingPageSubHeading;

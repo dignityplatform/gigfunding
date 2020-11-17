@@ -14,8 +14,8 @@ class SplashScreen extends Component {
           <SplashScroll/>
         </div>
       </section>
-    )
+    );
   }
 }
 
-export default SplashScreen
+export default SplashScreen;

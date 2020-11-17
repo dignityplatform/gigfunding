@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
-import ReactPlayer from 'react-player';
 
 const generateVideoPlayerWrapper = (backgroundImageSrc) => {
   class VideoPlayerWrapper extends Component {
     render() {
-      return(
+      return (
         <div className='player-wrapper'>
           <img className='background-image' src={backgroundImageSrc}/>
           {this.props.children}
         </div>
-      )
+      );
     }
   }
-  
-  return VideoPlayerWrapper
-} 
+
+  return VideoPlayerWrapper;
+};
 
 
-export default generateVideoPlayerWrapper
+export default generateVideoPlayerWrapper;

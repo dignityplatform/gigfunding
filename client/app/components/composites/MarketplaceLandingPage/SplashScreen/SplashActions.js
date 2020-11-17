@@ -27,8 +27,8 @@ class SplashActions extends Component {
           <MarketplaceLandingPageActionButton text={'Sign up for free'} colorClass={'offering'} action={this.props.routes.login_path()}/>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default SplashActions
+export default SplashActions;
