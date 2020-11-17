@@ -17,12 +17,13 @@ module MarketplaceLandingPageHelper
   def collect_card_attributes(listings_collection:, type:)
     listings_collection.map do |listing| 
       {
-        imageSrc: listing.listing_images.first.image.url(style: :square_2x),
+        imageSrc: image_url(listing.listing_images.first.image.url(:square_2x)),
         author: listing.author.given_name.capitalize,
         listing_title: listing.title,
         price: listing.price_cents / 100,
         unit_type: listing.unit_type,
-        type: type
+        type: type, 
+        id: listing.id
       }
     end
   end

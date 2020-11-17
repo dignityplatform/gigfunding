@@ -12,6 +12,7 @@ export default (props) => {
   const routes = subset([
     'login',
     'sign_up',
+    'listing',
   ], { locale });
 
   const combinedProps = Object.assign({}, props, { routes });
