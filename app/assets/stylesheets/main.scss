@@ -37,11 +37,16 @@ button {
 
 body {
   @include normal-type;
+  height: 100%;
 
   @include media(tiny-mobile) {
     // Zooms out on tiny screens
     font-size: em(13);
   }
+}
+
+.sidewinder-wrapper {
+  min-height: 100%;
 }
 
 .page-content {
