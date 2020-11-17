@@ -149,6 +149,7 @@ $text-section-color: #FCF5F2;
   text-align: center;
   position: relative;
   margin-bottom: 0.1em;
+  letter-spacing: 0;
 
   @include media(tablet) {
     font-size: 2.2em;
@@ -280,7 +281,7 @@ $text-section-color: #FCF5F2;
     width: inherit;
   }
 
-  .text-content {
+  .text-content-wrapper {
     position: relative;
     width: 100%;
     box-sizing: border-box;
@@ -293,6 +294,21 @@ $text-section-color: #FCF5F2;
 
   .marketplace-landing-page-sub-heading {
     text-align: left;
+  }
+
+  .how-it-works-details {
+    position: relative;
+    flex: 1 1 100%;
+    margin: 1em 0;
+  }
+
+  .marketplace-landing-page-heading {
+    position: relative;
+    text-align: left;
+    letter-spacing: 0;
+    font-size: 1.2em;
+    z-index: 1;
+    width: max-content;
   }
 }
 

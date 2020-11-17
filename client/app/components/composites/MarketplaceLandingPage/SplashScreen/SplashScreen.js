@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SplashHeader from '../../../elements/MarketplaceLandingPage/SplashHeader';
-import SplashActions from '../SplashActions/SplashActions';
+import SplashActions from './SplashActions';
 import SplashScroll from '../../../elements/MarketplaceLandingPage/SplashScroll';
 
 class SplashScreen extends Component {
