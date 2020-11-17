@@ -442,14 +442,29 @@ $text-section-color: #FCF5F2;
   }
 }
 
+.gig-cards-container {
+  overflow-y: scroll;
+  margin-bottom: 1em;
+
+  @include media(tablet) {
+    overflow: hidden;
+    margin-bottom: 2em;
+  }
+}
+
 .gig-card-container {
   position: relative;
   max-width: 33.3%;
-  min-width: 33.3%;
+  min-width: 300px;
   flex: 1 1 auto;
   box-sizing: border-box;
   padding: 0.5em;
   display: flex;
+
+
+  @include media(tablet) {
+    min-width: 33.3%;
+  }
 }
 
 .gig-card-inner {
