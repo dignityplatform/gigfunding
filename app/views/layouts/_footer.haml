@@ -9,19 +9,19 @@
           %ul.footer__link-list
             %li.footer__link-list-item
               %a.footer__link{:href => marketpace_or_landing_page_path_helper}
-                HOME
+                = t('footer.home')
             %li.footer__link-list-item
               %a.footer__link{:href => about_infos_path}
-                ABOUT
+                = t('footer.about')
             %li.footer__link-list-item
               %a.footer__link{:href => homepage_without_locale_path}
-                MARKETPLACE
+                = t('footer.marketplace')
             %li.footer__link-list-item
               %a.footer__link{:href => causes_infos_path}
-                CAUSES
+                = t('footer.causes')
             %li.footer__link-list-item
               %a.footer__link{:href => new_user_feedback_path}
-                CONTACT
+                = t('footer.contact')
         %div{:class => "footer__links-container#{@custom_footer.container_modifier}"}
           - if @custom_footer.links?
             %ul.footer__link-list
