@@ -6,7 +6,7 @@ class HowItWorksDetails extends Component {
   render() {
     return (
       <div className='text-content-wrapper'>
-        <div className='how-it-works-details'>
+        <article className='how-it-works-details'>
           <Heading text={'HOW TO VOLUNTEER YOUR SKILLS'} highlight={'requesting'}/>
           <TextBody>
             To help out a neighbour, offer your skills by adding them to the <strong>Listings</strong> page. You can also tap the Help Out button on any listing you think you can help out with!
@@ -17,8 +17,8 @@ class HowItWorksDetails extends Component {
             <br></br><br></br>
             Don’f forget to review your hirer, so other people know they can trust your neighbour.
           </TextBody>
-        </div>
-        <div className='how-it-works-details'>
+        </article>
+        <article className='how-it-works-details'>
           <Heading text={'HOW TO HIRE A VOLUNTEER'} highlight={'offering'}/>
           <TextBody>
             To hire a volunteer, request their skill on the <strong>Listings</strong> page. This will allow you to message your neighbour. You can ask them any clarifying questions you want. 
@@ -29,7 +29,7 @@ class HowItWorksDetails extends Component {
             <br></br><br></br>
             Don’f forget to review your volunteer, so other people know they can trust your neighbour.
           </TextBody>
-        </div>
+        </article>
       </div>
     )
   }

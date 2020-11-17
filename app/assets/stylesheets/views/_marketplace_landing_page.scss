@@ -162,9 +162,9 @@ $text-section-color: #FCF5F2;
   &:after {
     content: '';
     height: 0.65em;
-    width: 101%;
+    width: 101.5%;
     position: absolute;
-    left: -0.5%;
+    left: -0.75%;
     top: 33%;
     z-index: -1;
     border-radius: 4px;
@@ -286,9 +286,12 @@ $text-section-color: #FCF5F2;
     width: 100%;
     box-sizing: border-box;
     padding: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 
     @include media(tablet) {
-      padding: 0 2em;
+      padding: 0 1.5em;
     }
   }
 
@@ -300,7 +303,10 @@ $text-section-color: #FCF5F2;
     position: relative;
     flex: 1 1 100%;
     margin: 1em 0 2em 0;
-    letter-spacing: 0;
+
+    @include media(tablet) {
+      max-width: 45.5%;
+    }
   }
 
   .marketplace-landing-page-heading {
@@ -310,6 +316,16 @@ $text-section-color: #FCF5F2;
     font-size: 1.2em;
     z-index: 1;
     width: max-content;
+    margin-bottom: 0.5em;
+
+    @include media(tablet) {
+      margin-bottom: 1em;
+      font-size: 1.5em;
+    }
+  }
+
+  .how-it-works-text-body {
+    letter-spacing: 0;
   }
 }
 
