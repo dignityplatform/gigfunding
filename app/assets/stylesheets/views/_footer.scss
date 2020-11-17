@@ -15,14 +15,14 @@
   @include prefix-prop(justify-content, center);
   @include prefix-prop(flex-direction, column);
 
-  padding: 48px 36px 0px 36px;
+  padding: 48px 36px 10px 36px;
 
   @media #{$mobile-landscape}, #{$tablet}  {
-    padding: 48px 96px 0px 96px;
+    padding: 48px 96px 10px 96px;
   }
 
   @media #{$desktop} {
-    padding: 48px 36px 0px 26px;
+    padding: 48px 36px 15px 26px;
     max-width: 1140px + (2 * 36px);
   }
 }
@@ -315,6 +315,6 @@ $footer__social-media-margin: 18px;
   background-color: rgba(0,0,0,0);
 
   @media #{$desktop} {
-    height: 300px;
+    height: 305px;
   }  
 }
