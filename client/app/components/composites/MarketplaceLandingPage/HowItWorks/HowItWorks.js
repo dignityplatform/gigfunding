@@ -15,7 +15,7 @@ class HowItWorks extends Component {
             <SubHeading style='text-align: left;' text='Gigfunding is an online marketplace, where you can Hire or Volunteer skills, and all the payment is donated to causes you choose'/>
           </div>
           <HowItWorksVideo/>
-          <HowItWorksDetails/>
+          <HowItWorksDetails routes={this.props.routes}/>
           <HowItWorksAction routes={this.props.routes}/>
         </div>
       </section>

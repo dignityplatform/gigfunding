@@ -13,6 +13,7 @@ export default (props) => {
     'login',
     'sign_up',
     'listing',
+    'homepage_without_locale',
   ], { locale });
 
   const combinedProps = Object.assign({}, props, { routes });
