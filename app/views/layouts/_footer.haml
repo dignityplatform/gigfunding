@@ -15,6 +15,5 @@
               - @custom_footer.social.each do |social|
                 %a.footer__social-media-link{:href => social.url, :rel => "noreferrer", :target => "_blank"}
                   = render 'layouts/footer/social_icons', social_service: social.provider
-        %hr.footer__separator/
         .footer__copyrights--markdown
           = markdown(@custom_footer.copyright)
