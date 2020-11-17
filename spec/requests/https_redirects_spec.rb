@@ -1,6 +1,14 @@
 require "spec_helper"
 
 describe "Redirect to HTTPS", type: :request do
+
+  before(:each) do
+    @community = FactoryGirl.create(:community)
+    @user = create_admin_for(@community)
+    @user.update(is_admin: true)
+    allow_any_instance_of(ApplicationController).to receive(:current_person).and_return(@user)
+  end
+
   def expect_redirect(http_url, https_url)
     get http_url
     expect(response.status).to eq 301

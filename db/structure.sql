@@ -343,6 +343,7 @@ CREATE TABLE `communities` (
   `show_location` tinyint(1) DEFAULT '1',
   `fuzzy_location` tinyint(1) DEFAULT '0',
   `show_typed_slogan` tinyint(1) DEFAULT '0',
+  `footer_color` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_communities_on_uuid` (`uuid`),
   KEY `index_communities_on_domain` (`domain`) USING BTREE,
@@ -2538,6 +2539,7 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20200917173642'),
 ('20200917220120'),
 ('20200918184345'),
-('20201012091009');
+('20201012091009'),
+('20201117190309');
 
 

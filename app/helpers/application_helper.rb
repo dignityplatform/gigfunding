@@ -742,8 +742,8 @@ module ApplicationHelper
     FeatureFlagHelper.location_search_available ? @current_community.configuration&.main_search&.to_sym : :keyword
   end
 
-  def landing_page_path
-    PathHelpers.landing_page_path(
+  def sharetribe_landing_page_path
+    PathHelpers.sharetribe_landing_page_path(
       community_id: @current_community.id,
       logged_in: @current_user.present?,
       default_locale: @current_community.default_locale,
@@ -811,6 +811,10 @@ module ApplicationHelper
 
   def social_link_placeholder(provider)
     SOCIAL_LINKS[provider.to_sym][:placeholder]
+  end
+
+  def marketpace_or_landing_page_path_helper
+    @user ? homepage_without_locale_path : landing_page_path
   end
 end
 # rubocop:enable Metrics/ModuleLength

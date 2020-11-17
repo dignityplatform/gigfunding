@@ -83,8 +83,8 @@ module.exports = {
     minimizer: [new TerserPlugin({
       terserOptions: {
         ecma: 2015,
-        compress: false
-      }
-    })]
-  }
+        compress: false,
+      },
+    })],
+  },
 };

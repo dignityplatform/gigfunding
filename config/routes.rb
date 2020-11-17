@@ -876,6 +876,8 @@ Rails.application.routes.draw do
 
     get '/:person_id/settings/profile', to: redirect("/%{person_id}/settings") #needed to keep old links working
 
+    get '/landing-page', to: 'marketplace_landing_page#show'
+
   end # scope locale
 
   id_to_username = Proc.new do |params, req|

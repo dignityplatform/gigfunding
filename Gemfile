@@ -151,7 +151,6 @@ group :test do
   gem 'timecop', '~> 0.8.1'
   gem 'database_cleaner', '~> 1.6.1'
   gem 'connection_pool', '~> 2.2.1'
-  gem 'rails-controller-testing', '~> 1.0.2'
 
   # required for CircleCI automatic test balancing
   gem 'rspec_junit_formatter'
@@ -160,6 +159,7 @@ group :test do
   gem 'poltergeist'
   gem 'puma'
   gem 'webdrivers'
+  gem 'rails-controller-testing'
 end
 
 group :development, :test do
@@ -167,7 +167,7 @@ group :development, :test do
 end
 
 
-gem 'mini_racer', '0.2.14', platforms: :ruby
+gem 'mini_racer', '0.3.1'
 gem 'js-routes', '~> 1.3.3'
 
 # Color utilities needed for landing page

@@ -37,11 +37,16 @@ button {
 
 body {
   @include normal-type;
+  height: 100%;
 
   @include media(tiny-mobile) {
     // Zooms out on tiny screens
     font-size: em(13);
   }
+}
+
+.sidewinder-wrapper {
+  min-height: 100%;
 }
 
 .page-content {
@@ -2262,13 +2267,13 @@ figure.fluidratio {
 .float {
   position: fixed;
   font-size: 20px;
-  bottom: 40px;
+  bottom: 20px;
   right: 40px;
   color: #fff;
-  background: #008b8b !important;
   border-radius: 50px;
   text-align: center;
-  box-shadow: 2px 2px 3px #999;
+  background: #5987BD !important;
+  box-shadow: 3px 4px 12px 3px rgba(0, 0, 0, 0.2);
   z-index: 100;
   @media only screen and (max-width: 600px) {
     position: fixed;
@@ -2277,8 +2282,7 @@ figure.fluidratio {
     right: 20px;
     color: #fff;
     border-radius: 50px;
-    text-align: center;
-    box-shadow: 2px 2px 3px #999;
+    text-align: center;;
   }
 }
 

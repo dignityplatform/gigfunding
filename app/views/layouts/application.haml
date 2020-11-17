@@ -38,33 +38,36 @@
         = render partial: "layouts/expiration_notice", locals: {contact_owner_link: new_user_feedback_path}
 
     - content_for(:page_content) do
-      - if content_for?(:banner_warning)
-        %section.banner.banner--warning
-          .banner--title-wrapper
-            .banner--title
-              = yield :banner_warning
-      %section.marketplace-lander
-        - if @big_cover_photo
-          .coverimage
-            %figure.marketplace-cover.fluidratio
-              .lander-content.marketplace-lander-content
-                = yield :title_header
-        - elsif !(is_homepage && FeatureFlagHelper.feature_enabled?(:topbar_v1))
-          .coverimage
-            %figure.marketplace-cover-small.fluidratio
-            .coverimage-fade{:class => yield(:coverfade_class)}
-              %figure.marketplace-cover-small-fade.fluidratio
-          .title-container
-            .title-header-wrapper
-              .marketplace-title-header
-                = yield :title_header
+      - if @is_landing_page
+        = yield
+      - else
+        - if content_for?(:banner_warning)
+          %section.banner.banner--warning
+            .banner--title-wrapper
+              .banner--title
+                = yield :banner_warning
+        %section.marketplace-lander
+          - if @big_cover_photo
+            .coverimage
+              %figure.marketplace-cover.fluidratio
+                .lander-content.marketplace-lander-content
+                  = yield :title_header
+          - elsif !(is_homepage && FeatureFlagHelper.feature_enabled?(:topbar_v1))
+            .coverimage
+              %figure.marketplace-cover-small.fluidratio
+              .coverimage-fade{:class => yield(:coverfade_class)}
+                %figure.marketplace-cover-small-fade.fluidratio
+            .title-container
+              .title-header-wrapper
+                .marketplace-title-header
+                  = yield :title_header
 
-      %article.page-content{class: is_homepage && !@big_cover_photo ? 'no-cover-photo' : ''}
-        .wrapper
-          = render :partial => "layouts/notifications"
-          = yield
-          - if display_branding_info?
-            = render partial: "layouts/non_whitelabel_branding", locals: {link_to_sharetribe: "https://www.sharetribe.com/?utm_source=#{@current_community.ident}.sharetribe.com&utm_medium=referral&utm_campaign=nowl-footer"}
+        %article.page-content{class: is_homepage && !@big_cover_photo ? 'no-cover-photo' : ''}
+          .wrapper
+            = render :partial => "layouts/notifications"
+            = yield
+            - if display_branding_info?
+              = render partial: "layouts/non_whitelabel_branding", locals: {link_to_sharetribe: "https://www.sharetribe.com/?utm_source=#{@current_community.ident}.sharetribe.com&utm_medium=referral&utm_campaign=nowl-footer"}
     -#
       This is not pretty, but works.
       On homepage, we want to wrap the whole page content (search bar and the "real" content) to a form, so that

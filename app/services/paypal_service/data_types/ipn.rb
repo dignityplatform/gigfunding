@@ -242,7 +242,7 @@ module PaypalService
 
       ## Privates
       #
-      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:disable Metrics/PerceivedComplexity
       def msg_type(txn_type, payment_status, pending_reason, invoice_num)
         txn_type = txn_type.to_s.downcase
         status, reason = payment_status.to_s.downcase, pending_reason.to_s.downcase
@@ -283,7 +283,7 @@ module PaypalService
         end
       end
       private_class_method :msg_type
-      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:enable Metrics/PerceivedComplexity
 
       def to_money(sum, currency)
         sum.to_money(currency)

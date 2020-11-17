@@ -7,10 +7,10 @@
   @media (--medium-viewport) {
     font-size: var(--MenuItem_fontSize);
   }
+}
 
-  &:last-child {
-    border-bottom: 0;
-  }
+.menuitem:last-child {
+  border-bottom: 0;
 }
 
 .menuitemLink {
@@ -19,12 +19,12 @@
   color: var(--MenuItem_textColor);
   width: 100%;
   letter-spacing: var(--MenuItem_letterSpacing);
+}
 
-  &:focus,
-  &:hover {
-    color: var(--MenuItem_textColorFocus);
-    background-color: var(--MenuItem_backgroundColorHover);
-  }
+.menuitemLink:focus,
+.menuitemLink:hover {
+  color: var(--MenuItem_textColorFocus);
+  background-color: var(--MenuItem_backgroundColorHover);
 }
 
 .activeIndicator {

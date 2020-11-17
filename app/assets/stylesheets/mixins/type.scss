@@ -87,6 +87,14 @@ $line-height: 24;
   letter-spacing: 0.04em;
 }
 
+@mixin source-chantal {
+  font-family: "chantal";
+}
+
+@mixin source-neue-kabel {
+  font-family: "neue-kabel";
+}
+
 /*
   ----------------------------------------------------------
   Type presets

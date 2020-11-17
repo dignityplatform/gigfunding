@@ -8,8 +8,7 @@ class FooterPresenter < MemoisticPresenter
   end
 
   def display?
-    plan && !!plan[:features][:footer] &&
-      community.footer_enabled
+    community.footer_enabled
   end
 
   def links?
@@ -62,7 +61,7 @@ class FooterPresenter < MemoisticPresenter
   end
 
   def custom_color
-    community.custom_color1 || '4a90e2'
+    community.footer_color || community.custom_color1 || '4a90e2'
   end
 
   def theme_logo?

@@ -109,6 +109,7 @@
 #  show_location                              :boolean          default(TRUE)
 #  fuzzy_location                             :boolean          default(FALSE)
 #  show_typed_slogan                          :boolean          default(FALSE)
+#  footer_color                               :string(255)
 #
 # Indexes
 #

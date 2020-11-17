@@ -2018,9 +2018,16 @@ en:
     invite: 'Invite new members'
     login: 'Log in'
     signup: 'Sign up'
+    marketplace: 'Marketplace'
     menu: Menu
     how_it_works: 'How it works'
     our_causes: 'Our Causes'
+  footer:
+    home: 'HOME'
+    about: 'ABOUT'
+    marketplace: 'MARKETPLACE'
+    causes: 'CAUSES'
+    contact: 'CONTACT'
   homepage:
     additional_private_listings_slate:
       additionally_one_private_offer_exists: 'Additionally  there is <b>one other offer</b>,'
