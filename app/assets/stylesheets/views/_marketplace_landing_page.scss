@@ -186,7 +186,7 @@ $text-section-color: #FCF5F2;
   margin: 1em 0em;
 
   @include media(tablet) {
-    font-size: 1.2em;
+    font-size: 1.3em;
   }
 }
 
@@ -279,6 +279,21 @@ $text-section-color: #FCF5F2;
     background: transparent;
     width: inherit;
   }
+
+  .text-content {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+
+    @include media(tablet) {
+      padding: 0 2em;
+    }
+  }
+
+  .marketplace-landing-page-sub-heading {
+    text-align: left;
+  }
 }
 
 .flex-container {
@@ -295,7 +310,7 @@ $text-section-color: #FCF5F2;
   font-weight: 600;
   transform: rotate(-5deg);
   font-size: 2em;
-  margin: 1.5em 0;
+  margin: 1.5em 0 0.5em 0;
   font-style: italic;
 
   &:after {
