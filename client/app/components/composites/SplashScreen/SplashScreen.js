@@ -6,14 +6,14 @@ import SplashScroll from '../../elements/SplashScroll/SplashScroll';
 class SplashScreen extends Component {
   render() {
     return (
-      <div className='splash-screen'>
+      <section className='splash-screen'>
         <img src={this.props.images.splashImageSrc} className='background-image' alt='landing page cover image, hairdressing gig being completed'/>
         <div className='wrapper'>
           <SplashHeader/>
           <SplashActions routes={this.props.routes}/>
           <SplashScroll/>
         </div>
-      </div>
+      </section>
     )
   }
 }

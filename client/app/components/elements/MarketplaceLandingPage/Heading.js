@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 
 class MarketplaceLandingPageHeading extends Component {
   render() {
-
-    let highlightClass
-    if (!!this.props.highlight) {
-      highlightClass = `half-highlight-element ${this.props.highlight}`;
-    }
+    const highlightClass = !!this.props.highlight ? `half-highlight-element ${this.props.highlight}` : ''
 
     return (
       <h3 className={`marketplace-landing-page-heading ${highlightClass}`}>
