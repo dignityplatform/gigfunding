@@ -27,8 +27,8 @@ class ExploreGigs extends Component {
   render() {
 
     const selectedGigs = this.state.sectionOneSelected ? 
-      this.props.requesting_listings:
-      this.props.offering_listings
+      this.props.requestingListings:
+      this.props.offeringListings
     
     return (
       <section className='explore-gigs wrapper'>
