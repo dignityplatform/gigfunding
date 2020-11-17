@@ -812,5 +812,9 @@ module ApplicationHelper
   def social_link_placeholder(provider)
     SOCIAL_LINKS[provider.to_sym][:placeholder]
   end
+
+  def marketpace_or_landing_page_path_helper
+    @user ? homepage_without_locale_path : landing_page_path
+  end
 end
 # rubocop:enable Metrics/ModuleLength
