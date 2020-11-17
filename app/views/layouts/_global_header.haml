@@ -23,6 +23,10 @@
               %a{href: locale_change_link[:url]}
                 = locale_change_link[:title]
 
+    .header-right.visible-desktop
+      = link_to homepage_without_locale_path, class: "header-text-link header-hover", id: "header-marketplace-link" do
+        = t("header.marketplace")
+
     - unless logged_in
       .header-right
         = link_to login_path, class: "header-text-link header-hover", id: "header-login-link" do
