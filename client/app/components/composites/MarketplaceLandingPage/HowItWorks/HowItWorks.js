@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MarketplaceLandingPageSectionHeading from '../../../elements/MarketplaceLandingPage/SectionHeading';
 import MarketplaceLandingPageSubHeading from '../../../elements/MarketplaceLandingPage/SubHeading.js';
 import HowItWorksDetails from './HowItWorksDetails';
+import HowItWorksVideo from './HowItWorksVideo.js';
 
 class HowItWorks extends Component {
   render() {
@@ -13,6 +14,7 @@ class HowItWorks extends Component {
             <MarketplaceLandingPageSubHeading style='text-align: left;' text='Gigfunding is an online marketplace, where you can Hire or Volunteer skills, and all the payment is donated to causes you choose'/>
           </div>
           <HowItWorksDetails/>
+          <HowItWorksVideo/>
         </div>
       </section>
     )

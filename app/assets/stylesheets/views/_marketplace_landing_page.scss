@@ -354,3 +354,25 @@ $text-section-color: #FCF5F2;
     font-size: 3.5em;
   }
 }
+
+.video-player-container {
+  justify-content: center;
+  margin: 3em 0;
+  padding: 0 2em;
+
+  .player-wrapper {
+    flex: 1 1 100%;
+    max-width: 800px;
+    min-width: 200px;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+  
+
+  video {
+    display: block;
+    &:focus {
+      outline: none;
+    }
+  }
+}
