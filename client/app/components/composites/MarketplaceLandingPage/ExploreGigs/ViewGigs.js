@@ -7,8 +7,6 @@ class ViewGigs extends Component {
       return <GigCard {...gig_data} routes={this.props.routes} key={index}/>
     })
 
-    console.log(gigs)
-
     return (
       <div className='gig-cards-container flex-container full-width'>
         {gigs}

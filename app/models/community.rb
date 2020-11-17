@@ -109,6 +109,7 @@
 #  show_location                              :boolean          default(TRUE)
 #  fuzzy_location                             :boolean          default(FALSE)
 #  show_typed_slogan                          :boolean          default(FALSE)
+#  footer_color                               :string(255)
 #
 # Indexes
 #
@@ -192,6 +193,7 @@ class Community < ApplicationRecord
   validates_format_of :slogan_color, :with => /\A[A-F0-9_-]{6}\z/i, :allow_nil => true
   validates_format_of :description_color, :with => /\A[A-F0-9_-]{6}\z/i, :allow_nil => true
   validates_length_of :custom_head_script, maximum: 65535
+  validates_format_of :footer_color, :with => /\A[A-F0-9_-]{6}\z/i, :allow_nil => true
 
   VALID_BROWSE_TYPES = %w{grid map list}
   validates_inclusion_of :default_browse_view, :in => VALID_BROWSE_TYPES
