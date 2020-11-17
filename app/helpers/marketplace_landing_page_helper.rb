@@ -7,7 +7,23 @@ module MarketplaceLandingPageHelper
       },
       images: {
         splashImageSrc: image_url('marketplace_landing_page/splash-image')
-      }
+      },
+      requesting_listings: collect_card_attributes(listings_collection: @requesting_listings, type: 'is requesting'),
+      offering_listings: collect_card_attributes(listings_collection: @offering_listings, type: 'is volunteering')
     }
+  end
+
+
+  def collect_card_attributes(listings_collection:, type:)
+    listings_collection.map do |listing| 
+      {
+        imageSrc: listing.listing_images.first.image.url(style: :square_2x),
+        author: listing.author.given_name.capitalize,
+        listing_title: listing.title,
+        price: listing.price_cents / 100,
+        unit_type: listing.unit_type,
+        type: type
+      }
+    end
   end
 end
