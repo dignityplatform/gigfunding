@@ -361,16 +361,37 @@ $text-section-color: #FCF5F2;
   padding: 0 2em;
 
   .player-wrapper {
+    position: relative;
     flex: 1 1 100%;
     max-width: 800px;
     min-width: 200px;
     overflow: hidden;
     border-radius: 10px;
+    z-index: 1;
+
+    .background-image {
+      position: relative;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      width: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    > div {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
   }
-  
 
   video {
     display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+
     &:focus {
       outline: none;
     }
