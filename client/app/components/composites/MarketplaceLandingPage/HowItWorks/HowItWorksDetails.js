@@ -5,7 +5,7 @@ import TextBody from '../../../elements/MarketplaceLandingPage/TextBody';
 class HowItWorksDetails extends Component {
   render() {
     return (
-      <div className='text-content-wrapper'>
+      <div className='text-content-wrapper desktop-order-1'>
         <article className='how-it-works-details'>
           <Heading text={'HOW TO VOLUNTEER YOUR SKILLS'} highlight={'requesting'}/>
           <TextBody>

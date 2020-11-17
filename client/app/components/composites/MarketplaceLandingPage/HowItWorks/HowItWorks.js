@@ -13,8 +13,8 @@ class HowItWorks extends Component {
           <div className='text-content-wrapper'>
             <MarketplaceLandingPageSubHeading style='text-align: left;' text='Gigfunding is an online marketplace, where you can Hire or Volunteer skills, and all the payment is donated to causes you choose'/>
           </div>
-          <HowItWorksDetails/>
           <HowItWorksVideo/>
+          <HowItWorksDetails/>
         </div>
       </section>
     )

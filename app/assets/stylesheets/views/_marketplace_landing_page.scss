@@ -357,8 +357,13 @@ $text-section-color: #FCF5F2;
 
 .video-player-container {
   justify-content: center;
-  margin: 3em 0;
-  padding: 0 2em;
+  margin: 2em 0;
+  padding: 0;
+
+  @include media(tablet) {
+    margin: 3em 0;
+    padding: 0 2em;
+  }
 
   .player-wrapper {
     position: relative;
@@ -395,5 +400,19 @@ $text-section-color: #FCF5F2;
     &:focus {
       outline: none;
     }
+  }
+}
+
+.desktop-order-1 {
+  order: unset;
+  @include media(tablet) {
+    order: 1;
+  }
+}
+
+.desktop-order-2 {
+  order: unset;
+  @include media(tablet) {
+    order: 2;
   }
 }
