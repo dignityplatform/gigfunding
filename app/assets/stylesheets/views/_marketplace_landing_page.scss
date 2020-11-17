@@ -410,8 +410,8 @@ $text-section-color: #FCF5F2;
 
   a {
     box-shadow: 0 2px 43px 0 rgba(36,36,36,0.2);
-    padding-left: 3em;
-    padding-right: 3em;
+    min-width: 250px;
+    text-align: center;
   }
 }
 

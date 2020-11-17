@@ -4,14 +4,14 @@ import Heading from '../../../elements/MarketplaceLandingPage/Heading';
 class TwoWaySelector extends Component {
   render() {
 
-    let buttonOneHighlight
-    let buttonTwoHighlight
+    let buttonOneHighlight;
+    let buttonTwoHighlight;
     if (!!this.props.sectionOneSelected) {
-      buttonOneHighlight = 'requesting'
-      buttonTwoHighlight = ''
+      buttonOneHighlight = 'requesting';
+      buttonTwoHighlight = '';
     } else {
-      buttonOneHighlight = ''
-      buttonTwoHighlight = 'offering'
+      buttonOneHighlight = '';
+      buttonTwoHighlight = 'offering';
     }
 
     return (
