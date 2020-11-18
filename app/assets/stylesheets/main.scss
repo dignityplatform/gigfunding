@@ -38,6 +38,8 @@ button {
 body {
   @include normal-type;
   height: 100%;
+  background: $background;
+  color: $body;
 
   @include media(tiny-mobile) {
     // Zooms out on tiny screens
@@ -96,14 +98,6 @@ body {
   $blur: ($size - $css-spread);
 
   @include text-shadow($h-shadow $v-shadow $blur $color);
-}
-
-body {
-  background: $background;
-  color: $body;
-  height: auto; // fixes some height issues in the map view
-  //border: solid darken($highlight, 9%);
-  //border-width: 0 0 lines(1);
 }
 
 ul {
