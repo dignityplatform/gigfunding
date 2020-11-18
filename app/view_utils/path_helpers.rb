@@ -57,9 +57,9 @@ module PathHelpers
     when matches([true, __, __])
       paths.landing_page_without_locale_path(locale: nil)
     when matches([false, false, non_default_locale])
-      paths.homepage_with_locale_path(locale: locale_param)
+      paths.root_path(locale: locale_param)
     else
-      paths.homepage_without_locale_path(locale: nil)
+      paths.root_path(locale: nil)
     end
   end
 

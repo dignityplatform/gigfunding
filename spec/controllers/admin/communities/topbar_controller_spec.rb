@@ -55,7 +55,7 @@ describe Admin::Communities::TopbarController, type: :controller do
       expect(@community.configuration.display_invite_menu).to eq true
 
       default_links = [
-        {:link=>homepage_without_locale_path(locale: nil), :title=>"Home", :priority=>-1},
+        {:link=>'/', :title=>"Home", :priority=>-1},
         {:link=>"/infos/about", :title=>"About", :priority=>0},
         {:link=>"/user_feedbacks/new", :title=>"Contact us", :priority=>1},
         {:link=>"/invitations/new", :title=>"Invite new members", :priority=>2}
@@ -71,7 +71,7 @@ describe Admin::Communities::TopbarController, type: :controller do
       expect(@community.configuration.display_invite_menu).to eq false
 
       links = TopbarHelper.links(community: @community, user: @user, locale_param: nil, host_with_port: "http://#{@community.ident}.lvh.me")
-      expect(links).to eq [{:link=>homepage_without_locale_path(locale: nil), :title=>"Home", :priority=>-1}]
+      expect(links).to eq [{:link=>'/', :title=>"Home", :priority=>-1}]
     end
   end
 

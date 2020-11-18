@@ -449,13 +449,13 @@ describe PeopleController, type: :controller do
     it 'does not show banned person' do
       community_host(community)
       get :show, params: {username: person_banned.username}
-      expect(response).to redirect_to(homepage_without_locale_path(locale: nil))
+      expect(response).to redirect_to(root_path(locale: nil))
     end
 
     it 'does not show deleted person' do
       community_host(community)
       get :show, params: {username: person_deleted.username}
-      expect(response).to redirect_to(homepage_without_locale_path(locale: nil))
+      expect(response).to redirect_to(root_path(locale: nil))
     end
 
     it "shows specific meta title and description" do
