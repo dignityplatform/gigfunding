@@ -11,7 +11,7 @@ RSpec.describe MarketplaceLandingPageController, type: :request do
   describe 'GET /landing-page' do
     it 'successful request' do
       get('/landing-page', headers: {host: "#{@community.ident}.lvh.me"})
-      expect(request).to render_template(:show)
+      expect(response).to render_template(:show)      
     end
   end
 

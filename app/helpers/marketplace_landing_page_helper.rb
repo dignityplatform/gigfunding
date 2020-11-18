@@ -15,6 +15,7 @@ module MarketplaceLandingPageHelper
 
 
   def collect_card_attributes(listings_collection:, type:)
+    listings_collection ||= []
     listings_collection.map do |listing|
       {
         imageSrc: image_url(listing.listing_images.first.image.url(:square)),
