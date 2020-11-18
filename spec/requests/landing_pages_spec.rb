@@ -107,7 +107,7 @@ describe "Landing page", type: :request do
 
   context "when not released" do
     it "index routes to homepage" do
-      expect_controller("http://#{@domain}", "homepage", "index")
+      expect_controller("http://#{@domain}", "marketplace_landing_page", "show")
     end
 
     it "search path redirects to homepage" do

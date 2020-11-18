@@ -27,7 +27,7 @@ describe Admin::AdminBaseController, type: :controller do
       sign_in_for_spec(person)
       get :index
       expect(response).to have_http_status(302)
-      expect(response).to redirect_to('/')
+      expect(response).to redirect_to(homepage_without_locale_path(locale: nil))
     end
 
     it "does not redirect admin" do

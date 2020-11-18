@@ -11,7 +11,7 @@ RSpec.describe MarketplaceLandingPageController, type: :request do
   describe 'GET /' do
     it 'user not logged in' do
       get('/', headers: {host: "#{@community.ident}.lvh.me"})
-      expect(request).to render_template(:show)      
+      expect(request).to render_template(:show)
     end
 
     it 'user logged in' do
@@ -24,7 +24,7 @@ RSpec.describe MarketplaceLandingPageController, type: :request do
   describe 'GET /landing-page' do
     it 'successful request' do
       get('/landing-page', headers: {host: "#{@community.ident}.lvh.me"})
-      expect(request).to render_template(:show)      
+      expect(request).to render_template(:show)
     end
   end
 
