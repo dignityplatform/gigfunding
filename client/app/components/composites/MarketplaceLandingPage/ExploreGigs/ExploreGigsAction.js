@@ -15,7 +15,7 @@ class ExploreGigsAction extends Component {
     }
 
     return (
-      <div className='how-it-works-action flex-container full-width desktop-order-3'>
+      <div className='flex-container full-width desktop-order-3 how-it-works-action'>
         <ActionButton text={textContent} colorClass={colorClass} action={this.props.routes.sign_up_path()}/>
       </div>
     );

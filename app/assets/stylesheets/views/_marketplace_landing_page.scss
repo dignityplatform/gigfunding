@@ -340,13 +340,11 @@ $link-color: rgb(3,102,214);
   }
 }
 
-.flex-container {
-  &.full-width {
-    position: relative;
-    flex: 1 1 100%;
-    display: flex;
-    height: auto;
-  }
+.flex-container.full-width {
+  position: relative;
+  display: flex;
+  height: auto;
+  width: 100%;
 }
 
 .marketplace-landing-page-section-heading {
@@ -417,6 +415,7 @@ $link-color: rgb(3,102,214);
 .how-it-works-action {
   margin: 2em 0 5em 0;
   justify-content: center;
+  flex: 0 0 auto !important;
 
   a {
     box-shadow: 0 2px 43px 0 rgba(36,36,36,0.2);
