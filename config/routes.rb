@@ -93,6 +93,7 @@ Rails.application.routes.draw do
   }
 
   # Landing page acts as root, redirecting to marketplace if user logged in
+  root to: "marketplace_landing_page_#show"
   get '/:locale/' => 'marketplace_landing_page_#show', :constraints => { :locale => locale_matcher }, as: :marketplace_landing_page_with_locale
   get '/' => 'marketplace_landing_page#show', as: :marketplace_landing_page_without_locale
 
