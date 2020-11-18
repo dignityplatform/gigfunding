@@ -92,10 +92,17 @@ Rails.application.routes.draw do
     CustomLandingPage::LandingPageStore.enabled?(request.env[:current_marketplace]&.id)
   }
 
+  # Landing page acts as root, redirecting to marketplace if user logged in
+  root to: "marketplace_landing_page_#show"
+  get '/:locale/' => 'marketplace_landing_page_#show', :constraints => { :locale => locale_matcher }, as: :marketplace_landing_page_with_locale
+  get '/' => 'marketplace_landing_page#show', as: :marketplace_landing_page_without_locale
+
   # Default routes for homepage, these are matched if custom landing page is not in use
   # Inside this constraits are the routes that are used when request has subdomain other than www
-  get '/:locale/' => 'homepage#index', :constraints => { :locale => locale_matcher }, as: :homepage_with_locale
-  get '/' => 'homepage#index', as: :homepage_without_locale
+  get '/:locale/marketplace' => 'homepage#index', :constraints => { :locale => locale_matcher }, as: :homepage_with_locale
+  get '/marketplace' => 'homepage#index', as: :homepage_without_locale
+
+  # Search routes redirect to root
   get '/:locale/s', to: redirect('/%{locale}', status: 307), constraints: { locale: locale_matcher }
   get '/s', to: redirect('/', status: 307)
 
@@ -108,7 +115,6 @@ Rails.application.routes.draw do
   get '/not_available' => 'application#not_available', as: :community_not_available
 
   resources :communities, only: [:new, :create]
-
 
   devise_for :people, only: :omniauth_callbacks, controllers: { omniauth_callbacks: "omniauth" }
 

@@ -2,13 +2,6 @@ require "spec_helper"
 
 describe "HSTS header", type: :request do
 
-  before(:each) do
-    @community = FactoryGirl.create(:community)
-    @user = create_admin_for(@community)
-    @user.update(is_admin: true)
-    allow_any_instance_of(ApplicationController).to receive(:current_person).and_return(@user)
-  end
-
   before do
     @hsts_max_age = 10
   end

@@ -129,3 +129,6 @@ sudo /etc/init.d/unicorn_sharetribe start	# Start
 
 Reverse proxy
 sudo service nginx start
+
+# Mail catcher
+mailcatcher --foreground --http-ip=0.0.0.0

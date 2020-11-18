@@ -24,7 +24,7 @@
                 = locale_change_link[:title]
 
     .header-right.visible-tablet
-      = link_to homepage_without_locale_path, class: "header-text-link header-hover", id: "header-marketplace-link" do
+      = link_to homepage_without_locale_path(locale: nil), class: "header-text-link header-hover", id: "header-marketplace-link" do
         = t("header.marketplace")
 
     - unless logged_in
@@ -49,7 +49,7 @@
       If necessary, the buttons will overlap with the logo. Buttons should be on top, that's
       keep the logo here after buttons
     .header-left.header-logo-container
-      = link_to marketpace_or_landing_page_path_helper, :class => "header-logo", :id => "header-logo" do
+      = link_to root_path(locale: nil), :class => "header-logo", :id => "header-logo" do
         - if @current_community.logo.present?
           %i.header-square-logo.hidden-tablet
             -# Logo is here, it's a CSS background
