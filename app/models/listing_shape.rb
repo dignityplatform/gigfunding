@@ -201,4 +201,8 @@ class ListingShape < ApplicationRecord
   def user_descriptor
     user_descriptor_tr_key&.present? ? " #{I18n.t(user_descriptor_tr_key)}" : ''
   end
+
+  def type_selection_label
+    type_selection_label_tr_key&.present? ? I18n.t(type_selection_label_tr_key) : "Make a '#{I18n.t(name_tr_key)}' type listing"
+  end
 end

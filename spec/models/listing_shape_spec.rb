@@ -129,4 +129,16 @@ describe ListingShape, type: :model do
       expect(subject.user_descriptor).to eq(' test')
     end
   end
+
+  context '#type_selection_label' do
+    it 'no type selection label' do
+      subject = FactoryGirl.create(:listing_shape, type_selection_label_tr_key: nil)
+      expect(subject.type_selection_label).to eq("Make a 'day' type listing")
+    end
+
+    it 'type selection label present' do
+      subject = FactoryGirl.create(:listing_shape, type_selection_label_tr_key: 'test.translation')
+      expect(subject.type_selection_label).to eq('test')
+    end
+  end
 end
