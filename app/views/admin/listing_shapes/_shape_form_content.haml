@@ -37,6 +37,8 @@
     .name-locale-text_field.col-10
       = text_field_tag("user_descriptor[#{loc}]", translation, placeholder: t("admin.listing_shapes.user_descriptor_placeholder"))
 
+
+
 .row
   .col-12
     = label_tag("", t("admin.listing_shapes.type_selection_label"), class: "input")
@@ -47,6 +49,21 @@
       = label_tag "type_selection_label[#{loc}]", locale_name_mapping[loc], class: "listing-shape-locale-label"
     .name-locale-text_field.col-10
       = text_field_tag("type_selection_label[#{loc}]", translation, placeholder: t("admin.listing_shapes.type_selection_label_placeholder"))
+
+
+
+.row
+  .col-12
+    = label_tag("", t("admin.listing_shapes.search_text"), class: "input")
+    
+- shape[:search_text].map do |loc, translation|
+  .row
+    .name-locale-label{class: translation_label_class}
+      = label_tag "search_text[#{loc}]", locale_name_mapping[loc], class: "listing-shape-locale-label"
+    .name-locale-text_field.col-10
+      = text_field_tag("search_text[#{loc}]", translation, placeholder: t("admin.listing_shapes.search_text_placeholder"))
+
+
 
 - if count > 0
   .row.without-margin

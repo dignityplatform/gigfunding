@@ -1064,6 +1064,8 @@ en:
       user_descriptor_placeholder: 'E.g. is looking for'
       type_selection_label: 'Type selection label'
       type_selection_label_placeholder: 'E.g. I want to sell an item'
+      search_text: 'Search bar text'
+      search_text_placeholder: 'E.g. I want to hire a...'
       open_listings_warning:
         one: "There is %{count} open listing with this order type. If you change any of the settings below, that listing will retain the old settings. The listing can be changed to the new settings by editing it manually. If you don't want to have the listing with the old settings visible on your site, you can close it by clicking the button below."
         other: "There are %{count} open listings with this order type. If you change any of the settings below, those listings will retain the old settings. Those listings can be changed to the new settings by editing them manually. If you don't want to have any listings with the old settings visible on your site, you can close them by clicking the button below."
