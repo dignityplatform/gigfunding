@@ -3464,3 +3464,5 @@ en:
     QC: Quebec
     SK: Saskatchewan
     YT: 'Yukon Territory'
+  test:
+    translation: test

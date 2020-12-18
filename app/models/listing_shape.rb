@@ -35,6 +35,7 @@ class ListingShape < ApplicationRecord
 
   belongs_to :community
   belongs_to :transaction_process
+  belongs_to :listing_shape
   has_and_belongs_to_many :categories, -> { order("sort_priority") }, join_table: "category_listing_shapes"
   has_many :listing_units, dependent: :destroy
   has_many :listings
@@ -194,5 +195,9 @@ class ListingShape < ApplicationRecord
       return collection  if counter == count
     end
     collection
+  end
+
+  def user_descriptor
+    user_descriptor_tr_key&.present? ? " #{I18n.t(user_descriptor_tr_key)}" : ''
   end
 end

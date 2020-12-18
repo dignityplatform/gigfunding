@@ -116,4 +116,16 @@ describe ListingShape, type: :model do
       expect(listing_shape).to_not be_valid
     end
   end
+
+  context '#user_descriptor' do
+    it 'no user descriptor' do
+      subject = FactoryGirl.create(:listing_shape, user_descriptor_tr_key: nil)
+      expect(subject.user_descriptor).to eq('')
+    end
+
+    it 'user descriptor present' do
+      subject = FactoryGirl.create(:listing_shape, user_descriptor_tr_key: 'test.translation')
+      expect(subject.user_descriptor).to eq(' test')
+    end
+  end
 end
