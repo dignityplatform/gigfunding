@@ -19,6 +19,7 @@
 #  listing_title_color         :string(255)      default("000000")
 #  user_descriptor_tr_key      :string(255)
 #  type_selection_label_tr_key :string(255)
+#  search_text_tr_key          :string(255)
 #
 # Indexes
 #
