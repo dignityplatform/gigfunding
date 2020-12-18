@@ -837,6 +837,9 @@ CREATE TABLE `listing_shapes` (
   `deleted` tinyint(1) DEFAULT '0',
   `listing_color` varchar(255) DEFAULT 'FFFFFF',
   `listing_title_color` varchar(255) DEFAULT '000000',
+  `user_descriptor_tr_key` varchar(255) DEFAULT NULL,
+  `type_selection_label_tr_key` varchar(255) DEFAULT NULL,
+  `search_text_tr_key` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `multicol_index` (`community_id`,`deleted`,`sort_priority`) USING BTREE,
   KEY `index_listing_shapes_on_community_id` (`community_id`) USING BTREE,
@@ -2540,6 +2543,9 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20200917220120'),
 ('20200918184345'),
 ('20201012091009'),
-('20201117190309');
+('20201117190309'),
+('20201218155820'),
+('20201218194339'),
+('20201218202236');
 
 

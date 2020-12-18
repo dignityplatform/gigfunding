@@ -459,6 +459,9 @@ FactoryGirl.define do
     name                   'Selling'
     name_tr_key            'unit.day'
     action_button_tr_key   'unit.days'
+    user_descriptor_tr_key 'unit.days'
+    type_selection_label_tr_key 'unit.days'
+    search_text_tr_key 'unit.days'
     sort_priority          0
     listing_color          "000000"
   end

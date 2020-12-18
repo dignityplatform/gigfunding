@@ -2,21 +2,24 @@
 #
 # Table name: listing_shapes
 #
-#  id                     :integer          not null, primary key
-#  community_id           :integer          not null
-#  transaction_process_id :integer          not null
-#  price_enabled          :boolean          not null
-#  shipping_enabled       :boolean          not null
-#  availability           :string(32)       default("none")
-#  name                   :string(255)      not null
-#  name_tr_key            :string(255)      not null
-#  action_button_tr_key   :string(255)      not null
-#  sort_priority          :integer          default(0), not null
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  deleted                :boolean          default(FALSE)
-#  listing_color          :string(255)      default("FFFFFF")
-#  listing_title_color    :string(255)      default("000000")
+#  id                          :integer          not null, primary key
+#  community_id                :integer          not null
+#  transaction_process_id      :integer          not null
+#  price_enabled               :boolean          not null
+#  shipping_enabled            :boolean          not null
+#  availability                :string(32)       default("none")
+#  name                        :string(255)      not null
+#  name_tr_key                 :string(255)      not null
+#  action_button_tr_key        :string(255)      not null
+#  sort_priority               :integer          default(0), not null
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#  deleted                     :boolean          default(FALSE)
+#  listing_color               :string(255)      default("FFFFFF")
+#  listing_title_color         :string(255)      default("000000")
+#  user_descriptor_tr_key      :string(255)
+#  type_selection_label_tr_key :string(255)
+#  search_text_tr_key          :string(255)
 #
 # Indexes
 #
@@ -34,6 +37,7 @@ class ListingShape < ApplicationRecord
 
   belongs_to :community
   belongs_to :transaction_process
+  belongs_to :listing_shape
   has_and_belongs_to_many :categories, -> { order("sort_priority") }, join_table: "category_listing_shapes"
   has_many :listing_units, dependent: :destroy
   has_many :listings
@@ -128,7 +132,20 @@ class ListingShape < ApplicationRecord
   end
 
   def self.permitted_attributes(opts)
-    HashUtils.compact(opts.slice(:transaction_process_id, :price_enabled, :shipping_enabled, :name_tr_key, :action_button_tr_key, :sort_priority, :deleted, :availability, :listing_color, :listing_title_color))
+    HashUtils.compact(opts.slice(
+      :transaction_process_id,
+      :price_enabled,
+      :shipping_enabled,
+      :name_tr_key,
+      :action_button_tr_key,
+      :sort_priority,
+      :deleted,
+      :availability,
+      :listing_color,
+      :listing_title_color,
+      :user_descriptor_tr_key,
+      :type_selection_label_tr_key,
+      :search_text_tr_key))
   end
 
   def self.next_sort_priority(shapes)
@@ -193,5 +210,13 @@ class ListingShape < ApplicationRecord
       return collection  if counter == count
     end
     collection
+  end
+
+  def user_descriptor
+    user_descriptor_tr_key&.present? ? " #{I18n.t(user_descriptor_tr_key)}" : ''
+  end
+
+  def type_selection_label
+    type_selection_label_tr_key&.present? ? I18n.t(type_selection_label_tr_key) : "Make a '#{I18n.t(name_tr_key)}' type listing"
   end
 end

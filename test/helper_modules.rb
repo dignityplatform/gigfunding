@@ -6,27 +6,37 @@ module TestHelpers
     DEFAULT_LISTING_SHAPE_TEMPLATES_FOR_TESTS = {
       Sell: {
         en: {
-          name: "Selling", action_button_label: "Buy this item"
+          name: "Selling",
+          action_button_label: "Buy this item",
+          user_descriptor: 'View Selling'
         }
       },
       Lend: {
         en: {
-          name: "Lending", action_button_label: "Borrow this item"
+          name: "Lending",
+          action_button_label: "Borrow this item",
+          user_descriptor: 'View Lending'
         }
       },
       Rent: {
         en: {
-          name: "Renting", action_button_label: "Rent this item"
+          name: "Renting",
+          action_button_label: "Rent this item",
+          user_descriptor: 'View Renting'
         }
       },
       Request: {
         en: {
-          name: "Requesting", action_button_label: "Offer"
+          name: "Requesting",
+          action_button_label: "Offer",
+          user_descriptor: 'View Requesting'
         }
       },
       Service: {
         en: {
-          name: "Selling services", action_button_label: "Offer"
+          name: "Selling services",
+          action_button_label: "Offer",
+          user_descriptor: 'View Services'
         }
       }
     }

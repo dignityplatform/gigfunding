@@ -81,8 +81,8 @@ en:
         community_description_display: 'Display the description in the homepage or Custom Landing Page'
         edit_community_description_description: 'This is shown on the homepage of the marketplace for the users who are not logged in. %{see_how_it_looks_like}.'
         edit_community_description_description_hideable: 'This is shown in browsers, search engines and social media. You can also display it on on the homepage of your marketplace for the users who are not logged in. %{see_how_it_looks_like}.'
-        community_search_placeholder: 'Search help text'
-        edit_community_search_placeholder_description: 'This is shown on the homepage of the marketplace as a placeholder text in the search bar. %{see_how_it_looks_like}.'
+        community_search_placeholder: 'Default search bar placeholder'
+        edit_community_search_placeholder_description: 'The default homepage search bar placeholder text. Shown if the selected listing shape has no defined search bar text. %{see_how_it_looks_like}.'
         private_community_homepage_content: 'Private marketplace homepage content'
         edit_private_community_homepage_content_description: 'This content is shown on the homepage of private marketplaces to users who are not logged in. Here you can describe your marketplace and the process to join it. You can also add images, videos and HTML content here. %{see_how_it_looks_like}.'
         update_information: 'Save settings'
@@ -1060,6 +1060,12 @@ en:
       listing_color_invalid: 'Invalid hex color, please use valid 6 character hex character e.g. F0F0F0'
       action_button_label: 'Checkout button label'
       action_button_placeholder: 'E.g. Buy'
+      user_descriptor: 'User descriptor'
+      user_descriptor_placeholder: 'E.g. is looking for'
+      type_selection_label: 'Type selection label'
+      type_selection_label_placeholder: 'E.g. I want to sell an item'
+      search_text: 'Search bar text'
+      search_text_placeholder: 'E.g. I want to hire a...'
       open_listings_warning:
         one: "There is %{count} open listing with this order type. If you change any of the settings below, that listing will retain the old settings. The listing can be changed to the new settings by editing it manually. If you don't want to have the listing with the old settings visible on your site, you can close it by clicking the button below."
         other: "There are %{count} open listings with this order type. If you change any of the settings below, those listings will retain the old settings. Those listings can be changed to the new settings by editing them manually. If you don't want to have any listings with the old settings visible on your site, you can close them by clicking the button below."
@@ -3462,3 +3468,5 @@ en:
     QC: Quebec
     SK: Saskatchewan
     YT: 'Yukon Territory'
+  test:
+    translation: test
