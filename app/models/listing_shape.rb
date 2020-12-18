@@ -134,16 +134,16 @@ class ListingShape < ApplicationRecord
   def self.permitted_attributes(opts)
     HashUtils.compact(opts.slice(
       :transaction_process_id,
-      :price_enabled, 
-      :shipping_enabled, 
-      :name_tr_key, 
-      :action_button_tr_key, 
-      :sort_priority, 
-      :deleted, 
-      :availability, 
-      :listing_color, 
-      :listing_title_color, 
-      :user_descriptor_tr_key, 
+      :price_enabled,
+      :shipping_enabled,
+      :name_tr_key,
+      :action_button_tr_key,
+      :sort_priority,
+      :deleted,
+      :availability,
+      :listing_color,
+      :listing_title_color,
+      :user_descriptor_tr_key,
       :type_selection_label_tr_key,
       :search_text_tr_key))
   end

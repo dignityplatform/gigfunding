@@ -45,13 +45,13 @@
           - if(main_search == :location)
             = render partial: "location_bar"
           - else
-            = render partial: "search_bar"
+            = render partial: "search_bar", locals: {selected_shape: selected_shape}
   - elsif !(is_homepage && FeatureFlagHelper.feature_enabled?(:topbar_v1))
     .browse-view-search-form
       - if(main_search == :location)
         = render partial: "location_bar"
       - else
-        = render partial: "search_bar"
+        = render partial: "search_bar", locals: {selected_shape: selected_shape}
 
 - content_for(:head) do
   - if seo_pagination_links[:prev].present?
