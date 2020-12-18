@@ -17,6 +17,7 @@
 #  deleted                :boolean          default(FALSE)
 #  listing_color          :string(255)      default("FFFFFF")
 #  listing_title_color    :string(255)      default("000000")
+#  user_descriptor_tr_key :string(255)
 #
 # Indexes
 #

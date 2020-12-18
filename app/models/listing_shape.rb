@@ -17,6 +17,7 @@
 #  deleted                :boolean          default(FALSE)
 #  listing_color          :string(255)      default("FFFFFF")
 #  listing_title_color    :string(255)      default("000000")
+#  user_descriptor_tr_key :string(255)
 #
 # Indexes
 #
@@ -128,7 +129,7 @@ class ListingShape < ApplicationRecord
   end
 
   def self.permitted_attributes(opts)
-    HashUtils.compact(opts.slice(:transaction_process_id, :price_enabled, :shipping_enabled, :name_tr_key, :action_button_tr_key, :sort_priority, :deleted, :availability, :listing_color, :listing_title_color))
+    HashUtils.compact(opts.slice(:transaction_process_id, :price_enabled, :shipping_enabled, :name_tr_key, :action_button_tr_key, :user_descriptor_tr_key, :sort_priority, :deleted, :availability, :listing_color, :listing_title_color))
   end
 
   def self.next_sort_priority(shapes)

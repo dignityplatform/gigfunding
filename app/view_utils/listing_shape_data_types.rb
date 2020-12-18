@@ -34,6 +34,7 @@ module ListingShapeDataTypes
     [:id, :fixnum],
     [:name, :hash, :optional, validate_with: FORM_TRANSLATION],
     [:action_button_label, :hash, :optional, validate_with: FORM_TRANSLATION],
+    [:user_descriptor, :hash, :optional, validate_with: FORM_TRANSLATION],
     [:shipping_enabled, transform_with: CHECKBOX],
     [:price_enabled, transform_with: CHECKBOX],
     [:online_payments, transform_with: CHECKBOX],
@@ -46,7 +47,8 @@ module ListingShapeDataTypes
 
   KEY_MAP = {
     name_tr_key: :name,
-    action_button_tr_key: :action_button_label
+    action_button_tr_key: :action_button_label,
+    user_descriptor_tr_key: :user_descriptor
   }
 
   CUSTOM_UNIT_KEY_MAP = {

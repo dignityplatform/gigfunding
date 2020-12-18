@@ -26,3 +26,6 @@ Style/RegexpLiteral:
 # code.
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Lint/AmbiguousOperator:
+  Enabled: false
