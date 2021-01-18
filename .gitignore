@@ -75,6 +75,8 @@ storage/
 .rvmrc
 .history
 .vscode
+.*.code-workspace
+
 
 shared/log/
 shared/log/
@@ -87,3 +89,8 @@ file-exports/**/*
 /config/master.key
 **/*.key
 **/*.crt
+
+bin/indexer
+bin/indextool
+bin/searchd
+bin/wordbreaker
