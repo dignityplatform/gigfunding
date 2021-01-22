@@ -43,7 +43,7 @@ module PathHelpers
     end
   end
 
-  def landing_page_path(community_id:, logged_in:, locale_param:, default_locale:, custom: false)
+  def sharetribe_landing_page_path(community_id:, logged_in:, locale_param:, default_locale:, custom: false)
     if custom
       community = Community.find(community_id)
       return community.logo_link if community.logo_link.present?
@@ -57,9 +57,9 @@ module PathHelpers
     when matches([true, __, __])
       paths.landing_page_without_locale_path(locale: nil)
     when matches([false, false, non_default_locale])
-      paths.homepage_with_locale_path(locale: locale_param)
+      paths.root_path(locale: locale_param)
     else
-      paths.homepage_without_locale_path(locale: nil)
+      paths.root_path(locale: nil)
     end
   end
 

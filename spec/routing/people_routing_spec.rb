@@ -44,10 +44,12 @@
 #  cloned_from                        :string(22)
 #  google_oauth2_id                   :string(255)
 #  linkedin_id                        :string(255)
+#  cause_id                           :bigint
 #
 # Indexes
 #
 #  index_people_on_authentication_token               (authentication_token)
+#  index_people_on_cause_id                           (cause_id)
 #  index_people_on_community_id                       (community_id)
 #  index_people_on_community_id_and_google_oauth2_id  (community_id,google_oauth2_id)
 #  index_people_on_community_id_and_linkedin_id       (community_id,linkedin_id)
@@ -117,8 +119,8 @@ describe "routing for people", type: :routing do
   it "routes /en to home page" do
     expect(get "#{@protocol_and_host}/en").to(
       route_to({
-                 :controller => "homepage",
-                 :action => "index",
+                 :controller => "marketplace_landing_page_",
+                 :action => "show",
                  :locale => "en"
                }))
   end
@@ -126,8 +128,8 @@ describe "routing for people", type: :routing do
   it "routes /pt-BR to home page" do
     expect(get "/pt-BR").to(
       route_to({
-                 :controller => "homepage",
-                 :action => "index",
+                 :controller => "marketplace_landing_page_",
+                 :action => "show",
                  :locale => "pt-BR"
                }))
   end
@@ -135,8 +137,8 @@ describe "routing for people", type: :routing do
   it "routes / to home page" do
     expect(get "/").to(
       route_to({
-                 :controller => "homepage",
-                 :action => "index"
+                 :controller => "marketplace_landing_page_",
+                 :action => "show"
                }))
   end
 

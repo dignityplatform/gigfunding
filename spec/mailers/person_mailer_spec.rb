@@ -23,7 +23,7 @@ describe PersonMailer, type: :mailer do
     email = MailCarrier.deliver_now(PersonMailer.new_message_notification(@message, @community))
     assert !ActionMailer::Base.deliveries.empty?
     assert_equal @test_person2.confirmed_notification_email_addresses, email.to
-    assert_equal "A new message in Sharetribe from #{PersonViewUtils.person_display_name_for_type(@message.sender, 'first_name_with_initial')}", email.subject
+    assert_equal "You have a new message from #{PersonViewUtils.person_display_name_for_type(@message.sender, 'first_name_with_initial')} on Sharetribe", email.subject
   end
 
   it "should send email about a new comment to own listing" do
@@ -33,7 +33,7 @@ describe PersonMailer, type: :mailer do
     email = MailCarrier.deliver_now(PersonMailer.new_comment_to_own_listing_notification(@comment, @community))
     assert !ActionMailer::Base.deliveries.empty?
     assert_equal recipient.confirmed_notification_email_addresses, email.to
-    assert_equal "Teppo T has commented on your listing in Sharetribe", email.subject
+    assert_equal "Teppo T has commented on your listing on Sharetribe", email.subject
   end
 
   it "should send email about listing with payment but without user's payment details" do
@@ -51,13 +51,14 @@ describe PersonMailer, type: :mailer do
 
     assert !ActionMailer::Base.deliveries.empty?
     assert_equal recipient.confirmed_notification_email_addresses, email.to
-    assert_equal "Remember to add your payment details to receive payments", email.subject
+    assert_equal "You need to add your details to be verified", email.subject
   end
 
   describe "status changed" do
 
     let(:author) { FactoryGirl.build(:person) }
-    let(:listing) { FactoryGirl.build(:listing, author: author, listing_shape_id: 123) }
+    let(:listing_shape) { FactoryGirl.build(:listing_shape) }
+    let(:listing) { FactoryGirl.build(:listing, author: author, listing_shape: listing_shape) }
     let(:starter) { FactoryGirl.build(:person, given_name: "Teppo", family_name: "Testaaja") }
     let(:conversation) { FactoryGirl.build(:conversation) }
     let(:transaction) { FactoryGirl.create(:transaction, listing: listing, starter: starter, conversation: conversation) }
@@ -108,7 +109,7 @@ describe PersonMailer, type: :mailer do
     email = MailCarrier.deliver_now(PersonMailer.new_testimonial(testimonial, @community))
     assert !ActionMailer::Base.deliveries.empty?
     assert_equal @test_person2.confirmed_notification_email_addresses, email.to
-    assert_equal "Teppo T has given you feedback in Sharetribe", email.subject
+    assert_equal "Teppo T has given you feedback on Sharetribe", email.subject
   end
 
   it "should remind about testimonial" do
@@ -240,7 +241,18 @@ describe PersonMailer, type: :mailer do
       confirmed_transaction.update_column(:payment_gateway, 'stripe')
       confirmed_transaction.reload
       email = PersonMailer.transaction_confirmed(confirmed_transaction, community)
-      expect(email.body).to have_text("Proto has marked the order about 'Sledgehammer' completed. The payment for this transaction has now been released to your bank account. You can now give feedback to Proto.")
+      expect(email.body).to have_text("Proto has marked the order <b>Sledgehammer</b> completed. The payment for this transaction has now been released. You can now give feedback to Proto.")
+    end
+  end
+
+  describe '#reset_cause' do
+    it "cause is displayed in email" do
+      cause = FactoryGirl.create(:cause, community: @community)
+      email = MailCarrier.deliver_now(PersonMailer.cause_reset(@test_person, cause, @community))
+      assert !ActionMailer::Base.deliveries.empty?
+      assert_equal @test_person.confirmed_notification_email_addresses, email.to
+      assert_equal "Please select a new Cause", email.subject
+      expect(email).to have_body_text(cause.name)
     end
   end
 end

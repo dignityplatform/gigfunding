@@ -20,6 +20,7 @@ require File.expand_path('../../lib/method_deprecator', __FILE__)
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+HOSTNAME = ENV['HOSTNAME']
 
 # Require Transit. This needs to be done manually, because the gem name
 # (transit-ruby) doesn't match to the module name (Transit) and that's
@@ -241,5 +242,16 @@ module Kassi
     config.after_initialize do
       require File.expand_path('../../lib/active_storage_decorator', __FILE__)
     end
+
+    # BumbleD config to transpile es6 modules with babel in sprockets3
+    extend Sprockets::BumbleD::DSL
+    configure_sprockets_bumble_d do |config|
+      config.babel_config_version = 1
+      config.babel_options = {
+        plugins: ['@babel/plugin-external-helpers']
+      }
+    end
   end
 end
+
+

@@ -19,7 +19,7 @@ config.module = config.module || {};
 config.module.rules = config.module.rules || [];
 config.module.rules.push(
   {
-    test: /\.js$/,
+    test: /\.js(?:\.es6)?$/,
     loader: 'babel-loader',
     exclude: [/node_modules/, /routes\/routes.js/],
   },

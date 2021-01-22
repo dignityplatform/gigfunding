@@ -30,6 +30,8 @@ class TransactionsController < ApplicationController
   )
 
   def new
+    # HERE
+
     Result.all(
       -> {
         fetch_data(params[:listing_id])
@@ -39,7 +41,7 @@ class TransactionsController < ApplicationController
       }
     ).on_success { |((listing_id, listing_model, author_model, process, gateway))|
       transaction_params = HashUtils.symbolize_keys(
-        {listing_id: listing_model.id}
+        {listing_id: listing_model.id, conversation_id: params[:conversation_id], recipient_id: params[:recipient_id]}
         .merge(params.slice(:start_on, :end_on, :quantity, :delivery, :start_time, :end_time, :per_hour).permit!)
       )
 
@@ -47,6 +49,7 @@ class TransactionsController < ApplicationController
       when matches([:none])
         render_free(listing_model: listing_model, author_model: author_model, community: @current_community, params: transaction_params)
       when matches([:preauthorize, :paypal]), matches([:preauthorize, :stripe]), matches([:preauthorize, [:paypal, :stripe]])
+
         redirect_to initiate_order_path(transaction_params)
       else
         opts = "listing_id: #{listing_id}, payment_gateway: #{gateway}, payment_process: #{process}, booking: #{booking}"
@@ -122,6 +125,8 @@ class TransactionsController < ApplicationController
 
   def show
     @transaction = @current_community.transactions.find(params[:id])
+    @listing = @transaction.listing
+
     m_admin = @current_user.has_admin_rights?(@current_community)
     m_participant = @current_user.id == @transaction.starter_id || @current_user.id == @transaction.listing_author_id
 
@@ -142,13 +147,24 @@ class TransactionsController < ApplicationController
 
     messages_and_actions = TransactionViewUtils.merge_messages_and_transitions(
       TransactionViewUtils.conversation_messages(@conversation.messages, @current_community.name_display_type),
-      TransactionViewUtils.transition_messages(@transaction, @conversation, @current_community.name_display_type))
+      TransactionViewUtils.transition_messages(@transaction, @conversation, @current_community))
 
     @transaction.mark_as_seen_by_current(@current_user.id)
 
     is_author = m_admin || @transaction.listing_author_id == @current_user.id
 
+    show_book_button = @transaction.status == 'free' && ((@listing.listing_shape.name == 'offering' && @listing.author_id != @current_user.id) || (@listing.listing_shape.name == 'requesting' && @listing.author_id == @current_user.id))
+
+    book_button_user = if @listing.listing_shape.name == 'offering'
+      @transaction.listing_author
+    elsif @listing.listing_shape.name == 'requesting'
+      @transaction.starter
+    end
+
     render "transactions/show", locals: {
+      show_book_button: show_book_button,
+      book_button_user: book_button_user,
+      conversation_id: @conversation.id,
       messages: messages_and_actions.reverse,
       conversation_other_party: @conversation.other_party(@current_user),
       is_author: is_author,
@@ -270,8 +286,8 @@ class TransactionsController < ApplicationController
     error =
       if listing_model.closed?
         "layouts.notifications.you_cannot_reply_to_a_closed_offer"
-      elsif listing_model.author == current_user
-       "layouts.notifications.you_cannot_send_message_to_yourself"
+      # elsif listing_model.author == current_user
+      #  "layouts.notifications.you_cannot_send_message_to_yourself"
       elsif !Policy::ListingPolicy.new(listing_model, current_community, current_user).visible?
         "layouts.notifications.you_are_not_authorized_to_view_this_content"
       end
@@ -355,7 +371,7 @@ class TransactionsController < ApplicationController
   end
 
   def price_break_down_locals(tx, conversation)
-    if tx.payment_process == :none && tx.unit_price.cents == 0 || conversation.starting_page == Conversation::LISTING
+    if tx.payment_process == :none && tx.unit_price.cents == 0
       nil
     else
       localized_unit_type = tx.unit_type.present? ? ListingViewUtils.translate_unit(tx.unit_type, tx.unit_tr_key) : nil
@@ -483,5 +499,111 @@ class TransactionsController < ApplicationController
 
   def transaction_process_tokens
     TransactionService::API::Api.process_tokens
+  end
+
+  def params_per_hour?
+    params[:per_hour] == '1'
+  end
+
+  def listing
+    @transaction ||= Transaction.find_by(id: params[:id])
+    if @transaction.present?
+      @listing ||= @transaction.listing
+    end
+  end
+
+  # def listing
+  #   @listing ||= Listing.find_by(
+  #     id: params[:id], community_id: @current_community.id) or render_not_found!("Listing #{params[:listing_id]} not found from community #{@current_community.id}")
+  # end
+
+  def add_defaults(params:, shipping_enabled:, pickup_enabled:)
+    default_shipping =
+      case [shipping_enabled, pickup_enabled]
+      when [true, false]
+        {delivery: :shipping}
+      when [false, true]
+        {delivery: :pickup}
+      when [false, false]
+        {delivery: nil}
+      else
+        {}
+      end
+
+    params.merge(default_shipping)
+  end
+
+  def initiation_success(tx_params)
+    record_event(
+      flash.now,
+      "InitiatePreauthorizedTransaction",
+      { listing_id: listing.id,
+        listing_uuid: listing.uuid_object.to_s })
+
+    order = TransactionService::Order.new(
+      community: @current_community,
+      tx_params: tx_params,
+      listing: listing)
+
+    # HERE
+    render "listing_conversations/initiate",
+           locals: {
+             start_on: tx_params[:start_on],
+             end_on: tx_params[:end_on],
+             start_time: tx_params[:start_time],
+             end_time: tx_params[:end_time],
+             per_hour: tx_params[:per_hour],
+             listing: listing,
+             delivery_method: tx_params[:delivery],
+             quantity: tx_params[:quantity],
+             author: listing.author,
+             action_button_label: translate(listing.action_button_tr_key),
+             paypal_in_use: order.paypal_in_use,
+             paypal_expiration_period: TransactionService::Transaction.authorization_expiration_period(:paypal),
+             stripe_in_use: order.stripe_in_use,
+             stripe_publishable_key: StripeHelper.publishable_key(@current_community.id),
+             stripe_shipping_required: listing.require_shipping_address && tx_params[:delivery] != :pickup,
+             form_action: initiated_order_path(person_id: @current_user.id, listing_id: listing.id),
+             country_code: LocalizationUtils.valid_country_code(@current_community.country),
+             paypal_analytics_event: paypal_event_params(listing),
+             price_break_down_locals: order.price_break_down_locals
+           }
+  end
+
+  def initiation_error(data)
+    error_msg =
+      if data.is_a?(Array)
+        # Entity validation failed
+        t("listing_conversations.preauthorize.invalid_parameters")
+      elsif [:dates_missing,
+             :end_cant_be_before_start,
+             :delivery_method_missing,
+             :at_least_one_day_or_night_required,
+             :date_too_late].include?(data[:code])
+        t("listing_conversations.preauthorize.invalid_parameters")
+      elsif data[:code] == :dates_not_available
+        t("listing_conversations.preauthorize.dates_not_available")
+      elsif data[:code] == :harmony_api_error
+        t("listing_conversations.preauthorize.error_in_checking_availability")
+      else
+        raise NotImplementedError.new("No error handler for: #{msg}, #{data.inspect}")
+      end
+
+    flash[:error] = error_msg
+    logger.error(error_msg, :transaction_initiate_error, data)
+    redirect_to listing_path(listing.id)
+  end
+
+  def paypal_event_params(listing)
+    [
+      "RedirectingBuyerToPayPal",
+      {
+        listing_id: listing.id,
+        listing_uuid: listing.uuid_object.to_s,
+        community_id: @current_community.id,
+        marketplace_uuid: @current_community.uuid_object.to_s,
+        user_logged_in: @current_user.present?
+      }
+    ]
   end
 end

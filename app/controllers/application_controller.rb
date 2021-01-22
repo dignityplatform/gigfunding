@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
   # This updates translation files from WTI on every page load. Only useful in translation test servers.
   before_action :fetch_translations if APP_CONFIG.update_translations_on_every_page_load == "true"
 
-  helper_method :root, :logged_in?, :current_user?
+  helper_method :root, :logged_in?, :current_user?, :get_full_locale_name
 
   attr_reader :current_user
 
@@ -97,9 +97,8 @@ class ApplicationController < ActionController::Base
 
     # A hack to get the path where the user is
     # redirected after the locale is changed
-    new_path = request.fullpath.clone
-    a = new_path
-    new_path = a.slice("/#{params[:locale]}")
+    new_path = request.fullpath.dup
+    new_path.slice!("/#{params[:locale]}")
     new_path.slice!(0,1) if new_path =~ /^\//
     @return_to = new_path
 
@@ -154,7 +153,7 @@ class ApplicationController < ActionController::Base
 
   #Creates a URL for root path (i18n breaks root_path helper)
   def root
-    ActiveSupport::Deprecation.warn("Call to root is deprecated and will be removed in the future. Use search_path or landing_page_path instead.")
+    ActiveSupport::Deprecation.warn("Call to root is deprecated and will be removed in the future. Use search_path or sharetribe_landing_page_path instead.")
     "#{request.protocol}#{request.host_with_port}/#{params[:locale]}"
   end
 
@@ -373,17 +372,16 @@ class ApplicationController < ActionController::Base
       paypal_community  = PaypalHelper.community_ready_for_payments?(@current_community.id)
       stripe_community  = StripeHelper.community_ready_for_payments?(@current_community.id)
       paypal_ready      = PaypalHelper.account_prepared_for_user?(@current_user.id, @current_community.id)
-      stripe_ready      = StripeHelper.user_stripe_active?(@current_community.id, @current_user.id)
 
       accept_payments = []
       if paypal_community && paypal_ready
         accept_payments << :paypal
       end
-      if stripe_community && stripe_ready
+      if stripe_community
         accept_payments << :stripe
       end
 
-      if has_paid_listings && accept_payments.blank?
+      if has_paid_listings && accept_payments.blank? && !admin_controller?
         payment_settings_link = view_context.link_to(t("paypal_accounts.from_your_payment_settings_link_text"),
           person_payment_settings_path(@current_user), target: "_blank", rel: "noopener")
 
@@ -590,7 +588,8 @@ class ApplicationController < ActionController::Base
           "feedback",
           "invite",
           "redirect",
-          "admin"
+          "admin",
+          "how_to_use"
         ])
     }
 

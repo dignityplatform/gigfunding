@@ -679,6 +679,38 @@ he-IL:
         when_you_change_your_sharetribe_domain: ~
         would_you_like_to_proceed: ~
         change: ~
+        you_can_now_enable_a_custom_domain: ~
+        read_more_about_the_set_up_of_your_custom_domain: ~
+        set_custom_domain: ~
+        in_order_to_set_your_custom_domain: ~
+        instructions_to_point_your_domain: ~
+        main_domain: ~
+        main_domain_info_text: ~
+        main_domain_link_text: ~
+        check_domain: ~
+        domain_being_checked: ~
+        status: ~
+        checks_pending: ~
+        please_check_back: ~
+        checks_not_passed: ~
+        check_the_domain_again_info: ~
+        check_the_domain_again: ~
+        use_another_domain: ~
+        checks_passed: ~
+        domain_being_set_up: ~
+        setup_in_progress: ~
+        setup_check_back: ~
+        setup_check_back_critical_error: ~
+        setup_failed: ~
+        setup_the_domain_again_info: ~
+        setup_the_domain_again: ~
+        summary:
+          main_domain: ~
+          redirect: ~
+        check_another_domain: ~
+        checks_passed_with_warning: ~
+        this_domain_is_not_configured_correctly: ~
+        start_using_the_custom_domain: ~
       landing_pages:
         landing_pages: "עמוד נחיתה"
         info_1: ~
@@ -825,8 +857,8 @@ he-IL:
           main_title: ~
           column_header: ~
           column_title: ~
-          web_viewer: ~
           column_icon_info: ~
+          column_icon_info_link: ~
           column_icon: ~
           column_paragraph: ~
           column_button: ~
@@ -1583,11 +1615,11 @@ he-IL:
       has_commented_listing_you_follow_in_kassi: "‎‎%{service_name}‎  שאתה עוקב ב ‎%{listing}‎ הגיב על המודעה ‎‎%{author}‎‎"
     new_message:
       view_message: "הצג הודעה"
-      has_sent_you_a_message_in_kassi: "‎‎%{service_name}‎ שלח לך הודעה דרך ‎%{sender}‎‎"
-      you_have_a_new_message: "‎%{service_name}‎ שלך לך הודעה דרך‎%{sender_name}‎ ‎"
+      has_sent_you_a_message_in_kassi: "‎%{sender}‎ שלח לך הודעה. עבור ל ‎%{service_name}‎ על מנת להשיב."
+      you_have_a_new_message: "יש לך הודעה חדשה מ ‎%{sender_name}‎ ב ‎%{service_name}‎"
     new_message_v2:
       headline: ~
-      reply: "השב ל ‎%{sender}‎ "
+      reply: "לחץ כאן להשיב ל ‎%{sender}‎"
     new_payment:
       new_payment: "קיבלת תשלום חדש"
       price_per_unit_type: "‎%{unit_type}‎ מחיר ל"
@@ -2857,10 +2889,10 @@ he-IL:
       newsletters: "איימילים מצוות האתר"
       community_updates: ניוזלטר
       email_about_confirm_reminders: "...שכחתי לאשר הזמנה"
-      email_about_new_comments_to_own_listing: "מישהו הגיב על ההזמנה או הבקשה שלי..."
+      email_about_new_comments_to_own_listing: "מישהו הגיב על כרטיס השירות שלי..."
       email_about_new_messages: "מישהו שלח לי הודעה..."
       email_about_new_received_testimonials: "מישהו כתב עלי משוב..."
-      email_about_testimonial_reminders: "שכחתי לכתוב ביקורת על אירוע..."
+      email_about_testimonial_reminders: "שכחתי לכתוב ביקורת על הזמנה..."
       email_daily_community_updates: "שלחו לי ניוזלטר יומי עם שיתופים חדשים!"
       email_weekly_community_updates: "שלחו לי ניוזלטר שבועי אם יש מודעות חדשות"
       do_not_email_community_updates: "אל תשלחו לי ניוזלטר"

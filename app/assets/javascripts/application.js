@@ -19,6 +19,7 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
+//= require babel-external-helpers
 //= require jquery
 //= require jquery-ui-1.9.2.custom
 //= require jquery.ui.touch-punch.min.js
@@ -104,4 +105,7 @@
 //= require social-insurance-number
 //= require stripe_payment
 //= require confirm_conversation
+//= require typed.js
+//= require typed_slogan
+// require punycode
 //= require_self

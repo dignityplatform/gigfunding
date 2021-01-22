@@ -62,6 +62,8 @@ module TranslationServiceHelper
   def form_values_to_tr_keys!(entity:, key_map:, community_id:)
     key_map.each { |tr_key_prop, form_name|
       form_value = entity[form_name]
+      next unless form_value&.values&.any? {|val| val.present?}
+
       hash = form_value_to_translation_hashes(form_value)
       entity[tr_key_prop] = translation_hashes_to_tr_key!(hash, community_id, entity[tr_key_prop])
     }

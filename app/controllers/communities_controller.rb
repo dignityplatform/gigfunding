@@ -56,7 +56,7 @@ class CommunitiesController < ApplicationController
   end
 
   def ensure_no_communities
-    redirect_to landing_page_path if communities_exist?
+    redirect_to sharetribe_landing_page_path if communities_exist?
   end
 
   def communities_exist?

@@ -12,3 +12,43 @@
 
       %div{:id => "transaction_status"}
         = render :partial => "transactions/status/status", :locals => { :__transaction_model => @transaction, role: role, is_author: is_author }
+
+  
+
+  - if @transaction.current_state == 'free'
+    - current_user_cause = @current_user.cause
+    - other_user_cause = @transaction.starter == @current_user ? @transaction.author.cause : @transaction.starter.cause
+    - payment_complete = false
+  - else
+    - current_user_cause = @transaction.starter == @current_user ? @transaction.starter_cause : @transaction.author_cause
+    - other_user_cause = @transaction.starter == @current_user ? @transaction.author_cause : @transaction.starter_cause
+    - payment_complete = true
+
+  .label
+    = t('.your_cause')
+    - unless payment_complete
+      = render :partial => "layouts/info_text", :locals => { :text => t(".cause_can_change")}
+  - if current_user_cause
+    = render :partial => "layouts/cause_layout", :locals => {cause: current_user_cause, admin: false, is_current_user_viewing: true}
+  - else
+    = t('.cause_not_selected')
+
+  .label
+    = t('.their_cause')
+    - unless payment_complete
+      = render :partial => "layouts/info_text", :locals => { :text => t(".cause_can_change")}
+  - if other_user_cause
+    = render :partial => "layouts/cause_layout", :locals => {cause: other_user_cause, admin: false, is_current_user_viewing: false}
+  - else
+    = t('.cause_not_selected')
+
+  - if show_book_button
+    .row
+      .col-12
+        -# Probably it should not go to new_transaction_path, rather create a new action for booking (as it does not create a new conversation)
+        = form_tag new_transaction_path, :method => :get, :id => "booking-dates" do |f|
+          = hidden_field_tag(:listing_id, @listing.id)
+          = hidden_field_tag(:conversation_id, conversation_id)
+          = hidden_field_tag(:recipient_id, other_party.id)
+          %button
+            = t("conversations.show.book_user", :person => PersonViewUtils.person_display_name_for_type(book_button_user, "first_name_only"))

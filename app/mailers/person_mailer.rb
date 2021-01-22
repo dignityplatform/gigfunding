@@ -16,11 +16,14 @@ class PersonMailer < ActionMailer::Base
   default :from => APP_CONFIG.sharetribe_mail_from_address
   layout 'email'
 
+  add_template_helper(EmailHelper)
   add_template_helper(EmailTemplateHelper)
 
   def conversation_status_changed(transaction, community)
     @email_type =  (transaction.status == "accepted" ? "email_when_conversation_accepted" : "email_when_conversation_rejected")
-    recipient = transaction.other_party(transaction.listing.author)
+    recipient = transaction.buyer
+    @other_party = transaction.listing.listing_shape.name == 'requesting' ? transaction.listing_author : transaction.author
+
     set_up_layout_variables(recipient, community, @email_type)
     with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
       @transaction = transaction
@@ -53,16 +56,20 @@ class PersonMailer < ActionMailer::Base
     end
   end
 
-  def transaction_confirmed(conversation, community, send_to = :seller)
+  def transaction_confirmed(transaction, community, send_to = :seller)
     @email_type =  "email_about_completed_transactions"
-    @conversation = conversation
+    @transaction = transaction
     @recipient_is_seller = send_to == :seller
-    recipient = @recipient_is_seller ? conversation.seller : conversation.buyer
+    recipient = if @recipient_is_seller
+      @transaction.listing.listing_shape.name == 'requesting' ? transaction.listing_author : transaction.seller
+    else
+      transaction.buyer
+    end
     set_up_layout_variables(recipient, community, @email_type)
     with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
       mail(:to => recipient.confirmed_notification_emails_to,
            :from => community_specific_sender(community),
-           :subject => t("emails.transaction_confirmed.request_marked_as_#{@conversation.status}")) do |format|
+           :subject => t("emails.transaction_confirmed.request_marked_as_#{@transaction.status}")) do |format|
         format.html { render v2_template(community.id, 'transaction_confirmed'), layout: v2_layout(community.id) }
       end
     end
@@ -71,7 +78,11 @@ class PersonMailer < ActionMailer::Base
   def transaction_automatically_confirmed(conversation, community)
     @email_type =  "email_about_completed_transactions"
     @conversation = conversation
-    recipient = conversation.buyer
+    recipient = if @recipient_is_seller
+      @transaction.listing.listing_shape.name == 'requesting' ? transaction.listing_author : transaction.seller
+    else
+      transaction.buyer
+    end
     set_up_layout_variables(recipient, community, @email_type)
     with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
       mail(:to => recipient.confirmed_notification_emails_to,
@@ -85,7 +96,11 @@ class PersonMailer < ActionMailer::Base
   def booking_transaction_automatically_confirmed(transaction, community)
     @email_type = "email_about_completed_transactions"
     @transaction = transaction
-    recipient = @transaction.buyer
+    recipient = if @recipient_is_seller
+      @transaction.listing.listing_shape.name == 'requesting' ? transaction.listing_author : transaction.seller
+    else
+      transaction.buyer
+    end
     set_up_layout_variables(recipient, community, @email_type)
     with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
       mail(:to => @recipient.confirmed_notification_emails_to,
@@ -97,7 +112,7 @@ class PersonMailer < ActionMailer::Base
   end
 
   def new_testimonial(testimonial, community)
-    @email_type =  "email_about_new_received_testimonials"
+    @email_type = "email_about_new_received_testimonials"
     recipient = testimonial.receiver
     set_up_layout_variables(recipient, community, @email_type)
     with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
@@ -136,12 +151,16 @@ class PersonMailer < ActionMailer::Base
   end
 
   # Remind users of conversations that have not been accepted or rejected
-  def confirm_reminder(conversation, _, community, days_to_cancel)
+  def confirm_reminder(transaction, _, community, days_to_cancel)
     @email_type = "email_about_confirm_reminders"
-    recipient = conversation.buyer
+    recipient = if @recipient_is_seller
+      @transaction.listing.listing_shape.name == 'requesting' ? transaction.listing_author : transaction.seller
+    else
+      transaction.buyer
+    end
     set_up_layout_variables(recipient, community, @email_type)
     with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
-      @conversation = conversation
+      @transaction = transaction
       @days_to_cancel = days_to_cancel
       mail(:to => recipient.confirmed_notification_emails_to,
            :from => community_specific_sender(community),
@@ -476,6 +495,21 @@ class PersonMailer < ActionMailer::Base
 
   def premailer_mail(opts, &block)
     premailer(mail(opts, &block))
+  end
+
+  def cause_reset(recipient, cause, community)
+    @cause_name = cause.name
+    @community_name = community.name(I18n.locale)
+    @skip_unsubscribe_footer = true
+    set_up_layout_variables(recipient, community, @email_type)
+    with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
+      subject = t("emails.cause_reset.subject", :community => community.full_name(recipient.locale))
+      mail(:to => recipient.confirmed_notification_emails_to,
+           :from => community_specific_sender(community),
+           :subject => subject) do |format|
+        format.html { render v2_template(community.id, 'cause_reset'), layout: v2_layout(community.id) }
+      end
+    end
   end
 
   private

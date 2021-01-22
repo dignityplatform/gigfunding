@@ -44,10 +44,12 @@
 #  cloned_from                        :string(22)
 #  google_oauth2_id                   :string(255)
 #  linkedin_id                        :string(255)
+#  cause_id                           :bigint
 #
 # Indexes
 #
 #  index_people_on_authentication_token               (authentication_token)
+#  index_people_on_cause_id                           (cause_id)
 #  index_people_on_community_id                       (community_id)
 #  index_people_on_community_id_and_google_oauth2_id  (community_id,google_oauth2_id)
 #  index_people_on_community_id_and_linkedin_id       (community_id,linkedin_id)
@@ -447,13 +449,13 @@ describe PeopleController, type: :controller do
     it 'does not show banned person' do
       community_host(community)
       get :show, params: {username: person_banned.username}
-      expect(response).to redirect_to('/')
+      expect(response).to redirect_to(root_path(locale: nil))
     end
 
     it 'does not show deleted person' do
       community_host(community)
       get :show, params: {username: person_deleted.username}
-      expect(response).to redirect_to('/')
+      expect(response).to redirect_to(root_path(locale: nil))
     end
 
     it "shows specific meta title and description" do

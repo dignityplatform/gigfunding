@@ -75,7 +75,7 @@ class SessionsController < ApplicationController
 
     flash[:notice] = t("layouts.notifications.logout_successful")
     mark_logged_out(flash, logged_out_user)
-    redirect_to landing_page_path
+    redirect_to sharetribe_landing_page_path
   end
 
   def index

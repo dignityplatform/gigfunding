@@ -10,7 +10,7 @@ class TransactionDisputedJob < Struct.new(:transaction_id, :community_id)
     transaction = Transaction.find(transaction_id)
     community = Community.find(community_id)
     TransactionMailer.transaction_disputed(transaction: transaction,
-                                           recipient: transaction.seller,
+                                           recipient: transaction.other_party(transaction.buyer),
                                            is_seller: true).deliver_now
     TransactionMailer.transaction_disputed(transaction: transaction,
                                            recipient: transaction.buyer,

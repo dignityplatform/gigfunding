@@ -39,6 +39,8 @@
 #  commission_from_buyer             :integer
 #  minimum_buyer_fee_cents           :integer          default(0)
 #  minimum_buyer_fee_currency        :string(3)
+#  starter_cause_id                  :integer
+#  author_cause_id                   :integer
 #
 # Indexes
 #
@@ -75,6 +77,8 @@ class Transaction < ApplicationRecord
   has_many :testimonials, dependent: :destroy
   belongs_to :listing_author, class_name: 'Person'
   has_many :stripe_payments, dependent: :destroy
+  belongs_to :starter_cause, foreign_key: 'starter_cause_id', class_name: 'Cause'
+  belongs_to :author_cause, foreign_key: 'author_cause_id', class_name: 'Cause'
 
   delegate :author, to: :listing
   delegate :title, to: :listing, prefix: true
@@ -109,7 +113,9 @@ class Transaction < ApplicationRecord
   scope :non_free_including_uninitialized, -> { where('current_state IS NULL OR current_state <> ?', ['free']) }
   scope :by_community, -> (community_id) { where(community_id: community_id) }
   scope :with_payment_conversation, -> {
-    left_outer_joins(:conversation).merge(Conversation.payment)
+    left_outer_joins(:conversation)
+    # all listing conversations are started under Conversation.starting_page = listing
+    # left_outer_joins(:conversation).merge(Conversation.payment)
   }
   scope :with_payment_conversation_latest, -> (sort_direction) {
     with_payment_conversation.order(Arel.sql(
@@ -220,7 +226,7 @@ class Transaction < ApplicationRecord
   end
 
   def has_feedback_from?(person)
-    if author == person
+    if listing_author == person
       testimonial_from_author.present?
     else
       testimonial_from_starter.present?
@@ -236,7 +242,7 @@ class Transaction < ApplicationRecord
   end
 
   def testimonial_from_author
-    testimonials.find { |testimonial| testimonial.author_id == author.id }
+    testimonials.find { |testimonial| testimonial.author_id == listing_author.id }
   end
 
   def testimonial_from_starter
@@ -279,7 +285,7 @@ class Transaction < ApplicationRecord
   #
   # Note: I'm not sure whether we want to have this method or not but at least it makes refactoring easier.
   def other_party(person)
-    person == starter ? listing.author : starter
+    person == starter ? listing_author : starter
   end
 
   def unit_type
@@ -306,12 +312,36 @@ class Transaction < ApplicationRecord
       .max
   end
 
+  def commission_per
+    array = [(item_total * (commission_from_seller / 100.0) unless commission_from_seller.nil?),
+             (minimum_commission unless minimum_commission.nil? || minimum_commission.zero?)]
+    if array[0].to_f >= array[1].to_f
+      "#{commission_from_seller}%"
+    elsif array[1].to_f > array[0].to_f
+      Money.new(array[1], item_total.currency)
+    else
+      0
+    end
+  end
+
   def buyer_commission
     [(item_total * (commission_from_buyer / 100.0) unless commission_from_buyer.nil?),
      (minimum_buyer_fee unless minimum_buyer_fee.nil? || minimum_buyer_fee.zero?),
      Money.new(0, item_total.currency)]
       .compact
       .max
+  end
+
+  def buyer_commission_per
+    array = [(item_total * (commission_from_buyer / 100.0) unless commission_from_buyer.nil?),
+             (minimum_buyer_fee unless minimum_buyer_fee.nil? || minimum_buyer_fee.zero?)]
+    if array[0].to_f >= array[1].to_f
+      "#{commission_from_buyer}%"
+    elsif array[1].to_f > array[0].to_f
+      Money.new(array[1], item_total.currency)
+    else
+      0
+    end
   end
 
   def waiting_testimonial_from?(person_id)
@@ -328,7 +358,7 @@ class Transaction < ApplicationRecord
     self.conversation
       .participations
       .where("person_id = '#{person_id}'")
-      .update_all(is_read: true) # rubocop:disable Rails/SkipsModelValidations
+      .update_all(is_read: true)
   end
 
   def payment_total

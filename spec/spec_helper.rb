@@ -5,7 +5,7 @@ require 'rubygems'
 #require 'spork/ext/ruby-debug'
 
 prefork = lambda {
-# Loading more in this block will cause your tests to run faster. However,
+  # Loading more in this block will cause your tests to run faster. However,
   # if you change any configuration or code from libraries loaded here, you'll
   # need to restart spork for it take effect.
 
@@ -34,11 +34,13 @@ prefork = lambda {
 
   # This file is copied to ~/spec when you run 'ruby script/generate rspec'
   # from the project root directory.
-  ENV["RAILS_ENV"] ||= 'test'
+  ENV["RAILS_ENV"] = 'test'
   require File.expand_path('../config/environment', __dir__)
   require 'rspec/rails'
   require "email_spec"
   require './spec/support/webmock'
+  require 'sphinx_helper'
+  require 'database_cleaner'
 
   # Requires supporting files with custom matchers and macros, etc,
   # in ./support/ and its subdirectories.
@@ -59,11 +61,25 @@ prefork = lambda {
     config.mock_with :rspec
     config.include Devise::Test::ControllerHelpers, type: :controller
     config.include SpecUtils
+    config.use_transactional_fixtures = false
+    config.include SphinxHelpers
+
+    config.before(:suite) do
+      ThinkingSphinx::Test.init
+      ThinkingSphinx::Test.start_with_autostop
+    end
 
     Timecop.safe_mode = true
 
     config.filter_run focus: true
     config.run_all_when_everything_filtered = true
+    config.include ApplicationHelper
+
+    [:controller, :view, :request].each do |type|
+      config.include ::Rails::Controller::Testing::TestProcess, :type => type
+      config.include ::Rails::Controller::Testing::TemplateAssertions, :type => type
+      config.include ::Rails::Controller::Testing::Integration, :type => type
+    end
   end
 
   def uploaded_file(filename, content_type)

@@ -4,7 +4,7 @@ default: &default_settings
   # If you are running on localhost, you can write here "lvh.me:3000" (which redirects to localhost port 3000)
   # The community subdomains will be added to this top domain.
   # NOTE: Do not include http(s) here, or subdomains, just the top level domain, like "sharetribe.com" for example
-  domain: "dignityplatform.org"
+  # domain: "gigfunding.org"
 
   # A comma separated string of trusted proxies. If you host your
   # application behind proxies this configuration allows
@@ -52,6 +52,10 @@ default: &default_settings
   # Default bucket
   s3_bucket_name:
 
+  # Use local (disk) storage service by default. Set to "amazon" when using S3
+  # for CLP assets. See config/storage.yml.
+  active_storage_service: local
+
   # Bucket for CLP images
   clp_s3_bucket_name:
 
@@ -86,7 +90,7 @@ default: &default_settings
   # - 0c84dc78c9435aec606bbf2428c2c476.cloudfront.com
   # - assets%0.your_domain.com
   #
-  asset_host:
+  # asset_host: "https://gigfunding.org"
 
   # Your user-uploaded assets CDN distribution host name, including the desired protocol (http or https).
   #
@@ -177,10 +181,16 @@ default: &default_settings
   # If using SMTP, uncomment corresponding lines and enter your information.
   # the SMPT lines below contain example of using Gmail, but you can use any SMTP
   # For the domain part you can enter HELO domain, if needed. Google for more info. :)
-  mail_delivery_method: "sendmail"
+  mail_delivery_method: "letter_opener"
+
+  # smtp_email_address: "smtp.gmail.com"
+  # smtp_email_port: 587
+  # smtp_email_user_name: "<YOUR_GMAIL_USERNAME>@gmail.com"
+  # smtp_email_password: "<YOUR_GMAIL_PASSWORD>"
+  # smtp_email_domain: "localhost"
 
   # This will be the from field in the mails sent from Sharetribe
-  sharetribe_mail_from_address: "marketplace@dignityplatform.org"
+  sharetribe_mail_from_address: "Pasco from Gigfunding <marketplace@gigfunding.org>"
 
   # The address where the notifications of feedbacks from Sharetribe UI are sent
   feedback_mailer_recipients:  'admins@example.com'
@@ -297,7 +307,8 @@ default: &default_settings
   external_plan_service_secret:
   external_plan_service_login_url:
 
-  # External search service connection
+  # External search service connection only for hosted version, not opensource
+  # https://www.sharetribe.com/community/t/external-search-in-use-problem/1215
   external_search_in_use: false
   external_search_url:
   external_search_apikey:
@@ -399,19 +410,17 @@ default: &default_settings
   # Fonts
   #######
 
-  # Path or URL for Proxima Nova Soft font files
+  # Path or URL for Proxima Soft font files
   #
   # Because a directory is expected, it's recommended to include trailing slash.
   #
   # Example values:
   #
-  # - empty: don't use Proximan Nova Soft font
+  # - empty: don't use Proxima Soft font
   # - landing_page/
   # - https://s3.amazonaws.com/my-bucket/fonts/
   #
-  font_proximanovasoft_url:
-
-  font_circularstd_url:
+  font_proximasoft_url:
 
   ##########################################
   # Admin Intercom (sharetribe.com internal)
@@ -488,10 +497,17 @@ default: &default_settings
   # Debian CA bundle required for Paypal
   ssl_ca_certificates_file: '/etc/ssl/certs/ca-certificates.crt'
 
+  # reCAPTCHA
+  recaptcha_secret_key:
+  # Set to 'log', 'enforce' or 'disabled'
+  recaptcha_mode: 'disabled'
+
 production: &production_settings
   <<: *default_settings
 
   eager_load: true
+
+  asset_host: 'https://gigfunding.org'
 
   log_level: INFO
   stripe_private_key_pattern: "\\Ask_live_.{24,200}\\z"
@@ -501,12 +517,18 @@ staging:
   <<: *production_settings
   # By default staging has same settings as production, but those can be overridden here.
 
+  active_storage_service: amazon
+
   log_level: INFO
   stripe_private_key_pattern: "\\Ask_(test|live)_.{24,200}\\z"
   stripe_publishable_key_pattern: "\\Apk_(test|live)_.{24,200}\\z"
 
 development:
   <<: *default_settings
+
+  # Use localhost for dev
+  domain: 'lvh.me:5000'
+  asset_host: 'http://lvh.me:5000'
 
   # Usually it's easier to run development without SSL
   always_use_ssl: false
@@ -561,6 +583,7 @@ test:
 
   # don't use S3 in tests. (this is the default to avoid
   # anyone losing money for paying for the hosting of test images)
+  active_storage_service: test
   s3_bucket_name:
   aws_access_key_id:
   aws_secret_access_key:
@@ -586,4 +609,3 @@ test:
   feature_stripe_private_key: sk_test_123456789012345678901234
 
   admin_enable_tracking_config: true
-

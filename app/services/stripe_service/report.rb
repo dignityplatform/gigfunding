@@ -12,6 +12,7 @@ class StripeService::Report
   end
 
   def capture_charge_start
+
     result = capture_charge.merge({
       "event": "stripe_call"
     })
@@ -216,7 +217,6 @@ class StripeService::Report
       "stripe_op": "capture_charge",
       "transaction_id": tx.id,
       "stripe_payment_id": stripe_payment.id,
-      "stripe_seller_id": stripe_account.stripe_seller_id,
       "stripe_charge_id": stripe_payment.stripe_charge_id
     }
   end
@@ -224,8 +224,7 @@ class StripeService::Report
   def create_charge
     {
       "stripe_op": "create_charge",
-      "transaction_id": tx.id,
-      "stripe_seller_id": stripe_account.stripe_seller_id
+      "transaction_id": tx.id
     }
   end
 
@@ -233,7 +232,6 @@ class StripeService::Report
     {
       "stripe_op": "cancel_charge",
       "transaction_id": tx.id,
-      "stripe_seller_id": stripe_account.stripe_seller_id,
       "stripe_payment_id": stripe_payment.id,
       "stripe_charge_id": stripe_payment.stripe_charge_id
     }
@@ -244,7 +242,6 @@ class StripeService::Report
       "stripe_op": "create_payout",
       "transaction_id": tx.id,
       "stripe_payment_id": stripe_payment.id,
-      "stripe_seller_id": stripe_account.stripe_seller_id,
       "stripe_charge_id": stripe_payment.stripe_charge_id
     }
   end
@@ -252,8 +249,7 @@ class StripeService::Report
   def create_intent
     {
       "stripe_op": "create_intent",
-      "transaction_id": tx.id,
-      "stripe_seller_id": stripe_account.stripe_seller_id
+      "transaction_id": tx.id
     }
   end
 
@@ -262,7 +258,6 @@ class StripeService::Report
       "stripe_op": "cancel_intent",
       "transaction_id": tx.id,
       "stripe_payment_id": stripe_payment.id,
-      "stripe_seller_id": stripe_account.stripe_seller_id,
       "stripe_charge_id": stripe_payment.stripe_charge_id,
       "stripe_payment_intent_id": stripe_payment.stripe_payment_intent_id
     }
@@ -273,7 +268,6 @@ class StripeService::Report
       "stripe_op": "capture_intent",
       "transaction_id": tx.id,
       "stripe_payment_id": stripe_payment.id,
-      "stripe_seller_id": stripe_account.stripe_seller_id,
       "stripe_charge_id": stripe_payment.stripe_charge_id,
       "stripe_payment_intent_id": stripe_payment.stripe_payment_intent_id
     }

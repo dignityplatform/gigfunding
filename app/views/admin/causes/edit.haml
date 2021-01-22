@@ -1,0 +1,32 @@
+- content_for :javascript do
+  initialize_admin_causes_form_validations("#edit_cause", true);
+
+- content_for :title_header do
+  %h1
+    = t("layouts.admin.admin")
+    = "-"
+    = t(".header")
+
+= render :partial => "admin/left_hand_navigation", :locals => { :links => admin_links_for(@current_community) }
+
+.left-navi-section
+
+  .row 
+    .col-12.label
+      = t('.current_cause_details')
+  .row
+    .col-12
+      = render :partial => "layouts/cause_layout", :locals => {cause: @cause, admin: false, is_current_user_viewing: @cause.default_cause}
+
+  .top-level-category-divider-wrapper
+    .top-level-category-divider
+
+  = form_for [:admin, @cause] do |form|
+    = render :partial => "admin/causes/form/name", :locals => { :form => form }
+    = render :partial => "admin/causes/form/description", :locals => { :form => form }
+    = render :partial => "admin/causes/form/extended_description", :locals => { :form => form }
+    - unless @cause.default_cause
+      = render :partial => "admin/causes/form/link", :locals => { :form => form }
+    = render :partial => "admin/causes/form/logo", :locals => { :form => form }
+    = render :partial => "admin/causes/form/buttons", :locals => { :form => form }
+

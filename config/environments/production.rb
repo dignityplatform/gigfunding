@@ -51,7 +51,8 @@ Rails.application.configure do
   config.lograge.custom_options = ->(event) {
     params = event.payload[:params].except('controller', 'action')
 
-    { params: params,
+    { time: Time.now,
+      params: params,
       host: event.payload[:host],
       community_id: event.payload[:community_id],
       current_user_id: event.payload[:current_user_id],
@@ -130,15 +131,23 @@ Rails.application.configure do
       :user_name            => APP_CONFIG.smtp_email_user_name,
       :password             => APP_CONFIG.smtp_email_password,
       :authentication       => 'plain',
-      :enable_starttls_auto => true
+      :enable_starttls_auto => true,
+      :ssl                  => true
     }
   end
 
+  # Serve assets from host
+  config.action_controller.asset_host = APP_CONFIG.asset_host
+  config.action_mailer.asset_host = APP_CONFIG.asset_host
+  config.action_mailer.default_url_options = {host: APP_CONFIG.asset_host}
+
   # Sendmail is used for some mails (e.g. Newsletter) so configure it even when smtp is the main method
-  ActionMailer::Base.sendmail_settings = {
-    :location       => '/usr/sbin/sendmail',
-    :arguments      => '-i -t'
-  }
+  if mail_delivery_method == :sendmail
+    ActionMailer::Base.sendmail_settings = {
+      :location       => '/usr/sbin/sendmail',
+      :arguments      => '-i -t'
+    }
+  end
 
   ActionMailer::Base.perform_deliveries = true # the "deliver_*" methods are available
 
@@ -147,6 +156,6 @@ Rails.application.configure do
 
   # We don't need schema dumps in this environment
   config.active_record.dump_schema_after_migration = false
-
-  config.active_storage.service = :amazon
+  
+  config.active_storage.service = APP_CONFIG.active_storage_service.to_sym
 end

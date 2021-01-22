@@ -11,6 +11,8 @@
     .name-locale-text_field.col-10
       = text_field_tag("name[#{loc}]", translation, class: "required", placeholder: t("admin.listing_shapes.listing_shape_name_placeholder"))
 
+
+
 .row
   .col-12
     = label_tag("", t("admin.listing_shapes.action_button_label"), class: "input")
@@ -21,6 +23,47 @@
       = label_tag "action_button_label[#{loc}]", locale_name_mapping[loc], class: "listing-shape-locale-label"
     .name-locale-text_field.col-10
       = text_field_tag("action_button_label[#{loc}]", translation, class: "required", placeholder: t("admin.listing_shapes.action_button_placeholder"))
+
+
+
+.row
+  .col-12
+    = label_tag("", t("admin.listing_shapes.user_descriptor"), class: "input")
+    
+- shape[:user_descriptor].map do |loc, translation|
+  .row
+    .name-locale-label{class: translation_label_class}
+      = label_tag "user_descriptor[#{loc}]", locale_name_mapping[loc], class: "listing-shape-locale-label"
+    .name-locale-text_field.col-10
+      = text_field_tag("user_descriptor[#{loc}]", translation, placeholder: t("admin.listing_shapes.user_descriptor_placeholder"))
+
+
+
+.row
+  .col-12
+    = label_tag("", t("admin.listing_shapes.type_selection_label"), class: "input")
+    
+- shape[:type_selection_label].map do |loc, translation|
+  .row
+    .name-locale-label{class: translation_label_class}
+      = label_tag "type_selection_label[#{loc}]", locale_name_mapping[loc], class: "listing-shape-locale-label"
+    .name-locale-text_field.col-10
+      = text_field_tag("type_selection_label[#{loc}]", translation, placeholder: t("admin.listing_shapes.type_selection_label_placeholder"))
+
+
+
+.row
+  .col-12
+    = label_tag("", t("admin.listing_shapes.search_text"), class: "input")
+    
+- shape[:search_text].map do |loc, translation|
+  .row
+    .name-locale-label{class: translation_label_class}
+      = label_tag "search_text[#{loc}]", locale_name_mapping[loc], class: "listing-shape-locale-label"
+    .name-locale-text_field.col-10
+      = text_field_tag("search_text[#{loc}]", translation, placeholder: t("admin.listing_shapes.search_text_placeholder"))
+
+
 
 - if count > 0
   .row.without-margin
@@ -34,6 +77,25 @@
         = link_to close_listings_admin_listing_shape_path, class: "listing-shape-delete-button", data: { confirm: t("admin.listing_shapes.confirm_close_listings_action", count: count) } do
           .content
             = t("admin.listing_shapes.close_listings_action", count: count)
+
+.row
+  .name-locale-label.input
+    = label_tag "listing_color", t("admin.listing_shapes.listing_color_title")
+  .row
+  .name-locale-text_field.col-10
+    = text_field_tag("listing_color", shape[:listing_color], class: "input", placeholder: t("admin.listing_shapes.listing_color_placeholder"))
+
+.row
+  .name-locale-label.input
+    = label_tag "listing_title_color", t("admin.listing_shapes.listing_title_color_title")
+  .row
+  .name-locale-text_field.col-10
+    = text_field_tag("listing_title_color", shape[:listing_title_color], class: "input", placeholder: t("admin.listing_shapes.listing_color_placeholder"))
+
+.row
+  .custom-listing-color#custom-listing-background-color{ style: "background-color: ##{shape[:listing_color]};" }
+    %a#custom-listing-title-color{ style: "color: ##{shape[:listing_title_color]};" }
+      = t("admin.listing_shapes.listing_title_color_label")
 
 .row
   .col-12

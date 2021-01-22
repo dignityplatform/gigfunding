@@ -25,6 +25,7 @@ public/system/cover_photos/
 public/system/logos/
 public/system/small_cover_photos/
 public/system/wide_logos/
+public/system/mercury/**/*
 .loadpath
 .project
 cg.sh
@@ -74,3 +75,15 @@ storage/
 .rvmrc
 .history
 .vscode
+
+shared/log/
+shared/log/
+shared/pids/
+
+.sql
+file-exports/**/*
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
+**/*.key
+**/*.crt

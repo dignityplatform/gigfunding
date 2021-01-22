@@ -1,0 +1,55 @@
+.row.cause-container
+  .cause-logo-container
+    = image_tag cause.logo.url(:square)
+  .cause-info-container
+    - if cause.default_cause && is_current_user_viewing
+      .cause-name
+        = cause.name
+      .cause-description
+        = cause.description
+      .cause-link
+        = link_to t('.edit_person_settings'), person_settings_path(@current_user)
+    - elsif cause.default_cause
+      .cause-name
+        = t('.default_cause_public')
+      .cause-description
+        = t('.default_cause_public_description')
+    - else
+      .cause-name
+        = cause.name
+      .cause-description
+        = cause.description
+      .cause-link
+        = link_to t('.link', cause_name: cause.name), cause.link, target: :_blank
+
+  - if admin
+    .cause-action-container 
+      %a{href: edit_admin_cause_path(cause), class: 'cause-action-button'}        
+        %span
+          = t('.edit_cause')
+
+      - unless cause.default_cause
+        - if cause.archived
+          - unarchive_cause_form_id = 'unarchive_cause_' + cause.id.to_s
+          = form_for cause, :method => :put, url: admin_cause_path(cause), html: { id: unarchive_cause_form_id } do |f|
+            = f.hidden_field :archived, value: false
+            = f.submit t('.unarchive_cause'), class: 'cause-action-button cause-action-unarchive'
+          
+          - delete_cause_form_id = 'delete_cause_' + cause.id.to_s
+          = form_for cause, :method => :delete, url: admin_cause_path(cause), html: { id: delete_cause_form_id } do |f|
+            = f.submit t('.delete_cause'), class: 'cause-action-button cause-action-delete'
+
+            - content_for :javascript do
+              initialize_admin_causes_delete_warning('##{j(delete_cause_form_id)}', '#{j(cause.name)}');
+        - else
+          - archive_cause_form_id = 'archive_cause_' + cause.id.to_s
+          = form_for cause, :method => :put, url: admin_cause_path(cause), html: { id: archive_cause_form_id } do |f|
+            = f.hidden_field :archived, value: true
+            = f.submit t('.archive_cause'), class: 'cause-action-button cause-action-archive'
+
+            - content_for :javascript do
+              initialize_admin_causes_archive_warning('##{j(archive_cause_form_id)}', '#{j(cause.name)}');
+
+        
+
+

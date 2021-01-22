@@ -22,8 +22,8 @@ class PeopleController < Devise::RegistrationsController
 
   def show
     @service = Person::ShowService.new(community: @current_community, params: params, current_user: @current_user)
-    redirect_to landing_page_path and return unless @service.person
-    redirect_to landing_page_path and return if @current_community.private? && !@current_user
+    redirect_to sharetribe_landing_page_path and return unless @service.person
+    redirect_to sharetribe_landing_page_path and return if @current_community.private? && !@current_user
     @selected_tribe_navi_tab = "members"
     @seo_service.user = @service.person
   end
@@ -212,7 +212,7 @@ class PeopleController < Devise::RegistrationsController
       Person.delete_user(target_user.id)
       Listing.delete_by_author(target_user.id)
       PaypalAccount.where(person_id: target_user.id, community_id: target_user.community_id).delete_all
-      Invitation.where(community: @current_community, inviter: target_user).update_all(deleted: true) # rubocop:disable Rails/SkipsModelValidations
+      Invitation.where(community: @current_community, inviter: target_user).update_all(deleted: true)
     end
 
     sign_out target_user
@@ -306,7 +306,8 @@ class PeopleController < Devise::RegistrationsController
         :email,
         :test_group_number,
         :community_id,
-        :admin_emails_consent
+        :admin_emails_consent,
+        :cause_id
     ).permit!
     result.merge(params.require(:person)
       .slice(:custom_field_values_attributes)
@@ -335,6 +336,7 @@ class PeopleController < Devise::RegistrationsController
       :image,
       :description,
       :username,
+      :cause_id,
       location: [:address, :google_address, :latitude, :longitude],
       custom_field_values_attributes: [
         :id,

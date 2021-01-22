@@ -1,5 +1,5 @@
 class Person::SettingsService
-  attr_reader :community, :params, :required_fields_only, :current_user
+  attr_reader :community, :params, :required_fields_only, :current_user, :causes
 
   def initialize(community:, params:, required_fields_only: false, person: nil, current_user: nil)
     @params = params
@@ -7,6 +7,7 @@ class Person::SettingsService
     @required_fields_only = required_fields_only
     @person = person
     @current_user = current_user
+    @causes = available_causes
   end
 
   delegate :person_custom_fields, to: :community, prefix: true
@@ -73,5 +74,9 @@ class Person::SettingsService
     scope = community_person_custom_fields
     scope = scope.required if required_fields_only
     scope
+  end
+
+  def available_causes
+    Cause.available.where(community: @community, default_cause: false, archived: false)
   end
 end

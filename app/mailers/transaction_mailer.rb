@@ -16,13 +16,19 @@ class TransactionMailer < ActionMailer::Base
   default :from => APP_CONFIG.sharetribe_mail_from_address
   layout 'email'
 
+  add_template_helper(EmailHelper)
   add_template_helper(EmailTemplateHelper)
 
   def transaction_preauthorized(transaction)
     @transaction = transaction
     @community = transaction.community
 
-    recipient = transaction.author
+    recipient = if transaction.listing.listing_shape.name == 'requesting'
+      transaction.listing_author
+    else
+      transaction.author
+    end
+
     set_up_layout_variables(recipient, transaction.community)
     with_locale(recipient.locale, transaction.community.locales.map(&:to_sym), transaction.community.id) do
 
@@ -222,7 +228,7 @@ class TransactionMailer < ActionMailer::Base
 
   def transaction_refunded(transaction:, recipient:)
     @transaction = transaction
-    @is_seller = transaction.author == recipient
+    @is_seller = (recipient == transaction.other_party(transaction.buyer))
     community = transaction.community
     set_up_layout_variables(recipient, community)
     with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do

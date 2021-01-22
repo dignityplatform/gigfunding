@@ -603,7 +603,7 @@ Lint/Void:
 
 # Offense count: 314
 Metrics/AbcSize:
-  Max: 103
+  Max: 104
 
 # Offense count: 268
 # Configuration parameters: CountComments, ExcludedMethods.
@@ -613,11 +613,11 @@ Metrics/BlockLength:
 # Offense count: 39
 # Configuration parameters: CountComments.
 Metrics/ClassLength:
-  Max: 446
+  Max: 600
 
 # Offense count: 56
 Metrics/CyclomaticComplexity:
-  Max: 22
+  Max: 25
 
 # Offense count: 3995
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
@@ -642,7 +642,7 @@ Metrics/ParameterLists:
 
 # Offense count: 44
 Metrics/PerceivedComplexity:
-  Max: 23
+  Max: 25
 
 # Offense count: 1
 # Cop supports --auto-correct.

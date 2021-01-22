@@ -2,10 +2,14 @@ require 'spec_helper'
 
 describe TransactionService::StateMachine do
   describe 'Stripe payment intent' do
+    let(:listing_shape) do
+      FactoryGirl.create(:listing_shape)
+    end
     let(:listing) do
       listing = FactoryGirl.create(:listing,
                                     availability: :booking,
-                                    quantity_selector: 'number')
+                                    quantity_selector: 'number',
+                                    listing_shape: listing_shape)
       listing.working_hours_new_set
       listing.save
       listing

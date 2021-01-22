@@ -18,6 +18,7 @@ class PaymentSettingsController < ApplicationController
     flash.now[:error] = @service.stripe_error_message
 
     warn_about_missing_payment_info
+    discard_flash_if_verified
     render 'index'
   end
 
@@ -30,6 +31,7 @@ class PaymentSettingsController < ApplicationController
     flash.now[:error] = @service.stripe_error_message
 
     warn_about_missing_payment_info
+    discard_flash_if_verified
     render 'index'
   end
 
@@ -49,7 +51,7 @@ class PaymentSettingsController < ApplicationController
       flash[:warning] = t("stripe_accounts.admin_account_not_connected",
                             contact_admin_link: view_context.link_to(
                               t("stripe_accounts.contact_admin_link_text"),
-                                new_user_feedback_path)).html_safe # rubocop:disable Rails/OutputSafety
+                                new_user_feedback_path)).html_safe
       redirect_to person_settings_path
     end
   end

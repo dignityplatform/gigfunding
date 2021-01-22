@@ -108,6 +108,8 @@
 #  email_admins_about_new_transactions        :boolean          default(FALSE)
 #  show_location                              :boolean          default(TRUE)
 #  fuzzy_location                             :boolean          default(FALSE)
+#  show_typed_slogan                          :boolean          default(FALSE)
+#  footer_color                               :string(255)
 #
 # Indexes
 #
@@ -131,6 +133,8 @@ class Community < ApplicationRecord
   has_many :invitations, :dependent => :destroy
   has_one :location, :dependent => :destroy
   has_many :community_customizations, :dependent => :destroy
+  has_many :typed_slogans, :dependent => :destroy
+  has_many :causes, :dependent => :destroy
   has_many :menu_links, -> { for_topbar.sorted }, :dependent => :destroy, :inverse_of => :community
   has_many :footer_menu_links, -> { for_footer.sorted }, :class_name => "MenuLink",  :dependent => :destroy, :inverse_of => :community
 
@@ -163,6 +167,8 @@ class Community < ApplicationRecord
 
   has_many_attached :landing_page_assets
 
+  has_one :domain_setup, :dependent => :destroy
+
   accepts_nested_attributes_for :social_logo
   accepts_nested_attributes_for :configuration
   accepts_nested_attributes_for :footer_menu_links, allow_destroy: true
@@ -170,7 +176,7 @@ class Community < ApplicationRecord
   accepts_nested_attributes_for :social_links, allow_destroy: true
   accepts_nested_attributes_for :community_customizations
 
-  after_create :initialize_settings
+  after_create :initialize_settings, :add_default_cause
 
   monetize :minimum_price_cents, :allow_nil => true, :with_model_currency => :currency
 
@@ -187,6 +193,7 @@ class Community < ApplicationRecord
   validates_format_of :slogan_color, :with => /\A[A-F0-9_-]{6}\z/i, :allow_nil => true
   validates_format_of :description_color, :with => /\A[A-F0-9_-]{6}\z/i, :allow_nil => true
   validates_length_of :custom_head_script, maximum: 65535
+  validates_format_of :footer_color, :with => /\A[A-F0-9_-]{6}\z/i, :allow_nil => true
 
   VALID_BROWSE_TYPES = %w{grid map list}
   validates_inclusion_of :default_browse_view, :in => VALID_BROWSE_TYPES
@@ -700,5 +707,11 @@ class Community < ApplicationRecord
   def initialize_settings
     update_attribute(:settings,{"locales"=>[APP_CONFIG.default_locale]}) if self.settings.blank?
     true
+  end
+
+  def add_default_cause
+    cause_params = Cause::DEFAULT
+    cause_params[:community_id] = self.id
+    Cause.create(cause_params)
   end
 end

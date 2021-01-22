@@ -107,6 +107,21 @@
       = loc.hidden_field :google_address, :value => target_user.location.google_address
       = loc.hidden_field :latitude, :value => target_user.location.latitude
       = loc.hidden_field :longitude, :value => target_user.location.longitude
+
+    .label
+      = t('settings.profile.select_cause')
+      %small= t('settings.profile.shown_in_your_public_profile')
+
+    - current_cause_id = @service.person.cause.id if @service.person.cause
+
+    .radio-error-container
+      - @service.causes.each do |cause|
+        .cause-radio-continer
+          = form.radio_button(:cause_id, cause.id, hidden: true, required: true, class: 'cause-radio-button', checked: (cause.id == current_cause_id ? true : nil))
+          = form.label "cause_id_#{cause.id}", class: 'cause-radio-label' do
+            = render :partial => "layouts/cause_layout", :locals => {cause: cause, admin: false, is_current_user_viewing: (@service.person == @current_user)}
+
+
     - if @service.has_person_custom_fields?
       - @service.custom_field_values.each_with_index do |custom_field_value, index|
         .inline-label-container

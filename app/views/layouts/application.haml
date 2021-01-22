@@ -2,7 +2,7 @@
 
 %body
 
-  #sidewinder-wrapper
+  #sidewinder-wrapper.full-page-container
 
     -# Render railsContext here before any react component gets rendered
     = prepend_render_rails_context("")
@@ -19,11 +19,11 @@
           = react_component("OnboardingTopBar", props: props, prerender: true)
 
     - if FeatureFlagHelper.feature_enabled?(:topbar_v1)
-      - if(search_mode != :keyword || @view_type.eql?("map"))
+      - if search_mode != :keyword || @view_type.eql?("map")
         - maps_key = MarketplaceHelper.google_maps_key(@current_community.id)
         - key_param = maps_key ? "&key=#{maps_key}" : ""
         = javascript_include_tag "//maps.googleapis.com/maps/api/js?libraries=places#{key_param}"
-      - if(@view_type.eql?("map"))
+      - if @view_type.eql?("map")
         = javascript_include_tag "markerclusterer.js"
       - props = topbar_props
       - cache props do
@@ -38,33 +38,36 @@
         = render partial: "layouts/expiration_notice", locals: {contact_owner_link: new_user_feedback_path}
 
     - content_for(:page_content) do
-      - if content_for?(:banner_warning)
-        %section.banner.banner--warning
-          .banner--title-wrapper
-            .banner--title
-              = yield :banner_warning
-      %section.marketplace-lander
-        - if @big_cover_photo
-          .coverimage
-            %figure.marketplace-cover.fluidratio
-              .lander-content.marketplace-lander-content
-                = yield :title_header
-        - elsif !(is_homepage && FeatureFlagHelper.feature_enabled?(:topbar_v1))
-          .coverimage
-            %figure.marketplace-cover-small.fluidratio
-            .coverimage-fade{:class => yield(:coverfade_class)}
-              %figure.marketplace-cover-small-fade.fluidratio
-          .title-container
-            .title-header-wrapper
-              .marketplace-title-header
-                = yield :title_header
+      - if @is_landing_page
+        = yield
+      - else
+        - if content_for?(:banner_warning)
+          %section.banner.banner--warning
+            .banner--title-wrapper
+              .banner--title
+                = yield :banner_warning
+        %section.marketplace-lander
+          - if @big_cover_photo
+            .coverimage
+              %figure.marketplace-cover.fluidratio
+                .lander-content.marketplace-lander-content
+                  = yield :title_header
+          - elsif !(is_homepage && FeatureFlagHelper.feature_enabled?(:topbar_v1))
+            .coverimage
+              %figure.marketplace-cover-small.fluidratio
+              .coverimage-fade{:class => yield(:coverfade_class)}
+                %figure.marketplace-cover-small-fade.fluidratio
+            .title-container
+              .title-header-wrapper
+                .marketplace-title-header
+                  = yield :title_header
 
-      %article.page-content{class: is_homepage && !@big_cover_photo ? 'no-cover-photo' : ''}
-        .wrapper
-          = render :partial => "layouts/notifications"
-          = yield
-          - if display_branding_info?
-            = render partial: "layouts/non_whitelabel_branding", locals: {link_to_sharetribe: "https://www.sharetribe.com/?utm_source=#{@current_community.ident}.sharetribe.com&utm_medium=referral&utm_campaign=nowl-footer"}
+        %article.page-content{class: is_homepage && !@big_cover_photo ? 'no-cover-photo' : ''}
+          .wrapper
+            = render :partial => "layouts/notifications"
+            = yield
+            - if display_branding_info?
+              = render partial: "layouts/non_whitelabel_branding", locals: {link_to_sharetribe: "https://www.sharetribe.com/?utm_source=#{@current_community.ident}.sharetribe.com&utm_medium=referral&utm_campaign=nowl-footer"}
     -#
       This is not pretty, but works.
       On homepage, we want to wrap the whole page content (search bar and the "real" content) to a form, so that
@@ -83,7 +86,7 @@
     - else
       = content_for(:page_content)
 
-    - if @custom_footer.try(:display?)
+    - if @current_community.footer_enabled
       = render 'layouts/footer'
 
     -# Most of the JavaScript should be for performance reasons at the end of the body
@@ -128,3 +131,19 @@
     = render :partial => 'analytics/bottom_scripts'
 
     = render :partial => "layouts/noscript"
+
+    -# = render :partial => "layouts/mailchimp_signup_form"
+
+    :javascript
+      var Tawk_API = Tawk_API || {},
+      Tawk_LoadStart = new Date();
+      (function() {
+        var s1 = document.createElement("script"),
+          s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = "https://embed.tawk.to/#{APP_CONFIG.TAWK_ACCOUNTKEY}/default";
+
+        s1.charset = "UTF-8";
+        s1.setAttribute("crossorigin", "*");
+        s0.parentNode.insertBefore(s1, s0);
+      })();

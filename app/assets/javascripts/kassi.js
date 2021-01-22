@@ -214,10 +214,12 @@ function initialize_admin_edit_price($form, min_name, max_name, locale) {
 
   rules = {};
   rules[min_name] = {
-    min_bound: max_name
+    min_bound: max_name,
+    number_max: 21474836
   };
   rules[max_name] = {
-    max_bound: min_name
+    max_bound: min_name,
+    number_max: 21474836
   };
 
   $form.validate({rules: rules})
@@ -342,7 +344,7 @@ function initialize_give_feedback_form(locale, grade_error_message, text_error_m
   });
 }
 
-function initialize_signup_form(locale, email_in_use_message, invalid_invitation_code_message, name_required, invitation_required) {
+function initialize_signup_form(locale, email_already_in_use_message, invalid_invitation_code_message, name_required, invitation_required) {
   $('#help_invitation_code_link').click(function(link) {
     //link.preventDefault();
     $('#help_invitation_code').lightbox_me({centered: true, zIndex: 1000000 });
@@ -361,22 +363,24 @@ function initialize_signup_form(locale, email_in_use_message, invalid_invitation
     errorPlacement: function(errorLabel, element) {
       if (( /radio|checkbox/i ).test( element[0].type )) {
         element.closest('.checkbox-container').append(errorLabel);
+        element.closest('.radio-error-container').append(errorLabel);
       } else {
         errorLabel.insertAfter( element );
       }
     },
     rules: {
-      "person[given_name]": {required: name_required, maxlength: 30},
-      "person[family_name]": {required: name_required, maxlength: 30},
-      "person[email]": {required: true, email_remove_spaces: true, remote: "/people/check_email_availability_and_validity"},
-      "person[terms]": "required",
+      "person[given_name]": { required: name_required, maxlength: 30 },
+      "person[family_name]": { required: name_required, maxlength: 30 },
+      "person[email]": { required: true, email_remove_spaces: true, remote: "/people/check_email_availability_and_validity" },
+      "person[terms]": { required: true },
       "person[password]": { required: true, minlength: 4 },
       "person[password2]": { required: true, minlength: 4, equalTo: "#person_password1" },
-      "invitation_code": {required: invitation_required, remote: "/people/check_invitation_code"}
+      "invitation_code": { required: invitation_required, remote: "/people/check_invitation_code" },
+      "person[cause_id]": { required: true }
     },
     messages: {
-      "person[email]": { remote: email_in_use_message, email_remove_spaces: $.validator.messages.email },
-      "invitation_code": { remote: invalid_invitation_code_message }
+      "person[email]": { remote: `${email_already_in_use_message}` },
+      "invitation_code": { remote: `${invalid_invitation_code_message}` }
     },
     onkeyup: false, //Only do validations when form focus changes to avoid exessive ASI calls
     submitHandler: function(form) {
@@ -403,7 +407,8 @@ function initialize_update_profile_info_form(locale, person_id, name_required) {
       "person[given_name]": {required: name_required, maxlength: 30},
       "person[family_name]": {required: name_required, maxlength: 30},
       "person[phone_number]": {required: false, maxlength: 25},
-      "person[image]": { accept: "(jpe?g|gif|png)" }
+      "person[image]": { accept: "(jpe?g|gif|png)" },
+      "person[cause_id]": { required: true }
     },
     onkeyup: false,
     onclick: false,
@@ -415,6 +420,7 @@ function initialize_update_profile_info_form(locale, person_id, name_required) {
     errorPlacement: function(errorLabel, element) {
       if (( /radio|checkbox/i ).test( element[0].type )) {
         element.closest('.checkbox-container').append(errorLabel);
+        element.closest('.radio-error-container').append(errorLabel);
       } else {
         errorLabel.insertAfter( element );
       }
@@ -515,9 +521,11 @@ function initialize_reset_password_form() {
 
 function initialize_profile_view(profile_id) {
   $('#load-more-listings a').on("click", function() {
-    var request_path = $(this).data().url;
+    var buttonData = $(this).data()
+    var request_path = buttonData.url;
+    var containerIdTag = buttonData.containeridtag;
     $.get(request_path, function(data) {
-      $('#profile-listings-list').html(data);
+      $(containerIdTag).html(data);
     });
     return false;
   });
@@ -565,6 +573,56 @@ function initialize_homepage() {
       return false;
     }
   );
+
+  // custom hover listing colors
+
+  var addListingColorToButton = function(element) {
+    var listing_color =  element.attr('data-listing-color')
+    var listing_title_color =  element.attr('data-listing-title-color')
+    element.css( 'background-color', '#' + listing_color)
+    element.css( 'color', '#' + listing_title_color)
+  }
+
+  var removeListingColorFromButton = function(element) {
+    element.css( 'background-color', '')
+    element.css( 'color', '')
+  }
+
+  $('.toggle-header-button').hover(
+    function() {
+      var element = $(this)
+      if (element.attr('id') == 'toggle-header-button-selected') {
+        removeListingColorFromButton(element)
+      } else {
+        addListingColorToButton(element)
+      }
+    }, function() {
+      var element = $(this)
+      if (element.attr('id') == 'toggle-header-button-selected') {
+        addListingColorToButton(element)
+      } else {
+        removeListingColorFromButton(element)
+      }
+    }
+  )
+
+  $('.toggle-header-button').click(function(event){
+    var element = $(this)
+    if (element.attr('id') == 'toggle-header-button-selected') {
+      event.preventDefault()
+      element.attr('id', '')
+      removeListingColorFromButton(element)
+      var currentURL = window.location.href
+      location.href = currentURL.substring(0, currentURL.indexOf('?'))
+    } else {
+      var otherSelected = $('#toggle-header-button-selected')
+      if (otherSelected.length) {
+        removeListingColorFromButton(otherSelected)
+        otherSelected.attr('id', '')
+      }
+      element.attr('id', 'toggle-header-button-selected')
+    }
+  })
 }
 
 function initialize_invitation_form(locale, email_error_message, invitation_limit) {
@@ -709,7 +767,6 @@ function initialize_admin_category_form_view(locale, form_id) {
       disable_and_submit(form_id, form, "false", locale);
     }
    });
-
 }
 
 function initialize_pending_consent_form(email_invalid_message, invitation_required, invalid_invitation_code_message) {
@@ -843,4 +900,59 @@ function autoSetMinimalPriceFromCountry() {
       }
       _min_price.next(".paypal-preferences-currency-label").text(currency);
     }).trigger('change');
+}
+
+function initialize_admin_causes_form_validations(form_id, ignore_file_field = false) {
+
+  var rules = {
+    "cause[name]": {required: true, maxlength: 255},
+    "cause[description]": {required: true},
+    "cause[link]": {required: true, url: true}
+  }
+
+  if (!!ignore_file_field) rules["cause[logo]"] = {required: true}
+
+  $(form_id).validate({
+    rules: rules,
+    submitHandler: function(form) {
+      disable_and_submit(form_id, form, "false", locale);
+    }
+  })
+}
+
+function initialize_admin_causes_delete_warning(form_id, cause_name) {
+  $(form_id).on('submit', function() {
+    return confirm('Do you really want to delete ' + cause_name + '? This can not be undone');
+  });
+}
+
+function initialize_admin_causes_archive_warning(form_id, cause_name) {
+  $(form_id).on('submit', function() {
+    return confirm('Do you really want to archive ' + cause_name + '? This will reset all users who have selected it to the default cause, which can not be undone.');
+  });
+}
+
+function initialize_causes_page_selection() {
+  $('.clickable-cause-container').click(function(event) {
+    $('.clickable-cause-container').each(function(i, obj) {
+      var buttonContainer = $(obj)
+      if (buttonContainer.data('selected') == true) {
+        buttonContainer.removeClass('selected')
+        buttonContainer.data('selected', false)
+      }
+    })
+    $('.cause-extended-description-container').each(function(i, obj) {
+      var descriptionContainer = $(obj)
+      if (descriptionContainer.data('selected') == true) {
+        descriptionContainer.addClass('hidden')
+        descriptionContainer.data('selected', false)
+      }
+    })
+    var clickedButton = $(event.currentTarget)
+    clickedButton.data('selected', true)
+    clickedButton.addClass('selected')
+    var relatedDescription = $(`#cause-extended-description-${clickedButton.data('cause-id')}`)
+    relatedDescription.data('selected', true)
+    relatedDescription.removeClass('hidden')
+  })
 }

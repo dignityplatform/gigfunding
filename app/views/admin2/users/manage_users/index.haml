@@ -17,9 +17,9 @@
           - if @presenter.require_verification_to_post_listings
             %th{scope: :col}
               = t('admin2.manage_users.posting')
-          %th{scope: :col}
+          -#%th{scope: :col}
             = t('admin2.manage_users.admin')
-          %th{scope: :col}
+          -#%th{scope: :col}
             = t('admin2.manage_users.disable')
           %th{scope: :col}
             = t('admin2.manage_users.actions')
@@ -30,5 +30,7 @@
     %p= AdminCommunityMembershipsViewUtils.community_members_entries_info(@presenter.community.id, @presenter.memberships).html_safe
     = will_paginate @presenter.memberships, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, next_label: t('admin2.next_step'), previous_label: t('admin2.prev_step'), list_classes: %w[pagination justify-content-end]
 
-= render 'admin2/users/manage_users/confirm_popup'
-= render 'admin2/users/manage_users/delete_popup'
+- content_for :popup_layout do
+  = render 'admin2/users/manage_users/confirm_popup'
+  = render 'admin2/users/manage_users/delete_popup'
+  = render 'admin2/users/manage_users/admin_popup'

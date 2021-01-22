@@ -39,12 +39,20 @@ module ListingShapeDataTypes
     [:online_payments, transform_with: CHECKBOX],
     [:units, default: [], collection: Unit],
     [:author_is_seller, :bool],
-    [:availability, :string, one_of: ['none', 'booking'], default: 'none'] # also stock, in the future
+    [:availability, :string, one_of: ['none', 'booking'], default: 'none'], # also stock, in the future
+    [:listing_color, :string, :optional],
+    [:listing_title_color, :string, :optional],
+    [:user_descriptor, :hash, :optional, validate_with: FORM_TRANSLATION],
+    [:type_selection_label, :hash, :optional, validate_with: FORM_TRANSLATION],
+    [:search_text, :hash, :optional, validate_with: FORM_TRANSLATION]
   )
 
   KEY_MAP = {
     name_tr_key: :name,
-    action_button_tr_key: :action_button_label
+    action_button_tr_key: :action_button_label,
+    user_descriptor_tr_key: :user_descriptor,
+    type_selection_label_tr_key: :type_selection_label,
+    search_text_tr_key: :search_text
   }
 
   CUSTOM_UNIT_KEY_MAP = {

@@ -1,0 +1,29 @@
+- if params[:controller] == 'infos'
+  - content_for :meta_description, t('.meta_description')
+
+- content_for :javascript do
+  initialize_causes_page_selection();
+
+.row
+  %h1
+    = t('.title')
+  = render :partial => "layouts/info_text", :locals => { :text => t(".info") }
+
+.row
+  .causes-flex-container
+    - @causes.each do |cause|
+      = render :partial => 'infos/cause_content/clickable_cause', locals: { cause: cause }
+
+.top-level-category-divider-wrapper
+  .top-level-category-divider
+
+%br
+- @causes.each do |cause|
+  .row.hidden.cause-extended-description-container{id: "cause-extended-description-#{cause.id}", data: {selected: false}}
+    %h2
+      = cause.name
+    .cause-link
+      %a{href: cause.link, target: '_blank'}
+        = t('.link', cause_name: cause.name)
+    .cause-extended-description
+      = markdown_admin(cause.extended_description)

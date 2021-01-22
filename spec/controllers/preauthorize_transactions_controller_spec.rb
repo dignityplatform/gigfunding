@@ -21,17 +21,22 @@ describe PreauthorizeTransactionsController, type: :controller do
                                 display_name: 'Sky caterpillar'
                       )
   end
+  let(:listing_shape1) do
+    FactoryGirl.create(:listing_shape, community_id: community.id)
+  end
   let(:listing1) do
     FactoryGirl.create(:listing, community_id: community.id,
                                  title: 'Apple cake',
-                                 author: person1)
+                                 author: person1,
+                                 listing_shape: listing_shape1)
   end
   let(:listing2) do
     listing = FactoryGirl.create(:listing, community_id: community.id,
                                            title: 'Cry Wolf',
                                            author: person1,
                                            availability: 'booking',
-                                           valid_until: nil)
+                                           valid_until: nil,
+                                           listing_shape: listing_shape1)
     listing.working_hours_new_set
     listing.save
     listing
@@ -41,7 +46,8 @@ describe PreauthorizeTransactionsController, type: :controller do
                                  title: "We will continue to resell web-enabled eProcurement warehouses",
                                  author: person1,
                                  availability: 'booking',
-                                 valid_until: nil)
+                                 valid_until: nil,
+                                 listing_shape: listing_shape1)
   end
   let(:transaction1) do
     tx = FactoryGirl.create(:transaction, community: community,

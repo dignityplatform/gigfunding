@@ -92,10 +92,17 @@ Rails.application.routes.draw do
     CustomLandingPage::LandingPageStore.enabled?(request.env[:current_marketplace]&.id)
   }
 
+  # Landing page acts as root, redirecting to marketplace if user logged in
+  root to: "marketplace_landing_page_#show"
+  get '/:locale/' => 'marketplace_landing_page_#show', :constraints => { :locale => locale_matcher }, as: :marketplace_landing_page_with_locale
+  get '/' => 'marketplace_landing_page#show', as: :marketplace_landing_page_without_locale
+
   # Default routes for homepage, these are matched if custom landing page is not in use
   # Inside this constraits are the routes that are used when request has subdomain other than www
-  get '/:locale/' => 'homepage#index', :constraints => { :locale => locale_matcher }, as: :homepage_with_locale
-  get '/' => 'homepage#index', as: :homepage_without_locale
+  get '/:locale/marketplace' => 'homepage#index', :constraints => { :locale => locale_matcher }, as: :homepage_with_locale
+  get '/marketplace' => 'homepage#index', as: :homepage_without_locale
+
+  # Search routes redirect to root
   get '/:locale/s', to: redirect('/%{locale}', status: 307), constraints: { locale: locale_matcher }
   get '/s', to: redirect('/', status: 307)
 
@@ -108,7 +115,6 @@ Rails.application.routes.draw do
   get '/not_available' => 'application#not_available', as: :community_not_available
 
   resources :communities, only: [:new, :create]
-
 
   devise_for :people, only: :omniauth_callbacks, controllers: { omniauth_callbacks: "omniauth" }
 
@@ -172,7 +178,7 @@ Rails.application.routes.draw do
     end
 
     namespace :admin2 do
-      resources :dashboard, only: :index
+      get '' => "dashboard#index"
       namespace :general do
         resources :essentials, only: %i[index] do
           collection do
@@ -206,19 +212,16 @@ Rails.application.routes.draw do
           end
         end
 
-        resources :display, only: %i[index] do
+        resources :display, path: 'arrangement', only: %i[index] do
           collection do
             patch :update_display
           end
         end
-        resources :experimental, only: %i[index] do
-          collection do
-            patch :update_experimental
-          end
-        end
+
         resources :logos_color, path: 'logos-and-color', only: %i[index] do
           collection do
             patch :update_logos_color
+            delete :remove_files
           end
         end
         resources :cover_photos, path: 'cover-photos', only: %i[index] do
@@ -229,12 +232,12 @@ Rails.application.routes.draw do
       end
 
       namespace :users do
-        resources :invitations, only: %i[index]
+        resources :invitations, path: 'view-invitations', only: %i[index]
         resources :manage_users, path: 'manage-users', only: %i[index destroy] do
           member do
             get :resend_confirmation
-            patch :ban
-            patch :unban
+            post :ban
+            post :unban
             post :promote_admin
             patch :posting_allowed
           end
@@ -249,8 +252,38 @@ Rails.application.routes.draw do
             patch :update_user_rights
           end
         end
+        resources :user_fields, path: 'user-fields' do
+          collection do
+            post :order
+            post :add_unit
+          end
+          member do
+            get :delete_popup
+          end
+        end
       end
       namespace :listings do
+        resources :listing_fields do
+          member do
+            get :delete_popup
+          end
+          collection do
+            post :order
+            post :add_unit
+            get :edit_price
+            get :edit_expiration
+            get :edit_location
+            put :update_expiration
+            put :update_price
+            put :update_location
+          end
+        end
+        resources :order_types, path: 'order-types' do
+          collection do
+            post :add_unit
+            post :order
+          end
+        end
         resources :categories do
           member do
             get :remove_popup
@@ -291,8 +324,14 @@ Rails.application.routes.draw do
             patch :update_review
           end
         end
-        resources :conversations, path: 'view-conversations', only: %i[index]
-        resources :manage_transactions, path: 'manage-transactions', only: %i[index] do
+        resources :conversations, path: 'view-conversations', only: %i[index show]
+        resources :manage_transactions, path: 'manage-transactions', only: %i[index show] do
+          member do
+            patch :confirm
+            patch :cancel
+            patch :refund
+            patch :dismiss
+          end
           collection do
             get :export
             get :export_status
@@ -306,16 +345,49 @@ Rails.application.routes.draw do
       end
 
       namespace :payment_system, path: 'payment-system' do
+        resources :stripe, param: :payment_gateway do
+          collection do
+            patch :update_stripe_keys
+            patch :common_update
+          end
+          member do
+            patch :disable
+            patch :enable
+          end
+        end
+        resources :paypal, param: :payment_gateway do
+          collection do
+            get :account_create
+            patch :common_update
+            get :permissions_verified
+          end
+          member do
+            patch :disable
+            patch :enable
+          end
+        end
         resources :country_currencies, path: 'country-currency', only: %i[index] do
           collection do
             patch :update_country_currencies
             get :verify_currency
           end
         end
+
+        resources :transaction_size, path: 'minimum-listing-price', only: %i[index] do
+          collection do
+            patch :save
+          end
+        end
       end
 
       namespace :emails do
-        resources :email_users, path: 'email-users', only: %i[index create]
+        resources :email_users, path: 'compose-email', only: %i[index create]
+        resources :outgoing_emails, path: 'custom-outgoing-address' do
+          collection do
+            get :check_email_status
+            post :resend_verification_email
+          end
+        end
         resources :welcome_emails, path: 'welcome-email', only: %i[index] do
           collection do
             patch :update_email
@@ -357,27 +429,27 @@ Rails.application.routes.draw do
       namespace :seo do
         resources :sitemap, path: 'sitemap-and-robots', only: %i[index]
         resources :google_console, path: 'google-search-console', only: %i[index]
-        resources :landing_pages, path: 'landing-page-meta', only: %i[index] do
+        resources :landing_pages, path: 'landing-page-meta-tags', only: %i[index] do
           collection do
             patch :update_landing_page
           end
         end
-        resources :search_pages, path: 'search-results-pages-meta', only: %i[index] do
+        resources :search_pages, path: 'search-page-meta-tags', only: %i[index] do
           collection do
             patch :update_search_pages
           end
         end
-        resources :listing_pages, path: 'listing-pages-meta', only: %i[index] do
+        resources :listing_pages, path: 'listing-pages-meta-tags', only: %i[index] do
           collection do
             patch :update_listing_page
           end
         end
-        resources :category_pages, path: 'category-pages-meta', only: %i[index] do
+        resources :category_pages, path: 'category-pages-meta-tags', only: %i[index] do
           collection do
             patch :update_category_page
           end
         end
-        resources :profile_pages, path: 'profile-pages-meta', only: %i[index] do
+        resources :profile_pages, path: 'profile-pages-meta-tags', only: %i[index] do
           collection do
             patch :update_profile_page
           end
@@ -399,6 +471,11 @@ Rails.application.routes.draw do
       end
 
       namespace :advanced do
+        resources :experimental, path: 'new-features', only: %i[index] do
+          collection do
+            patch :update_experimental
+          end
+        end
         resources :delete_marketplaces, path: 'delete-marketplace', only: %i[index destroy]
         resources :custom_scripts, path: 'custom-script', only: %i[index] do
           collection do
@@ -409,7 +486,7 @@ Rails.application.routes.draw do
 
     end
 
-    get '/:locale/admin2', to: redirect('/%{locale}/admin2/dashboard')
+    # get '/:locale/admin2', to: redirect('/%{locale}/admin2/dashboard')
 
     namespace :admin do
       get '' => "getting_started_guide#index"
@@ -584,6 +661,9 @@ Rails.application.routes.draw do
           post :order
         end
       end
+      resources :causes do
+        
+      end
       resources :categories do
         member do
           get :remove
@@ -605,6 +685,13 @@ Rails.application.routes.draw do
       resource :domain, only: [:show, :update] do
         collection do
           get :check_availability
+        end
+        member do
+          patch :create_domain_setup
+          patch :recheck_domain_setup
+          patch :reset_domain_setup
+          patch :confirm_domain_setup
+          patch :retry_domain_setup
         end
       end
       resource :community_seo_settings, only: [:show, :update]
@@ -676,6 +763,7 @@ Rails.application.routes.draw do
         get :terms
         get :privacy
         get :news
+        get :causes
       end
     end
     resource :terms do
@@ -793,6 +881,8 @@ Rails.application.routes.draw do
     get "/:person_id/messages/:conversation_type/:id" => "conversations#show", :as => :single_conversation
 
     get '/:person_id/settings/profile', to: redirect("/%{person_id}/settings") #needed to keep old links working
+
+    get '/landing-page', to: 'marketplace_landing_page#show'
 
   end # scope locale
 

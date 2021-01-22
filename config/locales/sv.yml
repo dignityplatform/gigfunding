@@ -291,7 +291,7 @@ sv:
         for_search_terms: "för: %{terms}"
         this_makes_the_user_an_admin: ~
         status_filter:
-          all: ~
+          all: "Alla statusar"
           selected: ~
           selected_js: ~
           admin: ~
@@ -469,71 +469,71 @@ sv:
           selected: "Valda statusar: %{count}"
           selected_js: "Valda statusar: "
           free: "Gratis transaktion"
-          confirmed: Färdig
+          confirmed: Avslutad
           paid: Betald
           canceled: Avbruten
-          disputed: ~
-          preauthorized: Auktoriserad
-          rejected: ~
-          payment_intent_requires_action: ~
-          payment_intent_action_expired: ~
-          refunded: ~
-          dismissed: ~
+          disputed: Bestridd
+          preauthorized: Förhandsauktoriserad
+          rejected: Avslagen
+          payment_intent_requires_action: Väntar
+          payment_intent_action_expired: "Löpts ut"
+          refunded: Återbetalad
+          dismissed: Nekad
         headers:
           conversation: Konversationstråd
           listing: Annons
           status: Status
           sum: Summa
-          started: Startade
+          started: Publicerad
           last_activity: "Senaste aktivitet"
-          initiated_by: Startar
+          initiated_by: ~
           other_party: Motpart
         status:
           conversation: Konversation
           free: "Kostnadsfri transaktion"
           pending: Väntar
-          preauthorized: Auktoriserad
-          accepted: Godkänt
+          preauthorized: Förhandsauktoriserad
+          accepted: Godkänd
           rejected: Nekad
           paid: Betald
-          confirmed: Bekräftad
+          confirmed: Avslutad
           canceled: Avbruten
-          disputed: ~
-          initiated: "Väntar på PayPal betalning"
-          pending_ext: "Väntar på PayPal betalning"
+          disputed: Bestridd
+          initiated: "Väntar på PayPal-betalning"
+          pending_ext: "Väntar på PayPal-betalning"
           none:
             free: "Kostnadsfri transaktion"
           paypal:
             free: Konversation
             pending: Väntar
-            preauthorized: Förauktoriserad
+            preauthorized: Förhandsauktoriserad
             accepted: Accepterad
             rejected: Avslagen
             paid: Betald
             confirmed: Bekräftad
-            canceled: Avbryten
-            disputed: ~
-            initiated: "Väntar på PayPal betalning"
-            pending_ext: "Väntar på PayPal betalning"
-            refunded: ~
-            dismissed: ~
+            canceled: Avbruten
+            disputed: Bestridd
+            initiated: "Väntar på PayPal-betalning"
+            pending_ext: "Väntar på PayPal-betalning"
+            refunded: Återbetalad
+            dismissed: Nekad
           stripe:
             free: Konversation
             pending: Väntar
-            preauthorized: "Väntar på PayPal betalning"
+            preauthorized: Förhandsauktoriserad
             accepted: Accepterad
             rejected: Avslagen
             paid: Betald
-            confirmed: Bekräftad
-            canceled: Avbryten
-            disputed: ~
-            initiated: "Väntar på Stripe betalning"
-            pending_ext: "Väntar på Stripe betalning"
-            payment_intent_requires_action: ~
-            payment_intent_action_expired: ~
-            payment_intent_failed: ~
-            refunded: ~
-            dismissed: ~
+            confirmed: Avslutad
+            canceled: Avbruten
+            disputed: Bestridd
+            initiated: "Väntar på Stripe-betalning"
+            pending_ext: "Väntar på Stripe-betalning"
+            payment_intent_requires_action: Avslagen
+            payment_intent_action_expired: "Löpts ut"
+            payment_intent_failed: "Stripe-betalning misslyckad"
+            refunded: Återbetalad
+            dismissed: Nekad
         not_available: "Inte tillgänglig"
       conversations:
         conversations: "Visa konversationer"
@@ -605,17 +605,17 @@ sv:
           date_sent: "Datum skickat"
       listings:
         listings: Annonser
-        search_by_title_author_category: ~
+        search_by_title_author_category: "Sök efter en titel, författare eller kategori"
         search: Sök
         reset_search: "Visa alla"
         export_all_as_csv: ~
         processing_export: ~
         status:
-          all: ~
+          all: "Alla statusar"
           selected_js: ~
           open: Öppen
-          closed: ~
-          expired: ~
+          closed: Avslutad
+          expired: "Löpts ut"
           approval_pending: ~
           approval_rejected: ~
         headers:
@@ -626,8 +626,8 @@ sv:
           category: Kategori
           status: Status
         open: Öppen
-        closed: Stängd
-        expired: ~
+        closed: Avslutad
+        expired: "Löpts ut"
         approved: ~
         approval_pending: ~
         approval_rejected: ~
@@ -677,6 +677,38 @@ sv:
         when_you_change_your_sharetribe_domain: ~
         would_you_like_to_proceed: ~
         change: ~
+        you_can_now_enable_a_custom_domain: ~
+        read_more_about_the_set_up_of_your_custom_domain: ~
+        set_custom_domain: ~
+        in_order_to_set_your_custom_domain: ~
+        instructions_to_point_your_domain: ~
+        main_domain: ~
+        main_domain_info_text: ~
+        main_domain_link_text: ~
+        check_domain: ~
+        domain_being_checked: ~
+        status: ~
+        checks_pending: ~
+        please_check_back: ~
+        checks_not_passed: ~
+        check_the_domain_again_info: ~
+        check_the_domain_again: ~
+        use_another_domain: ~
+        checks_passed: ~
+        domain_being_set_up: ~
+        setup_in_progress: ~
+        setup_check_back: ~
+        setup_check_back_critical_error: ~
+        setup_failed: ~
+        setup_the_domain_again_info: ~
+        setup_the_domain_again: ~
+        summary:
+          main_domain: ~
+          redirect: ~
+        check_another_domain: ~
+        checks_passed_with_warning: ~
+        this_domain_is_not_configured_correctly: ~
+        start_using_the_custom_domain: ~
       landing_pages:
         landing_pages: ~
         info_1: ~
@@ -705,7 +737,7 @@ sv:
           info_single_column: ~
           info_multi_column_2: ~
           info_multi_column_3: ~
-          listings: ~
+          listings: Annonser
           categories: ~
           hero: ~
           locations: ~
@@ -823,8 +855,8 @@ sv:
           main_title: ~
           column_header: ~
           column_title: ~
-          web_viewer: ~
           column_icon_info: ~
+          column_icon_info_link: ~
           column_icon: ~
           column_paragraph: ~
           column_button: ~
@@ -1537,7 +1569,7 @@ sv:
       confirmation_link_text: ~
     common:
       hey: "Hej %{name},"
-      hi: ~
+      hi: "Hej %{name},"
       kassi_team: "%{service_name}gänget"
       thanks: "Tack,"
       dont_want_to_receive_these_emails: "Vill du inte ta emot dessa mail?"
@@ -1545,11 +1577,11 @@ sv:
       message_not_displaying_correctly: "Syns inte e-postmeddelandet korrekt?"
       view_it_in_your_browser: "Se den i din webbläsare."
       or: eller
-      unsubscribe_from_these_emails_info: "Du har fått detta email för du är en medlem av %{service_name}."
-      unsubscribe_from_these_emails: "avsluta prenumeration från dessa e-postmeddelanden"
+      unsubscribe_from_these_emails_info: "Du har fått detta email för att du är en medlem av %{service_name}."
+      unsubscribe_from_these_emails: "avsluta prenumerationen från dessa e-mails"
       unsubscribe_from_invitation_emails_info: "Du har fått detta email för att en medlem av %{service_name} har bjudit in dig."
-      unsubscribe_from_invitation_emails: "Sluta prenumerera på inbjudningsemail att gå med i %{service_name}"
-      here_is_your_receipt: ~
+      unsubscribe_from_invitation_emails: "Sluta att prenumerera på inbjudningar till att gå med i %{service_name}"
+      here_is_your_receipt: "Det här är ditt kvitto."
     conversation_status_changed:
       has_accepted_your_offer: "%{accepter} har accepterat ditt erbjudande angående %{listing}"
       has_accepted_your_request: "%{accepter} har accepterat din förfrågan %{listing}."
@@ -1575,7 +1607,7 @@ sv:
       join_now: "Gå med nu"
       invitation_code: "Inbjudningskod: %{code}"
     invitation_to_kassi_v2:
-      headline: ~
+      headline: "Hallå där!"
     new_comment:
       has_commented_your_listing_in_kassi: "%{author} har kommenterat din annons %{listing}."
       view_comment: "Visa kommentar"
@@ -1584,8 +1616,8 @@ sv:
       has_commented_listing_you_follow_in_kassi: "%{author} har kommenterat annonsen %{listing} som du följer på %{service_name}."
     new_message:
       view_message: "Visa meddelande"
-      has_sent_you_a_message_in_kassi: "%{sender} har skickat ett meddelande i %{service_name}."
-      you_have_a_new_message: "Du har ett nytt meddelande i %{service_name} från %{sender_name}"
+      has_sent_you_a_message_in_kassi: ~
+      you_have_a_new_message: ~
     new_message_v2:
       headline: ~
       reply: ~
@@ -1600,7 +1632,7 @@ sv:
       shipping_total: "Leverans:"
       product: "Produkt:"
       price_payer_paid: "Pris som %{payer_full_name} har betalat:"
-      subtotal: ~
+      subtotal: "Delsumma:"
       service_fee: "%{service_name} serviceavgift:"
       buyer_service_fee: ~
       you_will_get: "Totalt:"
@@ -1609,11 +1641,11 @@ sv:
       quantity: "Antal:"
       you_have_received_new_payment: "Du har fått <b>%{payment_sum}</b> betalt för <b>%{listing_title}</b> av %{payer_full_name}. Här är ditt kvitto."
       stripe:
-        you_have_received_new_payment: "Summan <b>%{payment_sum}</b> bar blivit betalt för <b>%{listing_title}</b> av %{payer_full_name}. Pengarna hålls nu av %{service_name} tills förfrågan har blivit markerad som slutförd. Här är ditt kvitto."
+        you_have_received_new_payment: "Summan <b>%{payment_sum}</b> bar blivit betald för <b>%{listing_title}</b> av %{payer_full_name}. Pengarna hålls nu av %{service_name} tills förfrågan har blivit markerad som slutförd. Här är ditt kvitto."
     payment_receipt_to_seller_v2:
       headline: ~
-      main_text_stripe: ~
-      price_breakdown: ~
+      main_text_stripe: "Pengarna hålls av %{service_name} tills beställningen markeras som slutförd."
+      price_breakdown: Prisspecifikation
     payment_receipt_to_payer:
       receipt_of_payment: "Kvitto för betalning"
       you_have_made_new_payment: "Du har betalat <b>%{payment_sum}</b> för <b>%{listing_title}</b> till %{recipient_full_name}. Här är ett kvitto av betalningen."
@@ -1630,8 +1662,8 @@ sv:
       paypal_gateway_fee: "PayPals avgift:"
       money_will_be_transferred: "Pengarna kommer att överföras till %{recipient_name} när a) du har markerat förfrågan som slutförd eller b)%{automatic_confirmation_days} dagar har passerat sedan du betalade."
     payment_receipt_to_payer_v2:
-      headline: ~
-      you_have_made_new_payment: ~
+      headline: "här är ditt kvitto för %{listing_link}."
+      you_have_made_new_payment: "Du har betalat <b>%{payment_sum}</b> för <b>%{listing_title}</b>."
     paypal_new_payment:
       paypal_gateway_fee: "PayPals avgift:"
       shipping_total: "Frakt:"
@@ -1662,7 +1694,7 @@ sv:
       you_can_give_feedback_to: "Du har inget gett feedback till %{name}."
       view_feedback: "Visa feedback"
     new_testimonial_v2:
-      headline: ~
+      headline: "du har fått feedback!"
     new_update_to_listing:
       listing_you_follow_has_been_updated: "Annonser som du följer"
       has_updated_listing_you_follow_in_kassi: "%{author} har uppdaterat annonsen %{listing} som du följer på %{service_name}."
@@ -1671,7 +1703,7 @@ sv:
       added_offer: "%{name_link} skapade en annons:"
       added_request: "%{name_link} skapade en annons:"
       added_listing: "%{name_link} skapade en annons:"
-      update_mail_title: "%{title_link} nyheter"
+      update_mail_title: "%{title_link}: nyheter"
       title_link_text: "%{community_name}"
       intro_paragraph: "Här är några saker som har hänt på %{community_link} under de senaste %{time_since_last_update}."
       intro_paragraph_link_text: "%{community_name}"
@@ -1679,7 +1711,10 @@ sv:
       settings_link_text: "Ändra dina e-postinställningar här"
       unsubscribe_link_text: avprenumerera
     community_updates_v2:
-      headline: ~
+      headline: "kolla in den senaste aktiviteten på %{service_name}."
+      intro_paragraph:
+        one: "Här är några höjdpunkter som hände på %{service_name} under den senaste dagen."
+        other: "Här är några höjdpunkter som hände på %{service_name} under de senaste %{count} dagarna."
     newsletter:
       hi: "Hej %{name},"
       newest_offers: "Vad folk har att erbjuda andra"
@@ -1704,7 +1739,7 @@ sv:
       if_you_do_not_accept: "Om du avslår förfrågan eller inte accepterar den inom denna tidsram så kommer transaktionen automatiskt att avslås. %{requester} kommer inte att behöva betala och du kommer inte få betalt."
       click_here_to_reply: "Klicka här för att svara på förfrågan"
     transaction_preauthorized_v2:
-      headline: ~
+      headline: "%{requester} är intresserad och har auktoriserat betalningen för %{listing_link}."
     transaction_preauthorized_reminder:
       subject: "Kom ihåg att acceptera förfrågan från %{requester} angående annonsen %{listing_title}"
       remember_to_accept: "Kom ihåg att acceptera förfrågan från %{requester} angående annonsen %{listing_title}. %{requester} har redan betalat för annonsen. Du måste acceptera förfrågan för att få betalt."
@@ -1717,9 +1752,7 @@ sv:
       welcome_email_subject: "Välkommen till %{service_name}"
       welcome_to_marketplace: "Välkommen till %{service_name}! Kul att ha dig ombord."
       love_marketplace_crew: "Vänligen,<br /><i>%{service_name} teamet</i>"
-      welcome_email_footer_text: |-
-          Vilken typ av e-postmeddelanden vill du få från %{service_name}?
-          %{settings_link}
+      welcome_email_footer_text: "Vilka typer av e-mail vill du få från %{service_name}?%{settings_link}"
       settings_link_text: "Kontrollera dina inställningar"
     new_listing_by_followed_person:
       subject: "%{author_name} har skapat en ny annons på %{service_name}"
@@ -1764,16 +1797,16 @@ sv:
       subject: ~
       there_is_a_new_transaction: ~
       a_new_transaction: ~
-      listing: ~
-      sum: ~
+      listing: "Annons: %{title}"
+      sum: "Summa: %{amount}"
       starter: ~
-      provider: ~
+      provider: "Säljare: %{name}"
     new_transaction_v2:
       subject: ~
       there_is_a_new_transaction: ~
       a_new_transaction: ~
       listing: ~
-      sum: ~
+      sum: "Summa:"
       starter: ~
       provider: ~
       view_transaction: ~
@@ -1839,7 +1872,7 @@ sv:
       accept_authorization_error: "Ett fel uppstod vid försök att acceptera den förauktoriserade Stripe betalningen. Vänligen försök igen."
       reject_authorization_error: "Ett fel uppstod vid försök att avbryta den förauktoriserade Stripe betalningen. Vänligen försök igen."
       card_declined: ~
-      expired_card: ~
+      expired_card: "Betalningen misslyckades eftersom kortet har gått ut"
   error_pages:
     back_to_kassi_front_page: "Tillbaka till startsidan"
     error_404:
@@ -1864,7 +1897,7 @@ sv:
       kassi_does_not_currently_work_without_javascript: "Tyvärr %{service_name} fungerar inte utan Javascript. Försök att aktivera Javascript i din webbläsare och ladda om sidan."
       contact_us: "kontakta oss"
       send_feedback: "Skicka meddelande"
-      your_feedback_to_admins: "Ditt meddelande till %{service_name} team"
+      your_feedback_to_admins: "Ditt meddelande till teamet bakom %{service_name}"
     send: Skicka
     your_email_address: "Din e-postadress"
   errors:
@@ -1968,9 +2001,9 @@ sv:
     grid_item:
       processing_uploaded_image: "(Behandlar uppladdad bild...)"
     index:
-      no_listings_with_your_search_criteria: "Vi kunde inte hitta några resultat som matchade dina sökkriterier. Kanske du kan försöka söka på något annat?"
+      no_listings_with_your_search_criteria: "Vi kunde inte hitta några resultat som matchade dina sökkriterier. Uppdatera dina sökkriterier och försök igen."
       no_listings_notification: "Inga annonser %{add_listing_link}"
-      add_listing_link_text: "Lägg till annons"
+      add_listing_link_text: "Lägg in en annons"
       open_listing: "öppnad annons"
       open_listings: "öppnade annonser"
       private_listing_notification_log_in: "logga in"
@@ -2007,7 +2040,7 @@ sv:
       invitation_message_field_placeholder: "Jag har gått med i denna fantastiska marknadsplats. Det borde du också göra!"
       errors_in_emails: "Kontrollera att e-postadresserna som du lade till är giltiga och inte innehåller några otillåtna tecken. Om du lade till flera adresser, kontrollera så att de är separerade med kommatecken."
     list_item:
-      review: granska
+      review: recension
       reviews: recensioner
       distance_away: "%{distance} %{distance_unit} bort"
     news_item:
@@ -2064,7 +2097,7 @@ sv:
     application:
       join_this_community: "Gå med marknadsplatsen"
       read_more: "Läs mer"
-      feedback: "Ditt meddelande till %{service_name} team"
+      feedback: "Ditt meddelande till teamet bakom %{service_name}"
       dont_use_to_contact_support: "Vi lade märke till att du är en admin för %{service_name}. Detta formulär är till för att dina användare skall kunna kontakta dig. Du kan inte använda detta formulär för att kontakta Sharetribes kundtjänst. Använd chatten i högra hörnet istället."
       feedback_forum: "forum för feedback"
       feedback_handle: Feedback
@@ -2109,22 +2142,22 @@ sv:
     logged_in_notifications_icon:
       notifications: Aviseringar
     markdown_help:
-      title: ~
-      description: ~
-      formatting: ~
-      result: ~
-      h1: ~
-      h2: ~
-      h3: ~
-      italic: ~
-      bold: ~
-      underline: ~
-      strikethrough: ~
-      inline_link: ~
-      list: ~
-      one: ~
-      two: ~
-      three: ~
+      title: "Formatering med hjälp av Markdown"
+      description: "Markdown är ett enkelt sätt för att formatera text som ser bra ut på alla apparater. Man kan inte ändra typsnitt, eller storlek/färg på typsnittet —  men man kan göra andra enkla förändringar av typsnittet."
+      formatting: Formatering
+      result: Resultatet
+      h1: H1
+      h2: H2
+      h3: H3
+      italic: kursivt
+      bold: fetstil
+      underline: understreck
+      strikethrough: genomstruken
+      inline_link: Inlinelänk
+      list: Lista
+      one: Ett
+      two: Två
+      three: Tre
     mobile_logged_in:
       admin: Admin
       go_to_your_profile_page: Profil
@@ -2273,10 +2306,10 @@ sv:
       paypal_payments: "PayPal betalningar"
       stripe_payments: Stripebetalningar
       payments: Betalningar
-      listings: ~
-      listings_search_placeholder: ~
-      transactions_search_placeholder: ~
-      transactions: ~
+      listings: Annonser
+      listings_search_placeholder: "Sök efter en titel"
+      transactions_search_placeholder: "Sök efter en transaktionstitel eller involverade parter"
+      transactions: Transaktioner
   listings:
     bubble_listing_not_visible:
       listing_not_visible: "Du har inte behörighet att se denna annons."
@@ -2310,7 +2343,7 @@ sv:
       listing_is_rejected: ~
       approve_listing: ~
       reject_listing: ~
-      delete_listing: ~
+      delete_listing: "Ta bort annons"
     map:
       open_in_google_maps: "Öppna i Google Maps"
     error:
@@ -2333,7 +2366,7 @@ sv:
       description:
         detailed_description: "Detaljerad beskrivning"
         youtube_info: "Om din beskrivning innehåller länkar till YouTube videon kommer de visas under beskrivningen."
-        youtube_info_markdown: ~
+        youtube_info_markdown: "Du kan %{link}. Om din beskrivning innehåller YouTube-länkar så kommer videon att visas nedanför beskrivningen."
       destination:
         destination: Destination
       form_content:
@@ -2351,7 +2384,7 @@ sv:
         googlemap_updatemap: "Uppdatera karta"
       images:
         image: Bild
-        best_result: "För bästa resultat använd JPG, GIF eller PNG bilder som är %{width}x%{height} pixlar"
+        best_result: "För bästa resultat, använd JPG, GIF eller PNG bilder som är %{width}x%{height} pixlar."
         no_file_selected: "Ingen fil vald"
         remove_image: "Ta bort bild"
         select_file: "Välj fil"
@@ -2380,8 +2413,8 @@ sv:
         after_service_fee_you_will_get: "Efter %{service_name}s serviceavgift så kommer du att få %{sum_with_currency}"
         no_service_fee_you_will_get_paypal_text: "%{paypal_fee_info_link} kommer att dras av från priset."
         no_service_fee_you_will_get_payment_text: "%{payment_fee_info_link} kommer bli avdragen från priset."
-        after_service_fee_you_will_get_payment_text: "När någon gör en beställning kommer du få denna summa minus %{payment_fee_info_link}."
-        payment_fee_info_link_text: "%{service_name} avgift och en betalningshanteringsavgift"
+        after_service_fee_you_will_get_payment_text: "När någon gör en beställning kommer du få denna summa minus %{payment_fee_info_link}"
+        payment_fee_info_link_text: "%{service_name}s avgift och en hanteringsavgift"
         delivery: Leveransmetod
         shipping: Frakt
         shipping_price: Fraktkostnad
@@ -2390,7 +2423,7 @@ sv:
       origin:
         location: Plats
         origin: Ursprung
-        the_exact_location: ~
+        the_exact_location: "Den exakta platsen kommer inte att visas för andra användare."
       send_button:
         save_listing: "Spara annons"
         submit_for_review: ~
@@ -2577,7 +2610,7 @@ sv:
       address_country: Land*
       address_name: "För och efternamn*"
       address_city: Stad*
-      address_state: Tillstånd*
+      address_state: Län
       address_street1: "Gatuadress 1*"
       address_street2: "Gatuadress  2"
       address_postal_code: Postnummer*
@@ -2714,7 +2747,7 @@ sv:
       password_again: "Bekräfta lösenord"
       show_my_name_to_others: "Visa mitt riktiga namn till andra %{service_name} användare"
       sign_up: "Skapa ett nytt %{service_name} konto"
-      terms: användarvillkoren
+      terms: Användarvillkor
       privacy: Sekretesspolicy
       visible_only_to_you: "endast synlig för dig och %{service_name} admin"
       visible_to_everybody: "synlig för alla"
@@ -2801,12 +2834,12 @@ sv:
       your_current_email_is: "Din e-post är %{email}."
       change_email: Ändra
       confirm_your_email: "Bekräfta din e-post"
-      account_confirmation_instructions: "Du kommer snart att få ett e-postmeddelande med en länk som du behöver klicka på för att bekräfta din e-postadress du angav. Efter du har bekräftat din e-post kan du gå med %{service_name}."
+      account_confirmation_instructions: "Du kommer snart att få ett e-postmeddelande med en länk som du behöver klicka på för att bekräfta din e-postadress. Efter bekräftelsen kan du gå med i %{service_name}."
       account_confirmation_instructions_title_admin: "Bekräfta din e-postadress"
       before_full_access_you_need_to_confirm_email: "Före vi kan ge dig full tillgång till din marknadsplats är det en sak till du måste göra: bekräfta din email adress."
       before_confirmation_only_access_admin_dashboard: "Före du bekräftar din email har du enbart tillgång till %{admin_dashboard_link}"
       admin_dashboard_link_text: "admin panel"
-      account_confirmation_instructions_admin: "Du kommer snart att få ett e-postmeddelande till %{email_address} med en länk som du behöver klicka på för att bekräfta din e-postadress du angav. Om du inte ser det kolla i din skräppostmapp. Efter du har bekräftat din e-post så kan du böja konfigurera din marknadsplats. Om du behöver hjälp tveka inte %{support_link}."
+      account_confirmation_instructions_admin: "Du kommer snart att få ett e-postmeddelande till %{email_address} med en länk som du behöver klicka på för att bekräfta din e-postadress. Om du inte ser det kolla i din skräppostmapp. Efter du har bekräftat din e-post så kan du böja konfigurera din marknadsplats. Om du behöver hjälp tveka inte %{support_link}."
       contact_support_link_text: "kontakta Sharetribe support"
   settings:
     account:
@@ -2818,7 +2851,7 @@ sv:
       email_addresses: E-postadresser
       new_email: "Ny e-postadress"
       delete_personal_information: "Om du tar bort ditt konto så kommer din personliga information (namn, telefonnummer, adress, e-post, profilbild osv.) att tas bort permanent och går inte att återskapa. Alla annonser som du har skapat kommer också att tas bort från sidan. Du kommer inte att kunna återaktivera kontot."
-      delete_information_others_involved: "Information där andra medlemmar är involverade (konversationer med andra personer, transaktioner du gjort, recensioner du har gett till andra, m.m.) kommer inte att tas bort när du raderar ditt konto. Ditt namn kommer inte att visas vid denna information."
+      delete_information_others_involved: "Information där andra medlemmar är involverade (konversationer med andra personer, transaktioner du gjort, recensioner du har gett till andra, m.m.) kommer inte att tas bort när du raderar ditt konto. Ditt namn kommer dock tas bort och kommer inte vara synligt i denna information."
       unfinished_transactions: "Ditt konto kan inte tas bort eftersom du har pågående transaktioner. Vänligen slutför alla transaktioner innan du tar bort ditt konto."
       only_admin: ~
       new_password: "Nytt lösenord"
@@ -2845,15 +2878,15 @@ sv:
       newsletters: "Epost meddelanden från administratörer"
       community_updates: Nyhetsbrev
       email_about_confirm_reminders: "...jag har glömt att bekräfta en förfrågan som slutförd"
-      email_about_new_comments_to_own_listing: "...någon kommenterar mitt erbjudande eller efterfrågan"
+      email_about_new_comments_to_own_listing: "...någon kommenterar mitt erbjudanden eller förfrågning"
       email_about_new_messages: "...någon skickar mig ett meddelande"
       email_about_new_received_testimonials: "...någon ger mig feedback"
       email_about_testimonial_reminders: "...jag har glömt att ge feedback på en händelse"
       email_daily_community_updates: "Skicka mig ett nyhetsbrev <b>dagligen</b> om det kommer nya annonser"
       email_weekly_community_updates: "Skicka mig ett nyhetsbrev <b>veckovis</b> om det kommer nya annonser"
-      do_not_email_community_updates: "Skicka mig inte nyhetsbrev"
+      do_not_email_community_updates: "Skicka mig inte några nyhetsbrev"
       email_when_conversation_accepted: "...någon accepterar mitt erbjudande eller efterfrågan"
-      email_when_conversation_rejected: "...någon avböjer mitt erbjudande eller efterfrågan"
+      email_when_conversation_rejected: "...någon avböjer mitt erbjudande eller förfrågning"
       email_about_completed_transactions: "...någon markerar min förfrågan som slutförd"
       email_about_new_payments: "...jag har fått en ny betalning"
       email_about_new_listings_by_followed_people: "...någon jag följer skapar en annons"
@@ -2871,9 +2904,9 @@ sv:
       first_name_with_initial: "(bara första bokstaven visas för andra användare)"
       first_name_only: "(visas inte för andra användare)"
       display_name: "Synligt namn"
-      display_name_description: "Om du representerar en organisation kan du använda organisationens namn som synligt namn. Det synliga namnet visas åt andra användare istället för ditt för och efternamn."
+      display_name_description: "Om du representerar en organisation kan du använda organisationens namn som synligt namn. Det synliga namnet visas för andra användare istället för ditt för- och efternamn."
       location_description: "Du kan antingen ange hela din address eller t ex bara ditt postnummer eller stad. Det är också bra att lägga till ditt land då du väljer en plats. Till exempel: 753 20 Uppsala Sverige\" Eller \"Gustav Adolfsgatan 34,Malmö, Sverige\"."
-      profile_picture_description: "Profilbilden bör vara i ett kvadratiskt format (1:1 ratio), till exempel, 800x800 pixlar. Annars kommer den att beskäras för att passa."
+      profile_picture_description: "Profilbilden bör vara i ett kvadratiskt format (1:1 ratio), exempelvis 800x800 pixlar. Annars kommer den att beskäras för att bli kvadratisk."
       phone_number: Telefonnummer
       profile_picture: Profilbild
       postal_code: Postnummer
@@ -2888,10 +2921,10 @@ sv:
       image_is_processing: "Din profilbild förbereds. Den kommer vara klar om några minuter."
       shown_in_your_public_profile: "(visas i din offentliga profil)"
       editing_profile_of: "Du redigerar nu %{name}s profil"
-      format_markdown_link: ~
-      format_markdown: ~
-      username: ~
-      username_description: ~
+      format_markdown_link: "formatera din beskrivning med Markdown"
+      format_markdown: "Du kan %{link}."
+      username: Användarnamn
+      username_description: "Ditt användarnamn används som en del av din profilsidas unika URL. Du kan endast använda bokstäver och siffror i ditt användarnamn, utan mellanslag. När du ändrar ditt användarnamn kommer din URL automatiskt att ändras och din föregående URL kommer inte att omdirigeras. Det gamla användarnamnet kommer att bli tillgängligt för andra användare."
     save_information: "Spara information"
   shipping_address:
     shipping_address: Leveransadress
@@ -3140,7 +3173,7 @@ sv:
       single_page_html:
         zero: "Inga %{model} hittades"
         one: "Visar <b>1</b> %{model}"
-        other: "Visar <b>all&nbsp;%{count}</b> %{model}"
+        other: "Visar <b>alla&nbsp;%{count}</b> %{model}"
       multi_page: "Visar %{model} %{from} - %{to} av %{count} totalt"
       multi_page_html: "Visar %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> av <b>%{count}</b> totalt"
     person:
@@ -3154,9 +3187,9 @@ sv:
     commission: "%{commission}%"
     pay_with_stripe: "Betala med Stripe och använd %{card}"
     add_and_pay: "Bekräfta betalning"
-    card_not_stored: "Din betalning är säkert hanterad av Stripe. %{service_name} sparar inte din kortinformation."
+    card_not_stored: "Din betalning hanteras på ett säkert sätt av Stripe. %{service_name} sparar inte din kortinformation."
     missing_payment: "Du har öppna annonser, men ditt konto är inte inställt för att ta emot betalningar. För att ställa in dina betalningsinställningar besök %{settings_link}."
-    stripe_bank_connected: "Bankkonto detaljer konfigurerades framgångsrikt!"
+    stripe_bank_connected: "Bankkontoinformationen har sparats!"
     stripe_can_accept: "Du är nu redo att ta emot betalningar till ditt bankkonto"
     stripe_credit_card: Kreditkort
     paypal: PayPal
@@ -3167,14 +3200,14 @@ sv:
     stripe_account_restricted_info: ~
     stripe_account_restricted_soon: ~
     stripe_account_restricted_soon_info: ~
-    stripe_account_pending_verification: ~
+    stripe_account_pending_verification: "Kontoinformationen sparades. Väntar på verifiering av konto från leverantören av betallösningen."
     stripe_account_pending_verification_info: ~
     form_new:
       need_info: "Vi behöver en del information om dig för att kunna skicka dig pengar."
       select_country: "Välj land...."
       legal_name: Namn
-      first_name: ~
-      last_name: ~
+      first_name: Förnamn
+      last_name: Efternamn
       first_name_kana: ~
       last_name_kana: ~
       first_name_kanji: ~
@@ -3234,13 +3267,13 @@ sv:
         digits_or_chars: "siffror eller bokstäverna A-Z"
     form_verification:
       personal_id_number: "Personligt ID nummer"
-      document: Verifikationsnummer
+      document: "Identitetsbevis (pass eller ID-kort)"
       document_back: ~
       send_verification: "Skicka verifikation"
       need_verification: "Behöver ytterligare verifiering"
       additional_document: ~
       additional_document_back: ~
-      files_need_to_be: ~
+      files_need_to_be: "Du kan ladda upp JPEG eller PNG-bilder som är mindre än 5MB. Det är inte möjligt för Stripe att verifiera PDF dokument. Bilden måste vara i färg, vara roterad med bilden höger sida upp samt ha all information tydligt synlig."
     form_pin:
       social_insurance_number: "Personnummer (SIN)"
       social_security_number: "Personnummer (SSN)"
@@ -3260,7 +3293,7 @@ sv:
     to_accept_paypal: "För att ta emot PayPal betalningar måste du koppla ditt PayPal konto. Dina kunder kommer kunna betala via PayPal"
     connect_paypal: "Koppla ditt PayPal konto"
     wrong_setup: "Det är något fel med marknadsplatsens betalsystem, platformen har inte blivit registrerad. Vänligen kontakta marknadsplatsens administratörer och meddela att de bör registrera platformen hos Stripe."
-    invalid_bank_account_number: "Vänligen kontrollera att ditt banknummer är skrivet rätt och matchar ditt valda land."
+    invalid_bank_account_number: "Vänligen kontrollera att ditt banknummer är rätt och att det matchar ditt valda land."
     invalid_postal_code: "Ogiltig postnummer för %{country}"
   seo_sections:
     you_can_use_variables: ~

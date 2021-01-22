@@ -76,8 +76,15 @@ module TransactionService::Store::Transaction
   end
 
   def build_conversation(tx_model, tx_data)
-    conversation = tx_model.build_conversation(
-      tx_data.slice(:community_id, :listing_id, :starting_page))
+    conversation = if tx_data[:conversation_id]
+      Conversation.find_by_id(tx_data[:conversation_id])
+    else
+      tx_model.build_conversation(
+        tx_data.slice(:community_id, :listing_id, :starting_page))
+                   end
+
+    # conversation = tx_model.build_conversation(
+    #   tx_data.slice(:community_id, :listing_id, :starting_page))
 
     conversation.participations.build(
       person_id: tx_data[:listing_author_id],

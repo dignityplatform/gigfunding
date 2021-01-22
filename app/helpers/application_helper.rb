@@ -302,6 +302,12 @@ module ApplicationHelper
       :name => "how_to_use"
     }
     links << {
+      :text => t('layouts.infos.causes'),
+      :icon_class => icon_class("causes"),
+      :path => causes_infos_path,
+      :name => "causes"
+    }
+    links << {
       :text => t('layouts.infos.register_details'),
       :icon_class => icon_class("privacy"),
       :path => privacy_infos_path,
@@ -494,6 +500,14 @@ module ApplicationHelper
       }
     ]
 
+    links << {
+      :topic => :configure,
+      :text => t("admin.left_hand_navigation.causes"),
+      :icon_class => icon_class("causes"),
+      :path => admin_causes_url,
+      :name => "causes"
+    }
+
     links += [
       {
         :topic => :configure,
@@ -624,19 +638,6 @@ module ApplicationHelper
         ]
     end
 
-    paypal_ready = PaypalHelper.community_ready_for_payments?(@current_community.id)
-    stripe_ready = StripeHelper.community_ready_for_payments?(@current_community.id)
-
-    if !restrict_for_admin && (paypal_ready || stripe_ready)
-      links << {
-        :id => "settings-tab-payments",
-        :text => t("layouts.settings.payments"),
-        :icon_class => icon_class("payments"),
-        :path => person_payment_settings_path(@current_user),
-        :name => "payments"
-      }
-    end
-
     return links
   end
 
@@ -680,6 +681,10 @@ module ApplicationHelper
         t("common.default_community_slogan")
       end
     end
+  end
+
+  def typed_slogan_strings
+    @current_community.typed_slogans.where(locale: I18n.locale).map{|typed_slogan| typed_slogan.typed_slogan_text}
   end
 
   def community_description(truncate=true)
@@ -737,8 +742,8 @@ module ApplicationHelper
     FeatureFlagHelper.location_search_available ? @current_community.configuration&.main_search&.to_sym : :keyword
   end
 
-  def landing_page_path
-    PathHelpers.landing_page_path(
+  def sharetribe_landing_page_path
+    PathHelpers.sharetribe_landing_page_path(
       community_id: @current_community.id,
       logged_in: @current_user.present?,
       default_locale: @current_community.default_locale,

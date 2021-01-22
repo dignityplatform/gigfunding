@@ -5,11 +5,12 @@ class PreauthorizeTransactionsController < ApplicationController
   end
 
   before_action :ensure_listing_is_open
-  before_action :ensure_listing_author_is_not_current_user
+  # before_action :ensure_listing_author_is_not_current_user
   before_action :ensure_authorized_to_reply
   before_action :ensure_can_receive_payment
 
   def initiate
+
     params_validator = params_per_hour? ? TransactionService::Validation::NewPerHourTransactionParams : TransactionService::Validation::NewTransactionParams
     validation_result = params_validator.validate(params.to_unsafe_hash).and_then { |params_entity|
       tx_params = add_defaults(
@@ -29,6 +30,8 @@ class PreauthorizeTransactionsController < ApplicationController
         stripe_in_use: StripeHelper.user_and_community_ready_for_payments?(listing.author_id, @current_community.id))
     }
 
+
+
     if validation_result.success
       initiation_success(validation_result.data)
     else
@@ -37,6 +40,7 @@ class PreauthorizeTransactionsController < ApplicationController
   end
 
   def initiated
+
     params_validator = params_per_hour? ? TransactionService::Validation::NewPerHourTransactionParams : TransactionService::Validation::NewTransactionParams
     validation_result = params_validator.validate(params.to_unsafe_hash).and_then { |params_entity|
       tx_params = add_defaults(
@@ -55,6 +59,7 @@ class PreauthorizeTransactionsController < ApplicationController
         transaction_agreement_in_use: @current_community.transaction_agreement_in_use?,
         stripe_in_use: StripeHelper.user_and_community_ready_for_payments?(listing.author_id, @current_community.id))
     }
+
 
     if validation_result.success
       initiated_success(validation_result.data)
@@ -213,6 +218,7 @@ class PreauthorizeTransactionsController < ApplicationController
   end
 
   def ensure_can_receive_payment
+
     payment_type = @current_community.active_payment_types || :none
 
     ready = TransactionService::Transaction.can_start_transaction(transaction: {
@@ -267,15 +273,12 @@ class PreauthorizeTransactionsController < ApplicationController
     end
 
     transaction = {
+          conversation_id: opts[:conversation_id],
           community_id: opts[:community].id,
           community_uuid: opts[:community].uuid_object,
           listing_id: opts[:listing].id,
           listing_uuid: opts[:listing].uuid_object,
           listing_title: opts[:listing].title,
-          starter_id: opts[:user].id,
-          starter_uuid: opts[:user].uuid_object,
-          listing_author_id: opts[:listing].author.id,
-          listing_author_uuid: opts[:listing].author.uuid_object,
           listing_quantity: opts[:listing_quantity],
           unit_type: opts[:listing].unit_type,
           unit_price: opts[:listing].price,
@@ -288,6 +291,26 @@ class PreauthorizeTransactionsController < ApplicationController
           booking_fields: opts[:booking_fields],
           delivery_method: opts[:delivery_method] || :none
     }
+
+    if (opts[:listing].listing_shape.name == 'requesting')
+      transaction.merge!({
+        starter_id: opts[:listing].author.id,
+        starter_uuid: opts[:listing].author.uuid_object,
+        listing_author_id: opts[:user].id,
+        listing_author_uuid: opts[:user].uuid_object,
+        starter_cause_id: opts[:listing].author.cause.id,
+        author_cause_id: opts[:user].cause.id
+      })
+    else
+      transaction.merge!({
+        starter_id: opts[:user].id,
+        starter_uuid: opts[:user].uuid_object,
+        listing_author_id: opts[:listing].author.id,
+        listing_author_uuid: opts[:listing].author.uuid_object,
+        starter_cause_id: opts[:user].cause.id,
+        author_cause_id: opts[:listing].author.cause.id
+      })
+    end
 
     if(opts[:delivery_method] == :shipping)
       transaction[:shipping_price] = opts[:shipping_price]
@@ -328,8 +351,11 @@ class PreauthorizeTransactionsController < ApplicationController
       tx_params: tx_params,
       listing: listing)
 
+    # HERE
     render "listing_conversations/initiate",
            locals: {
+             conversation_id: tx_params[:conversation_id],
+             recipient_id: tx_params[:recipient_id],
              start_on: tx_params[:start_on],
              end_on: tx_params[:end_on],
              start_time: tx_params[:start_time],
@@ -345,7 +371,10 @@ class PreauthorizeTransactionsController < ApplicationController
              stripe_in_use: order.stripe_in_use,
              stripe_publishable_key: StripeHelper.publishable_key(@current_community.id),
              stripe_shipping_required: listing.require_shipping_address && tx_params[:delivery] != :pickup,
-             form_action: initiated_order_path(person_id: @current_user.id, listing_id: listing.id),
+             form_action: initiated_order_path(
+               person_id: @current_user.id, # requestor  id
+               listing_id: listing.id
+            ),
              country_code: LocalizationUtils.valid_country_code(@current_community.country),
              paypal_analytics_event: paypal_event_params(listing),
              price_break_down_locals: order.price_break_down_locals
@@ -383,11 +412,12 @@ class PreauthorizeTransactionsController < ApplicationController
       listing: listing)
 
     tx_response = create_preauth_transaction(
+      conversation_id: tx_params[:conversation_id],
       payment_type: params[:payment_type].to_sym,
       community: @current_community,
       listing: listing,
       listing_quantity: order.quantity,
-      user: @current_user,
+      user: listing.listing_shape.name == 'requesting' ? Person.find(tx_params[:recipient_id]) : @current_user,
       content: tx_params[:message],
       force_sync: !request.xhr?,
       delivery_method: tx_params[:delivery],
@@ -399,6 +429,14 @@ class PreauthorizeTransactionsController < ApplicationController
         end_time: tx_params[:end_time],
         per_hour: tx_params[:per_hour]
       })
+
+    if tx_response[:success]
+      transactions_for_conversation = Transaction.where(conversation_id: tx_response.data[:transaction][:conversation_id])
+      if transactions_for_conversation.length == 2
+        old_free_transaction = transactions_for_conversation.detect {|transaction| transaction.current_state == 'free'}
+        old_free_transaction&.destroy
+      end
+    end
 
     handle_tx_response(tx_response, params[:payment_type].to_sym)
   end

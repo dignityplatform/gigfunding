@@ -220,6 +220,10 @@ describe ListingsController, type: :controller do
 
       @request.host = "#{@c1.ident}.lvh.me"
       @request.env[:current_marketplace] = @c1
+
+      mock_search_result = [@l2, @l1]
+      allow(mock_search_result).to receive(:total_entries).and_return(2)
+      allow(Listing).to receive(:search).and_return(mock_search_result)
     end
 
     it "lists the most recent listings in order" do
@@ -229,7 +233,7 @@ describe ListingsController, type: :controller do
       doc.remove_namespaces!
       expect(doc.at('feed/logo').text).to eq("https://s3.amazonaws.com/sharetribe/assets/dashboard/sharetribe_logo.png")
 
-      expect(doc.at("feed/title").text).to match(/Listings in Sharetribe /)
+      expect(doc.at("feed/title").text).to match(/Listings on Sharetribe /)
       expect(doc.search("feed/entry").count).to eq(2)
       expect(doc.search("feed/entry/title")[0].text).to eq("Sell: hammer")
       expect(doc.search("feed/entry/listing_id")[0].text).to eq(@l2.id.to_s)

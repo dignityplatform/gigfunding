@@ -42,18 +42,52 @@ class Person::ShowService
     return @listings if defined?(@listings)
 
     include_closed = current_user == person && params[:show_closed]
-    search = {
+    search_params = {
       author_id: person.id,
       include_closed: include_closed,
       page: 1,
       per_page: 6
     }
+    @listings = listings_search(search_params)
+  end
 
+  def listings_per_shape
+    include_closed = current_user == person && params[:show_closed]
+    search_params = {
+      author_id: person.id,
+      include_closed: include_closed,
+      page: 1,
+      per_page: 6
+    }
+    listing_shapes = ListingShape.where(deleted: false)
+    @listings_by_shape = listing_shapes.each_with_object({}) do |shape, hash|
+      search_params[:listing_shape_ids] = [shape.id]
+      hash[shape] = listings_search(search_params)
+    end
+  end
+
+  def admin?
+    current_user&.has_admin_rights?(community)
+  end
+
+  def can_post_listing?
+    membership = person&.community_membership
+    if membership
+      if community.require_verification_to_post_listings
+        membership.accepted? && membership.can_post_listings
+      else
+        membership.accepted?
+      end
+    end
+  end
+
+  private
+
+  def listings_search(search)
     includes = [:author, :listing_images]
     raise_errors = Rails.env.development?
 
-    @listings =
-      ListingIndexService::API::Api
+    ListingIndexService::API::Api
       .listings
       .search(
         community_id: community.id,
@@ -70,20 +104,5 @@ class Person::ShowService
         per_page: search[:per_page]
       ))
       }.data
-  end
-
-  def admin?
-    current_user&.has_admin_rights?(community)
-  end
-
-  def can_post_listing?
-    membership = person&.community_membership
-    if membership
-      if community.require_verification_to_post_listings
-        membership.accepted? && membership.can_post_listings
-      else
-        membership.accepted?
-      end
-    end
   end
 end

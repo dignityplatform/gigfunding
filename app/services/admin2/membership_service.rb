@@ -48,17 +48,15 @@ class Admin2::MembershipService
   end
 
   def promote_admin
-    # rubocop:disable Rails/SkipsModelValidations
     resource_scope.where(person_id: params[:add_admin]).update_all("admin = 1")
     resource_scope.where(person_id: params[:remove_admin]).update_all("admin = 0")
-    # rubocop:enable Rails/SkipsModelValidations
+
   end
 
   def posting_allowed
-    # rubocop:disable Rails/SkipsModelValidations
     resource_scope.where(person_id: params[:allowed_to_post]).update_all("can_post_listings = 1")
     resource_scope.where(person_id: params[:disallowed_to_post]).update_all("can_post_listings = 0")
-    # rubocop:enable Rails/SkipsModelValidations
+
   end
 
   def resend_confirmation
@@ -69,10 +67,6 @@ class Admin2::MembershipService
 
   def destroy
     person = membership.person
-    unless membership.banned? || membership.pending_consent? || membership.pending_email_confirmation?
-      @error_message = I18n.t('admin.communities.manage_members.only_delete_disabled')
-      return false
-    end
     has_unfinished = Transaction.unfinished_for_person(person).any?
     if has_unfinished
       @error_message = I18n.t('admin.communities.manage_members.have_ongoing_transactions')
@@ -91,7 +85,7 @@ class Admin2::MembershipService
       Person.delete_user(person.id)
       Listing.delete_by_author(person.id)
       PaypalAccount.where(person_id: person.id, community_id: person.community_id).delete_all
-      Invitation.where(community: person.community, inviter: person).update_all(deleted: true) # rubocop:disable Rails/SkipsModelValidations
+      Invitation.where(community: person.community, inviter: person).update_all(deleted: true)
     end
   end
 
@@ -120,6 +114,7 @@ class Admin2::MembershipService
       language
     }
     header_row.push("can_post_listings") if community.require_verification_to_post_listings
+    header_row += %w{has_connected_paypal has_connected_stripe}
     header_row += community.person_custom_fields.map{|f| f.name}
     yielder << header_row.to_csv(force_quotes: true)
     all_memberships.find_each do |membership|
@@ -142,6 +137,10 @@ class Admin2::MembershipService
           language: user.locale
         }
         user_data[:can_post_listings] = membership.can_post_listings if community.require_verification_to_post_listings
+        paypal_account = paypal_accounts_api.get(community_id: community.id, person_id: user.id).data || {}
+        stripe_account = stripe_accounts_api.get(community_id: community.id, person_id: user.id).data || {}
+        user_data[:has_connected_paypal] = paypal_account[:state] == :verified
+        user_data[:has_connected_stripe] = stripe_account[:stripe_seller_id].present?
         community.person_custom_fields.each do |field|
           field_value = user.custom_field_values.by_question(field).first
           user_data[field.name] = field_value.try(:display_value)
@@ -213,5 +212,13 @@ class Admin2::MembershipService
       end
     end
     scope
+  end
+
+  def paypal_accounts_api
+    PaypalService::API::Api.accounts
+  end
+
+  def stripe_accounts_api
+    StripeService::API::Api.accounts
   end
 end

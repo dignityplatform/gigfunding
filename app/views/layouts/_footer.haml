@@ -1,8 +1,24 @@
-- if @custom_footer.theme_logo?
-  = render 'layouts/footer/theme_logo'
-- else
-  %footer{:class => "footer__container--#{@custom_footer.theme}"}
+- if @custom_footer
+  .footer-spacer
+  %footer{:class => "footer-container footer__container--#{@custom_footer.theme}"}
     .footer__content
+      %div{:class => "footer__links-container#{@custom_footer.container_modifier}"}
+        %ul.footer__link-list
+          %li.footer__link-list-item
+            %a.footer__link{:href => root_path(locale: nil)}
+              = t('footer.home')
+          %li.footer__link-list-item
+            %a.footer__link{:href => about_infos_path}
+              = t('footer.about')
+          %li.footer__link-list-item
+            %a.footer__link{:href => homepage_without_locale_path(locale: nil)}
+              = t('footer.marketplace')
+          %li.footer__link-list-item
+            %a.footer__link{:href => causes_infos_path}
+              = t('footer.causes')
+          %li.footer__link-list-item
+            %a.footer__link{:href => new_user_feedback_path}
+              = t('footer.contact')
       %div{:class => "footer__links-container#{@custom_footer.container_modifier}"}
         - if @custom_footer.links?
           %ul.footer__link-list
@@ -14,6 +30,5 @@
             - @custom_footer.social.each do |social|
               %a.footer__social-media-link{:href => social.url, :rel => "noreferrer", :target => "_blank"}
                 = render 'layouts/footer/social_icons', social_service: social.provider
-      %hr.footer__separator/
       .footer__copyrights--markdown
         = markdown(@custom_footer.copyright)

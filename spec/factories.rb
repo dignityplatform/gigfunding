@@ -100,6 +100,8 @@ FactoryGirl.define do
     phone_number "0000-123456"
     username
     password "testi"
+    deleted 0
+    build_association(:cause)
 
     has_many :emails do |person|
       FactoryGirl.build(:email, person: person)
@@ -119,11 +121,12 @@ FactoryGirl.define do
     title "Sledgehammer"
     description("test")
     build_association(:author)
+    build_association(:listing_shape)
     category { TestHelpers::find_or_build_category("item") }
     valid_until { Time.current + 3.months }
     times_viewed 0
     privacy "public"
-    listing_shape_id 123
+    shape_name_tr_key "admin.listing_shapes.listing_shape_name"
     price Money.new(20, "USD")
     uuid
   end
@@ -456,7 +459,11 @@ FactoryGirl.define do
     name                   'Selling'
     name_tr_key            'unit.day'
     action_button_tr_key   'unit.days'
+    user_descriptor_tr_key 'unit.days'
+    type_selection_label_tr_key 'unit.days'
+    search_text_tr_key 'unit.days'
     sort_priority          0
+    listing_color          "000000"
   end
 
   factory :listing_unit do
@@ -465,7 +472,6 @@ FactoryGirl.define do
     kind                'time'
     name_tr_key         nil
     selector_tr_key     nil
-    listing_shape_id    123
   end
 
   factory :invitation_unsubscribe, class: 'Invitation::Unsubscribe' do
@@ -544,5 +550,21 @@ FactoryGirl.define do
   factory :listing_blocked_date, class: 'Listing::BlockedDate' do
     listing_id 123
     blocked_at Date.current
+  end
+
+  factory :typed_slogan do
+    community_id 999
+    locale 'en'
+    typed_slogan_text 'some typed slogan text'
+  end
+
+  factory :cause do
+    community_id 999
+    name 'Name of cause'
+    description 'description of cause'
+    link 'http://example.com'
+    default_cause true
+    archived false
+    deleted false
   end
 end

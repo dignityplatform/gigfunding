@@ -7,7 +7,7 @@ const nodeEnv = devBuild ? 'development' : 'production';
 const { replacePercentChar } = require('./webpackConfigUtil');
 const assetHostEnv = typeof process.env.asset_host === 'string' ? `&asset_host=${process.env.asset_host}` : '';
 const assetHost = replacePercentChar(assetHostEnv);
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
@@ -22,7 +22,7 @@ module.exports = {
     publicPath: '/assets/',
   },
   resolve: {
-    extensions: ['*', '.js'],
+    extensions: ['*', '.js', '.js.es6'],
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -35,7 +35,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js(?:\.es6)?$/,
         loader: 'babel-loader',
         exclude: [/node_modules/, /i18n\/all.js/, /routes\/routes.js/],
       },
@@ -79,18 +79,12 @@ module.exports = {
     ],
   },
   optimization: {
-    minimizer: [
-      // we specify a custom UglifyJsPlugin here to get source maps in production
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        uglifyOptions: {
-          compress: false,
-          ecma: 6,
-          mangle: true,
-        },
-        sourceMap: true,
-      }),
-    ],
+    minimize: true,
+    minimizer: [new TerserPlugin({
+      terserOptions: {
+        ecma: 2015,
+        compress: false,
+      },
+    })],
   },
 };

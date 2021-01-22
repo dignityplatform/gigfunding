@@ -36,8 +36,10 @@ button {
 */
 
 body {
-  @include source-sans-pro;
   @include normal-type;
+  height: 100%;
+  background: $background;
+  color: $body;
 
   @include media(tiny-mobile) {
     // Zooms out on tiny screens
@@ -96,14 +98,6 @@ body {
   $blur: ($size - $css-spread);
 
   @include text-shadow($h-shadow $v-shadow $blur $color);
-}
-
-body {
-  background: $background;
-  color: $body;
-  height: auto; // fixes some height issues in the map view
-  //border: solid darken($highlight, 9%);
-  //border-width: 0 0 lines(1);
 }
 
 ul {
@@ -331,7 +325,7 @@ ul {
     top: em(2);
   }
   .text-part {
-    @include source-sans-pro;
+    @include source-comfortaa;
     padding-left: em(23);
     min-height: em(30);
   }
@@ -588,7 +582,7 @@ label.error {
   bottom: em(-4);
   left: em(2);
 
-  @include source-sans-pro;
+  @include source-comfortaa;
   @include mega-type;
   z-index: 0;
   @include media(tablet) {
@@ -615,7 +609,7 @@ label.error {
   display: none;
   position: relative;
   margin: lines(10) auto;
-  max-width: lines(22);
+  max-width: lines(40);
   padding: lines(1.25) lines(1);
 }
 
@@ -1681,6 +1675,10 @@ input[type="text"].delivery-price-field {
   @include media(tablet) {
     min-height: 250px;
   }
+
+  img {
+    object-fit: contain;
+  }
 }
 
 /*
@@ -1984,13 +1982,14 @@ figure.fluidratio {
   position: relative;
 
   figure.marketplace-cover {
-    background-image: url(image-path($cover-photo-url));
+    background-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.30) 40%, rgba(0, 0, 0, 0) 100%), url(image-path($cover-photo-url));
+    background-position:center top;
     height: auto;
     background-size: cover;
   }
 
   figure.marketplace-cover-small {
-    background-image: url(image-path($small-cover-photo-url));
+    background-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.30) 40%, rgba(0, 0, 0, 0) 100%), url(image-path($small-cover-photo-url));
     height: em($small-cover-photo-mobile-height);
     @include media(tablet) {
       @include fluid-ratio(
@@ -2024,7 +2023,7 @@ figure.fluidratio {
   }
 
   .marketplace-lander-content {
-    padding: 5em 1em;
+    padding: 5em 1em 3em 1em;
     text-align: center;
   }
 
@@ -2044,6 +2043,11 @@ figure.fluidratio {
     &.hidden-title-part {
       opacity: 0 !important;
     }
+    height: em(18) * 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
   }
 
   .marketplace-lander-content-description {
@@ -2129,7 +2133,7 @@ figure.fluidratio {
   .search-form {
     margin-top: lines(1);
     @include media(tablet) {
-      margin-top: lines(2.5);
+      margin-top: lines(2);
     }
   }
 
@@ -2253,13 +2257,13 @@ figure.fluidratio {
 .float {
   position: fixed;
   font-size: 20px;
-  bottom: 40px;
+  bottom: 20px;
   right: 40px;
   color: #fff;
-  background: #008b8b !important;
   border-radius: 50px;
   text-align: center;
-  box-shadow: 2px 2px 3px #999;
+  background: #5987BD !important;
+  box-shadow: 3px 4px 12px 3px rgba(0, 0, 0, 0.2);
   z-index: 100;
   @media only screen and (max-width: 600px) {
     position: fixed;
@@ -2268,7 +2272,40 @@ figure.fluidratio {
     right: 20px;
     color: #fff;
     border-radius: 50px;
-    text-align: center;
-    box-shadow: 2px 2px 3px #999;
+    text-align: center;;
   }
+}
+
+.typed::after {
+	content: '|';
+	display: inline;
+	-webkit-animation: blink 0.7s infinite;
+	-moz-animation: blink 0.7s infinite;
+	animation: blink 0.7s infinite;
+}
+
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-o-keyframes blink{
+  0% { opacity:1; }
+  50% { opacity:0; }
+  100% { opacity:1; }
+}
+
+.full-page-container {
+  position: relative;
+  min-height: 100%;
 }

@@ -2,10 +2,10 @@ source 'https://rubygems.org'
 
 ruby '2.6.5'
 
-gem 'rails', '5.2.3'
+gem 'rails', '5.2.4.4'
 
 gem 'coffee-rails', '~> 4.2.2'
-gem 'uglifier', '~> 3.2.0'
+gem 'uglifier', '~> 4.2.0'
 
 gem 'sass-rails', '~> 5.0.6'
 gem 'compass-rails', '~> 3.0.2'
@@ -92,7 +92,7 @@ gem 'faraday', '~> 0.13.0'
 gem 'faraday_middleware', '~> 0.11.0'
 gem 'faraday-encoding', '~> 0.0.4'
 
-gem "react_on_rails", ">= 11.3.0"
+gem "react_on_rails", "11.3.1"
 
 gem 'sitemap_generator', '~> 5.3.1'
 
@@ -106,6 +106,10 @@ gem 'mail', '~> 2.6.6.rc1'
 
 gem 'tzinfo-data', '~> 1.2017', '>= 1.2017.2'
 
+gem 'recaptcha', '~> 5.5'
+
+gem 'simpleidn', '~> 0.1'
+
 group :staging, :production do
   gem 'newrelic_rpm', '~> 6.11.0'
   gem 'rails_12factor', '~> 0.0.3'
@@ -113,6 +117,7 @@ end
 
 group :development, :test do
   gem 'rubocop', '~> 0.67.2', require: false
+  gem 'rubocop-performance'
   gem 'factory_girl_rails', '~> 4.8.0'
 end
 
@@ -127,9 +132,9 @@ group :development do
   gem 'annotate', '~> 2.7.5'
   gem 'zeus', '~> 0.15.13', require: false
   gem 'web-console', '~> 3.7.0'
-  gem 'awesome_print', '~> 1.7.0'
   gem 'binding_of_caller'
   gem "rails-erd"
+  gem "letter_opener"
 end
 
 group :test do
@@ -146,7 +151,6 @@ group :test do
   gem 'timecop', '~> 0.8.1'
   gem 'database_cleaner', '~> 1.6.1'
   gem 'connection_pool', '~> 2.2.1'
-  gem 'rails-controller-testing', '~> 1.0.2'
 
   # required for CircleCI automatic test balancing
   gem 'rspec_junit_formatter'
@@ -155,6 +159,7 @@ group :test do
   gem 'poltergeist'
   gem 'puma'
   gem 'webdrivers'
+  gem 'rails-controller-testing'
 end
 
 group :development, :test do
@@ -162,7 +167,7 @@ group :development, :test do
 end
 
 
-gem 'mini_racer', platforms: :ruby
+gem 'mini_racer', '0.3.1'
 gem 'js-routes', '~> 1.3.3'
 
 # Color utilities needed for landing page
@@ -181,9 +186,22 @@ gem 'memoist'
 gem 'biz'
 gem 'ffi', '>= 1.9.25'
 gem 'rubyzip', '~> 1.3.0'
-gem 'bootsnap', require: false
+gem 'bootsnap', '1.4.6', require: false
 gem "select2-rails"
 gem "cocoon"
 gem "fast-polylines"
 gem 'unicorn'
 gem 'foreman'
+
+gem "airbrake-ruby", "~> 4.2"
+
+gem 'awesome_print', '~> 1.7.0'
+gem 'rack-cors'
+
+# Transpile es6 modules in Sprockets 3
+gem 'sprockets-bumble_d', '>= 2.2.0'
+
+gem "daemons"
+
+# Validate URLs
+gem "validate_url"

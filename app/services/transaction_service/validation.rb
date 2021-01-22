@@ -38,7 +38,9 @@ module TransactionService
       [:end_on, :date, transform_with: PARSE_DATE],
       [:message, :string],
       [:quantity, :to_integer, validate_with: IS_POSITIVE],
-      [:contract_agreed, transform_with: ->(v) { v == "1" }]
+      [:contract_agreed, transform_with: ->(v) { v == "1" }],
+      [:conversation_id, :to_integer, validate_with: IS_POSITIVE],
+      [:recipient_id, :string]
     )
 
     NewPerHourTransactionParams = EntityUtils.define_builder(
@@ -47,7 +49,9 @@ module TransactionService
       [:end_time, :time, transform_with: PARSE_DATETIME],
       [:per_hour, transform_with: ->(v) { v == "1" }],
       [:message, :string],
-      [:contract_agreed, transform_with: ->(v) { v == "1" }]
+      [:contract_agreed, transform_with: ->(v) { v == "1" }],
+      [:conversation_id, :to_integer, validate_with: IS_POSITIVE],
+      [:recipient_id, :string]
     )
 
     module Validator

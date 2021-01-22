@@ -23,4 +23,12 @@ module HomepageHelper
     precision = (distance < 1) ? 1 : 2
     (distance < 0.1) ? "< #{number_with_delimiter(0.1, locale: locale)}" : number_with_precision(distance, precision: precision, significant: true, locale: locale)
   end
+
+  def search_bar_placeholder(selected_shape)
+    if selected_shape&.search_text_tr_key&.present?
+      t(selected_shape.search_text_tr_key)
+    else
+      (@community_customization&.search_placeholder) || t("homepage.index.what_do_you_need")
+    end
+  end
 end

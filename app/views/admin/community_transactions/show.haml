@@ -3,6 +3,16 @@
 - listing_title = transaction.listing_title || t("admin.communities.transactions.not_available")
 - link = link_to_unless(transaction.listing.deleted, listing_title, listing_path(transaction.listing_id)) || listing_title
 - transaction_title = t('.transaction_for', link: link, transaction_id: transaction.id).html_safe
+
+- seller = transaction_author(transaction: transaction)
+- buyer = transaction_starter(transaction: transaction)
+- if transaction.current_state == 'free'
+  - seller_cause = (seller.cause ? seller.cause.name : t('transactions.details.cause_not_selected'))
+  - buyer_cause = (buyer.cause ? buyer.cause.name : t('transactions.details.cause_not_selected'))
+- else 
+  - seller_cause = (transaction.author_cause ? transaction.author_cause.name + ' (fixed)' : t('transactions.details.cause_not_selected_legacy'))
+  - buyer_cause = (transaction.starter_cause ? transaction.starter_cause.name + ' (fixed)' : t('transactions.details.cause_not_selected_legacy'))
+
 - content_for :title_header do
   %h1
     = t("layouts.admin.admin")
@@ -37,18 +47,33 @@
         - elsif pr.disputed?
           - learn_more_link = link_to t('.learn_more'), "#{APP_CONFIG.knowledge_base_url}/en/articles/1587573", target: '_blank'
           = t(".you_should_investigate", learn_more_link: learn_more_link).html_safe
+
     .row
       .col-12
         %span.initiate-transaction-total-wrapper
           = t('.buyer')
-        - if pr.buyer
-          = link_to_unless(pr.buyer.deleted, pr.buyer_name, person_path(pr.buyer.username))
+        - if buyer
+          = link_to_unless(buyer.deleted, buyer.name(I18n.locale), person_path(buyer.username))
     .row
       .col-12
         %span.initiate-transaction-total-wrapper
           = t('.provider')
-        - if pr.provider
-          = link_to_unless(pr.provider.deleted, pr.provider_name, person_path(pr.provider.username))
+        - if seller
+          = link_to_unless(seller.deleted, seller.name(I18n.locale), person_path(seller.username))
+    .row
+      .col-12
+        %span.initiate-transaction-total-wrapper
+          = t('.buyer_cause')
+        %span
+          = buyer_cause
+    .row
+      .col-12
+        %span.initiate-transaction-total-wrapper
+          = t('.seller_cause')
+        %span
+          = seller_cause
+
+
     - if pr.shipping?
       .row
         .col-12

@@ -42,6 +42,10 @@ Then /^I should see that I do not have any custom fields$/ do
   expect(all(".custom-field-title")).to be_empty
 end
 
+Then /^I should see that I do not have any listing fields$/ do
+  expect(all(".custom-field-list-row")).to be_empty
+end
+
 When /^I remove custom field "(.*?)"$/ do |title|
   steps %Q{
     Given I will confirm all following confirmation dialogs in this page if I am running PhantomJS
@@ -49,6 +53,20 @@ When /^I remove custom field "(.*?)"$/ do |title|
   find_remove_link_for_custom_field(title).click
   steps %Q{
     And I confirm alert popup
+  }
+end
+
+When /^I remove listing field "(.*?)"$/ do |title|
+  find_remove_link_for_custom_field(title).click
+  steps %Q{
+    And I press "Delete the listing field"
+  }
+end
+
+When /^I remove user field "(.*?)"$/ do |title|
+  find_remove_link_for_custom_field(title).click
+  steps %Q{
+    And I press "Delete the user field"
   }
 end
 
@@ -272,6 +290,25 @@ Given /^there is a custom dropdown field "(.*?)" in community "(.*?)"(?: in cate
 
   @custom_fields ||= []
   @custom_fields << custom_field
+end
+
+Given /^there is a custom user dropdown field "(.*?)" in community "(.*?)" with options:$/ do |name, community, options|
+  current_community = Community.where(ident: community).first
+  custom_field = FactoryGirl.build(:custom_dropdown_field, {
+    :community_id => current_community.id,
+    :names => [CustomFieldName.create(:value => name, :locale => "en")]
+  })
+
+  custom_field.options << options.hashes.each_with_index.map do |hash, index|
+    en = FactoryGirl.build(:custom_field_option_title, :value => hash['fi'], :locale => 'fi')
+    fi = FactoryGirl.build(:custom_field_option_title, :value => hash['en'], :locale => 'en')
+    FactoryGirl.build(:custom_field_option, :titles => [en, fi], sort_priority: index)
+  end
+
+  custom_field.entity_type = :for_person
+  custom_field.save!
+
+  @custom_field = custom_field
 end
 
 Given /^there is a custom text field "(.*?)" in community "(.*?)"(?: in category "([^"]*)")?$/ do |name, community, category_name|

@@ -1,6 +1,7 @@
 require "spec_helper"
 
 describe "HSTS header", type: :request do
+
   before do
     @hsts_max_age = 10
   end
@@ -23,6 +24,11 @@ describe "HSTS header", type: :request do
   end
 
   shared_context "common without ssl" do
+
+    before do
+      APP_CONFIG.always_use_ssl = false
+    end
+
     it "header not set" do
       get "https://#{domain}"
 

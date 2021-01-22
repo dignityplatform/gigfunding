@@ -7,8 +7,6 @@
           %h3.paypal-account-connected
             =icon_tag("check", ["icon-fix"])
             =t("stripe_accounts.stripe_bank_connected")
-          %p
-            =t("stripe_accounts.stripe_can_accept")
         - elsif presenter.stripe_account_restricted?
           %h3.paypal-account-disabled
             =icon_tag("cross", ["icon-fix"])

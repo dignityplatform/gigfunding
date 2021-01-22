@@ -6,10 +6,10 @@
 - content_for :extra_javascript do
   :javascript
     window.ST.listing({
-    fuzzy_location: #{@current_community.fuzzy_location.to_json},
-    listing_location: #{raw @listing.location.to_json}
+      fuzzy_location: #{@current_community.fuzzy_location.to_json},
+      listing_location: #{raw @listing.location&.coordinates(@current_community.fuzzy_location) || false}
     });
-  - if !show_map && @current_community.fuzzy_location
+  - if @current_community.fuzzy_location && !(search_mode != :keyword)
     - maps_key = MarketplaceHelper.google_maps_key(@current_community.id)
     = javascript_include_tag "//maps.googleapis.com/maps/api/js?key=#{maps_key}"
 
@@ -37,7 +37,7 @@
     .fade
 
 = render partial: 'layouts/onboarding_popup_wrapper'
-
+- author_name = PersonViewUtils.person_display_name(@listing.author, @current_community)
 .row
   .col-8.listing-details-container
     .row
@@ -113,6 +113,11 @@
                 :javascript
                   !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
 
+    - if @listing.author.cause
+      .label
+        = t('settings.profile.selected_cause')
+      = render :partial => "layouts/cause_layout", :locals => {cause: @listing.author.cause, admin: false, is_current_user_viewing: (@listing.author == @current_user)}
+
     - unless (@listing.closed? && !current_user?(@listing.author)) || !@current_community.listing_comments_in_use
       .view-item
         #comments.discussion.overflow-allowed
@@ -150,11 +155,7 @@
               = link_to PersonViewUtils.person_display_name(@listing.author, @current_community), @listing.author, :id => "listing-author-link", :class => "listing-author-name-link", :title => "#{PersonViewUtils.person_display_name(@listing.author, @current_community)}"
 
             = @listing.author.description
-            - if @listing.author != @current_user && @current_community.allow_free_conversations?
-              .listing-author-contact
-                %a#listing-contact{href: contact_to_listing_path(:listing_id => @listing.id.to_s), :class => "listing-author-contact-button"}
-                  .content
-                    = t(".contact")
+            
 
     - if @listing_presenter.received_testimonials.size > 0
       .row-with-divider.listing-author-activity
@@ -175,13 +176,22 @@
     .row-with-divider
       .col-12
         #listing-message-links
-          = render :partial => "listing_actions"
-
+        -# HERE
+        = render :partial => "listing_actions"
+        - if @listing.author != @current_user
+          .listing-author-contact
+            %a#listing-contact{href: contact_to_listing_path(:listing_id => @listing.id.to_s), :class => "enabled-book-button"}
+              .content
+                - if @listing.listing_shape.name == 'requesting'
+                  = t(".help") + ' ' + author_name
+                - elsif @listing.listing_shape.name == 'offering'
+                  = t(".hire") + ' ' + author_name
+                
 
 
     - if show_location? && @listing.origin_loc && @listing.origin_loc.address != ""
       .row
         .col-12
-          #googlemap
+          #googlemap  
             = render :partial => "googlemap", :locals => { :listing => @listing}
             = render :partial => "origin", :locals => { :origin_loc => @listing.origin_loc }

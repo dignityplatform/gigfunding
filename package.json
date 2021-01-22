@@ -13,6 +13,10 @@
     "client/node_modules"
   ],
   "dependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-external-helpers": "^7.12.1",
+    "@babel/plugin-transform-modules-umd": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
     "tooltip.js": "^1.3.1"
   }
 }

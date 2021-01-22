@@ -238,7 +238,7 @@ module TransactionHelper
         paid: -> { {
           both: [
             status_info(t("conversations.status.request_paid"), icon_classes: icon_for("paid")),
-            delivery_status(conversation),
+            # delivery_status(conversation),
             paid_status(conversation)
           ]
         }
@@ -378,7 +378,7 @@ module TransactionHelper
   private
 
   def paid_status(conversation)
-    if conversation.seller == @current_user
+    if conversation.listing_author == @current_user
       waiting_for_buyer_to_confirm(conversation)
     else
       waiting_for_current_user_to_confirm(conversation)
@@ -386,7 +386,7 @@ module TransactionHelper
   end
 
   def delivery_status(conversation)
-    if current_user?(conversation.author)
+    if current_user?(conversation.listing_author)
       status_info(
         t("conversations.status.waiting_for_current_user_to_deliver_listing",
           :listing_title => link_to(conversation.listing.title, conversation.listing)
@@ -397,7 +397,7 @@ module TransactionHelper
       status_info(
         t("conversations.status.waiting_for_listing_author_to_deliver_listing",
           :listing_title => link_to(conversation.listing.title, conversation.listing),
-          :listing_author_name => link_to(PersonViewUtils.person_display_name(conversation.author, conversation.community))
+          :listing_author_name => link_to(PersonViewUtils.person_display_name(conversation.listing_author, conversation.community))
         ).html_safe,
         icon_classes: "ss-clockwise"
       )
@@ -405,7 +405,7 @@ module TransactionHelper
   end
 
   def preauthorized_status(transaction)
-    if current_user?(transaction.listing.author)
+    if current_user?(transaction.listing_author)
       waiting_for_current_user_to_accept_preauthorized(transaction)
     else
       waiting_for_author_to_accept_preauthorized(transaction)
@@ -504,8 +504,8 @@ module TransactionHelper
   def waiting_for_author_to_accept_preauthorized(transaction)
     text = t("conversations.status.waiting_for_listing_author_to_accept_request",
       :listing_author_name => link_to(
-        PersonViewUtils.person_display_name_for_type(transaction.author, "first_name_only"),
-        transaction.author
+        PersonViewUtils.person_display_name_for_type(transaction.listing_author, "first_name_only"),
+        transaction.listing_author
       )
     ).html_safe
 
@@ -535,5 +535,14 @@ module TransactionHelper
     else
       hash
     end
+  end
+
+  def transaction_starter(transaction:)
+    transaction_type = transaction.listing.listing_shape.name
+    transaction_type == 'requesting' && transaction.current_state != 'free' ? transaction.listing_author : transaction.starter
+  end
+
+  def transaction_author(transaction:)
+    transaction.author
   end
 end

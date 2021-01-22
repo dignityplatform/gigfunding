@@ -105,72 +105,60 @@ describe TransactionMailer, type: :mailer do
     describe '#payment_receipt_to_seller' do
       it 'works with default payment gateway' do
         email = TransactionMailer.payment_receipt_to_seller(paypal_transaction)
-        expect(email.body).to have_text('You have been paid €5 for Sledgehammer by Proto. Here is your receipt.')
+        expect(email.body).to have_text('The amount of €5 has been paid for Sledgehammer by Proto. The money will be donated to the chosen causes. Here is your receipt.')
         expect(email.body).to have_text("Price Proto paid: €5", normalize_ws: true)
-        expect(email.body).to have_text('Sharetribe service fee: €0', normalize_ws: true)
         expect(email.body).to have_text('Payment processing fee: -€1.50', normalize_ws: true)
-        expect(email.body).to have_text('Total: €3.50', normalize_ws: true)
       end
 
       it 'works with default payment gateway per hour' do
         email = TransactionMailer.payment_receipt_to_seller(paypal_transaction_per_hour)
-        expect(email.body).to have_text('You have been paid €15 for Sledgehammer, per hour by Proto. Here is your receipt.')
+        expect(email.body).to have_text('The amount of €15 has been paid for Sledgehammer, per hour by Proto. The money will be donated to the chosen causes. Here is your receipt.')
         expect(email.body).to have_text('Price per hour €5', normalize_ws: true)
         expect(email.body).to have_text('Duration 3', normalize_ws: true)
         expect(email.body).to have_text('Price Proto paid: €15', normalize_ws: true)
-        expect(email.body).to have_text('Sharetribe service fee: €0', normalize_ws: true)
         expect(email.body).to have_text('Payment processing fee: -€1.50', normalize_ws: true)
-        expect(email.body).to have_text('Total: €13.50', normalize_ws: true)
       end
 
       it 'works with stripe payment gateway' do
         email = TransactionMailer.payment_receipt_to_seller(stripe_transaction)
-        expect(email.body).to have_text('The amount of €2 has been paid for Sledgehammer by Proto. The money is being held by Sharetribe until the order is marked as completed. Here is your receipt.')
+        expect(email.body).to have_text('The amount of €2 has been paid for Sledgehammer by Proto. The money is being held by Sharetribe and will be donated to the chosen causes the order is marked as completed. Here is your receipt.')
         expect(email.body).to have_text('Price Proto paid: €2', normalize_ws: true)
-        expect(email.body).to have_text('Sharetribe service fee: -€1', normalize_ws: true)
-        expect(email.body).to have_text('Total: €1', normalize_ws: true)
       end
 
       it 'works with stripe payment gateway per hour' do
         email = TransactionMailer.payment_receipt_to_seller(stripe_transaction_per_hour)
-        expect(email.body).to have_text('The amount of €6 has been paid for Sledgehammer, per hour by Proto. The money is being held by Sharetribe until the order is marked as completed. Here is your receipt.')
+        expect(email.body).to have_text('The amount of €6 has been paid for Sledgehammer, per hour by Proto. The money is being held by Sharetribe and will be donated to the chosen causes the order is marked as completed. Here is your receipt.')
         expect(email.body).to have_text('Price per hour €2', normalize_ws: true)
         expect(email.body).to have_text('Duration 3', normalize_ws: true)
         expect(email.body).to have_text('Price Proto paid: €6', normalize_ws: true)
-        expect(email.body).to have_text('Sharetribe service fee: -€1', normalize_ws: true)
-        expect(email.body).to have_text('Total: €5', normalize_ws: true)
       end
 
       describe 'without buyer commission' do
         it 'works with default payment gateway' do
           email = TransactionMailer.payment_receipt_to_seller(paypal_transaction)
-          expect(email.body).to have_text('You have been paid €5 for Sledgehammer by Proto. Here is your receipt.')
+          expect(email.body).to have_text('The amount of €5 has been paid for Sledgehammer by Proto. The money will be donated to the chosen causes. Here is your receipt.')
         end
 
         it 'works with stripe payment gateway' do
           email = TransactionMailer.payment_receipt_to_seller(stripe_transaction)
-          expect(email.body).to have_text('The amount of €2 has been paid for Sledgehammer by Proto. The money is being held by Sharetribe until the order is marked as completed. Here is your receipt.')
+          expect(email.body).to have_text('The amount of €2 has been paid for Sledgehammer by Proto. The money is being held by Sharetribe and will be donated to the chosen causes the order is marked as completed. Here is your receipt.')
         end
       end
 
       describe 'with buyer commission' do
         it 'works with stripe payment gateway' do
           email = TransactionMailer.payment_receipt_to_seller(stripe_transaction_with_buyer_commission)
-          expect(email.body).to have_text('The amount of €102 has been paid for Sledgehammer by Proto. The money is being held by Sharetribe until the order is marked as completed. Here is your receipt.')
+          expect(email.body).to have_text('The amount of €102 has been paid for Sledgehammer by Proto. The money is being held by Sharetribe and will be donated to the chosen causes the order is marked as completed. Here is your receipt.')
           expect(email.body).to have_text('Subtotal: €102', normalize_ws: true)
-          expect(email.body).to have_text('Sharetribe service fee: -€12', normalize_ws: true)
-          expect(email.body).to have_text('Total: €90', normalize_ws: true)
         end
 
         it 'works with stripe payment gateway per hour with shipping' do
           email = TransactionMailer.payment_receipt_to_seller(stripe_transaction_per_hour_with_shipping_with_buyer_commission)
-          expect(email.body).to have_text('The amount of €9 has been paid for Sledgehammer, per hour by Proto. The money is being held by Sharetribe until the order is marked as completed. Here is your receipt.')
+          expect(email.body).to have_text('The amount of €9 has been paid for Sledgehammer, per hour by Proto. The money is being held by Sharetribe and will be donated to the chosen causes the order is marked as completed. Here is your receipt.')
           expect(email.body).to have_text('Price per hour €2', normalize_ws: true)
           expect(email.body).to have_text('Duration 3', normalize_ws: true)
           expect(email.body).to have_text('Subtotal: €6', normalize_ws: true)
-          expect(email.body).to have_text('Sharetribe service fee: -€1', normalize_ws: true)
           expect(email.body).to have_text('Shipping: €3', normalize_ws: true)
-          expect(email.body).to have_text('Total: €8', normalize_ws: true)
         end
       end
     end
@@ -178,14 +166,14 @@ describe TransactionMailer, type: :mailer do
     describe '#payment_receipt_to_buyer' do
       it 'works with default payment gateway' do
         email = TransactionMailer.payment_receipt_to_buyer(paypal_transaction)
-        expect(email.body).to have_text('You have paid €5 for Sledgehammer to Joan. Here is a receipt of the payment.')
+        expect(email.body).to have_text('You have paid €5 for Sledgehammer on Sharetribe. The money will be donated to the chosen causes. Here is a receipt of the payment.')
         expect(email.body).to have_text('Subtotal €5', normalize_ws: true)
         expect(email.body).to have_text('Total €5', normalize_ws: true)
       end
 
       it 'works with default payment gateway per hour' do
         email = TransactionMailer.payment_receipt_to_buyer(paypal_transaction_per_hour)
-        expect(email.body).to have_text('You have paid €15 for Sledgehammer, per hour to Joan. Here is a receipt of the payment.')
+        expect(email.body).to have_text('You have paid €15 for Sledgehammer, per hour on Sharetribe. The money will be donated to the chosen causes. Here is a receipt of the payment.')
         expect(email.body).to have_text('Price per hour €5', normalize_ws: true)
         expect(email.body).to have_text('Duration 3', normalize_ws: true)
         expect(email.body).to have_text('Subtotal €15', normalize_ws: true)
@@ -194,38 +182,38 @@ describe TransactionMailer, type: :mailer do
 
       it 'works with stripe payment gateway' do
         email = TransactionMailer.payment_receipt_to_buyer(stripe_transaction)
-        expect(email.body).to have_text('You have paid €2 for Sledgehammer. The money is being held by Sharetribe and will be released to Joan once you mark the order as completed. Here is a receipt of the payment.')
-        expect(email.body).to have_text('Subtotal €2', normalize_ws: true)
-        expect(email.body).to have_text('Total €2', normalize_ws: true)
+        expect(email.body).to have_text('You have paid €2 for Sledgehammer. The money is being held by Sharetribe and will be donated to the chosen causes once you mark the order as completed. Here is a receipt of the payment.')
+        expect(email.body).to have_text("Subtotal\n\n\n€2")
+        expect(email.body).to have_text("Total\n\n\n€2")
       end
 
       it 'works with stripe payment gateway per hour' do
         email = TransactionMailer.payment_receipt_to_buyer(stripe_transaction_per_hour)
-        expect(email.body).to have_text('You have paid €6 for Sledgehammer, per hour. The money is being held by Sharetribe and will be released to Joan once you mark the order as completed. Here is a receipt of the payment.')
-        expect(email.body).to have_text('Price per hour €2', normalize_ws: true)
-        expect(email.body).to have_text('Duration 3', normalize_ws: true)
-        expect(email.body).to have_text('Subtotal €6', normalize_ws: true)
-        expect(email.body).to have_text('Total €6', normalize_ws: true)
+        expect(email.body).to have_text('You have paid €6 for Sledgehammer, per hour. The money is being held by Sharetribe and will be donated to the chosen causes once you mark the order as completed. Here is a receipt of the payment.')
+        expect(email.body).to have_text("Price per hour\n\n\n€2")
+        expect(email.body).to have_text("Duration\n\n\n3")
+        expect(email.body).to have_text("Subtotal\n\n\n€6")
+        expect(email.body).to have_text("Total\n\n\n€6")
       end
 
       describe 'without buyer commission' do
         it 'works with default payment gateway' do
           email = TransactionMailer.payment_receipt_to_buyer(paypal_transaction)
-          expect(email.body).to have_text('You have paid €5 for Sledgehammer to Joan. Here is a receipt of the payment.')
+          expect(email.body).to have_text('You have paid €5 for Sledgehammer on Sharetribe. The money will be donated to the chosen causes. Here is a receipt of the payment.')
         end
 
         it 'works with stripe payment gateway' do
           email = TransactionMailer.payment_receipt_to_buyer(stripe_transaction)
-          expect(email.body).to have_text('You have paid €2 for Sledgehammer. The money is being held by Sharetribe and will be released to Joan once you mark the order as completed. Here is a receipt of the payment.')
+          expect(email.body).to have_text('You have paid €2 for Sledgehammer. The money is being held by Sharetribe and will be donated to the chosen causes once you mark the order as completed. Here is a receipt of the payment.')
         end
       end
 
       describe 'with buyer commission' do
         it 'works with stripe payment gateway' do
           email = TransactionMailer.payment_receipt_to_buyer(stripe_transaction_with_buyer_commission)
-          expect(email.body).to have_text('You have paid €110 for Sledgehammer. The money is being held by Sharetribe and will be released to Joan once you mark the order as completed. Here is a receipt of the payment.')
-          expect(email.body).to have_text('Sharetribe service fee €8', normalize_ws: true)
-          expect(email.body).to have_text('Total €110', normalize_ws: true)
+          expect(email.body).to have_text('You have paid €110 for Sledgehammer. The money is being held by Sharetribe and will be donated to the chosen causes once you mark the order as completed. Here is a receipt of the payment.')
+          expect(email.body).to have_text("Sharetribe service fee\n\n\n€8")
+          expect(email.body).to have_text("Total\n\n\n€110")
         end
       end
     end
@@ -259,7 +247,7 @@ describe TransactionMailer, type: :mailer do
     it 'works' do
       email = TransactionMailer.new_transaction(paypal_transaction, admin)
       expect(email.body).to have_text('Hello Estelle,')
-      expect(email.body).to have_text('There is a new transaction in Sharetribe.')
+      expect(email.body).to have_text('There is a new transaction on Sharetribe.')
       expect(email.body).to have_text('Listing: Sledgehammer', normalize_ws: true)
       expect(email.body).to have_text('Sum: €5', normalize_ws: true)
       expect(email.body).to have_text('Starter: Proto T', normalize_ws: true)

@@ -24,6 +24,18 @@ module CommunitiesHelper
     }
   end
 
+  def community_typed_slogan_locals
+    translations = find_typed_slogans
+    info_text = I18n.t("admin.communities.edit_details.edit_community_typed_slogan_description")
+    {
+      header: t("admin.communities.edit_details.community_typed_slogan"),
+      input_classes: "",
+      info_text: info_text,
+      input_name: "typed_slogan",
+      translations: translations
+    }
+  end
+
   def community_description_locals
     translations = find_community_customizations(:description)
     looks_link = link_to(t("admin.communities.edit_details.see_how_it_looks_like"), "/?big_cover_photo=true", target: :_blank, rel: :noopener)
@@ -74,7 +86,7 @@ module CommunitiesHelper
   def find_community_customizations(customization_key)
     available_locales.inject({}) do |translations, (locale_name, locale_value)|
       translation = @community_customizations[locale_value][customization_key] || ""
-      translations[locale_value] = {language: locale_name, translation: translation};
+      translations[locale_value] = {language: locale_name, translation: translation}
       translations
     end
   end
@@ -88,4 +100,11 @@ module CommunitiesHelper
     end.compact
   end
 
+  def find_typed_slogans
+    available_locales.inject({}) do |translations, (locale_name, locale_value)|
+      slogans = @current_community.typed_slogans.where(locale: locale_value)
+      translations[locale_value] = {language: locale_name, translation: slogans}
+      translations
+    end
+  end
 end

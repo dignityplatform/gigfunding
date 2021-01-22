@@ -1,5 +1,6 @@
 - content_for :javascript do
   initialize_homepage();
+  
 
 - content_for :coverfade_class do
   = "without-text"
@@ -19,11 +20,19 @@
   - is_homepage = params[:controller] == "homepage" && params[:action] == "index"
   - if @big_cover_photo
     - if @current_community.show_slogan?
-      %h1.marketplace-lander-content-title= community_slogan.html_safe
+      %h1.marketplace-lander-content-title
+        %span
+          = community_slogan.html_safe
+          - if @current_community.show_typed_slogan?
+            %span#typed_slogan.typed
+            #typed_slogan_strings.hidden
+              - typed_slogan_strings.each do |string|
+                %p= string
     - else
       %h1.marketplace-lander-content-title.hidden_title_part &nbsp;
     - if @current_community.show_description?
-      %p.marketplace-lander-content-description= community_description.html_safe
+      %p.marketplace-lander-content-description
+        %span= community_description.html_safe
     - else
       %p.marketplace-lander-content-description.hidden-title-part &nbsp;
     - unless (is_homepage && !@current_community.private? && FeatureFlagHelper.feature_enabled?(:topbar_v1))
@@ -36,13 +45,13 @@
           - if(main_search == :location)
             = render partial: "location_bar"
           - else
-            = render partial: "search_bar"
+            = render partial: "search_bar", locals: {selected_shape: selected_shape}
   - elsif !(is_homepage && FeatureFlagHelper.feature_enabled?(:topbar_v1))
     .browse-view-search-form
       - if(main_search == :location)
         = render partial: "location_bar"
       - else
-        = render partial: "search_bar"
+        = render partial: "search_bar", locals: {selected_shape: selected_shape}
 
 - content_for(:head) do
   - if seo_pagination_links[:prev].present?
@@ -78,20 +87,15 @@
       .home-toolbar-filters.home-toolbar-filters-mobile-hidden#home-toolbar-filters
         - if listing_shape_menu_enabled
           .toggle-container.home-toolbar-toggle-container
-            .toggle.with-borders#home_toolbar-select-share-type{data: {toggle: '.home-toolbar-share-type-menu'}}
+            .with-borders#home_toolbar-select-share-type{data: {toggle: '.home-toolbar-share-type-menu'}}
               .toggle-header-container
                 .toggle-header
                   - shapes.each_with_index do |shape, index|
-                    = link_to search_path(search_params.merge({transaction_type: shape[:name]})), class:  "home-toolbar-button-group-button-2" do
-                      = t("homepage.filters.listing#{index}")
-
-                -# = icon_tag("dropdown", ["icon-dropdown"])
-
-            -# .home-toolbar-share-type-menu.toggle-menu.hidden
-            -#   = link_to t("homepage.filters.all_listing_types"), search_path(search_params.merge({transaction_type: "all"}))
-            -#   - shapes.each do |shape|
-            -#     = link_to search_path(search_params.merge({transaction_type: shape[:name]})), class:  "toggle-menu-subitem" do
-            -#       = t(shape[:name_tr_key])
+                    - is_selected_shape = (shape == selected_shape)
+                    - shape_toggled_id = "toggle-header-button-selected" if is_selected_shape
+                    - shape_toggled_style = "background-color: ##{shape[:listing_color]}; color: ##{shape[:listing_title_color]};" if is_selected_shape
+                    = link_to search_path(search_params.merge({transaction_type: shape[:name]})), class:  "home-toolbar-button-group-button-2 toggle-header-button", id: shape_toggled_id, style: shape_toggled_style, data: { listing_color: shape[:listing_color], listing_title_color: shape[:listing_title_color] }  do
+                      = t(shape.name_tr_key)
 
         - if @show_categories
           .toggle-container.home-toolbar-toggle-container.hidden-tablet

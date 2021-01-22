@@ -2,19 +2,24 @@
 #
 # Table name: listing_shapes
 #
-#  id                     :integer          not null, primary key
-#  community_id           :integer          not null
-#  transaction_process_id :integer          not null
-#  price_enabled          :boolean          not null
-#  shipping_enabled       :boolean          not null
-#  name                   :string(255)      not null
-#  name_tr_key            :string(255)      not null
-#  action_button_tr_key   :string(255)      not null
-#  sort_priority          :integer          default(0), not null
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  deleted                :boolean          default(FALSE)
-#  availability           :string(32)       default("none")
+#  id                          :integer          not null, primary key
+#  community_id                :integer          not null
+#  transaction_process_id      :integer          not null
+#  price_enabled               :boolean          not null
+#  shipping_enabled            :boolean          not null
+#  availability                :string(32)       default("none")
+#  name                        :string(255)      not null
+#  name_tr_key                 :string(255)      not null
+#  action_button_tr_key        :string(255)      not null
+#  sort_priority               :integer          default(0), not null
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#  deleted                     :boolean          default(FALSE)
+#  listing_color               :string(255)      default("FFFFFF")
+#  listing_title_color         :string(255)      default("000000")
+#  user_descriptor_tr_key      :string(255)
+#  type_selection_label_tr_key :string(255)
+#  search_text_tr_key          :string(255)
 #
 # Indexes
 #
@@ -32,8 +37,10 @@ class ListingShape < ApplicationRecord
 
   belongs_to :community
   belongs_to :transaction_process
+  belongs_to :listing_shape
   has_and_belongs_to_many :categories, -> { order("sort_priority") }, join_table: "category_listing_shapes"
   has_many :listing_units, dependent: :destroy
+  has_many :listings
 
   scope :exist, -> { where(deleted: false) }
   scope :exist_ordered, -> { exist.includes(:listing_units).order("listing_shapes.sort_priority") }
@@ -43,9 +50,56 @@ class ListingShape < ApplicationRecord
   validates :name_tr_key, :action_button_tr_key, :transaction_process_id, presence: true
   validates :price_enabled, :shipping_enabled, inclusion: [true, false]
   validates :availability, inclusion: AVAILABILITIES # Possibly :stock in the future
+  validates :listing_color,
+            format: { :with => /\A[A-F0-9]{6}\z/i, :allow_blank => true }
+  validate :assign_default_listing_color
+  validates :listing_title_color,
+            format: { :with => /\A[A-F0-9]{6}\z/i, :allow_blank => true }
+  validate :assign_default_listing_title_color
 
   def units
     @units ||= listing_units.map(&:to_unit_hash)
+  end
+
+  def delete_shape_msg
+    shapes = community.shapes
+    listing_shapes_categories_map = shapes.map { |shape| [shape.name, shape.category_ids] }
+    categories_listing_shapes_map = HashUtils.transpose(listing_shapes_categories_map)
+    last_in_category_ids = categories_listing_shapes_map.select { |_category_id, shape_names|
+      shape_names.size == 1 && shape_names.include?(name)
+    }.keys
+    shape = shapes.find { |s| s.name == name }
+    if !shape
+      I18n.t('admin2.order_types.errors.can_not_find_name', name: name)
+    elsif shapes.length == 1
+      I18n.t('admin2.order_types.errors.can_not_delete_last')
+    elsif !last_in_category_ids.empty?
+      categories = community.categories
+      category_names = pick_category_names(categories, last_in_category_ids, I18n.locale)
+      I18n.t('admin2.order_types.errors.can_not_delete_only_one_in_categories', categories: category_names.join(", "))
+    end
+  end
+
+  def can_delete_shape?
+    delete_shape_msg.nil?
+  end
+
+  def pick_category_names(categories, ids, locale)
+    locale = locale.to_s
+    pick_categories(categories, ids)
+      .map { |c| Maybe(c.translations.find { |t| t[:locale] == locale }).or_else(c.translations.first) }
+      .map { |t| t[:name] }
+  end
+
+  def pick_categories(category_tree, ids)
+    category_tree.each_with_object([]) { |category, acc|
+      if ids.include?(category[:id])
+        acc << category
+      end
+      if category.children.present?
+        acc.concat(pick_categories(category.children, ids))
+      end
+    }
   end
 
   def self.create_with_opts(community:, opts:)
@@ -78,7 +132,20 @@ class ListingShape < ApplicationRecord
   end
 
   def self.permitted_attributes(opts)
-    HashUtils.compact(opts.slice(:transaction_process_id, :price_enabled, :shipping_enabled, :name_tr_key, :action_button_tr_key, :sort_priority, :deleted, :availability))
+    HashUtils.compact(opts.slice(
+      :transaction_process_id,
+      :price_enabled,
+      :shipping_enabled,
+      :name_tr_key,
+      :action_button_tr_key,
+      :sort_priority,
+      :deleted,
+      :availability,
+      :listing_color,
+      :listing_title_color,
+      :user_descriptor_tr_key,
+      :type_selection_label_tr_key,
+      :search_text_tr_key))
   end
 
   def self.next_sort_priority(shapes)
@@ -87,7 +154,7 @@ class ListingShape < ApplicationRecord
   end
 
   def self.uniq_name(shapes, name_source)
-    blacklist = ['new', 'all']
+    blacklist = %w[new all]
     source = name_source.to_url
     base_name = source.presence || DEFAULT_BASENAME
     current_name = base_name
@@ -116,5 +183,40 @@ class ListingShape < ApplicationRecord
 
   def booking?
     availability == AVAILABILITY_BOOKING
+  end
+
+  def assign_default_listing_color
+    if listing_color.blank?
+      self.listing_color = 'FFFFFF'
+      self.save
+    end
+  end
+
+  def assign_default_listing_title_color
+    if listing_title_color.blank?
+      self.listing_title_color = '000000'
+      self.save
+    end
+  end
+
+  def listings_with_images(count:)
+    collection = []
+    counter = 0
+    self.listings.currently_open.includes(:author, :listing_images).shuffle.each do |listing|
+      next unless listing.has_image?
+
+      collection.push(listing)
+      counter += 1
+      return collection  if counter == count
+    end
+    collection
+  end
+
+  def user_descriptor
+    user_descriptor_tr_key&.present? ? " #{I18n.t(user_descriptor_tr_key)}" : ''
+  end
+
+  def type_selection_label
+    type_selection_label_tr_key&.present? ? I18n.t(type_selection_label_tr_key) : "Make a '#{I18n.t(name_tr_key)}' type listing"
   end
 end

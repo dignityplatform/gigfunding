@@ -1,6 +1,7 @@
 class StripeService::API::StripeApiWrapper
   DEFAULT_MCC = 5734 # Computer Software Stores
-  API_2019_12_03 = '2019-12-03'.freeze
+  # API_2019_12_03 = '2019-12-03'.freeze
+  API_2020_03_02 = '2020-03-02'.freeze
   API_2019_02_19 = '2019-02-19'.freeze
 
   class << self
@@ -12,7 +13,7 @@ class StripeService::API::StripeApiWrapper
     end
 
     def configure_payment_for(settings)
-      Stripe.api_version = API_2019_12_03
+      Stripe.api_version = API_2020_03_02
       Stripe.api_key = TransactionService::Store::PaymentSettings.decrypt_value(settings.api_private_key, settings.key_encryption_padding)
     end
 
@@ -190,7 +191,7 @@ class StripeService::API::StripeApiWrapper
       end
     end
 
-    def get_balance_txn(community:, balance_txn_id:, account_id:)
+    def get_balance_txn(community:, balance_txn_id:)
       with_stripe_payment_config(community) do |payment_settings|
         case charges_mode(community)
         when :separate, :destination
@@ -253,7 +254,7 @@ class StripeService::API::StripeApiWrapper
       end
     end
 
-    def create_payment_intent(community:, seller_account_id:, payment_method_id:, amount:, currency:, fee:, description:, metadata:)
+    def create_payment_intent(community:, payment_method_id:, amount:, currency:, fee:, description:, metadata:)
       with_stripe_payment_config(community) do |payment_settings|
         Stripe::PaymentIntent.create(
           capture_method: 'manual',
@@ -262,11 +263,6 @@ class StripeService::API::StripeApiWrapper
           currency: currency,
           confirmation_method: 'manual',
           confirm: true,
-          on_behalf_of: seller_account_id,
-          transfer_data: {
-            destination: seller_account_id,
-            amount: amount - fee
-          },
           description: description,
           metadata: metadata
         )
