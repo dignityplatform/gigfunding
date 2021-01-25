@@ -135,6 +135,8 @@ group :development do
   gem 'binding_of_caller'
   gem "rails-erd"
   gem "letter_opener"
+  gem 'debase'
+  gem 'ruby-debug-ide'
 end
 
 group :test do
