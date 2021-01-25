@@ -172,14 +172,15 @@
             .listing-author-activity-description
               = t(".feedback")
 
-    .row
-      .col-12
-        -# Probably it should not go to new_transaction_path, rather create a new action for booking (as it does not create a new conversation)
-        = form_tag new_transaction_path, :method => :get, :id => "booking-dates" do |f|
-          = hidden_field_tag(:listing_id, @listing.id)
-          = hidden_field_tag(:recipient_id, @listing.author.id)
-          %button.enabled-book-button
-            = t("conversations.show.book_user", :person => PersonViewUtils.person_display_name_for_type(@listing.author, "first_name_only"))
+    - if @listing.listing_shape.name == 'offering'  
+      .row
+        .col-12
+          -# Probably it should not go to new_transaction_path, rather create a new action for booking (as it does not create a new conversation)
+          = form_tag new_transaction_path, :method => :get, :id => "booking-dates" do |f|
+            = hidden_field_tag(:listing_id, @listing.id)
+            = hidden_field_tag(:recipient_id, @listing.author.id)
+            %button.enabled-book-button
+              = t("conversations.show.book_user", :person => PersonViewUtils.person_display_name_for_type(@listing.author, "first_name_only"))
 
     .row-with-divider
       .col-12
