@@ -2435,6 +2435,7 @@ en:
       approve_listing: 'Approve listing'
       reject_listing: 'Reject listing'
       delete_listing: 'Delete listing'
+    message: 'Message '  
     map:
       open_in_google_maps: 'Open in Google Maps'
     error:
