@@ -119,6 +119,7 @@ group :development, :test do
   gem 'rubocop', '~> 0.67.2', require: false
   gem 'rubocop-performance'
   gem 'factory_girl_rails', '~> 4.8.0'
+  gem 'awesome_print', '~> 1.7.0'
 end
 
 group :development, :staging do
@@ -137,6 +138,7 @@ group :development do
   gem "letter_opener"
   gem 'debase'
   gem 'ruby-debug-ide'
+  gem 'foreman'
 end
 
 group :test do
@@ -193,17 +195,12 @@ gem "select2-rails"
 gem "cocoon"
 gem "fast-polylines"
 gem 'unicorn'
-gem 'foreman'
 
 gem "airbrake-ruby", "~> 4.2"
-
-gem 'awesome_print', '~> 1.7.0'
 gem 'rack-cors'
 
 # Transpile es6 modules in Sprockets 3
 gem 'sprockets-bumble_d', '>= 2.2.0'
-
-gem "daemons"
 
 # Validate URLs
 gem "validate_url"
