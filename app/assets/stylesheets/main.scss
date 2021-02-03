@@ -2309,3 +2309,53 @@ figure.fluidratio {
   position: relative;
   min-height: 100%;
 }
+
+// About page
+
+.btn-about {
+  position: absolute;
+  width: 271.76px;
+  height: 59.69px;
+  left: 583.42px;
+  top: 1079px;
+  @include source-neue-kabel;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 57px;
+  // display: flex;
+  align-items: center;
+  text-align: center;
+  color: #242424;
+  position: absolute;
+  width: 304px;
+  height: 62.38px;
+  left: 565px;
+  top: 1286.62px;
+  background-color: #EBB205;
+  box-shadow: 0px 2px 43px rgba(36, 36, 36, 0.31383);
+  border-radius: 31.05px;
+}
+
+.btn-join {
+  @include source-neue-kabel;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  display: inline-grid;
+  align-items: center;
+  text-align: center;
+  color: #242424;
+  position: absolute;
+  width: 304px;
+  height: 62.38px;
+  left: 565px;
+  top: 5100px;
+  background: #EBB205;
+  box-shadow: 0px 2px 43px rgba(36, 36, 36, 0.31383);
+  border-radius: 31.05px;
+}
+
+a.btn-join:hover {
+  box-shadow: 0px 2px 20px rgba(36, 36, 36, 0.31383);
+}
