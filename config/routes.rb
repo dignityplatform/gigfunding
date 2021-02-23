@@ -662,7 +662,7 @@ Rails.application.routes.draw do
         end
       end
       resources :causes do
-        
+
       end
       resources :categories do
         member do

@@ -220,7 +220,7 @@ ul {
 
   @include media(tablet) {
     padding: 0 lines(0.5);
-    margin-left: lines(10.5);
+    // margin-left: lines(10.5);
   }
 
   @include media(desktop) {
@@ -2309,3 +2309,4 @@ figure.fluidratio {
   position: relative;
   min-height: 100%;
 }
+
