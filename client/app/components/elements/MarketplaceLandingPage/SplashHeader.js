@@ -6,7 +6,9 @@ class SplashHeader extends Component {
     return (
       <div className='splash-header-container'>
         <h1 className='splash-header'>
-          HIRE LOCAL SKILLS
+          HIRE ANY
+          <br></br>
+          SKILLS
         </h1>
         <div className='splash-subtitle'>
           FUND SOCIAL

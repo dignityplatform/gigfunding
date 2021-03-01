@@ -31,7 +31,7 @@ $link-color: rgb(3,102,214);
     background: rgba(0,0,0,0);
     height: 100%;
   }
-  
+
   & .background-image {
     position: absolute;
     z-index: -99;
@@ -136,7 +136,7 @@ $link-color: rgb(3,102,214);
     &.mobile {
       display: none;
     }
-  
+
     &.desktop {
       display: flex;
     }
@@ -160,7 +160,7 @@ $link-color: rgb(3,102,214);
 }
 
 .half-highlight-element {
-  
+
   &:after {
     content: '';
     height: 0.65em;
@@ -202,11 +202,11 @@ $link-color: rgb(3,102,214);
   padding: 0.75em 1.5em;
   border-radius: 10em;
   font-weight: 600;
-  
+
   &:hover {
     color: rgb(0,0,0);
   }
-  
+
   &.offering {
     background-color: $offering-color;
   }
@@ -272,7 +272,7 @@ $link-color: rgb(3,102,214);
   position: relative;
   display: flex;
   flex-direction: column;
-  background: transparent;
+  // background: transparent;
   width: inherit;
 }
 
@@ -282,7 +282,7 @@ $link-color: rgb(3,102,214);
   height: auto;
   display: flex;
   flex-wrap: wrap;
-  background: $text-section-color;
+  // background: $text-section-color;
 
   .text-content-wrapper {
     position: relative;
@@ -306,10 +306,22 @@ $link-color: rgb(3,102,214);
     position: relative;
     flex: 1 1 100%;
     margin: 1em 0 2em 0;
+    @include source-neue-kabel;
+    font-size: 18px;
+    line-height: 23px;
 
     @include media(tablet) {
       max-width: 45.5%;
     }
+  }
+
+  .how-it-works-details span {
+    background-color: #cfe3f5;
+    display: inline-block;
+    height: 14px;
+    font-weight: bold;
+    line-height: 2px;
+    border-radius: 8px;
   }
 
   .marketplace-landing-page-heading {
@@ -349,7 +361,7 @@ $link-color: rgb(3,102,214);
 
 .marketplace-landing-page-section-heading {
   @include source-chantal;
-  font-weight: 600;
+  font-weight: 500;
   transform: rotate(-5deg);
   font-size: 2em;
   margin: 1.5em 0 0.5em 0;

@@ -15,3 +15,4 @@ class HowItWorksVideo extends Component {
 }
 
 export default HowItWorksVideo;
+
