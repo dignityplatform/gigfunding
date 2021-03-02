@@ -295,6 +295,7 @@ ICON_MAP = {
       "minus" => "icon-minus",
       "trash" => "icon-trash",
       "rocket" => "icon-magic",
-      "causes" => "icon-hand-holding-heart"
+      "causes" => "icon-hand-holding-heart",
+      "faqs" => "icon-question-circle"
     }
   }
