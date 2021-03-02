@@ -5,7 +5,10 @@ const SubSectionMenu = props => {
 
   const menuButtons = props.sections.map(section => {
     return (
-      <DynamicMenuButton key={section.index}>
+      <DynamicMenuButton key={section.id} 
+          id={section.id} 
+          handleClick={props.updateSelectedSection}
+          isSelected={section.id === props.selectedSection}>
         {section.title}
       </DynamicMenuButton>
     )

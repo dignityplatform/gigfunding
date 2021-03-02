@@ -15,13 +15,13 @@
   @include source-neue-kabel;
   font-weight: 900;
   text-transform: uppercase;
-  transition: transform 0.05s ease-out;
+  transition: transform 0.1s ease-out;
   line-height: 1.3em;
 
-  &:hover {
+  &:hover, &.highlight {
     background: unset;
     color: black;
-    transform: scale(1.03);
+    transform: scale(1.04);
     transition: transform 0.25s ease-out;
   }
 
@@ -30,12 +30,10 @@
   }
 }
 
-@mixin half-highlight-span {
-  &.highlight {
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone; 
-    background: linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0) 40%, $requesting-color 40%, $requesting-color 90%, rgba(0,0,0,0) 90%, rgba(0,0,0,0) 100%);
-  }
+@mixin half-highlight-multiline {
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone; 
+  background: linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0) 40%, $requesting-color 40%, $requesting-color 90%, rgba(0,0,0,0) 90%, rgba(0,0,0,0) 100%);
 }
 
 .dynamic-menu-button {
@@ -43,9 +41,12 @@
   @include section-button;
   font-size: 1.8em;
 
+  &.highlight .button-text {
+    @include half-highlight-multiline;
+  }
+
   .button-text {
     line-height: 1em;
     padding: 0px 0.3ch;
-    @include half-highlight-span;
   }
 }

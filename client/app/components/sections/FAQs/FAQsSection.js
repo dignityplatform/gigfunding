@@ -1,24 +1,40 @@
-import React from 'react';
+import React, {Component} from 'react';
 import SectionHeader from 'components/elements/Headers/SectionHeader'
 import SubSectionMenu from 'components/composites/Menus/SubSectionMenu'
 
-const FAQsSection = props => {
+class FAQsSection extends Component {
+  constructor() {
+    super();
+    this.state = {
+      selectedSection: 0,
+    };
+  }
 
-  const sections = props.faqsData.map((section, index) => {
-    return {
-      id: index,
-      title: section.title
-    }
-  })
+  updateSelectedSection (newSection) {
+    this.setState({
+      selectedSection: newSection,
+    })
+  }
 
-  return (
-    <section className='infos-faqs'>
-      <SectionHeader classes={'section-header'}>
-        GOT A QUESTION?
-      </SectionHeader>
-      <SubSectionMenu sections={sections}/>
-    </section>
-  )
+  render() {
+    const sections = this.props.faqsData.map((section, index) => {
+      return {
+        id: index,
+        title: section.title
+      }
+    })
+
+    return (
+      <section className='infos-faqs'>
+        <SectionHeader classes={'section-header'}>
+          GOT A QUESTION?
+        </SectionHeader>
+        <SubSectionMenu sections={sections} 
+            updateSelectedSection={this.updateSelectedSection.bind(this)} 
+            selectedSection={this.state.selectedSection}/>
+      </section>
+    )
+  }
 }
 
 export default FAQsSection;
