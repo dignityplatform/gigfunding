@@ -35,6 +35,10 @@ class InfosController < ApplicationController
     @selected_left_navi_link = "causes"
   end
 
+  def faqs
+    @selected_left_navi_link = "faqs"
+  end
+
   private
 
   def how_to_use_content?
