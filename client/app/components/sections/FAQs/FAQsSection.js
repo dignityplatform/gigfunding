@@ -3,7 +3,7 @@ import React from 'react';
 const FAQsSection = props => {
 
   return (
-    <section className='info-faqs'>
+    <section className='infos-faqs'>
       FAQS section
     </section>
   )
