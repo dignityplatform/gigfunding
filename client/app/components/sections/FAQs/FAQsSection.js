@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import SectionHeader from 'components/elements/Headers/SectionHeader'
 import SubSectionMenu from 'components/composites/Menus/SubSectionMenu'
+import FAQsQuestionsList from 'components/composites/FAQs/FAQsQuestionsList'
 
 class FAQsSection extends Component {
   constructor() {
@@ -24,14 +25,17 @@ class FAQsSection extends Component {
       }
     })
 
+    const questionsData = this.props.faqsData[this.state.selectedSection].faqs
+
     return (
       <section className='infos-faqs'>
         <SectionHeader classes={'section-header'}>
           GOT A QUESTION?
         </SectionHeader>
-        <SubSectionMenu sections={sections} 
+        <SubSectionMenu sections={sections}
             updateSelectedSection={this.updateSelectedSection.bind(this)} 
             selectedSection={this.state.selectedSection}/>
+        <FAQsQuestionsList questionsData={questionsData}/>
       </section>
     )
   }
