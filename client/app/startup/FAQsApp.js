@@ -1,7 +1,7 @@
 import React from 'react';
 import { initialize as initializeI18n } from '../utils/i18n';
 import { subset } from '../utils/routes';
-import FAQsSection from '../components/sections/FAQs/FAQsSection'
+import FAQsSection from 'components/sections/FAQs/FAQsSection'
 
 export default props => {
   const locale = props.i18n.locale;
