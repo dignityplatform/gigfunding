@@ -2,6 +2,7 @@ import React from 'react';
 import { initialize as initializeI18n } from '../utils/i18n';
 import { subset } from '../utils/routes';
 import FAQsSection from 'components/sections/FAQs/FAQsSection'
+import FAQsData from 'assets/json/faqs.json'
 
 export default props => {
   const locale = props.i18n.locale;
@@ -13,6 +14,6 @@ export default props => {
     'homepage_without_locale',
   ], { locale });
 
-  const combinedProps = Object.assign({}, props, { routes });
+  const combinedProps = Object.assign({}, props, { routes, faqsData: FAQsData });
   return <FAQsSection {...combinedProps}/>;
 };
