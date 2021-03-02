@@ -818,5 +818,15 @@ module ApplicationHelper
   def social_link_placeholder(provider)
     SOCIAL_LINKS[provider.to_sym][:placeholder]
   end
+
+  def i18n_react_props
+    {
+      i18n: {
+        locale: I18n.locale,
+        defaultLocale: I18n.default_locale,
+        localeInfo: I18nHelper.locale_info(Sharetribe::AVAILABLE_LOCALES, I18n.locale)
+      }
+    }
+  end
 end
 # rubocop:enable Metrics/ModuleLength
