@@ -25,7 +25,7 @@ class FAQsSection extends React.Component {
       }
     })
 
-    const selectedQuestionsData = this.props.faqsData[this.state.selectedSection].faqs
+    const selectedQuestionsSection = this.props.faqsData[this.state.selectedSection]
 
     return (
       <section className='infos-faqs'>
@@ -35,7 +35,7 @@ class FAQsSection extends React.Component {
         <SubSectionMenu sections={sections}
             updateSelectedSection={this.updateSelectedSection.bind(this)} 
             selectedSection={this.state.selectedSection}/>
-        <FAQsQuestionsList questionsData={selectedQuestionsData}/>
+        <FAQsQuestionsList questionsSection={selectedQuestionsSection}/>
       </section>
     )
   }

@@ -1,11 +1,14 @@
 import React from 'react'
 import Question from 'components/elements/FAQs/Question'
+import { parametizeString } from 'utils/strings'
 
 const FAQsQuestionsList = props => {
 
-  const questions = props.questionsData.map((question, index) => {
+  const parametizedTitle = parametizeString(props.questionsSection.title)
+
+  const questions = props.questionsSection.faqs.map((question, index) => {
     return (
-      <li className='item' key={index}>
+      <li className='item' key={`${parametizedTitle}-${index}`}>
         <Question id={index} question={question}/>
       </li>
     )

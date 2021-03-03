@@ -22,14 +22,14 @@ class Question extends React.Component {
     }
 
     return (
-      <div className='infos-faqs-question-container'>
+      <div className={`infos-faqs-question-container${this.state.isOpen ? ' open' : ''}`}>
         <button className='question' onClick={this.handleQuestionClick.bind(this)}>
           <span className='button-text'>
             {this.props.question.question}
           </span>
-          <span className='button-icon icon-chevron-down'></span>
+          <i className='button-icon icon-chevron-down'></i>
         </button>
-        <div className={`answer-container${this.state.isOpen ? ' open' : ''}`} style={style}>
+        <div className='answer-container' style={style}>
           <div className='answer-text'
               ref={node => this.answerTextRef = node}
               dangerouslySetInnerHTML={{__html:this.props.question.answer}}>

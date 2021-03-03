@@ -20,6 +20,8 @@
   }
 }
 
+$question-open-duration: 0.3s;
+
 .infos-faqs-question-container {
   @include source-neue-kabel;
   width: 100%;
@@ -39,30 +41,39 @@
     .button-text {
       font-size: 1.1em;
       flex: 1 1 100%;
+      line-height: 1.2em;
     }
 
     .button-icon {
       flex: 0 1 auto;
       margin-left: 3px;
+      transition: transform $question-open-duration ease;
     }
   }
 
   > .answer-container {
     overflow: hidden;
     max-height: 0;
-    transition: max-height 0.3s ease-out, opacity 0.25s ease-out;
+    transition: max-height $question-open-duration ease-out, opacity $question-open-duration ease-out;
     height: auto;
     opacity: 0;
 
-    &.open {
-      transition: max-height 0.4s ease-out, opacity 0.3s ease-in;
-      opacity: 1;
+    .answer-text {
+      position: relative;
+      width: 100%;
+      padding: 0.5em 2em 1.5em 2em;
     }
   }
 
-  .answer-text {
-    position: relative;
-    width: 100%;
-    padding: 0.5em 2em 1.5em 2em;
+
+  &.open {
+    > .answer-container {
+      transition: max-height $question-open-duration ease-out, opacity $question-open-duration ease-in;
+      opacity: 1;
+    }
+
+    > .question .button-icon {
+      transform: rotate(180deg);
+    }
   }
 }
