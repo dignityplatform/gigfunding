@@ -29,7 +29,6 @@
 
   > .question {
     @include default-button;
-    font-size: 1.1em;
     font-weight: 600;
     text-align: left;
     padding: 1.5em 2em;
@@ -38,6 +37,7 @@
     align-items: center;
 
     .button-text {
+      font-size: 1.1em;
       flex: 1 1 100%;
     }
 
@@ -47,9 +47,22 @@
     }
   }
 
-  > .answer {
+  > .answer-container {
     overflow: hidden;
     max-height: 0;
-    padding: 0;
+    transition: max-height 0.3s ease-out, opacity 0.25s ease-out;
+    height: auto;
+    opacity: 0;
+
+    &.open {
+      transition: max-height 0.4s ease-out, opacity 0.3s ease-in;
+      opacity: 1;
+    }
+  }
+
+  .answer-text {
+    position: relative;
+    width: 100%;
+    padding: 0.5em 2em 1.5em 2em;
   }
 }

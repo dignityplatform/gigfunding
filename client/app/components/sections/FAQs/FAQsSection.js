@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React from 'react';
 import SectionHeader from 'components/elements/Headers/SectionHeader'
 import SubSectionMenu from 'components/composites/Menus/SubSectionMenu'
 import FAQsQuestionsList from 'components/composites/FAQs/FAQsQuestionsList'
 
-class FAQsSection extends Component {
+class FAQsSection extends React.Component {
   constructor() {
     super();
     this.state = {
