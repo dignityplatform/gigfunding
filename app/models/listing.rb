@@ -187,7 +187,7 @@ class Listing < ApplicationRecord
   validates_presence_of :category
   validates_inclusion_of :valid_until, :allow_nil => true, :in => proc{ DateTime.now..DateTime.now + 7.months }
   validates_numericality_of :price_cents, :only_integer => true, :greater_than_or_equal_to => 0, :message => "price must be numeric", :allow_nil => true
-  validate :automatic_confirmation_validation
+  validate :automatic_payment_acceptance_validation
 
   # sets the time to midnight
   def set_valid_until_time
@@ -397,10 +397,10 @@ class Listing < ApplicationRecord
 
   private
 
-  def automatic_confirmation_validation
+  def automatic_payment_acceptance_validation
     transaction_process = TransactionProcess.find(transaction_process_id)
-    if automatically_confirm && ( listing_shape.requesting_type? || transaction_process.process != :preauthorize )
-      errors.add(:automatically_confirm, 'invalid listing type for automatic confirmation')
+    if automatically_accept_payment && ( listing_shape.requesting_type? || transaction_process.process != :preauthorize )
+      errors.add(:automatically_accept_payment, 'invalid listing type for automatic payment acceptance')
     end
   end
 end

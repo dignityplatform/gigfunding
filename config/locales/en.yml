@@ -2512,7 +2512,7 @@ en:
         shipping_price: 'Shipping fee'
         shipping_price_additional: 'Additional items'
         pickup: Pickup
-        automatically_confirm: Automatically confirm payments
+        automatically_accept_payment: Automatically confirm payments
       origin:
         location: Location
         origin: Origin
