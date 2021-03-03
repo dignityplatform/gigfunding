@@ -1,7 +1,7 @@
 module AcceptRejectTransaction
   extend ActiveSupport::Concern
 
-  def accept_tx(community_id, tx_id, message, sender_id)
+  def accept_tx(community_id, tx_id, message = nil, sender_id = nil)
     TransactionService::Transaction.complete_preauthorization(community_id: community_id,
                                                               transaction_id: tx_id,
                                                               message: message,
@@ -11,7 +11,7 @@ module AcceptRejectTransaction
       .or_else({flow: :accept, success: false})
   end
 
-  def reject_tx(community_id, tx_id, message, sender_id)
+  def reject_tx(community_id, tx_id, message = nil, sender_id = nil)
     TransactionService::Transaction.reject(community_id: community_id,
                                            transaction_id: tx_id,
                                            message: message,
