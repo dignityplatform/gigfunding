@@ -7,9 +7,49 @@
   flex-wrap: wrap;
 }
 
-
 .infos-faqs-questions-list {
   display: flex;
   flex-direction: column;
   width: 100%;
+  list-style-type: none;
+  padding-inline-start: 0;
+  margin-top: 2em;
+
+  > .item {
+    margin-bottom: 1em;
+  }
+}
+
+.infos-faqs-question-container {
+  @include source-neue-kabel;
+  width: 100%;
+  box-shadow: 0px 2px 35px rgba(0, 0, 0, 0.1);
+  height: auto;
+  border-radius: 1.5em;
+
+  > .question {
+    @include default-button;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-align: left;
+    padding: 1.5em 2em;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    .button-text {
+      flex: 1 1 100%;
+    }
+
+    .button-icon {
+      flex: 0 1 auto;
+      margin-left: 3px;
+    }
+  }
+
+  > .answer {
+    overflow: hidden;
+    max-height: 0;
+    padding: 0;
+  }
 }

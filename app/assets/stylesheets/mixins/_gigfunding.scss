@@ -1,0 +1,38 @@
+@import "default-colors";
+
+@mixin default-button {
+  background: inherit;
+  color: inherit;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  display: inline;
+  line-height: 1em;
+  padding: 0em;
+
+  &:active, &:focus {
+    outline: none;
+  }
+}
+
+@mixin section-button {
+  @include source-neue-kabel;
+  font-weight: 900;
+  text-transform: uppercase;
+  transition: transform 0.1s ease-out;
+  line-height: 1.3em;
+  padding: 0.5em;
+
+  &:hover, &.highlight {
+    background: unset;
+    color: black;
+    transform: scale(1.04);
+    transition: transform 0.25s ease-out;
+  }
+}
+
+@mixin half-highlight-multiline {
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone; 
+  background: linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0) 40%, $requesting-color 40%, $requesting-color 90%, rgba(0,0,0,0) 90%, rgba(0,0,0,0) 100%);
+}

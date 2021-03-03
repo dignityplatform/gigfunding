@@ -5,14 +5,16 @@ const FAQsQuestionsList = props => {
 
   const questions = props.questionsData.map((question, index) => {
     return (
-      <Question id={index} question={question}/>
+      <li className='item' key={index}>
+        <Question id={index} question={question}/>
+      </li>
     )
   })
 
   return (
-    <div className='infos-faqs-questions-list'>
+    <ul className='infos-faqs-questions-list'>
       {questions}
-    </div>
+    </ul>
   )
 }
 

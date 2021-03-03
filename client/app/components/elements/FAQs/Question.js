@@ -2,10 +2,13 @@ import React from 'react'
 
 const Question = props => {
   return (
-    <div key={props.id} className='infos-faqs-question-container'>
-      <div className='title'>
-        {props.question.question}
-      </div>
+    <div className='infos-faqs-question-container'>
+      <button className='question'>
+        <span className='button-text'>
+          {props.question.question}
+        </span>
+        <span className='button-icon icon-chevron-down'></span>
+      </button>
       <div className='answer' dangerouslySetInnerHTML={{__html:props.question.answer}}></div>
     </div>
   )
