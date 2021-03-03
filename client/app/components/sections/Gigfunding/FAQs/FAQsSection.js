@@ -31,9 +31,10 @@ class FAQsSection extends React.Component {
 
     return (
       <section className='infos-faqs'>
-        <SectionHeader classes={'section-header'}>
+        <SectionHeader classes='section-header faqs'>
           GOT A QUESTION?
         </SectionHeader>
+        <img className='centered-image faqs' src={this.props.images.faqsIllustrationSrc} alt='woman thinking illustration'/>
         <SubSectionMenu sections={sections}
             updateSelectedSection={this.updateSelectedSection.bind(this)} 
             selectedSection={this.state.selectedSection}/>

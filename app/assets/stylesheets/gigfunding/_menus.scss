@@ -5,10 +5,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  margin-top: 1em;
 
   @include media(tablet) {
     flex-direction: row;
-    margin-top: 2em;
   }
 }
