@@ -5,8 +5,19 @@
   @include section-button;
   font-size: 1.8em;
 
-  &.highlight .button-text {
-    @include half-highlight-multiline;
+  &.highlight:nth-child(3n+1) .button-text,
+  &:hover:nth-child(3n+1) .button-text {
+    @include half-highlight-multiline($requesting-color);
+  }
+
+  &.highlight:nth-child(3n+2) .button-text,
+  &:hover:nth-child(3n+2) .button-text {
+    @include half-highlight-multiline($offering-color);
+  }
+
+  &.highlight:nth-child(3n+3) .button-text,
+  &:hover:nth-child(3n+3) .button-text {
+    @include half-highlight-multiline($section-heading-color);
   }
 
   .button-text {

@@ -2,7 +2,6 @@
 
 .infos-faqs {
   display: flex;
-  position: relative;
   width: 100%;
   flex-wrap: wrap;
 }
@@ -20,13 +19,12 @@
   }
 }
 
-$question-open-duration: 0.3s;
+$question-open-duration: 0.25s;
 
 .infos-faqs-question-container {
   @include source-neue-kabel;
   width: 100%;
   box-shadow: 0px 2px 35px rgba(0, 0, 0, 0.1);
-  height: auto;
   border-radius: 1.5em;
 
   > .question {
@@ -45,7 +43,6 @@ $question-open-duration: 0.3s;
     }
 
     .button-icon {
-      flex: 0 1 auto;
       margin-left: 3px;
       transition: transform $question-open-duration ease;
     }
@@ -54,8 +51,7 @@ $question-open-duration: 0.3s;
   > .answer-container {
     overflow: hidden;
     max-height: 0;
-    transition: max-height $question-open-duration ease-out, opacity $question-open-duration ease-out;
-    height: auto;
+    transition: max-height ($question-open-duration - 0.1) ease-out, opacity ($question-open-duration - 0.1) ease-out;
     opacity: 0;
 
     .answer-text {

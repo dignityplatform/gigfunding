@@ -31,8 +31,8 @@
   }
 }
 
-@mixin half-highlight-multiline {
+@mixin half-highlight-multiline($highlight-color) {
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone; 
-  background: linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0) 40%, $requesting-color 40%, $requesting-color 90%, rgba(0,0,0,0) 90%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0) 40%, $highlight-color 40%, $highlight-color 90%, rgba(0,0,0,0) 90%, rgba(0,0,0,0) 100%);
 }
