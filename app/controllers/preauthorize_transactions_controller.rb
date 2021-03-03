@@ -31,8 +31,6 @@ class PreauthorizeTransactionsController < ApplicationController
         stripe_in_use: StripeHelper.user_and_community_ready_for_payments?(listing.author_id, @current_community.id))
     }
 
-
-
     if validation_result.success
       initiation_success(validation_result.data)
     else
@@ -479,5 +477,11 @@ class PreauthorizeTransactionsController < ApplicationController
 
   def automatic_transaction_confirmation(transaction_struct)
     accept_tx(transaction_struct[:community_id], transaction_struct[:id])
+    record_event(
+        { notice: t("layouts.notifications.request_accepted") },
+        "PreauthorizedTransactionAccepted",
+        { listing_id: transaction_struct[:listing_id],
+          listing_uuid: UUIDUtils.parse_raw(transaction_struct[:listing_uuid]).to_s,
+          transaction_id: transaction_struct[:id] })
   end
 end
