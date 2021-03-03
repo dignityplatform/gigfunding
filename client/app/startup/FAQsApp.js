@@ -1,7 +1,7 @@
 import React from 'react';
-import { initialize as initializeI18n } from '../utils/i18n';
-import { subset } from '../utils/routes';
-import FAQsSection from 'components/sections/FAQs/FAQsSection'
+import { initialize as initializeI18n } from 'utils/i18n';
+import { subset } from 'utils/routes';
+import FAQsSection from 'components/sections/Gigfunding/FAQs/FAQsSection'
 import FAQsData from 'assets/json/faqs.json'
 
 export default props => {

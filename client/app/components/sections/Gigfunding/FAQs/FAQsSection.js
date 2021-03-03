@@ -1,10 +1,10 @@
 import React from 'react';
-import SectionHeader from 'components/elements/Headers/SectionHeader'
-import SubSectionMenu from 'components/composites/Menus/SubSectionMenu'
-import FAQsQuestionsList from 'components/composites/FAQs/FAQsQuestionsList'
-import SectionSubHeader from 'components/elements/Headers/SectionSubHeader'
-import GeneralLink from 'components/elements/Link/GeneralLink'
-import CenteredTextContent from 'components/elements/Text/CenteredTextContent'
+import SectionHeader from 'components/elements/Gigfunding/Headers/SectionHeader'
+import SubSectionMenu from 'components/composites/Gigfunding/Menus/SubSectionMenu'
+import FAQsQuestionsList from 'components/composites/Gigfunding/FAQs/FAQsQuestionsList'
+import SectionSubHeader from 'components/elements/Gigfunding/Headers/SectionSubHeader'
+import GeneralLink from 'components/elements/Gigfunding/Link/GeneralLink'
+import CenteredTextContent from 'components/elements/Gigfunding/Text/CenteredTextContent'
 class FAQsSection extends React.Component {
   constructor() {
     super();

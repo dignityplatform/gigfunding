@@ -1,5 +1,5 @@
 import React from 'react'
-import DynamicMenuButton from 'components/elements/MenuButtons/DynamicMenuButton'
+import DynamicMenuButton from 'components/elements/Gigfunding/MenuButtons/DynamicMenuButton'
 
 const SubSectionMenu = props => {
 

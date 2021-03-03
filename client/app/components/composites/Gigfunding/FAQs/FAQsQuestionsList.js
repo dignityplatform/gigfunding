@@ -1,5 +1,5 @@
 import React from 'react'
-import Question from 'components/elements/FAQs/Question'
+import Question from 'components/elements/Gigfunding/FAQs/Question'
 import { parametizeString } from 'utils/strings'
 
 const FAQsQuestionsList = props => {
