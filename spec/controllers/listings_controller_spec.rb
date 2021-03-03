@@ -49,7 +49,7 @@
 #  per_hour_ready                  :boolean          default(FALSE)
 #  state                           :string(255)      default("approved")
 #  approval_count                  :integer          default(0)
-#  automatically_confirm           :boolean          default(FALSE)
+#  automatically_accept_payment    :boolean          default(FALSE)
 #
 # Indexes
 #
