@@ -25,7 +25,8 @@ class Question extends React.Component {
       <div className={`infos-faqs-question-container${this.state.isOpen ? ' open' : ''}`}>
         <button className='question'
             onClick={this.handleQuestionClick.bind(this)} 
-            aria-label={this.props.question.question}>
+            aria-label={this.props.question.question}
+            aria-expanded={this.state.isOpen}>
           <span className='button-text'>
             {this.props.question.question}
           </span>

@@ -10,7 +10,8 @@ const DynamicMenuButton = props => {
     <button key={props.id}
         className={`dynamic-menu-button${props.isSelected ? ' highlight' : ''}`} 
         onClick={handleClick} 
-        disabled={props.isSelected}>
+        disabled={props.isSelected}
+        aria-expanded={props.isSelected}>
       <span className='button-text'>
         {props.children}
       </span>
