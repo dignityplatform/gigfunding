@@ -435,7 +435,7 @@ class PreauthorizeTransactionsController < ApplicationController
         old_free_transaction = transactions_for_conversation.detect {|transaction| transaction.current_state == 'free'}
         old_free_transaction&.destroy
       end
-      automatic_transaction_confirmation(tx_response[:data][:transaction])
+      process_automatic_transaction_confirmation(tx_response[:data][:transaction])
     end
 
     handle_tx_response(tx_response, params[:payment_type].to_sym)
@@ -475,13 +475,15 @@ class PreauthorizeTransactionsController < ApplicationController
     end
   end
 
-  def automatic_transaction_confirmation(transaction_struct)
-    accept_tx(transaction_struct[:community_id], transaction_struct[:id])
-    record_event(
-        { notice: t("layouts.notifications.request_accepted") },
-        "PreauthorizedTransactionAccepted",
-        { listing_id: transaction_struct[:listing_id],
-          listing_uuid: UUIDUtils.parse_raw(transaction_struct[:listing_uuid]).to_s,
-          transaction_id: transaction_struct[:id] })
+  def process_automatic_transaction_confirmation(transaction_struct)
+    if listing.automatically_confirm
+      accept_tx(transaction_struct[:community_id], transaction_struct[:id])
+      record_event(
+          { notice: t("layouts.notifications.request_accepted") },
+          "PreauthorizedTransactionAccepted",
+          { listing_id: transaction_struct[:listing_id],
+            listing_uuid: UUIDUtils.parse_raw(transaction_struct[:listing_uuid]).to_s,
+            transaction_id: transaction_struct[:id] })
+    end
   end
 end
