@@ -36,3 +36,17 @@
   -webkit-box-decoration-break: clone; 
   background: linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0) 40%, $highlight-color 40%, $highlight-color 90%, rgba(0,0,0,0) 90%, rgba(0,0,0,0) 100%);
 }
+
+@mixin half-highlight-element($highlight-color) {
+  &:after {
+    content: '';
+    height: 0.65em;
+    width: 101.5%;
+    position: absolute;
+    left: -0.75%;
+    top: 33%;
+    z-index: -1;
+    border-radius: 4px;
+    background-color: $highlight-color;
+  }
+}

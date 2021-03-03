@@ -155,24 +155,12 @@ $link-color: rgb(3,102,214);
 }
 
 .half-highlight-element {
-  
-  &:after {
-    content: '';
-    height: 0.65em;
-    width: 101.5%;
-    position: absolute;
-    left: -0.75%;
-    top: 33%;
-    z-index: -1;
-    border-radius: 4px;
-  }
-
   &.offering:after {
-    background-color: $offering-color;
+    @include half-highlight-element($offering-color);
   }
 
   &.requesting:after {
-    background-color: $requesting-color;
+    @include half-highlight-element($requesting-color);
   }
 }
 
@@ -351,7 +339,7 @@ $link-color: rgb(3,102,214);
   font-style: italic;
 
   &:after {
-    background-color: $section-heading-color;
+    background-color: $light-highlight-color;
   }
 
   @include media(tablet) {

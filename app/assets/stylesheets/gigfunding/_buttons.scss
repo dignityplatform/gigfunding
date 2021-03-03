@@ -17,7 +17,7 @@
 
   &.highlight:nth-child(3n+3) .button-text,
   &:hover:nth-child(3n+3) .button-text {
-    @include half-highlight-multiline($section-heading-color);
+    @include half-highlight-multiline($light-highlight-color);
   }
 
   .button-text {
