@@ -399,7 +399,7 @@ class Listing < ApplicationRecord
 
   def automatic_payment_acceptance_validation
     transaction_process = TransactionProcess.find(transaction_process_id)
-    if automatically_accept_payment && ( listing_shape.requesting_type? || transaction_process.process != :preauthorize )
+    if automatically_accept_payment && (listing_shape.requesting_type? || transaction_process.process != :preauthorize)
       errors.add(:automatically_accept_payment, 'invalid listing type for automatic payment acceptance')
     end
   end
