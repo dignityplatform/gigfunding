@@ -272,7 +272,6 @@ $link-color: rgb(3,102,214);
   position: relative;
   display: flex;
   flex-direction: column;
-  // background: transparent;
   width: inherit;
 }
 
@@ -282,7 +281,6 @@ $link-color: rgb(3,102,214);
   height: auto;
   display: flex;
   flex-wrap: wrap;
-  // background: $text-section-color;
 
   .text-content-wrapper {
     position: relative;
@@ -315,7 +313,7 @@ $link-color: rgb(3,102,214);
     }
   }
 
-  .how-it-works-details span {
+  .how-it-works-background {
     background-color: #cfe3f5;
     display: inline-block;
     height: 14px;
