@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.6.5'
 
-gem 'rails', '5.2.4.4'
+gem 'rails', '5.2.4.5'
 
 gem 'coffee-rails', '~> 4.2.2'
 gem 'uglifier', '~> 4.2.0'
@@ -47,8 +47,8 @@ gem 'flying-sphinx', '~> 1.2.0'
 gem 'ts-delayed-delta', '2.1.0'
 gem 'possibly', '~> 1.0.1'
 
-gem 'delayed_job', '~> 4.1.3'
-gem 'delayed_job_active_record', '~> 4.1.3'
+gem 'delayed_job', '4.1.8'
+gem 'delayed_job_active_record', '4.1.3'
 
 gem 'web_translate_it', '~> 2.4.1'
 gem 'rails-i18n', '~> 5.0.4'
