@@ -4,7 +4,7 @@
     .col-12
       %h3
         = t(".pay_with_card")
-  = render :partial => "listing_conversations/you_will_be_charged_notice", locals: { author_link: author_link, paypal_expiration_period: paypal_expiration_period }
+  = render :partial => "listing_conversations/you_will_be_charged_notice", locals: { author_link: author_link, paypal_expiration_period: paypal_expiration_period, listing: listing }
 
 .form-row
   .row
