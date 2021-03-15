@@ -1,0 +1,93 @@
+@import "mixins/all";
+
+.infos-faqs {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.section-header.faqs {
+  width: 100%;
+
+  @include media(tablet) {
+    flex: 1 1 100%;
+    max-width: 75%;
+  }
+}
+
+.centered-image.faqs {
+  height: 200px;
+
+  @include media(tablet) {
+    max-width: 25%;
+  }
+}
+
+.infos-faqs-questions-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  list-style-type: none;
+  padding-inline-start: 0;
+  margin-top: 2em;
+
+  > .item {
+    margin-bottom: 1em;
+  }
+}
+
+$question-open-duration: 0.25s;
+
+.infos-faqs-question-container {
+  @include source-neue-kabel;
+  width: 100%;
+  box-shadow: 0px 2px 35px rgba(0, 0, 0, 0.1);
+  border-radius: 1.5em;
+
+  > .question {
+    @include default-button;
+    font-weight: 600;
+    text-align: left;
+    padding: 1.5em 2em;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    .button-text {
+      font-size: 1.1em;
+      flex: 1 1 100%;
+      line-height: 1.2em;
+    }
+
+    .button-icon {
+      margin-left: 3px;
+      transition: transform $question-open-duration ease;
+    }
+  }
+
+  > .answer-container {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height ($question-open-duration - 0.1) ease-out, opacity ($question-open-duration - 0.1) ease-out;
+    opacity: 0;
+
+    .answer-text {
+      position: relative;
+      width: 100%;
+      padding: 0.5em 2em 1.5em 2em;
+    }
+  }
+
+
+  &.open {
+    > .answer-container {
+      transition: max-height $question-open-duration ease-out, opacity $question-open-duration ease-in;
+      opacity: 1;
+    }
+
+    > .question .button-icon {
+      transform: rotate(180deg);
+    }
+  }
+}

@@ -2028,6 +2028,7 @@ en:
     menu: Menu
     how_it_works: 'How it works'
     our_causes: 'Our Causes'
+    faqs: FAQs
   footer:
     home: 'HOME'
     about: 'ABOUT'
@@ -2209,6 +2210,7 @@ en:
       register_details: 'Privacy policy'
       terms: 'Terms of use'
       causes: 'Our Causes'
+      faqs: FAQs
     logged_in:
       admin: Admin
       go_to_your_profile_page: Profile

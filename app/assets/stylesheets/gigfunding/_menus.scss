@@ -1,0 +1,12 @@
+@import "mixins/all";
+
+.sub-section-menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  @include media(tablet) {
+    flex-direction: row;
+  }
+}

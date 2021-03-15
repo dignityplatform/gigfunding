@@ -6,6 +6,7 @@ import OnboardingTopBar from './OnboardingTopBarApp';
 import TopbarApp from './TopbarApp';
 import SearchPageApp from './SearchPageApp';
 import MarketplaceLandingPageApp from './MarketplaceLandingPageApp';
+import FAQsApp from './FAQsApp'
 
 ReactOnRails.register({
   OnboardingGuideApp,
@@ -13,6 +14,7 @@ ReactOnRails.register({
   TopbarApp,
   SearchPageApp,
   MarketplaceLandingPageApp,
+  FAQsApp
 });
 
 ReactOnRails.registerStore({

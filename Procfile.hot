@@ -1,6 +1,5 @@
 # Procfile for development with hot reloading of JavaScript and CSS
-
-rails: script/wait_for_server_js.sh && (rails ts:start | true) && rails s -b 0.0.0.0
+rails: script/wait_for_server_js.sh && ( rails ts:start 2>/dev/null || true ) && rails s -b 0.0.0.0
 
 # Run the React Storybook for client development
 storybook: cd client && npm run styleguide
@@ -10,3 +9,6 @@ rails-client-assets: script/export_routes_js.sh && cd client && npm run build:de
 
 # Keep the JS fresh for server rendering. Remove if not server rendering
 rails-server-assets: script/export_translations.sh && script/wait_for_routes_js.sh && cd client && npm run build:dev:server
+
+# Run background worker
+rails-background-worker: bundle exec rails jobs:work
