@@ -11,29 +11,36 @@ class HowItWorksDetails extends Component {
     return (
       <div className='text-content-wrapper desktop-order-1'>
         <article className='how-it-works-details'>
-          <Heading text={'HOW TO VOLUNTEER SKILLS'} highlight={'requesting'}/>
+          <Heading text={'VOLUNTEER YOUR SKILLS'} highlight={'requesting'}/>
           <TextBody>
-            You can <strong>volunteer</strong> (pretty much) any skill on Gigfunding. Simply create a listing to advertise your skill, and other members can then find your listing. When someone hires you, the money they pay is donated to your favourite cause and theirs.
+            We’re not quite back to normality yet. The good news is you can still virtually volunteer (pretty much) any skill you have by <span className="how-it-works-background">posting a listing.</span>
             <br /><br />
-            You can also browse our <a href={requesting_path} title='Browse requesting listings'>Requests</a> page, to see the skills people are currently seeking, and respond to those.
+            So whether you’re a piano teacher, language expert or marketing consultant; you can still give in a way that you love. When someone hires you, the money they pay is donated to your favourite cause and theirs.
             <br /><br />
-            We like to call this <i>Giving by Doing!</i>
+            See which skills people are <span className="how-it-works-background">looking to hire</span> right now.
+            <br /><br />
+            <span className="how-it-works-background">This is Giving by Doing.</span>
           </TextBody>
         </article>
         <article className='how-it-works-details'>
-          <Heading text={'HOW TO HIRE SKILLS'} highlight={'offering'}/>
+          <Heading text={'HIRE SKILLS'} highlight={'offering'}/>
           <TextBody>
-            To hire skills, simply <a href={offering_path} title='Browse offering listings'>browse</a> our glorious marketplace of volunteers to find the talent you need.
+            You can hire (pretty much) any skill you want by <span className="how-it-works-background"><strong>posting a listing.</strong></span>
             <br /><br />
-            You can also request (pretty much) any skill you want on Gigfunding, by posting a listing.
-            The money you pay will be donated to your favourite cause, and the volunteer's.
+            So whether you need a dog walker, accountant, or photographer;
+            we'll find the person you need. The money you pay will be donated
+            to your favourite cause and theirs.
             <br /><br />
-            <i>Everyone wins!</i>
+            See which skills people are <span className="how-it-works-background"><strong>volunteering</strong></span> right now.
+            <br /><br />
+            <span className="how-it-works-background"><strong>That's fun-raising.</strong></span>
           </TextBody>
         </article>
       </div>
     );
   }
 }
+
+
 
 export default HowItWorksDetails;
