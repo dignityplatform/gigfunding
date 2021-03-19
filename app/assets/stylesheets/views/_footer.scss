@@ -1,7 +1,7 @@
 @import "../landing_page/mixins/all";
 
 .footer__container--dark {
-  background-color: #525961;
+  background-color: #5987BD;
 }
 
 .footer__container--light {
@@ -10,6 +10,7 @@
 
 .footer__content {
   margin: 0 auto;
+  background-color: #5987BD;
 
   @include prefix-val(display, flex);
   @include prefix-prop(justify-content, center);
@@ -316,5 +317,5 @@ $footer__social-media-margin: 18px;
 
   @media #{$desktop} {
     height: 305px;
-  }  
+  }
 }
