@@ -39,7 +39,6 @@ module TransactionService
       [:message, :string],
       [:quantity, :to_integer, validate_with: IS_POSITIVE],
       [:contract_agreed, transform_with: ->(v) { v == "1" }],
-      [:conversation_id, :to_integer, validate_with: IS_POSITIVE],
       [:recipient_id, :string]
     )
 
@@ -50,7 +49,6 @@ module TransactionService
       [:per_hour, transform_with: ->(v) { v == "1" }],
       [:message, :string],
       [:contract_agreed, transform_with: ->(v) { v == "1" }],
-      [:conversation_id, :to_integer, validate_with: IS_POSITIVE],
       [:recipient_id, :string]
     )
 

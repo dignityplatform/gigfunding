@@ -1,4 +1,5 @@
 class AcceptPreauthorizedConversationsController < ApplicationController
+  include AcceptRejectTransaction
 
   before_action do |controller|
     controller.ensure_logged_in t("layouts.notifications.you_must_log_in_to_accept_or_reject")
@@ -90,26 +91,6 @@ class AcceptPreauthorizedConversationsController < ApplicationController
     else
       {flow: :unknown, success: false}
     end
-  end
-
-  def accept_tx(community_id, tx_id, message, sender_id)
-    TransactionService::Transaction.complete_preauthorization(community_id: community_id,
-                                                              transaction_id: tx_id,
-                                                              message: message,
-                                                              sender_id: sender_id)
-      .maybe()
-      .map { |_| {flow: :accept, success: true}}
-      .or_else({flow: :accept, success: false})
-  end
-
-  def reject_tx(community_id, tx_id, message, sender_id)
-    TransactionService::Transaction.reject(community_id: community_id,
-                                           transaction_id: tx_id,
-                                           message: message,
-                                           sender_id: sender_id)
-      .maybe()
-      .map { |_| {flow: :reject, success: true}}
-      .or_else({flow: :reject, success: false})
   end
 
   def success_msg(flow)

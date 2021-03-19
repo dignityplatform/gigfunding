@@ -1,0 +1,20 @@
+@import "mixins/all";
+
+.section-header {
+  @include source-neue-kabel;
+  font-weight: 900;
+  font-size: 3em;
+  width: 100%;
+  text-align: center;
+  line-height: 1em;
+}
+
+.section-sub-header {
+  @include source-neue-kabel;
+  font-weight: 900;
+  font-size: 1.2em;
+  width: 100%;
+  text-align: center;
+  line-height: 1em;
+  margin-top: 2em;
+}

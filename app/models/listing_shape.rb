@@ -219,4 +219,8 @@ class ListingShape < ApplicationRecord
   def type_selection_label
     type_selection_label_tr_key&.present? ? I18n.t(type_selection_label_tr_key) : "Make a '#{I18n.t(name_tr_key)}' type listing"
   end
+
+  def requesting_type?
+    name == 'requesting'
+  end
 end

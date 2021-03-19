@@ -2,25 +2,15 @@
   .cause-logo-container
     = image_tag cause.logo.url(:square)
   .cause-info-container
+    .cause-name
+      = cause.name
+    .cause-description
+      = cause.description
+    .cause-link
+      = link_to t('.link', cause_name: cause.name), cause.link, target: :_blank
     - if cause.default_cause && is_current_user_viewing
-      .cause-name
-        = cause.name
-      .cause-description
-        = cause.description
       .cause-link
         = link_to t('.edit_person_settings'), person_settings_path(@current_user)
-    - elsif cause.default_cause
-      .cause-name
-        = t('.default_cause_public')
-      .cause-description
-        = t('.default_cause_public_description')
-    - else
-      .cause-name
-        = cause.name
-      .cause-description
-        = cause.description
-      .cause-link
-        = link_to t('.link', cause_name: cause.name), cause.link, target: :_blank
 
   - if admin
     .cause-action-container 

@@ -67,3 +67,21 @@ input.auto_width {
     float: right;
   }
 }
+
+.inline-checkbox-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 1em 0;
+}
+
+.check-box-label {
+  width: auto;
+  margin: 0;
+  padding-right: 8px;
+  margin-top: 5px;
+}
+
+.check-box {
+  margin-top: 5px;
+}

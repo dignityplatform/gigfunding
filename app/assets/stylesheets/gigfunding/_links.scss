@@ -1,0 +1,20 @@
+@import "mixins/all";
+
+.general-link {
+  @include half-highlight-element($light-highlight-color);
+  position: relative;
+  font-weight: 700;  
+  z-index: 2;
+  &:visited, &:link {
+    text-decoration: none;
+    color: inherit;
+  }
+  &:hover {
+    color: unset;
+  }
+
+  &:after {
+    height: 0.6em;
+    top: 57%;
+  }
+}
