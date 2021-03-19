@@ -2310,3 +2310,138 @@ figure.fluidratio {
   min-height: 100%;
 }
 
+// LOGIN FORM
+
+.login-heading-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.login-title-container {
+  width: 100%;
+}
+
+.login-form-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+ .login-second-heading-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+ }
+
+.login-title {
+  @include source-neue-kabel;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 48px;
+  line-height: 48px;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+  font-feature-settings: 'ss12' on;
+}
+
+.login-image {
+  width: 40%;
+  margin-top: 50px;
+}
+
+.login-heading {
+  @include source-neue-kabel;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 30px;
+  font-feature-settings: 'ss12' on;
+}
+
+.email-heading {
+  @include source-neue-kabel;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 25px;
+  display: flex;
+  align-items: center;
+}
+
+.password-heading {
+  @include source-neue-kabel;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 25px;
+  display: flex;
+  align-items: center;
+}
+
+.extra-heading {
+  font-family: Chantal;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 56px;
+  line-height: 10px;
+  color: #242424;
+  transform: rotate(-7deg);
+  background-color: #cfe3f5;
+  display: inline-block;
+  height: 20px;
+  margin-top: 50px;
+  margin-left: 680px;
+}
+
+.send_button {
+  @include source-neue-kabel;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 30px;
+  background: #EBB205;
+  box-shadow: 0px 2px 43px rgba(36, 36, 36, 0.31383);
+  border-radius: 31.05px;
+  width: 335px;
+  height: 62.38px;
+  color: #242424;
+  margin-top: 15px;
+}
+
+.green_part_link {
+  background-color: #cfe3f5;
+  line-height: 8px;
+  height: 14px;
+  border-radius: 8px;
+  display: flex;
+  width: 145px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  float: right;
+}
+
+.card {
+  height: 180px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.section-details {
+  padding: lines(0.5);
+  margin-left: 550px;
+  max-width: 22.5em;
+  margin-top: -515px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+
+
+
+

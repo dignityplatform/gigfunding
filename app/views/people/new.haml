@@ -9,7 +9,7 @@
   - if @community_customization && @community_customization.signup_info_content
     %p
       = @community_customization.signup_info_content.html_safe
-  - elsif @current_community.allowed_emails && @current_community.allowed_emails[0] != "/" 
+  - elsif @current_community.allowed_emails && @current_community.allowed_emails[0] != "/"
     %p
       = t('.email_restriction_instructions',
             :community_name => @current_community.name(I18n.locale),
@@ -26,7 +26,7 @@
         = render :partial => "layouts/google_icon"
       %span.google-text
         = t('.create_account_with_provider', provider: 'Google')
-        
+
   - if linkedin_connect_in_use?
     = link_to person_linkedin_omniauth_authorize_path, id: 'linkedin-login', method: :post,
       class: 'linkedin-login-button' do
