@@ -23,6 +23,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['*', '.js', '.js.es6'],
+    modules: ['node_modules', 'app']
   },
   plugins: [
     new webpack.DefinePlugin({

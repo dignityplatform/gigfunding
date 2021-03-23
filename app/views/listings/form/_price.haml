@@ -61,3 +61,8 @@
     - content_for :extra_javascript do
       :javascript
         $('#payment_fee_info_link').click(function() { $('#payment_fee_info_content').lightbox_me({centered: true, zIndex: 1000000}); ; return false});
+
+- if @listing_presenter.shape[:price_enabled] && payment_gateway.present? && !@listing_presenter.shape.requesting_type?
+  .inline-checkbox-container
+    = form.label(:automatically_accept_payment, "#{t('.automatically_accept_payment')}:", :class => "check-box-label")
+    = form.check_box(:automatically_accept_payment, :class => "check-box")

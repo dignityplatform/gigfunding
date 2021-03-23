@@ -2028,6 +2028,7 @@ en:
     menu: Menu
     how_it_works: 'How it works'
     our_causes: 'Our Causes'
+    faqs: FAQs
   footer:
     home: 'HOME'
     about: 'ABOUT'
@@ -2209,6 +2210,7 @@ en:
       register_details: 'Privacy policy'
       terms: 'Terms of use'
       causes: 'Our Causes'
+      faqs: FAQs
     logged_in:
       admin: Admin
       go_to_your_profile_page: Profile
@@ -2394,8 +2396,6 @@ en:
       transactions: Transactions
     cause_layout:
         link: "Click here to visit %{cause_name}'s website"
-        default_cause_public: 'Gigfunding'
-        default_cause_public_description: "When a user has not selected their Cause, their dontations from completed gigs will be send to Gigfunding.org. Causes can be selected up until payment is made, so feel free to start booking any gigs you're interested in."
         edit_cause: 'Edit'
         archive_cause: 'Archive'
         unarchive_cause: 'Unarchive'
@@ -2514,6 +2514,7 @@ en:
         shipping_price: 'Shipping fee'
         shipping_price_additional: 'Additional items'
         pickup: Pickup
+        automatically_accept_payment: Automatically accept payments
       origin:
         location: Location
         origin: Origin

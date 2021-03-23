@@ -1,4 +1,5 @@
-.row
-  .col-12
-    %p.you_will_be_charged_notice
-      = t("listing_conversations.preauthorize.you_will_be_charged", author: author_link, expiration_period: paypal_expiration_period).html_safe
+- unless listing.automatically_accept_payment
+  .row
+    .col-12
+      %p.you-will-be-charged-notice
+        = t("listing_conversations.preauthorize.you_will_be_charged", author: author_link, expiration_period: paypal_expiration_period).html_safe

@@ -308,6 +308,12 @@ module ApplicationHelper
       :name => "causes"
     }
     links << {
+      :text => t('layouts.infos.faqs'),
+      :icon_class => icon_class("faqs"),
+      :path => faqs_infos_path,
+      :name => "faqs"
+    }
+    links << {
       :text => t('layouts.infos.register_details'),
       :icon_class => icon_class("privacy"),
       :path => privacy_infos_path,
@@ -811,6 +817,16 @@ module ApplicationHelper
 
   def social_link_placeholder(provider)
     SOCIAL_LINKS[provider.to_sym][:placeholder]
+  end
+
+  def i18n_react_props
+    {
+      i18n: {
+        locale: I18n.locale,
+        defaultLocale: I18n.default_locale,
+        localeInfo: I18nHelper.locale_info(Sharetribe::AVAILABLE_LOCALES, I18n.locale)
+      }
+    }
   end
 end
 # rubocop:enable Metrics/ModuleLength

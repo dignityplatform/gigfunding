@@ -1,4 +1,5 @@
 class PreauthorizeTransactionsController < ApplicationController
+  include AcceptRejectTransaction
 
   before_action do |controller|
    controller.ensure_logged_in t("layouts.notifications.you_must_log_in_to_do_a_transaction")
@@ -29,8 +30,6 @@ class PreauthorizeTransactionsController < ApplicationController
         availability_enabled: listing.availability.to_sym == :booking,
         stripe_in_use: StripeHelper.user_and_community_ready_for_payments?(listing.author_id, @current_community.id))
     }
-
-
 
     if validation_result.success
       initiation_success(validation_result.data)
@@ -436,6 +435,7 @@ class PreauthorizeTransactionsController < ApplicationController
         old_free_transaction = transactions_for_conversation.detect {|transaction| transaction.current_state == 'free'}
         old_free_transaction&.destroy
       end
+      process_automatic_payment_acceptance(tx_response[:data][:transaction])
     end
 
     handle_tx_response(tx_response, params[:payment_type].to_sym)
@@ -472,6 +472,18 @@ class PreauthorizeTransactionsController < ApplicationController
       tx_response[:error_msg]
     else
       t("error_messages.#{gateway}.generic_error")
+    end
+  end
+
+  def process_automatic_payment_acceptance(transaction_struct)
+    if listing.automatically_accept_payment
+      accept_tx(transaction_struct[:community_id], transaction_struct[:id])
+      record_event(
+          { notice: t("layouts.notifications.request_accepted") },
+          "PreauthorizedTransactionAccepted",
+          { listing_id: transaction_struct[:listing_id],
+            listing_uuid: UUIDUtils.parse_raw(transaction_struct[:listing_uuid]).to_s,
+            transaction_id: transaction_struct[:id] })
     end
   end
 end

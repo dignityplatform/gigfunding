@@ -1,16 +1,12 @@
 module MarketplaceLandingPageHelper
   def marketplace_landing_page_props
-    {
-      i18n: {
-        locale: I18n.locale,
-        defaultLocale: I18n.default_locale
-      },
+    i18n_react_props.merge({
       images: {
         splashImageSrc: image_url('marketplace_landing_page/splash-image.jpg')
       },
       requestingListings: collect_card_attributes(listings_collection: @requesting_listings, type: 'is looking for'),
       offeringListings: collect_card_attributes(listings_collection: @offering_listings, type: 'is offering')
-    }
+    })
   end
 
 

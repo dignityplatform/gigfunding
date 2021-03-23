@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.6.5'
 
-gem 'rails', '5.2.4.4'
+gem 'rails', '5.2.4.5'
 
 gem 'coffee-rails', '~> 4.2.2'
 gem 'uglifier', '~> 4.2.0'
@@ -86,7 +86,7 @@ gem 'public_suffix', '~> 2.0.5' # Needed currently to set GA hostname right, pro
 # needed anymore when GA script updated.
 
 # Session store was removed from Rails 4
-gem 'activerecord-session_store', '~> 1.1.3'
+gem 'activerecord-session_store', '~> 2.0.0'
 
 gem 'faraday', '~> 0.13.0'
 gem 'faraday_middleware', '~> 0.11.0'
@@ -119,6 +119,7 @@ group :development, :test do
   gem 'rubocop', '~> 0.67.2', require: false
   gem 'rubocop-performance'
   gem 'factory_girl_rails', '~> 4.8.0'
+  gem 'awesome_print', '~> 1.7.0'
 end
 
 group :development, :staging do
@@ -137,6 +138,7 @@ group :development do
   gem "letter_opener"
   gem 'debase'
   gem 'ruby-debug-ide'
+  gem 'foreman'
 end
 
 group :test do
@@ -179,7 +181,7 @@ gem 'uuidtools', '~> 2.1.5'
 gem 'transit-ruby', '~> 0.8.602'
 
 # Markdown parser
-gem 'redcarpet', '~> 3.4.0'
+gem 'redcarpet', '~> 3.5.1'
 
 gem 'intercom'
 
@@ -193,17 +195,12 @@ gem "select2-rails"
 gem "cocoon"
 gem "fast-polylines"
 gem 'unicorn'
-gem 'foreman'
 
 gem "airbrake-ruby", "~> 4.2"
-
-gem 'awesome_print', '~> 1.7.0'
 gem 'rack-cors'
 
 # Transpile es6 modules in Sprockets 3
 gem 'sprockets-bumble_d', '>= 2.2.0'
-
-gem "daemons"
 
 # Validate URLs
 gem "validate_url"
